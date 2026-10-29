@@ -188,7 +188,11 @@ export class BoardView {
       setTimeout(() => f.el.remove(), 160);
     }
     this.els = next;
-    if (move) this.last = [move.from, move.to];
+    if (move) {
+      this.last = [move.from, move.to];
+      const m = next.get(move.to);
+      if (m) { m.classList.remove('landed'); void m.offsetWidth; m.classList.add('landed'); setTimeout(() => m.classList.remove('landed'), 300); }
+    }
     this.paint();
   }
 
@@ -392,6 +396,8 @@ export class BoardView {
       const { x, y } = this.xy(to);
       const goingDown = y === 0; // promoting on the top edge -> list grows downward
       const order = ['q', 'n', 'r', 'b'];
+      // the tap that triggered the picker fires a click on whatever is now under the finger; ignore it
+      const openedAt = performance.now() + 350;
       this.overlay.hidden = false;
       this.overlay.innerHTML = '';
       this.overlay.classList.add('open');
@@ -405,11 +411,11 @@ export class BoardView {
         b.className = 'promo-btn';
         b.setAttribute('aria-label', 'Promote to ' + ({ q: 'queen', n: 'knight', r: 'rook', b: 'bishop' }[t]));
         b.innerHTML = pieceSvg(t, color);
-        b.onclick = (ev) => { ev.stopPropagation(); this.closePromotion(); resolve(t); };
+        b.onclick = (ev) => { ev.stopPropagation(); if (performance.now() < openedAt) return; this.closePromotion(); resolve(t); };
         wrap.appendChild(b);
       });
       this.overlay.appendChild(wrap);
-      this.overlay.onclick = () => { this.closePromotion(); resolve(null); };
+      this.overlay.onclick = () => { if (performance.now() < openedAt) return; this.closePromotion(); resolve(null); };
       this.overlay.onpointerdown = (ev) => ev.stopPropagation();
       this._promoResolve = resolve;
     });
