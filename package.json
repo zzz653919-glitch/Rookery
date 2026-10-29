@@ -1,0 +1,20 @@
+{
+  "name": "rookery-chess-academy",
+  "version": "1.0.0",
+  "description": "Offline-first chess learning website: placement test, lessons, puzzles and a built-in computer opponent.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "precache": "node scripts/gen-precache.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "selfplay": "node scripts/selfplay.mjs",
+    "e2e": "node tests/e2e/run.mjs",
+    "puzzles": "node scripts/build-puzzles.mjs",
+    "icons": "node scripts/make-icons.mjs"
+  }
+}

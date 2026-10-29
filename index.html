@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Rookery — learn and play chess, offline</title>
+  <meta name="description" content="Rookery is an offline-first chess academy: placement test, interactive lessons, puzzles, and a computer opponent that runs entirely in your browser.">
+  <meta name="theme-color" content="#0c1311">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preload" href="fonts/Inter-Regular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    // Apply the saved theme before first paint to avoid a flash.
+    try {
+      var t = localStorage.getItem('rookery:theme-hint');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="splash" id="splash" role="status" aria-label="Loading Rookery">
+    <div class="splash-inner">
+      <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#46e0a4"/><stop offset="1" stop-color="#0f9d6a"/></linearGradient></defs>
+        <rect x="2" y="2" width="44" height="44" rx="13" fill="url(#sg)"/>
+        <path fill="#06241a" d="M15 13h4v3h3v-3h4v3h3v-3h4v9l-3 2 1.5 11H16.5L18 24l-3-2z"/>
+        <rect x="13.5" y="36" width="21" height="3.2" rx="1.2" fill="#06241a"/>
+      </svg>
+      <div class="muted">Setting up your board<span class="dots"></span></div>
+    </div>
+  </div>
+  <div class="app" id="app" hidden></div>
+  <div id="modal-root"></div>
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <noscript><p style="padding:24px;font-family:sans-serif">Rookery needs JavaScript. Everything runs locally in your browser — no account or internet connection is required.</p></noscript>
+  <script>
+    // Browsers refuse ES modules, Web Workers and service workers on file:// URLs, so explain how to launch the app.
+    if (location.protocol === 'file:') {
+      document.getElementById('splash').innerHTML = '<div class="splash-inner" style="max-width:520px;text-align:left;padding:24px;font-family:system-ui,sans-serif">' +
+        '<h2 style="margin:0 0 8px">Please start Rookery with the built-in server</h2>' +
+        '<p>Browsers block modules, workers and offline caching when a page is opened straight from disk (file://). Rookery still runs completely offline once it is served locally:</p>' +
+        '<pre style="background:rgba(127,127,127,.18);padding:12px;border-radius:10px;overflow:auto">cd rookery\nnpm start</pre>' +
+        '<p>then open <b>http://127.0.0.1:5173</b>. No npm install is needed (Node 18+). Without Node you can use <code>python3 -m http.server 5173</code> in the same folder.</p></div>';
+    }
+  </script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
