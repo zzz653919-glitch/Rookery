@@ -397,7 +397,8 @@ export class BoardView {
       const goingDown = y === 0; // promoting on the top edge -> list grows downward
       const order = ['q', 'n', 'r', 'b'];
       // the tap that triggered the picker fires a click on whatever is now under the finger; ignore it
-      const openedAt = performance.now() + 350;
+      let ghost = true; // cleared by a real pointerdown on the picker
+      const openedAt = performance.now() + 400;
       this.overlay.hidden = false;
       this.overlay.innerHTML = '';
       this.overlay.classList.add('open');
@@ -411,12 +412,12 @@ export class BoardView {
         b.className = 'promo-btn';
         b.setAttribute('aria-label', 'Promote to ' + ({ q: 'queen', n: 'knight', r: 'rook', b: 'bishop' }[t]));
         b.innerHTML = pieceSvg(t, color);
-        b.onclick = (ev) => { ev.stopPropagation(); if (performance.now() < openedAt) return; this.closePromotion(); resolve(t); };
+        b.onclick = (ev) => { ev.stopPropagation(); if (ghost && performance.now() < openedAt) return; this.closePromotion(); resolve(t); };
         wrap.appendChild(b);
       });
       this.overlay.appendChild(wrap);
-      this.overlay.onclick = () => { if (performance.now() < openedAt) return; this.closePromotion(); resolve(null); };
-      this.overlay.onpointerdown = (ev) => ev.stopPropagation();
+      this.overlay.onclick = () => { if (ghost && performance.now() < openedAt) return; this.closePromotion(); resolve(null); };
+      this.overlay.onpointerdown = (ev) => { ghost = false; ev.stopPropagation(); };
       this._promoResolve = resolve;
     });
   }
