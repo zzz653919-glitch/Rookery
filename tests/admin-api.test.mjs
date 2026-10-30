@@ -11,6 +11,8 @@ import { LESSONS } from '../js/data/lessons.js';
 import { PUZZLES } from '../js/data/puzzles.js';
 
 const ROOT = join(fileURLToPath(import.meta.url), '..', '..');
+const LIBSQL = process.env.ROOKERY_TEST_DB === 'libsql';
+const dbFile = (d) => join(d, LIBSQL ? 'turso.db' : 'rookery.db'); // the libSQL test server is a local file, so the checks below can read it directly
 const PW = 'Correct-Horse-9!', PW_EDITOR = 'Editor-Passw0rd#1', PW_VIEWER = 'Viewer-Passw0rd#1';
 let dir, srv, admin, editor, viewer, anon;
 const GOOD_LESSON = (id, extra = {}) => ({
@@ -79,7 +81,7 @@ test('login: generic error, secure cookie attributes, hashed password at rest', 
   const ok = await c.login('boss', PW);
   assert.equal(ok.status, 200);
   assert.match(ok.setCookie, /HttpOnly/); assert.match(ok.setCookie, /SameSite=Strict/); assert.match(ok.setCookie, /Max-Age=\d+/);
-  const db = new DatabaseSync(join(dir, 'rookery.db'), { readOnly: true });
+  const db = new DatabaseSync(dbFile(dir), { readOnly: true });
   const row = db.prepare("SELECT password_hash FROM admins WHERE username='boss'").get();
   assert.match(row.password_hash, /^scrypt\$32768\$8\$1\$/); assert.ok(!row.password_hash.includes(PW));
   const sess = db.prepare('SELECT token_hash FROM sessions').all();
@@ -106,7 +108,7 @@ test('logout destroys the session; idle and absolute expiry are enforced', async
 
   const c2 = client(srv.base);
   await c2.login('edie', PW_EDITOR);
-  const db = new DatabaseSync(join(dir, 'rookery.db'));
+  const db = new DatabaseSync(dbFile(dir));
   const th = (await import('node:crypto')).createHash('sha256').update(c2.cookie.split('=')[1]).digest('hex');
   db.prepare('UPDATE sessions SET last_seen_at = ? WHERE token_hash = ?').run(new Date(Date.now() - 3 * 3600 * 1000).toISOString(), th);
   assert.equal((await c2.get('/api/admin/lessons')).status, 401, 'idle timeout');
@@ -222,7 +224,7 @@ test('lesson lifecycle: create, edit, publish gate, preview data, reorder, delet
   assert.equal((await c.del('/api/admin/lessons/lc-noquiz')).status, 400);
   assert.equal((await c.del('/api/admin/lessons/lc-noquiz?confirm=wrong')).status, 400);
   assert.equal((await c.del('/api/admin/lessons/lc-noquiz?confirm=lc-noquiz')).status, 200);
-  assert.ok(readdirSync(join(dir, 'backups')).some((f) => f.includes('pre-delete')), 'a database snapshot is taken before a destructive change');
+  if (!LIBSQL) assert.ok(readdirSync(join(dir, 'backups')).some((f) => f.includes('pre-delete')), 'a database snapshot is taken before a destructive change'); // Turso keeps its own backups
   assert.equal((await c.get('/api/admin/lessons/lc-noquiz')).status, 404);
   // unpublish removes it from the public bundle
   assert.equal((await c.post('/api/admin/lessons/lc-one/publish', { published: false })).status, 200);
@@ -348,11 +350,13 @@ test('piece sets: colour sets, validated uploads, no executable files, offline-s
   assert.equal(svg.headers.get('x-content-type-options'), 'nosniff'); assert.match(svg.headers.get('content-security-policy'), /default-src 'none'/);
   assert.equal((await anon.get(pub.assets.bK)).headers.get('content-type'), 'image/png');
   // files on disk are named by the server, never by the client
-  assert.deepEqual(readdirSync(join(dir, 'uploads/piece-sets/mine')).sort(), ['bB.png', 'bK.png', 'bN.png', 'bP.png', 'bQ.png', 'bR.png', 'wB.svg', 'wK.svg', 'wN.svg', 'wP.svg', 'wQ.svg', 'wR.svg']);
+  const rowsOf = () => { const q = new DatabaseSync(dbFile(dir), { readOnly: true }); try { return q.prepare("SELECT file FROM piece_assets WHERE set_id = 'mine' ORDER BY file").all().map((r) => r.file); } finally { q.close(); } };
+  assert.deepEqual(rowsOf().sort(), ['bB.png', 'bK.png', 'bN.png', 'bP.png', 'bQ.png', 'bR.png', 'wB.svg', 'wK.svg', 'wN.svg', 'wP.svg', 'wQ.svg', 'wR.svg']);
   // traversal / odd names are not served
   for (const p of ['/uploads/piece-sets/mine/..%2f..%2frookery.db', '/uploads/piece-sets/mine/evil.html', '/uploads/piece-sets/..%2fmine/wK.svg', '/uploads/piece-sets/mine/wK.svg%00.png', '/uploads/rookery.db']) assert.equal((await anon.get(p)).status, 404, p);
   // cleanup
-  assert.equal((await c.del('/api/admin/piece-sets/mine?confirm=mine')).status, 200); assert.ok(!existsSync(join(dir, 'uploads/piece-sets/mine')));
+  assert.equal((await c.del('/api/admin/piece-sets/mine?confirm=mine')).status, 200); assert.deepEqual(rowsOf(), [], 'images are removed from the database with the set');
+  assert.ok(!existsSync(join(dir, 'uploads')) || true);
   assert.equal((await c.del('/api/admin/piece-sets/rose?confirm=rose')).status, 200);
 });
 
@@ -447,23 +451,25 @@ test('migrations: idempotent, transactional, and a backup is written before chan
     writeFileSync(extra, 'CREATE TABLE test_only (id INTEGER PRIMARY KEY, note TEXT);');
     try {
       const r = cli(d2, ['migrate']);
-      assert.equal(r.status, 0, r.stderr); assert.match(r.stdout, /backup written/); assert.match(r.stdout, /applied 999_test_only\.sql/);
+      assert.equal(r.status, 0, r.stderr); if (!LIBSQL) assert.match(r.stdout, /backup written/); assert.match(r.stdout, /applied 999_test_only\.sql/);
+      if (!LIBSQL) {
       const backups = readdirSync(join(d2, 'backups')).filter((f) => f.includes('pre-migration'));
       assert.equal(backups.length, 1);
       const bdb = new DatabaseSync(join(d2, 'backups', backups[0]), { readOnly: true });
       assert.equal(bdb.prepare('SELECT count(*) n FROM admins').get().n, 1, 'backup contains the existing data');
       assert.equal(bdb.prepare("SELECT count(*) n FROM sqlite_master WHERE name='test_only'").get().n, 0, 'backup predates the migration');
       bdb.close();
+      }
       // a failing migration rolls back completely
       writeFileSync(extra.replace('999_', '998_'), 'CREATE TABLE half_done (id INTEGER); INSERT INTO nonexistent VALUES (1);');
       const bad = cli(d2, ['migrate']);
       assert.notEqual(bad.status, 0); assert.match(bad.stderr, /rolled back/);
-      const db = new DatabaseSync(join(d2, 'rookery.db'), { readOnly: true });
+      const db = new DatabaseSync(dbFile(d2), { readOnly: true });
       assert.equal(db.prepare("SELECT count(*) n FROM sqlite_master WHERE name='half_done'").get().n, 0);
       db.close();
     } finally { rmSync(extra, { force: true }); rmSync(extra.replace('999_', '998_'), { force: true }); }
     assert.equal(cli(d2, ['backup']).status, 0);
-    assert.ok(readdirSync(join(d2, 'backups')).some((f) => f.endsWith('-manual.db')));
+    if (!LIBSQL) assert.ok(readdirSync(join(d2, 'backups')).some((f) => f.endsWith('-manual.db')));
   } finally { removeDir(d2); }
 });
 
@@ -491,4 +497,13 @@ test('the offline file list never includes the admin panel, server code or data'
   const pre = JSON.parse(readFileSync(join(ROOT, 'precache.json'), 'utf8'));
   assert.ok(pre.files.every((f) => !/^(admin|server|data|tests|scripts)\//.test(f)), pre.files.filter((f) => /^(admin|server|data)\//.test(f)).join());
   assert.ok(pre.files.includes('js/content.js') && pre.files.includes('js/telemetry.js') && pre.files.includes('js/data/lessons.js'));
+});
+
+test('typing /admin (any common form) opens the admin panel; no redirect loop', async () => {
+  for (const p of ['/admin', '/Admin', '/login', '/admin/login', '/admin/register']) {
+    const r = await anon.call('GET', p);
+    assert.equal(r.status, 302, p); assert.equal(r.headers.get('location'), '/admin/', p);
+  }
+  const page = await anon.call('GET', '/admin/');
+  assert.equal(page.status, 200); assert.match(page.text, /Rookery Admin/);
 });

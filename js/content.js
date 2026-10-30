@@ -7,8 +7,10 @@ import { PUZZLES } from './data/puzzles.js';
 import { LEVELS, THEMES } from './data/levels.js';
 import { DEFAULTS } from './store.js';
 import { BOARD_THEMES, PIECE_THEMES, registerPieceSets } from './ui/pieces.js';
+import { getLang } from './i18n/core.js';
 
-const CACHE_KEY = 'rookery:content-v1';
+// One offline copy per language, so an offline visit shows the same language as the last online one.
+const cacheKey = () => `rookery:content-v1:${getLang()}`;
 const FALLBACK_TIME_CONTROLS = [
   { id: 'none', label: 'Untimed', base: 0, inc: 0 }, { id: '1+0', label: '1 min', base: 60, inc: 0 }, { id: '3+2', label: '3 | 2', base: 180, inc: 2 },
   { id: '5+0', label: '5 min', base: 300, inc: 0 }, { id: '10+0', label: '10 min', base: 600, inc: 0 }, { id: '15+10', label: '15 | 10', base: 900, inc: 10 },
@@ -76,9 +78,9 @@ function apply(content) {
   return true;
 }
 
-const readCache = () => { try { return JSON.parse(localStorage.getItem(CACHE_KEY)); } catch { return null; } };
-const writeCache = (text) => { try { localStorage.setItem(CACHE_KEY, text); } catch { /* quota or privacy mode: fine */ } };
-const clearCache = () => { try { localStorage.removeItem(CACHE_KEY); } catch { /* ignore */ } };
+const readCache = () => { try { return JSON.parse(localStorage.getItem(cacheKey())); } catch { return null; } };
+const writeCache = (text) => { try { localStorage.setItem(cacheKey(), text); } catch { /* quota or privacy mode: fine */ } };
+const clearCache = () => { try { localStorage.removeItem(cacheKey()); } catch { /* ignore */ } };
 
 // Resolves to the bundle text, 'static' (plain static hosting: no admin server) or null (server unreachable / error).
 async function fetchBundle(timeoutMs) {
@@ -89,7 +91,7 @@ async function fetchBundle(timeoutMs) {
     // console error) on plain static hosting, where there is no API to ask.
     const probe = await fetch('manifest.webmanifest', { method: 'HEAD', signal: ctl.signal, cache: 'no-cache' });
     if (probe.headers.get('x-rookery-server') !== '1') return 'static';
-    const res = await fetch('api/public/content', { signal: ctl.signal, cache: 'no-cache', headers: { accept: 'application/json' } });
+    const res = await fetch(`api/public/content?lang=${encodeURIComponent(getLang())}`, { signal: ctl.signal, cache: 'no-cache', headers: { accept: 'application/json' } });
     if (!res.ok || !(res.headers.get('content-type') || '').includes('application/json')) return res.status < 500 ? 'static' : null;
     return await res.text();
   } catch { return null; } finally { clearTimeout(timer); }

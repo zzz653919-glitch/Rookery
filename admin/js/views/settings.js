@@ -1,4 +1,5 @@
-import { h } from '../dom.js';
+import { h, tr } from '../dom.js';
+import { tn } from '../i18n.js';
 import { get, put, post, can } from '../api.js';
 import { field, input, select, toggle, toast, confirmDialog, problemsBox, loadingState, errorState } from '../ui.js';
 import { LEVELS, SKILLS } from '../../../js/data/levels.js';
@@ -88,7 +89,7 @@ export async function mount(host, ctx) {
       const body = structuredClone(S); body.puzzleCategories = body.puzzleCategories.map(({ _new, ...c }) => c);
       const r = await put('/api/admin/settings', body);
       S = r.settings; saved = JSON.stringify(S);
-      toast(r.changed.length ? `Saved (${r.changed.length} section${r.changed.length > 1 ? 's' : ''} changed).` : 'Nothing changed.');
+      toast(r.changed.length ? tn(r.changed.length, 'Saved ({n} section changed).|Saved ({n} sections changed).') : 'Nothing changed.');
       if (r.changed.length) { ctx.setGuard(null); host.replaceChildren(); await mount(host, ctx); }
     } catch (e) { problems.replaceChildren(problemsBox(Array.isArray(e.details) ? e.details : [{ message: e.message }], e.message)); window.scrollTo({ top: 0, behavior: 'smooth' }); }
     saveBtn.disabled = false;

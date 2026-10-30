@@ -50,59 +50,59 @@ async function getPassword(username) {
   return pw;
 }
 
-openDb();
-const boot = () => { const r = migrate({ log: (m) => console.log(m) }); seedIfNeeded(); return r; };
+await openDb();
+const boot = async () => { const r = await migrate({ log: (m) => console.log(m) }); await seedIfNeeded(); return r; };
 
 switch (cmd) {
-  case 'migrate': { const r = boot(); console.log(r.applied.length ? `Applied ${r.applied.length} migration(s).` : 'Database is up to date.'); break; }
-  case 'backup': { boot(); console.log('Backup written: ' + backupDatabase('manual')); break; }
-  case 'seed': { boot(); console.log('Content: ' + JSON.stringify(counts())); break; }
+  case 'migrate': { const r = await boot(); console.log(r.applied.length ? `Applied ${r.applied.length} migration(s).` : 'Database is up to date.'); break; }
+  case 'backup': { await boot(); { const b = await backupDatabase('manual'); console.log(b ? 'Backup written: ' + b : 'Turso keeps its own backups: see the Turso dashboard (branches / point-in-time restore).'); }; break; }
+  case 'seed': { await boot(); console.log('Content: ' + JSON.stringify(await counts())); break; }
   case 'status': {
-    boot();
+    await boot();
     const d = getDb();
-    console.log(JSON.stringify({ database: config.dbFile, migrationsApplied: [...appliedVersions(d)], migrationsAvailable: migrationFiles(), content: counts(), administrators: d.prepare('SELECT count(*) n FROM admins').get().n }, null, 2));
+    console.log(JSON.stringify({ database: config.tursoUrl || config.dbFile, migrationsApplied: [...(await appliedVersions(d))], migrationsAvailable: migrationFiles(), content: await counts(), administrators: (await d.prepare('SELECT count(*) n FROM admins').get()).n }, null, 2));
     break;
   }
   case 'list-admins': {
-    boot();
-    for (const a of getDb().prepare('SELECT a.id, a.username, r.name AS role, a.disabled, a.last_login_at FROM admins a JOIN roles r ON r.id = a.role_id ORDER BY a.id').all()) console.log(`${a.id}\t${a.username}\t${a.role}\t${a.disabled ? 'disabled' : 'active'}\t${a.last_login_at || 'never logged in'}`);
+    await boot();
+    for (const a of (await getDb().prepare('SELECT a.id, a.username, r.name AS role, a.disabled, a.last_login_at FROM admins a JOIN roles r ON r.id = a.role_id ORDER BY a.id').all())) console.log(`${a.id}\t${a.username}\t${a.role}\t${a.disabled ? 'disabled' : 'active'}\t${a.last_login_at || 'never logged in'}`);
     break;
   }
   case 'create-admin': {
-    boot();
+    await boot();
     const username = flag('username');
     const role = flag('role', 'superadmin');
     if (!username || !/^[A-Za-z0-9_.-]{3,32}$/.test(username)) fail('--username is required (3–32 letters, digits, dot, dash, underscore).');
     const d = getDb();
-    const r = d.prepare('SELECT id FROM roles WHERE name = ?').get(role);
+    const r = (await d.prepare('SELECT id FROM roles WHERE name = ?').get(role));
     if (!r) fail('Unknown role. Use superadmin, editor or viewer.');
-    if (d.prepare('SELECT 1 FROM admins WHERE username = ?').get(username)) fail('That username already exists.');
+    if ((await d.prepare('SELECT 1 FROM admins WHERE username = ?').get(username))) fail('That username already exists.');
     const hash = hashPassword(await getPassword(username));
-    const info = d.prepare('INSERT INTO admins(username, password_hash, role_id, created_at, password_changed_at) VALUES (?,?,?,?,?)').run(username, hash, r.id, now(), now());
-    d.prepare('INSERT INTO audit_log(ts, username, action, entity, entity_id, detail) VALUES (?,?,?,?,?,?)').run(now(), 'cli', 'admin.create', 'admin', String(info.lastInsertRowid), JSON.stringify({ username, role }));
+    const info = (await d.prepare('INSERT INTO admins(username, password_hash, role_id, created_at, password_changed_at) VALUES (?,?,?,?,?)').run(username, hash, r.id, now(), now()));
+    await d.prepare('INSERT INTO audit_log(ts, username, action, entity, entity_id, detail) VALUES (?,?,?,?,?,?)').run(now(), 'cli', 'admin.create', 'admin', String(info.lastInsertRowid), JSON.stringify({ username, role }));
     console.log(`Administrator "${username}" created with role ${role}. Sign in at /admin/.`);
     break;
   }
   case 'reset-password': {
-    boot();
+    await boot();
     const username = flag('username');
     const d = getDb();
-    const a = username && d.prepare('SELECT id FROM admins WHERE username = ?').get(username);
+    const a = username && (await d.prepare('SELECT id FROM admins WHERE username = ?').get(username));
     if (!a) fail('Unknown administrator.');
-    d.prepare('UPDATE admins SET password_hash = ?, password_changed_at = ? WHERE id = ?').run(hashPassword(await getPassword(username)), now(), a.id);
-    destroyAdminSessions(a.id);
-    d.prepare('INSERT INTO audit_log(ts, username, action, entity, entity_id) VALUES (?,?,?,?,?)').run(now(), 'cli', 'admin.passwordReset', 'admin', String(a.id));
+    await d.prepare('UPDATE admins SET password_hash = ?, password_changed_at = ? WHERE id = ?').run(hashPassword(await getPassword(username)), now(), a.id);
+    await destroyAdminSessions(a.id);
+    await d.prepare('INSERT INTO audit_log(ts, username, action, entity, entity_id) VALUES (?,?,?,?,?)').run(now(), 'cli', 'admin.passwordReset', 'admin', String(a.id));
     console.log('Password changed; all sessions of that administrator were signed out.');
     break;
   }
   case 'disable-admin': {
-    boot();
+    await boot();
     const username = flag('username');
     const d = getDb();
-    const a = username && d.prepare('SELECT id FROM admins WHERE username = ?').get(username);
+    const a = username && (await d.prepare('SELECT id FROM admins WHERE username = ?').get(username));
     if (!a) fail('Unknown administrator.');
-    d.prepare('UPDATE admins SET disabled = 1 WHERE id = ?').run(a.id);
-    destroyAdminSessions(a.id);
+    await d.prepare('UPDATE admins SET disabled = 1 WHERE id = ?').run(a.id);
+    await destroyAdminSessions(a.id);
     console.log('Administrator disabled.');
     break;
   }

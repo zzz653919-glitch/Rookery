@@ -10,12 +10,14 @@ import { completeLesson, lessonDone, recommendedLesson, checkAchievements, lesso
 import { play as sfx } from '../sound.js';
 import { quizPassRatio } from '../content.js';
 import { track } from '../telemetry.js';
+import { t, th, tn } from '../i18n/core.js';
+import { levelName, skillName } from '../i18n/names.js';
 
 
 export async function mount(root, { params, navigate }) {
   const lesson = LESSONS.find((l) => l.id === params.id);
   if (!lesson) {
-    root.innerHTML = emptyState({ emoji: '🔎', title: 'Lesson not found', body: 'That lesson does not exist.', actionHtml: '<a class="btn primary" href="#/learn">Back to lessons</a>' });
+    root.innerHTML = emptyState({ emoji: '🔎', title: t('Lesson not found'), body: t('That lesson does not exist.'), actionHtml: `<a class="btn primary" href="#/learn">${t('Back to lessons')}</a>` });
     return;
   }
   const lv = levelById(lesson.level);
@@ -32,17 +34,17 @@ export async function mount(root, { params, navigate }) {
 
   root.innerHTML = `
     <div class="row spread wrap" style="margin-bottom:14px">
-      <a class="btn ghost sm" href="#/learn">${icon('back', 16)} All lessons</a>
-      <div class="row"><span class="chip">${esc(lv.name)}</span><span class="chip">${esc(SKILLS[lesson.skill] || lesson.skill)}</span>${lessonDone(lesson.id) ? '<span class="chip good">Completed</span>' : ''}</div>
+      <a class="btn ghost sm" href="#/learn">${icon('back', 16)} ${t('All lessons')}</a>
+      <div class="row"><span class="chip">${esc(levelName(lv))}</span><span class="chip">${esc(skillName(lesson.skill))}</span>${lessonDone(lesson.id) ? `<span class="chip good">${t('Completed')}</span>` : ''}</div>
     </div>
     <div class="lesson-layout">
-      <section aria-label="Board"><div class="board-wrap"><div id="board"></div></div></section>
+      <section aria-label="${t('Board')}"><div class="board-wrap"><div id="board"></div></div></section>
       <aside class="lesson-body">
         <div class="card">
-          <div class="eyebrow">${esc(lv.name)} lesson</div>
+          <div class="eyebrow">${th('{level} lesson', { level: levelName(lv) })}</div>
           <h2 style="margin-bottom:10px">${esc(lesson.title)}</h2>
           ${lesson.objectives?.length ? `<ul class="muted" style="margin:0 0 10px;padding-left:18px;font-size:.9rem">${lesson.objectives.map((o) => `<li>${esc(o)}</li>`).join('')}</ul>` : ''}
-          <div class="step-dots" id="dots" aria-label="Lesson progress"></div>
+          <div class="step-dots" id="dots" aria-label="${t('Lesson progress')}"></div>
         </div>
         <div class="card" id="step-card"><div id="step-title"></div><div id="step-text"></div><div id="step-ui"></div><div class="btn-row" id="step-nav" style="margin-top:16px"></div></div>
       </aside>
@@ -67,9 +69,9 @@ export async function mount(root, { params, navigate }) {
     board.opts.onSquareClick = null; board.opts.onMove = null; board.opts.canSelect = null; board.opts.legalTargets = null;
   }
 
-  function navButtons({ canNext = true, nextLabel = 'Continue', showBack = true }) {
+  function navButtons({ canNext = true, nextLabel = t('Continue'), showBack = true }) {
     stepNav.innerHTML = `
-      ${showBack && idx > 0 ? `<button class="btn ghost" id="back-btn" type="button">${icon('back', 16)} Back</button>` : ''}
+      ${showBack && idx > 0 ? `<button class="btn ghost" id="back-btn" type="button">${icon('back', 16)} ${t('Back')}</button>` : ''}
       <button class="btn primary" id="next-btn" type="button" ${canNext ? '' : 'disabled'}>${esc(nextLabel)} ${icon('arrow', 16)}</button>`;
     stepNav.querySelector('#back-btn')?.addEventListener('click', () => go(idx - 1));
     stepNav.querySelector('#next-btn').onclick = () => go(idx + 1);
@@ -114,8 +116,8 @@ export async function mount(root, { params, navigate }) {
     const startFen = step.fen;
     const color = startFen.split(' ')[1];
     let g = new Chess(startFen);
-    stepUi.innerHTML = `<div class="notice info" style="margin-top:12px">${icon('info', 16)} Try it: click the piece to see where it can go, then move it. The board only allows legal moves.</div>
-      <div class="btn-row" style="margin-top:10px"><button class="btn sm ghost" id="ex-reset" type="button">${icon('refresh', 16)} Reset position</button></div><div id="ex-fb"></div>`;
+    stepUi.innerHTML = `<div class="notice info" style="margin-top:12px">${icon('info', 16)} ${t('Try it: click the piece to see where it can go, then move it. The board only allows legal moves.')}</div>
+      <div class="btn-row" style="margin-top:10px"><button class="btn sm ghost" id="ex-reset" type="button">${icon('refresh', 16)} ${t('Reset position')}</button></div><div id="ex-fb"></div>`;
     const fb = stepUi.querySelector('#ex-fb');
     const reset = () => {
       g = new Chess(startFen);
@@ -138,9 +140,9 @@ export async function mount(root, { params, navigate }) {
       try {
         g = new Chess(parts.join(' '));
         board.setCheck(null);
-        fb.innerHTML = mv.captured ? `<div class="feedback good">Captured a ${esc({ p: 'pawn', n: 'knight', b: 'bishop', r: 'rook', q: 'queen' }[mv.captured] || 'piece')}!</div>` : '';
+        fb.innerHTML = mv.captured ? `<div class="feedback good">${t('Captured a {piece}!', { piece: esc(t({ p: 'pawn', n: 'knight', b: 'bishop', r: 'rook', q: 'queen' }[mv.captured] || 'piece')) })}</div>` : '';
       } catch {
-        fb.innerHTML = `<div class="feedback good">That gives check! The position will reset.</div>`;
+        fb.innerHTML = `<div class="feedback good">${t('That gives check! The position will reset.')}</div>`;
         setTimeout(() => { if (!disposed) reset(); }, 1400);
       }
       return true;
@@ -149,22 +151,22 @@ export async function mount(root, { params, navigate }) {
 
   // ----------------------------------------------------------------- task
   function renderTask(step) {
-    stepTitle.innerHTML = `<h3>${step.title ? esc(step.title) : 'Your turn'}</h3>`;
+    stepTitle.innerHTML = `<h3>${step.title ? esc(step.title) : t('Your turn')}</h3>`;
     if (step.text) stepText.innerHTML = `<div class="lesson-text">${step.text}</div>`;
     const key = idx;
     if (solved.has(key)) {
       // revisiting a solved exercise
       if (step.fen) { const g = new Chess(step.fen); board.setOrientation(step.orientation || g.turn()); board.setPosition(piecesFromGame(g)); board.setCheck(g.checkSquare()); }
       board.opts.interactive = false;
-      stepUi.innerHTML = `<div class="feedback good">You already solved this exercise ✓<small>${step.explain || ''}</small></div>`;
+      stepUi.innerHTML = `<div class="feedback good">${t('You already solved this exercise ✓')}<small>${step.explain || ''}</small></div>`;
       navButtons({});
       const redo = document.createElement('button');
-      redo.className = 'btn'; redo.type = 'button'; redo.textContent = 'Try it again';
+      redo.className = 'btn'; redo.type = 'button'; redo.textContent = t('Try it again');
       redo.onclick = () => { solved.delete(key); render(); };
       stepNav.appendChild(redo);
       return;
     }
-    navButtons({ canNext: false, nextLabel: 'Solve it to continue' });
+    navButtons({ canNext: false, nextLabel: t('Solve it to continue') });
     const taskObj = { ...step };
     current = runTask(taskObj, {
       board, ui: stepUi, mode: 'lesson',
@@ -181,7 +183,7 @@ export async function mount(root, { params, navigate }) {
 
   // ----------------------------------------------------------------- quiz
   function renderQuiz(step) {
-    stepTitle.innerHTML = `<h3>Final quiz</h3>`;
+    stepTitle.innerHTML = `<h3>${t('Final quiz')}</h3>`;
     const questions = step.questions;
     let q = 0, right = 0;
     const results = [];
@@ -189,7 +191,7 @@ export async function mount(root, { params, navigate }) {
       if (disposed) return;
       stepUi.innerHTML = '';
       stepNav.innerHTML = '';
-      stepText.innerHTML = `<div class="row spread" style="margin-bottom:8px"><span class="muted">Question ${q + 1} of ${questions.length}</span><span class="chip good">${right} correct</span></div>`;
+      stepText.innerHTML = `<div class="row spread" style="margin-bottom:8px"><span class="muted">${t('Question {n} of {total}', { n: q + 1, total: questions.length })}</span><span class="chip good">${t('{n} correct', { n: right })}</span></div>`;
       const holder = document.createElement('div');
       stepUi.appendChild(holder);
       current = runChoice(questions[q], {
@@ -197,7 +199,7 @@ export async function mount(root, { params, navigate }) {
         onDone: (res) => {
           results.push(res.ok);
           if (res.ok) right++;
-          stepNav.innerHTML = `<button class="btn primary" id="q-next" type="button">${q + 1 < questions.length ? 'Next question' : 'See result'} ${icon('arrow', 16)}</button>`;
+          stepNav.innerHTML = `<button class="btn primary" id="q-next" type="button">${q + 1 < questions.length ? t('Next question') : t('See result')} ${icon('arrow', 16)}</button>`;
           stepNav.querySelector('#q-next').onclick = () => { q++; q < questions.length ? ask() : finishQuiz(); };
         },
       });
@@ -211,11 +213,11 @@ export async function mount(root, { params, navigate }) {
       sfx(pass ? 'win' : 'wrong');
       board.opts.interactive = false;
       stepText.innerHTML = '';
-      stepUi.innerHTML = `<div class="reward"><div class="burst">${pass ? '🎉' : '💪'}</div><h3>${right} of ${questions.length} correct</h3>
-        <p class="muted">${pass ? 'You passed the quiz.' : `You need at least ${Math.ceil(quizPassRatio() * questions.length)} correct to complete the lesson. Review and try again!`}</p></div>`;
+      stepUi.innerHTML = `<div class="reward"><div class="burst">${pass ? '🎉' : '💪'}</div><h3>${t('{right} of {total} correct', { right, total: questions.length })}</h3>
+        <p class="muted">${pass ? t('You passed the quiz.') : t('You need at least {n} correct to complete the lesson. Review and try again!', { n: Math.ceil(quizPassRatio() * questions.length) })}</p></div>`;
       stepNav.innerHTML = pass
-        ? `<button class="btn primary" id="done-btn" type="button">Finish lesson ${icon('arrow', 16)}</button>`
-        : `<button class="btn primary" id="retry-btn" type="button">${icon('refresh', 16)} Try the quiz again</button><button class="btn ghost" id="review-btn" type="button">Review the lesson</button>`;
+        ? `<button class="btn primary" id="done-btn" type="button">${t('Finish lesson')} ${icon('arrow', 16)}</button>`
+        : `<button class="btn primary" id="retry-btn" type="button">${icon('refresh', 16)} ${t('Try the quiz again')}</button><button class="btn ghost" id="review-btn" type="button">${t('Review the lesson')}</button>`;
       stepNav.querySelector('#done-btn')?.addEventListener('click', () => go(steps.length));
       stepNav.querySelector('#retry-btn')?.addEventListener('click', () => render());
       stepNav.querySelector('#review-btn')?.addEventListener('click', () => go(0));
@@ -229,8 +231,8 @@ export async function mount(root, { params, navigate }) {
     const unsolved = steps.map((s, i) => ({ s, i })).filter(({ s, i }) => s.type === 'task' && !solved.has(i));
     const quizStep = steps.some((s) => s.type === 'quiz');
     if (unsolved.length || (quizStep && quizScore === null)) {
-      stepUi.innerHTML = `<div class="feedback bad">Almost there — finish all the exercises and the quiz to complete this lesson.</div>`;
-      stepNav.innerHTML = `<button class="btn primary" id="resume-btn" type="button">Go to the first unfinished step</button>`;
+      stepUi.innerHTML = `<div class="feedback bad">${t('Almost there — finish all the exercises and the quiz to complete this lesson.')}</div>`;
+      stepNav.innerHTML = `<button class="btn primary" id="resume-btn" type="button">${t('Go to the first unfinished step')}</button>`;
       const first = unsolved.length ? unsolved[0].i : steps.findIndex((s) => s.type === 'quiz');
       stepNav.querySelector('#resume-btn').onclick = () => go(first);
       return;
@@ -241,15 +243,15 @@ export async function mount(root, { params, navigate }) {
     await store.update('lessons', (l) => { l.attempts[lesson.id] = (l.attempts[lesson.id] || 0) + 1; });
     await markActivity();
     const unlocked = await checkAchievements();
-    unlocked.forEach((a) => toast(`🏆 Achievement unlocked: ${a.name}`, 'good'));
+    unlocked.forEach((a) => toast(t('🏆 Achievement unlocked: {name}', { name: t(a.name) }), 'good'));
     if (disposed) return;
     const next = nextLesson();
     board.opts.interactive = false;
     stepTitle.innerHTML = '';
-    stepUi.innerHTML = `<div class="reward"><div class="burst">🏅</div><h2>Lesson complete!</h2>
-      <p class="muted">${was ? 'You revisited this lesson.' : 'Added to your progress.'}${quizResult ? ` Quiz: ${quizResult.right}/${quizResult.total}.` : ''}</p>
+    stepUi.innerHTML = `<div class="reward"><div class="burst">🏅</div><h2>${t('Lesson complete!')}</h2>
+      <p class="muted">${was ? t('You revisited this lesson.') : t('Added to your progress.')}${quizResult ? ' ' + t('Quiz: {right}/{total}.', quizResult) : ''}</p>
       <div class="row" style="justify-content:center"><span class="chip good">${icon('check', 14)} ${esc(lesson.title)}</span></div></div>`;
-    stepNav.innerHTML = `${next ? `<a class="btn primary" href="#/learn/${next.id}">Next: ${esc(next.title)} ${icon('arrow', 16)}</a>` : ''}<a class="btn" href="#/learn">Back to lessons</a><a class="btn ghost" href="#/play">${icon('play', 16)} Play a game</a>`;
+    stepNav.innerHTML = `${next ? `<a class="btn primary" href="#/learn/${next.id}">${th('Next: {title}', { title: next.title })} ${icon('arrow', 16)}</a>` : ''}<a class="btn" href="#/learn">${t('Back to lessons')}</a><a class="btn ghost" href="#/play">${icon('play', 16)} ${t('Play a game')}</a>`;
     sfx('win');
   }
 

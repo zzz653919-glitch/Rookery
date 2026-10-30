@@ -9,9 +9,11 @@ import { LEVELS, levelIndex, THEMES } from '../data/levels.js';
 import { checkAchievements, puzzleAccuracy } from '../progress.js';
 import { play as sfx } from '../sound.js';
 import { track } from '../telemetry.js';
+import { t, th, tn } from '../i18n/core.js';
+import { levelName, themeName, themeDesc } from '../i18n/names.js';
 
 export { THEMES }; // puzzle categories live in data/levels.js so remote content can update them
-const LEVEL_NAMES = LEVELS.map((l) => l.name);
+const LEVEL_NAMES = LEVELS.map((l) => levelName(l));
 
 export const puzzleLevelFor = (levelId) => Math.max(1, levelIndex(levelId) + 1);
 export const puzzlesFor = (theme, level) => PUZZLES.filter((p) => (!theme || theme === 'all' || p.theme === theme) && (!level || p.level === level));
@@ -38,7 +40,7 @@ export function mount(root, { params, navigate }) {
   const profile = store.get('profile');
   const prefLevel = () => store.get('puzzles').level || puzzleLevelFor(profile.level || 'beginner');
 
-  if (!PUZZLES.length) { root.innerHTML = emptyState({ emoji: '🧩', title: 'No puzzles bundled', body: 'Run <code>node scripts/build-puzzles.mjs</code> to generate the puzzle set.' }); return () => {}; }
+  if (!PUZZLES.length) { root.innerHTML = emptyState({ emoji: '🧩', title: t('No puzzles bundled'), body: t('Run <code>node scripts/build-puzzles.mjs</code> to generate the puzzle set.') }); return () => {}; }
 
   // ------------------------------------------------------------------ hub
   function hub() {
@@ -49,28 +51,28 @@ export function mount(root, { params, navigate }) {
     const dstate = ps.daily[today];
     const acc = puzzleAccuracy();
     root.innerHTML = `
-      <header class="page-head"><div><div class="eyebrow">Puzzles</div><h1>Sharpen your tactics</h1><p>Every puzzle has one best move, checked by an engine. Hints and explanations are always available.</p></div></header>
+      <header class="page-head"><div><div class="eyebrow">${t('Puzzles')}</div><h1>${t('Sharpen your tactics')}</h1><p>${t('Every puzzle has one best move, checked by an engine. Hints and explanations are always available.')}</p></div></header>
       <div class="grid cols-4" style="margin-bottom:18px">
-        <div class="card stat"><b>${Object.keys(ps.solved).length}</b><span>Puzzles solved</span></div>
-        <div class="card stat"><b>${acc === null ? '—' : Math.round(acc * 100) + '%'}</b><span>First-try accuracy</span></div>
-        <div class="card stat"><b>${ps.streak}</b><span>Current streak</span></div>
-        <div class="card stat"><b>${ps.bestStreak}</b><span>Best streak (record)</span></div>
+        <div class="card stat"><b>${Object.keys(ps.solved).length}</b><span>${t('Puzzles solved')}</span></div>
+        <div class="card stat"><b>${acc === null ? '—' : Math.round(acc * 100) + '%'}</b><span>${t('First-try accuracy')}</span></div>
+        <div class="card stat"><b>${ps.streak}</b><span>${t('Current streak')}</span></div>
+        <div class="card stat"><b>${ps.bestStreak}</b><span>${t('Best streak (record)')}</span></div>
       </div>
       <div class="card" style="margin-bottom:18px;border-color:var(--accent)">
-        <div class="row spread wrap"><div><div class="eyebrow">${icon('clock', 14)} Daily puzzle · ${esc(today)}</div>
-          <h3 style="margin:0">${dstate?.solved ? 'Solved today ✓' : 'Today\'s puzzle is waiting'}</h3>
-          <p class="muted" style="margin:4px 0 0">${esc(LEVEL_NAMES[lvl - 1])} level${dstate?.solved ? dstate.firstTry ? ' — solved on the first try!' : ' — solved with help.' : ''}</p></div>
-          <a class="btn primary" href="#/puzzles/daily" id="daily-btn">${dstate?.solved ? 'Play again' : 'Solve it'} ${icon('arrow', 16)}</a></div></div>
-      <div class="row spread wrap" style="margin-bottom:10px"><h3 style="margin:0">Train a theme</h3>
-        <div class="row wrap" role="group" aria-label="Puzzle level">${LEVEL_NAMES.map((n, i) => `<button class="chip lvl-chip ${i + 1 === lvl ? 'good' : ''}" type="button" data-lvl="${i + 1}" aria-pressed="${i + 1 === lvl}">${esc(n)}</button>`).join('')}</div></div>
+        <div class="row spread wrap"><div><div class="eyebrow">${icon('clock', 14)} ${t('Daily puzzle')} · ${esc(today)}</div>
+          <h3 style="margin:0">${dstate?.solved ? t('Solved today ✓') : t('Today\'s puzzle is waiting')}</h3>
+          <p class="muted" style="margin:4px 0 0">${th('{level} level', { level: LEVEL_NAMES[lvl - 1] })}${dstate?.solved ? dstate.firstTry ? ' — ' + t('solved on the first try!') : ' — ' + t('solved with help.') : ''}</p></div>
+          <a class="btn primary" href="#/puzzles/daily" id="daily-btn">${dstate?.solved ? t('Play again') : t('Solve it')} ${icon('arrow', 16)}</a></div></div>
+      <div class="row spread wrap" style="margin-bottom:10px"><h3 style="margin:0">${t('Train a theme')}</h3>
+        <div class="row wrap" role="group" aria-label="${t('Puzzle level')}">${LEVEL_NAMES.map((n, i) => `<button class="chip lvl-chip ${i + 1 === lvl ? 'good' : ''}" type="button" data-lvl="${i + 1}" aria-pressed="${i + 1 === lvl}">${esc(n)}</button>`).join('')}</div></div>
       <div class="grid auto">
-        ${Object.entries(THEMES).map(([id, t]) => {
+        ${Object.entries(THEMES).map(([id, cat]) => {
           const all = puzzlesFor(id, lvl), solved = all.filter((p) => ps.solved[p.id]).length;
-          return `<div class="card"><h3 style="margin:0 0 4px">${esc(t.name)}</h3><p class="muted" style="margin:0 0 10px">${esc(t.desc)}</p>
-            ${all.length ? `${progressBar(solved / all.length)}<div class="row spread" style="margin:8px 0 12px"><span class="muted">${solved}/${all.length} solved</span></div>
-            <a class="btn sm" href="#/puzzles/${id}" data-theme="${id}">Start ${icon('arrow', 14)}</a>` : `<p class="muted">No puzzles at this level yet. Try another level.</p>`}</div>`;
+          return `<div class="card"><h3 style="margin:0 0 4px">${esc(themeName(cat))}</h3><p class="muted" style="margin:0 0 10px">${esc(themeDesc(cat))}</p>
+            ${all.length ? `${progressBar(solved / all.length)}<div class="row spread" style="margin:8px 0 12px"><span class="muted">${t('{solved}/{total} solved', { solved, total: all.length })}</span></div>
+            <a class="btn sm" href="#/puzzles/${id}" data-theme="${id}">${t('Start')} ${icon('arrow', 14)}</a>` : `<p class="muted">${t('No puzzles at this level yet. Try another level.')}</p>`}</div>`;
         }).join('')}
-        <div class="card"><h3 style="margin:0 0 4px">Mixed</h3><p class="muted" style="margin:0 0 10px">A bit of everything at your level.</p><a class="btn sm primary" href="#/puzzles/all" data-theme="all">Start ${icon('arrow', 14)}</a></div>
+        <div class="card"><h3 style="margin:0 0 4px">${t('Mixed')}</h3><p class="muted" style="margin:0 0 10px">${t('A bit of everything at your level.')}</p><a class="btn sm primary" href="#/puzzles/all" data-theme="all">${t('Start')} ${icon('arrow', 14)}</a></div>
       </div>`;
     root.querySelectorAll('.lvl-chip').forEach((b) => { b.onclick = async () => { await store.update('puzzles', (p) => { p.level = +b.dataset.lvl; }); hub(); }; });
   }
@@ -93,10 +95,10 @@ export function mount(root, { params, navigate }) {
       return p;
     };
     root.innerHTML = `
-      <div class="row spread wrap" style="margin-bottom:14px"><a class="btn ghost sm" href="#/puzzles">${icon('back', 16)} All puzzles</a>
-        <div class="row wrap"><span class="chip">${isDaily ? 'Daily puzzle' : esc(theme === 'all' ? 'Mixed' : THEMES[theme].name)}</span><span class="chip" id="p-level"></span><span class="chip good" id="p-streak"></span></div></div>
+      <div class="row spread wrap" style="margin-bottom:14px"><a class="btn ghost sm" href="#/puzzles">${icon('back', 16)} ${t('All puzzles')}</a>
+        <div class="row wrap"><span class="chip">${isDaily ? t('Daily puzzle') : esc(theme === 'all' ? t('Mixed') : themeName(THEMES[theme]))}</span><span class="chip" id="p-level"></span><span class="chip good" id="p-streak"></span></div></div>
       <div class="lesson-layout">
-        <section aria-label="Board"><div class="board-wrap"><div id="board"></div></div></section>
+        <section aria-label="${t('Board')}"><div class="board-wrap"><div id="board"></div></div></section>
         <aside class="lesson-body"><div class="card"><div class="eyebrow" id="p-turn"></div><div id="p-ui"></div><div class="btn-row" id="p-nav" style="margin-top:14px"></div></div></aside>
       </div>`;
     board = new BoardView(root.querySelector('#board'), { orientation: 'w', interactive: false });
@@ -106,28 +108,27 @@ export function mount(root, { params, navigate }) {
       if (disposed) return;
       current?.destroy?.();
       let finished = false;
-      const turn = p.fen.split(' ')[1] === 'w' ? 'White' : 'Black';
-      root.querySelector('#p-turn').textContent = `${turn} to move`;
+      root.querySelector('#p-turn').textContent = p.fen.split(' ')[1] === 'w' ? t('White to move') : t('Black to move');
       root.querySelector('#p-level').textContent = `${LEVEL_NAMES[p.level - 1]} · ${p.id}`;
-      root.querySelector('#p-streak').innerHTML = `${icon('flame', 12)} Streak ${store.get('puzzles').streak}`;
-      nav.innerHTML = `<button class="btn ghost" id="solution" type="button">Show solution</button>`;
-      const instr = p.moves.length === 1 ? 'Find the best move.' : `Find the best move — then keep going: there are ${Math.ceil(p.moves.length / 2)} moves to find.`;
+      root.querySelector('#p-streak').innerHTML = `${icon('flame', 12)} ${t('Streak')} ${store.get('puzzles').streak}`;
+      nav.innerHTML = `<button class="btn ghost" id="solution" type="button">${t('Show solution')}</button>`;
+      const instr = p.moves.length === 1 ? t('Find the best move.') : t('Find the best move — then keep going: there are {n} moves to find.', { n: Math.ceil(p.moves.length / 2) });
       const finish = async (ok, firstTry) => {
         if (finished) return;
         finished = true;
         await record(p, ok, firstTry, isDaily);
         if (disposed) return;
-        root.querySelector('#p-streak').innerHTML = `${icon('flame', 12)} Streak ${store.get('puzzles').streak}`;
+        root.querySelector('#p-streak').innerHTML = `${icon('flame', 12)} ${t('Streak')} ${store.get('puzzles').streak}`;
         const fb = ui.querySelector('#puz-after') || document.createElement('div');
         fb.id = 'puz-after';
-        fb.innerHTML = `<div class="feedback ${ok ? 'good' : 'bad'}" style="margin-top:12px">${ok ? (firstTry ? 'Solved on the first try! 🎉' : 'Solved — with a little help.') : 'Not this time.'}<small>${esc(p.explain)} Solution: <b>${esc(p.solution)}</b></small></div>`;
+        fb.innerHTML = `<div class="feedback ${ok ? 'good' : 'bad'}" style="margin-top:12px">${ok ? (firstTry ? t('Solved on the first try! 🎉') : t('Solved — with a little help.')) : t('Not this time.')}<small>${esc(p.explain)} ${t('Solution:')} <b>${esc(p.solution)}</b></small></div>`;
         ui.appendChild(fb);
         nav.innerHTML = isDaily
-          ? `<a class="btn primary" href="#/puzzles">Back to puzzles</a><a class="btn" href="#/puzzles/all">More puzzles</a>`
-          : `<button class="btn primary" id="next" type="button">Next puzzle ${icon('arrow', 16)}</button>`;
+          ? `<a class="btn primary" href="#/puzzles">${t('Back to puzzles')}</a><a class="btn" href="#/puzzles/all">${t('More puzzles')}</a>`
+          : `<button class="btn primary" id="next" type="button">${t('Next puzzle')} ${icon('arrow', 16)}</button>`;
         nav.querySelector('#next')?.addEventListener('click', () => load(nextFromPool()));
         board.opts.interactive = false;
-        (await checkAchievements()).forEach((a) => toast(`🏆 Achievement unlocked: ${a.name}`, 'good'));
+        (await checkAchievements()).forEach((a) => toast(t('🏆 Achievement unlocked: {name}', { name: t(a.name) }), 'good'));
       };
       current = runTask({ kind: 'line', fen: p.fen, steps: stepsOf(p), instruction: instr, hint: p.hint, explain: '' }, {
         board, ui, mode: 'lesson',

@@ -1,6 +1,7 @@
 // Admin shell: sign-in, sidebar layout, hash router. Authorisation is enforced by the server on every API call;
 // hiding menu entries here is only a convenience.
-import { h, clear, icon, $ } from './dom.js';
+import { h, clear, icon, $, tr } from './dom.js';
+import { initAdminLanguage, languageSwitcher } from './i18n.js';
 import { get, post, session, can, onUnauthorized } from './api.js';
 import { toast, confirmDialog, loadingState, errorState, field, input } from './ui.js';
 
@@ -12,6 +13,7 @@ const NAV = [
   { id: 'lessons', label: 'Lessons', icon: 'book', perm: 'content:read' },
   { id: 'puzzles', label: 'Puzzles', icon: 'puzzle', perm: 'content:read' },
   { id: 'themes', label: 'Themes', icon: 'palette', perm: 'themes:read' },
+  { id: 'translations', label: 'Translations', icon: 'globe', perm: 'content:read' },
   { sec: 'Site' },
   { id: 'settings', label: 'Chess settings', icon: 'gear', perm: 'settings:read' },
   { id: 'users', label: 'Users & progress', icon: 'users', perm: 'dashboard:read' },
@@ -21,10 +23,10 @@ const NAV = [
 ];
 const VIEWS = {
   dashboard: () => import('./views/dashboard.js'), lessons: () => import('./views/lessons.js'), puzzles: () => import('./views/puzzles.js'),
-  themes: () => import('./views/themes.js'), settings: () => import('./views/settings.js'), users: () => import('./views/users.js'),
+  themes: () => import('./views/themes.js'), translations: () => import('./views/translations.js'), settings: () => import('./views/settings.js'), users: () => import('./views/users.js'),
   audit: () => import('./views/audit.js'), admins: () => import('./views/admins.js'), account: () => import('./views/account.js'),
 };
-const TITLES = { dashboard: 'Dashboard', lessons: 'Lessons', puzzles: 'Puzzles', themes: 'Themes', settings: 'Chess settings', users: 'Users & progress', audit: 'Audit log', admins: 'Administrators', account: 'My account' };
+const TITLES = { dashboard: 'Dashboard', lessons: 'Lessons', puzzles: 'Puzzles', themes: 'Themes', translations: 'Translations', settings: 'Chess settings', users: 'Users & progress', audit: 'Audit log', admins: 'Administrators', account: 'My account' };
 
 let cleanup = null, guard = null, token = 0, prevHash = '', shell = null;
 
@@ -41,8 +43,8 @@ function renderLogin(info = {}, message = '') {
   const btn = h('button', { class: 'btn primary', type: 'submit', style: { width: '100%' } }, 'Sign in');
   const form = h('form', { class: 'stack', novalidate: true, onsubmit: async (e) => {
     e.preventDefault();
-    if (!user.value.trim() || !pass.value) { err.hidden = false; err.textContent = 'Enter your username and password.'; return; }
-    btn.disabled = true; btn.textContent = 'Signing in…'; err.hidden = true;
+    if (!user.value.trim() || !pass.value) { err.hidden = false; err.textContent = tr('Enter your username and password.'); return; }
+    btn.disabled = true; btn.textContent = tr('Signing in…'); err.hidden = true;
     try {
       const r = await post('/api/admin/login', { username: user.value.trim(), password: pass.value });
       pass.value = '';
@@ -51,11 +53,12 @@ function renderLogin(info = {}, message = '') {
       session.perms = s.perms;
       location.hash = location.hash && location.hash !== '#/login' ? location.hash : '#/dashboard';
       enterApp();
-    } catch (e2) { err.hidden = false; err.textContent = e2.message; btn.disabled = false; btn.textContent = 'Sign in'; pass.value = ''; pass.focus(); }
+    } catch (e2) { err.hidden = false; err.textContent = tr(e2.message); btn.disabled = false; btn.textContent = tr('Sign in'); pass.value = ''; pass.focus(); }
   } },
   field('Username', user), field('Password', pass), err, btn);
   root.appendChild(h('div', { class: 'login-wrap' }, h('div', { class: 'login-card stack' },
     h('div', { class: 'brand' }, h('div', { class: 'logo' }, icon('chess', 20)), h('div', null, 'Rookery', h('small', null, 'Admin panel'))),
+    h('div', { class: 'row', style: { justifyContent: 'flex-end' } }, languageSwitcher(h)),
     h('div', null, h('h1', null, 'Sign in'), h('p', { class: 'muted' }, 'Administrators only. Players use the main site.')),
     info.setupNeeded ? h('div', { class: 'notice warn' }, h('strong', null, 'No administrator exists yet. '), 'Create the first one on the server, in a terminal:', h('br'), h('code', null, 'npm run admin:create -- --username <name>')) : null,
     form,
@@ -83,7 +86,7 @@ function enterApp() {
   }
   const top = h('header', { class: 'top' },
     h('button', { class: 'btn ghost icon burger', type: 'button', 'aria-label': 'Open menu', onclick: () => shell.classList.toggle('drawer') }, icon('menu')),
-    title, h('div', { class: 'grow' }), themeBtn,
+    title, h('div', { class: 'grow' }), languageSwitcher(h), themeBtn,
     h('a', { class: 'btn sm', href: '#/account', title: 'My account' }, icon('users', 16), session.admin.username, h('span', { class: 'badge info' }, session.admin.role)),
     h('button', { class: 'btn sm', type: 'button', onclick: logout }, icon('logout', 16), 'Sign out'));
   const view = h('main', { class: 'page', id: 'view', tabindex: '-1' });
@@ -122,15 +125,15 @@ async function route(first = false) {
   shell.classList.remove('drawer');
   view.replaceChildren(h('div', { class: 'card' }, loadingState(5)));
   const nav = NAV.find((n) => n.id === name);
-  if (!VIEWS[name] || (nav && !can(nav.perm))) { view.replaceChildren(errorState({ message: VIEWS[name] ? 'You do not have access to this section.' : 'That page does not exist.' }, () => navigate('/dashboard'))); $('#page-title').textContent = 'Not available'; return; }
+  if (!VIEWS[name] || (nav && !can(nav.perm))) { view.replaceChildren(errorState({ message: VIEWS[name] ? 'You do not have access to this section.' : 'That page does not exist.' }, () => navigate('/dashboard'))); $('#page-title').textContent = tr('Not available'); return; }
   document.querySelectorAll('[data-nav]').forEach((a) => a.classList.toggle('active', a.dataset.nav === name));
-  $('#page-title').textContent = TITLES[name]; document.title = `${TITLES[name]} · Rookery Admin`;
+  $('#page-title').textContent = tr(TITLES[name]); document.title = `${tr(TITLES[name])} · Rookery Admin`;
   try {
     const mod = await VIEWS[name]();
     if (my !== token) return;
     const host = h('div');
     view.replaceChildren(host);
-    cleanup = (await mod.mount(host, { params, navigate, setGuard, setTitle: (t) => { $('#page-title').textContent = t; } })) || null;
+    cleanup = (await mod.mount(host, { params, navigate, setGuard, setTitle: (t) => { $('#page-title').textContent = tr(t); } })) || null;
     if (my !== token) { cleanup?.(); cleanup = null; }
     window.scrollTo({ top: 0 });
   } catch (e) { if (my === token) view.replaceChildren(errorState(e, () => route(true))); }
@@ -145,6 +148,7 @@ onUnauthorized(() => {
 });
 
 (async function start() {
+  await initAdminLanguage();
   try {
     const s = await get('/api/admin/session');
     if (s.authenticated) { session.admin = s.admin; session.perms = s.perms; session.csrf = s.csrf; enterApp(); }

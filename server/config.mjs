@@ -25,6 +25,9 @@ export const config = {
   maxUploadBytes: 200 * 1024,
   eventRetentionDays: 180,
 };
+// Turso / libSQL: set both to keep the data in the hosted database instead of data/rookery.db (also accepts file:… for tests).
+config.tursoUrl = env.TURSO_DATABASE_URL || '';
+config.tursoToken = env.TURSO_AUTH_TOKEN || '';
 config.dbFile = join(config.dataDir, 'rookery.db');
 config.uploadDir = join(config.dataDir, 'uploads');
 config.backupDir = join(config.dataDir, 'backups');

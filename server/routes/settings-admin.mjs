@@ -7,31 +7,31 @@ import { DEFAULT_SETTINGS } from '../defaults.mjs';
 import { problemsError } from './util.mjs';
 
 export function register(router) {
-  router.add('GET', '/api/admin/settings', () => ({ settings: settingsNow(), defaults: DEFAULT_SETTINGS }), { auth: true, perm: 'settings:read' });
+  router.add('GET', '/api/admin/settings', async () => ({ settings: await settingsNow(), defaults: DEFAULT_SETTINGS }), { auth: true, perm: 'settings:read' });
 
   router.add('PUT', '/api/admin/settings', async (ctx) => {
     const input = await ctx.json();
     const d = getDb();
-    const usage = Object.fromEntries(d.prepare('SELECT theme, count(*) n FROM puzzles GROUP BY theme').all().map((r) => [r.theme, r.n]));
-    const { P, value } = validateSettings({ ...settingsNow(), ...input }, {
-      boardThemeIds: d.prepare('SELECT id FROM board_themes WHERE enabled = 1').all().map((r) => r.id),
-      pieceSetIds: d.prepare('SELECT id FROM piece_sets WHERE enabled = 1').all().map((r) => r.id),
+    const usage = Object.fromEntries((await d.prepare('SELECT theme, count(*) n FROM puzzles GROUP BY theme').all()).map((r) => [r.theme, r.n]));
+    const { P, value } = validateSettings({ ...(await settingsNow()), ...input }, {
+      boardThemeIds: (await d.prepare('SELECT id FROM board_themes WHERE enabled = 1').all()).map((r) => r.id),
+      pieceSetIds: (await d.prepare('SELECT id FROM piece_sets WHERE enabled = 1').all()).map((r) => r.id),
       categoryUsage: usage,
     });
     if (!P.ok) throw problemsError(P);
-    const before = settingsNow();
+    const before = await settingsNow();
     const changed = Object.keys(value).filter((k) => JSON.stringify(before[k]) !== JSON.stringify(value[k]));
-    tx(() => { for (const k of changed) setSetting(k, value[k], ctx.admin.username); });
-    if (changed.length) bumpContentVersion();
-    audit(ctx, 'settings.update', 'settings', null, { changed });
-    return { settings: settingsNow(), changed };
+    await tx(async () => { for (const k of changed) await setSetting(k, value[k], ctx.admin.username); });
+    if (changed.length) await bumpContentVersion();
+    await audit(ctx, 'settings.update', 'settings', null, { changed });
+    return { settings: await settingsNow(), changed };
   }, { auth: true, perm: 'settings:write' });
 
   router.add('POST', '/api/admin/settings/reset', async (ctx) => {
-    backupBeforeDestructive('pre-reset');
-    tx(() => { for (const [k, v] of Object.entries(DEFAULT_SETTINGS)) setSetting(k, v, ctx.admin.username); });
-    bumpContentVersion();
-    audit(ctx, 'settings.reset', 'settings');
-    return { settings: settingsNow() };
+    await backupBeforeDestructive('pre-reset');
+    await tx(async () => { for (const [k, v] of Object.entries(DEFAULT_SETTINGS)) await setSetting(k, v, ctx.admin.username); });
+    await bumpContentVersion();
+    await audit(ctx, 'settings.reset', 'settings');
+    return { settings: await settingsNow() };
   }, { auth: true, perm: 'settings:write' });
 }

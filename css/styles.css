@@ -432,3 +432,11 @@ kbd { font: .8em ui-monospace, monospace; padding: 1px 6px; border-radius: 6px; 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 }
+
+/* ---------- language switchers ---------- */
+.lang-select { width: 100%; padding: 8px 10px; border-radius: 12px; border: 1px solid var(--border); background: transparent; color: var(--text); font: inherit; font-weight: 600; cursor: pointer; }
+.lang-select option { color: #111; }
+.topbar .lang-select { width: auto; margin-left: auto; margin-right: 8px; padding: 6px 8px; font-size: .85rem; }
+.lang-switch { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+.lang-btn { border: 1px solid var(--border); background: transparent; color: var(--muted); border-radius: 99px; padding: 6px 14px; font: inherit; font-weight: 600; cursor: pointer; }
+.lang-btn[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink, #04261b); }

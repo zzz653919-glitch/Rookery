@@ -13,7 +13,7 @@ cd rookery
 npm start          # → http://127.0.0.1:5173
 ```
 
-No `npm install` is needed (zero dependencies; Node 22.13 or newer). `npm start` runs `server/index.mjs`: it serves the site and
+No `npm install` is needed (Node 22.13 or newer; the only dependency is the optional Turso driver `@libsql/client`, needed only if you set `TURSO_DATABASE_URL`). `npm start` runs `server/index.mjs`: it serves the site and
 the optional **admin panel** at `/admin/` (see [ADMIN.md](ADMIN.md)). Only need the plain static site? `npm run start:static`
 (`scripts/serve.mjs`) or any static server, e.g. `python3 -m http.server 5173` — the player site works without the backend.
 

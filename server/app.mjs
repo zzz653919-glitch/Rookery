@@ -11,10 +11,11 @@ import { register as contentRoutes } from './routes/content-admin.mjs';
 import { register as themeRoutes } from './routes/themes-admin.mjs';
 import { register as settingsRoutes } from './routes/settings-admin.mjs';
 import { register as systemRoutes } from './routes/system-admin.mjs';
+import { register as translationRoutes } from './routes/translations-admin.mjs';
 import { register as publicRoutes } from './routes/public.mjs';
 
 export const router = new Router();
-for (const r of [publicRoutes, authRoutes, contentRoutes, themeRoutes, settingsRoutes, systemRoutes]) r(router);
+for (const r of [publicRoutes, authRoutes, contentRoutes, themeRoutes, settingsRoutes, systemRoutes, translationRoutes]) r(router);
 
 const safeEqual = (a, b) => typeof a === 'string' && typeof b === 'string' && a.length === b.length && timingSafeEqual(Buffer.from(a), Buffer.from(b));
 
@@ -25,8 +26,8 @@ function sameOrigin(req) {
   try { return new URL(origin).host === req.headers.host; } catch { return false; }
 }
 
-function recordServerError(route, err) {
-  try { getDb().prepare('INSERT INTO server_errors(ts, route, message) VALUES (?,?,?)').run(now(), route, String(err?.message || err).slice(0, 300)); } catch { /* ignore */ }
+async function recordServerError(route, err) {
+  try { await getDb().prepare('INSERT INTO server_errors(ts, route, message) VALUES (?,?,?)').run(now(), route, String(err?.message || err).slice(0, 300)); } catch { /* ignore */ }
 }
 
 export async function handle(req, res) {
@@ -48,7 +49,7 @@ export async function handle(req, res) {
 
     if (path.startsWith('/api/admin/')) {
       const token = parseCookies(req)[COOKIE];
-      const session = loadSession(token);
+      const session = await loadSession(token);
       if (session) { ctx.session = session; ctx.admin = session.admin; ctx.perms = session.perms; ctx.token = token; ctx.username = session.admin.username; }
     }
     if (route.opts.auth) {
@@ -64,7 +65,7 @@ export async function handle(req, res) {
     return send(res, 200, out ?? { ok: true });
   } catch (e) {
     if (e instanceof HttpError) return send(res, e.status, { error: e.message, ...(e.details ? { details: e.details } : {}) });
-    recordServerError(path, e);
+    await recordServerError(path, e);
     console.error(`[error] ${req.method} ${path}: ${e?.message}`); // message only: never request bodies, cookies or passwords
     return send(res, 500, { error: 'Internal server error.' });
   }

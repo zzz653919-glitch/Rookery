@@ -1,4 +1,4 @@
-import { h } from '../dom.js';
+import { h, tr } from '../dom.js';
 import { get, post, put, del, can } from '../api.js';
 import { dataTable, modal, confirmDialog, field, input, select, toast, badge, fmtDate, problemsBox, loadingState, errorState } from '../ui.js';
 import { LEVELS } from '../../../js/data/levels.js';

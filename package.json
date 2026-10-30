@@ -22,5 +22,8 @@
     "admin:create": "node --disable-warning=ExperimentalWarning server/cli.mjs create-admin",
     "admin:reset-password": "node --disable-warning=ExperimentalWarning server/cli.mjs reset-password",
     "admin:list": "node --disable-warning=ExperimentalWarning server/cli.mjs list-admins"
+  },
+  "optionalDependencies": {
+    "@libsql/client": "^0.18.0"
   }
 }

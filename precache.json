@@ -1,5 +1,5 @@
 {
- "version": "df57c305d1",
+ "version": "6b887e8c00",
  "files": [
   "./",
   "ADMIN.md",
@@ -30,6 +30,15 @@
   "js/data/puzzles.js",
   "js/engine-client.js",
   "js/engine-worker.js",
+  "js/i18n/content-runtime.js",
+  "js/i18n/content.js",
+  "js/i18n/content.ru.js",
+  "js/i18n/content.uz.js",
+  "js/i18n/core.js",
+  "js/i18n/names.js",
+  "js/i18n/runtime.js",
+  "js/i18n/ui.ru.js",
+  "js/i18n/ui.uz.js",
   "js/placement-score.js",
   "js/progress.js",
   "js/sound.js",

@@ -1,6 +1,6 @@
 // Editors for each lesson step type. Every form returns { node, read() } where read() builds the step object that is
 // sent to the server (which validates it again). Anything unusual can be edited in the raw JSON tab.
-import { h } from './dom.js';
+import { h, tr } from './dom.js';
 import { field, input, select, toggle } from './ui.js';
 import { positionPicker, START_FEN } from './position.js';
 
@@ -18,7 +18,7 @@ function chipsEditor(initial, { pattern, placeholder, label }) {
   const draw = () => chips.replaceChildren(...list.map((v, i) => h('span', { class: 'chip' }, v, h('button', { type: 'button', 'aria-label': `Remove ${v}`, onclick: () => { list.splice(i, 1); draw(); } }, '×'))));
   const addIt = () => {
     const vals = csv(add.value); err.textContent = '';
-    for (const v of vals) { if (!pattern.test(v)) { err.textContent = `“${v}” is not valid here.`; return; } if (!list.includes(v)) list.push(v); }
+    for (const v of vals) { if (!pattern.test(v)) { err.textContent = tr(`“${v}” is not valid here.`); return; } if (!list.includes(v)) list.push(v); }
     add.value = ''; draw();
   };
   add.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); addIt(); } });

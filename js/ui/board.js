@@ -7,6 +7,7 @@
 
 import { pieceSvg, resolveBoardTheme, resolvePieceTheme } from './pieces.js';
 import { store } from '../store.js';
+import { t } from '../i18n/core.js';
 
 const FILES = 'abcdefgh';
 const sigOf = (p) => p.color + p.type;
@@ -51,7 +52,7 @@ export class BoardView {
     this.el = document.createElement('div');
     this.el.className = 'board';
     this.el.setAttribute('role', 'application');
-    this.el.setAttribute('aria-label', 'Chessboard');
+    this.el.setAttribute('aria-label', t('Chessboard'));
     this.el.innerHTML = `
       <div class="board-squares"></div>
       <div class="board-pieces"></div>
@@ -412,13 +413,13 @@ export class BoardView {
       wrap.className = 'promo';
       wrap.style.left = `${x * 12.5}%`;
       wrap.style.top = goingDown ? '0%' : '50%';
-      order.forEach((t) => {
+      order.forEach((pt) => {
         const b = document.createElement('button');
         b.type = 'button';
         b.className = 'promo-btn';
-        b.setAttribute('aria-label', 'Promote to ' + ({ q: 'queen', n: 'knight', r: 'rook', b: 'bishop' }[t]));
-        b.innerHTML = pieceSvg(t, color, this._pieces);
-        b.onclick = (ev) => { ev.stopPropagation(); if (ghost && performance.now() < openedAt) return; this.closePromotion(); resolve(t); };
+        b.setAttribute('aria-label', t({ q: 'Promote to queen', n: 'Promote to knight', r: 'Promote to rook', b: 'Promote to bishop' }[pt]));
+        b.innerHTML = pieceSvg(pt, color, this._pieces);
+        b.onclick = (ev) => { ev.stopPropagation(); if (ghost && performance.now() < openedAt) return; this.closePromotion(); resolve(pt); };
         wrap.appendChild(b);
       });
       this.overlay.appendChild(wrap);
