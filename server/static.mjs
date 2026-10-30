@@ -17,7 +17,8 @@ export async function serveStatic(req, res, pathname) {
   let rel;
   try { rel = decodeURIComponent(pathname); } catch { res.writeHead(400).end('Bad request'); return; }
   if (rel.includes('\0')) { res.writeHead(400).end('Bad request'); return; }
-  if (rel === '/admin') { res.writeHead(302, { location: '/admin/', ...SECURITY_HEADERS }).end(); return; }
+  // Typing /admin in any common form opens the admin panel (its sign-in page appears first when not signed in).
+  if (rel !== '/admin/' && /^\/(?:admin|login|signin|sign-in|admin\/(?:login|signin|sign-in|register|signup))\/?$/i.test(rel)) { res.writeHead(302, { location: '/admin/', ...SECURITY_HEADERS }).end(); return; }
   if (rel.endsWith('/')) rel += 'index.html';
   const file = normalize(join(config.root, rel));
   const rootless = relative(config.root, file).split('\\').join('/');

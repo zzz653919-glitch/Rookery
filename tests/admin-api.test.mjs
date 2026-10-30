@@ -492,3 +492,12 @@ test('the offline file list never includes the admin panel, server code or data'
   assert.ok(pre.files.every((f) => !/^(admin|server|data|tests|scripts)\//.test(f)), pre.files.filter((f) => /^(admin|server|data)\//.test(f)).join());
   assert.ok(pre.files.includes('js/content.js') && pre.files.includes('js/telemetry.js') && pre.files.includes('js/data/lessons.js'));
 });
+
+test('typing /admin (any common form) opens the admin panel; no redirect loop', async () => {
+  for (const p of ['/admin', '/Admin', '/login', '/admin/login', '/admin/register']) {
+    const r = await anon.call('GET', p);
+    assert.equal(r.status, 302, p); assert.equal(r.headers.get('location'), '/admin/', p);
+  }
+  const page = await anon.call('GET', '/admin/');
+  assert.equal(page.status, 200); assert.match(page.text, /Rookery Admin/);
+});
