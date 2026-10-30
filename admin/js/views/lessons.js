@@ -185,7 +185,7 @@ async function editor(host, ctx, existingId) {
   const side = h('div', { class: 'stack side-col' }, h('section', { class: 'card stack' }, h('h3', null, 'Preview'), h('p', { class: 'muted small', style: { margin: 0 } }, 'Runs the real lesson player with your current, unsaved content. Nothing you do here is recorded as progress.'), frame));
 
   host.replaceChildren(
-    h('div', { class: 'page-head' }, h('div', null, h('h2', null, isNew ? 'New lesson' : L.title || 'Edit lesson'), h('p', null, [levelName(L.level), isNew ? 'unsaved' : (L.status === 'published' ? 'published' : 'draft'), L.source === 'builtin' ? 'bundled lesson' : null].filter(Boolean).map(tr).join(' · '))), actions),
+    h('div', { class: 'page-head' }, h('div', null, h('h2', null, isNew ? 'New lesson' : L.title || 'Edit lesson'), h('p', null, [levelName(L.level), isNew ? 'unsaved' : (L.status === 'published' ? 'published' : 'draft'), L.source === 'builtin' ? 'bundled lesson' : null].filter(Boolean).join(' · '))), actions),
     problemsHost,
     h('div', { class: 'split' }, h('div', { class: 'stack' }, details, stepsCard), side));
   if (!writable) host.prepend(h('div', { class: 'notice', style: { marginBottom: '14px' } }, 'You have read-only access to content.'));

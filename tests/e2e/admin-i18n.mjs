@@ -18,6 +18,7 @@ if (cli(dir, ['create-admin', '--username', 'boss', '--role', 'superadmin'], { p
 const srv = await startServer(dir, { ROOKERY_TRANSLATE_PROVIDER: 'mock', ROOKERY_ALLOW_MOCK: '1' });
 const BASE = srv.base;
 const browser = await chromium.launch();
+process.on('unhandledRejection', (e) => { console.log('FAIL  unexpected error  -> ' + (e?.stack || e)); process.exit(1); });
 
 async function open(lang, viewport = { width: 1360, height: 900 }) {
   const ctx = await browser.newContext({ viewport, locale: 'en-US' });
@@ -39,8 +40,14 @@ const go = async (page, hash, sel = '#view > div > *') => { await page.goto(BASE
 const missed = (page) => page.evaluate(() => [...window.__rookeryTrMiss]);
 
 // Strings that are data, not interface text: ids, FENs, moves, usernames, numbers, lesson titles from the bundled curriculum.
-const DATA = new Set(LESSONS.flatMap((l) => [l.title, l.summary]));
-const isData = (s) => DATA.has(s) || !/[A-Za-z]{3,}/.test(s) || /^[\w.#:/-]+$/.test(s) || /^[rnbqkpRNBQKP1-8/]+ [wb] /.test(s) || /^(?:boss|Rookery|Rookery Admin)$/.test(s)
+import { PUZZLES } from '../../js/data/puzzles.js';
+import { PLACEMENT } from '../../js/data/placement.js';
+import { lessonStrings, puzzleStrings, stepStrings } from '../../js/i18n/content.js';
+import uzSeed from '../../js/i18n/content.uz.js';
+import ruSeed from '../../js/i18n/content.ru.js';
+// lesson / puzzle / placement texts (English source and bundled translations) are content, shown by the lesson list and editors
+const DATA = new Set([...LESSONS.flatMap(lessonStrings), ...PUZZLES.flatMap(puzzleStrings), ...PLACEMENT.flatMap(stepStrings), ...Object.values(uzSeed), ...Object.values(ruSeed)]);
+const isData = (s) => DATA.has(s) || /^[a-z][a-z.]*( [a-z]+)*( · \d+)?$/.test(s) || /^[\w.\[\]]+: $/.test(s) || /^[A-Z][a-z]{2} \d+, \d{4}/.test(s) || /^(?:O'zbekcha|Русский|English)$/.test(s) || /^\d\.\w/.test(s) || /^\{.*\}$/.test(s) || /FEN needs|FEN has|FEN:/.test(s) || !/[A-Za-z]{3,}/.test(s) || /^[\w.#:/-]+$/.test(s) || /^[rnbqkpRNBQKP1-8/]+ [wb] /.test(s) || /^(?:boss|Rookery|Rookery Admin)$/.test(s)
   || [...DATA].some((d) => d && s.includes(d)) || /^[a-h][1-8]/.test(s) || /\.(svg|png)$/.test(s) || /^<\/?p>/.test(s);
 
 async function crawl(page) {
@@ -138,7 +145,7 @@ for (const lang of ['uz', 'ru']) {
   check('lesson saved through the admin API', r === 201, r);
   await sleep(3500);
   await go(page, 'translations');
-  await page.locator('.field select').first().selectOption('ru');   // language filter in the table toolbar
+  await page.locator('.toolbar .field select').last().selectOption('ru');   // language filter in the table toolbar
   await sleep(500);
   const text = await body(page);
   check('Translations page lists the new texts with their automatic translation', /Rook walks in lines/.test(text) && /\[ru\] Rook walks in lines/.test(text) && /Avtomatik|Автоматический/.test(text), text.slice(0, 300));

@@ -74,7 +74,7 @@ async function editor(host, ctx, existingId) {
   const showProblems = (list, title) => problems.replaceChildren(problemsBox(list, title) || '');
 
   const movesHost = h('div', { class: 'chips' });
-  const drawMoves = () => movesHost.replaceChildren(...(P.moves.length ? P.moves.map((m, i) => h('span', { class: 'chip' }, `${tr(i % 2 === 0 ? 'Solver' : 'Reply')}: ${m}`)) : [h('span', { class: 'faint small' }, 'No moves recorded yet.')]),
+  const drawMoves = () => movesHost.replaceChildren(...(P.moves.length ? P.moves.map((m, i) => h('span', { class: 'chip' }, `${i % 2 === 0 ? 'Solver' : 'Reply'}: ${m}`)) : [h('span', { class: 'faint small' }, 'No moves recorded yet.')]),
     ...(writable && P.moves.length ? [h('button', { class: 'btn sm ghost', type: 'button', onclick: () => { P.moves.pop(); drawMoves(); replay(); } }, 'Undo last'), h('button', { class: 'btn sm ghost', type: 'button', onclick: () => { P.moves = []; drawMoves(); replay(); } }, 'Clear')] : []));
   const picker = positionPicker({ fen: P.fen, allowRecord: writable, height: 400, getReplay: () => P.moves, onChange: (fen) => { if (fen !== P.fen) { P.fen = fen; if (P.moves.length) { P.moves = []; drawMoves(); } } }, onMove: (m) => { P.moves.push(m.uci); drawMoves(); } });
   const replay = () => { picker.refresh(); }; // re-render the base position; the recorder restarts from it

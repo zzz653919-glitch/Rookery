@@ -731,3 +731,33 @@ Category "{id}" is still used by {n} puzzle(s); move or delete them first. ||| "
 Thresholds must satisfy: bridge minimum < mastery < bridge next-tier. ||| Chegaralar quyidagiga mos bo'lishi kerak: ko'prik minimumi < o'zlashtirish < ko'prik keyingi bosqich. ||| Пороги должны удовлетворять условию: минимум «моста» < освоение < следующая ступень «моста».
 Use 'dark' or 'light'. ||| 'dark' yoki 'light' ishlating. ||| Используйте 'dark' или 'light'.
 Clear ||| Tozalash ||| Очистить
+{a} · {b} · {c} ||| {a} · {b} · {c} ||| {a} · {b} · {c}
+{a} · {b} ||| {a} · {b} ||| {a} · {b}
+{a} — {b} ||| {a} — {b} ||| {a} — {b}
+{a} ({b}) ||| {a} ({b}) ||| {a} ({b})
+{a}: {b} ||| {a}: {b} ||| {a}: {b}
+{n} min ||| {n} daqiqa ||| {n} мин
+{n} · {name} ||| {n} · {name} ||| {n} · {name}
+{n} {name} ||| {n} {name} ||| {n} {name}
+Not a valid position: {why} ||| Pozitsiya yaroqsiz: {why} ||| Недопустимая позиция: {why}
+Piece movement ||| Donalarning yurishi ||| Ходы фигур
+Captures & loose pieces ||| Olish va himoyasiz donalar ||| Взятия и незащищённые фигуры
+Check, mate & rules ||| Shoh, mat va qoidalar ||| Шах, мат и правила
+Checkmate patterns ||| Mat shakllari ||| Матовые схемы
+Forks, pins & skewers ||| Vilkalar, bog'lashlar va tikishlar ||| Вилки, связки и линейные удары
+Positional play ||| Pozitsion o'yin ||| Позиционная игра
+Ink & Ivory ||| Siyoh va fil suyagi ||| Чернила и слоновая кость
+Gold & Onyx ||| Oltin va oniks ||| Золото и оникс
+Classic ||| Klassik ||| Классический
+Emerald ||| Zumrad ||| Изумруд
+Forest ||| O'rmon ||| Лес
+Walnut ||| Yong'oq ||| Орех
+Slate ||| Slanes ||| Сланец
+Rookie ||| Yangi boshlovchi ||| Новичок
+Casual ||| Oddiy ||| Любитель
+Club ||| Klub ||| Клубный
+Strong ||| Kuchli ||| Сильный
+Maximum ||| Maksimal ||| Максимум
+Rookery has no player accounts. Each visitor’s progress, ratings and game history are stored only in their own browser (IndexedDB) and never reach the server, so individual users cannot be listed, searched, suspended or inspected here. Central user administration needs a backend database with sign-in (accounts, password reset, privacy policy, moderation tools) — a separate project. ||| Rookeryda o'yinchi hisoblari yo'q. Har bir tashrifchining taraqqiyoti, reytinglari va o'yinlar tarixi faqat o'z brauzerida (IndexedDB) saqlanadi va hech qachon serverga yetib bormaydi, shuning uchun alohida foydalanuvchilarni bu yerda ro'yxatlab, qidirib, to'xtatib yoki ko'rib bo'lmaydi. Markaziy foydalanuvchilarni boshqarish kirish tizimiga ega backend ma'lumotlar bazasini (hisoblar, parolni tiklash, maxfiylik siyosati, moderatsiya vositalari) talab qiladi — bu alohida loyiha. ||| В Rookery нет аккаунтов игроков. Прогресс, рейтинги и история партий каждого посетителя хранятся только в его браузере (IndexedDB) и никогда не попадают на сервер, поэтому отдельных пользователей здесь нельзя перечислить, найти, заблокировать или просмотреть. Для централизованного управления пользователями нужна серверная база данных со входом (аккаунты, сброс пароля, политика конфиденциальности, инструменты модерации) — это отдельный проект.
+Reported content and abuse review do not apply: players cannot publish or share any content. ||| Shikoyat qilingan kontent va suiiste'molni ko'rib chiqish bu yerda qo'llanmaydi: o'yinchilar hech qanday kontent e'lon qila olmaydi yoki ulasha olmaydi. ||| Жалобы на контент и разбор нарушений не применимы: игроки не могут публиковать контент и делиться им.
+Play the line on the board (“Play moves”): the learner plays moves 1, 3, 5…; replies 2, 4, 6… are played automatically. The last move must be the learner’s. ||| Yurishlar ketma-ketligini taxtada o'ynang (“Yurishlarni o'ynash”): o'quvchi 1, 3, 5… yurishlarni o'ynaydi; 2, 4, 6… javoblar avtomatik o'ynaladi. Oxirgi yurish o'quvchiniki bo'lishi kerak. ||| Сыграйте линию на доске («Играть ходы»): ученик играет ходы 1, 3, 5…; ответы 2, 4, 6… играются автоматически. Последний ход должен быть ходом ученика.

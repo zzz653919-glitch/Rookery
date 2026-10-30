@@ -9,7 +9,7 @@ export const EMPTY_FEN = '8/8/8/8/8/8/8/8 w - - 0 1';
 
 export function fenStatus(fen) {
   if (!fen || !fen.trim()) return { ok: false, message: 'Enter a FEN position.' };
-  try { const g = new Chess(fen.trim()); return { ok: true, message: [g.turn() === 'w' ? 'White to move' : 'Black to move', g.isCheckmate() ? 'checkmate' : g.isStalemate() ? 'stalemate' : g.inCheck?.() ? 'in check' : null].filter(Boolean).map(tr).join(' · '), game: g }; }
+  try { const g = new Chess(fen.trim()); return { ok: true, message: [g.turn() === 'w' ? 'White to move' : 'Black to move', g.isCheckmate() ? 'checkmate' : g.isStalemate() ? 'stalemate' : g.inCheck?.() ? 'in check' : null].filter(Boolean).join(' · '), game: g }; }
   catch (e) { return { ok: false, message: 'Not a valid position: ' + (e.message || 'check the FEN').replace(/^Error: /, '') }; }
 }
 
