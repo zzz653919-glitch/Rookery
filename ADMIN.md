@@ -118,10 +118,28 @@ Tables: `roles`, `admins`, `sessions`, `login_attempts`, `lessons`, `puzzles`, `
   published through the admin panel reaches only visitors served by that host; when a visitor is offline, the last bundle they
   loaded is used.
 
+## 6b. Languages and translations (English / Uzbek / Russian)
+
+* **Player site and admin panel** are available in English, Uzbek (Latin) and Russian. The language follows the browser the first time and can be changed with the switcher (player: header / settings; admin: top bar and sign-in page). The choice is remembered.
+* **Everything bundled** (interface, all lessons, the placement test, puzzle texts) is translated and ships in `js/i18n/` — it works offline and on plain static hosting.
+* **Lessons, puzzles and names written in the admin panel** are stored in English (or whatever you type). The server keeps a *translation memory* (`translations` table, migration `002`) and `GET /api/public/content?lang=uz|ru` returns the content with every known translation applied. Texts without a translation are shown as written.
+* **Automatic translation (optional, off by default).** When enabled, new or changed texts are translated in the background shortly after every save, and the **Translations** page has *Translate missing texts now*. It needs an external service and therefore a key you provide:
+
+  ```bash
+  npm install @anthropic-ai/sdk
+  ANTHROPIC_API_KEY=... ROOKERY_TRANSLATE_PROVIDER=anthropic npm start
+  ```
+
+  `ROOKERY_TRANSLATE_MODEL` overrides the model (default `claude-haiku-5-5`). The key is read only from the environment. Texts you write are sent to the provider for translation. Replies are accepted only if they keep the same HTML tags and chess notation, and are sanitised like any other lesson text. Without a provider nothing is sent anywhere.
+* **Correcting a translation:** *Translations* page → Edit. A hand-edited translation is never overwritten by the automatic one; *Reset* hands the text back to the translator.
+* **Tested with a mock provider only.** The automated tests use a deterministic fake translator (`ROOKERY_TRANSLATE_PROVIDER=mock` together with `ROOKERY_ALLOW_MOCK=1`); the real provider has not been run against the live API. Machine translations of lessons should be reviewed by a person who speaks the language.
+* Translation sources are plain text tables: `scripts/i18n/ui.rows.txt` (player interface), `scripts/i18n/admin.rows.txt` (admin panel), `scripts/i18n/content.{uz,ru}.txt` (lessons / puzzles). After editing run `node scripts/i18n/build.mjs`, `node scripts/i18n/build-admin.mjs` or `node scripts/i18n/build-content.mjs`.
+
 ## 7. Tests
 
 ```bash
 npm test                          # unit + 23 admin API/security integration tests (boots the server on a temp database)
+node tests/e2e/admin-i18n.mjs     # admin languages: crawls every page/dialog in uz+ru, translated lessons on the player site
 node tests/e2e/admin.mjs          # 74 browser checks: sign-in/out, roles, lesson/puzzle/theme/settings flows, uploads,
                                   # player integration, offline, mobile layout & touch (needs Playwright)
 npm run e2e                       # the original player-site e2e (run it against `npm start` for the server variant)
