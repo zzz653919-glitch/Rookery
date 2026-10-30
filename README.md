@@ -13,8 +13,9 @@ cd rookery
 npm start          # → http://127.0.0.1:5173
 ```
 
-No `npm install` is needed (zero dependencies; Node 18 or newer). `npm start` runs `scripts/serve.mjs`, a tiny static server.
-Without Node you can use any static server, e.g. `python3 -m http.server 5173` inside this folder.
+No `npm install` is needed (zero dependencies; Node 22.13 or newer). `npm start` runs `server/index.mjs`: it serves the site and
+the optional **admin panel** at `/admin/` (see [ADMIN.md](ADMIN.md)). Only need the plain static site? `npm run start:static`
+(`scripts/serve.mjs`) or any static server, e.g. `python3 -m http.server 5173` — the player site works without the backend.
 
 ### Why not just double-click `index.html`?
 
@@ -71,6 +72,7 @@ js/ui/                                                   board, pieces, task run
 js/views/                                                home, play, learn, lesson, puzzles, progress, settings, welcome, placement
 js/data/                                                 levels, lessons (5 files), placement test, generated puzzles
 js/placement-score.js, js/progress.js, js/store.js       scoring, path/achievements, IndexedDB store
+server/, admin/                                          optional admin backend (Node + SQLite) and the /admin panel — see ADMIN.md
 scripts/                                                 serve.mjs, gen-precache, puzzle generators, build-puzzles, make-icons, selfplay
 tests/                                                   unit/content tests (node --test) and browser e2e tests (tests/e2e)
 ```
@@ -100,7 +102,7 @@ What the tests check:
 
 ## Deploying
 
-See `DEPLOY.md` (Vercel, Netlify, GitHub Pages — static files, no build step).
+See `DEPLOY.md` (Vercel, Netlify, GitHub Pages — static files, no build step). The admin panel needs a Node host: see ADMIN.md §6.
 
 ## Licence
 

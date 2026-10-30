@@ -30,3 +30,13 @@ export const SKILLS = {
   strategy: 'Positional play',
   calculation: 'Calculation',
 };
+
+// Puzzle categories (mutable: the optional admin server can add, rename or hide categories).
+export const THEMES = {
+  mate1: { name: 'Mate in 1', desc: 'Deliver checkmate in a single move.', skill: 'mates' },
+  mate2: { name: 'Mate in 2', desc: 'Force checkmate on your second move.', skill: 'mates' },
+  fork: { name: 'Forks', desc: 'Attack two pieces at once.', skill: 'tactics' },
+  pin: { name: 'Pins', desc: 'Win material with a piece that cannot move.', skill: 'tactics' },
+  skewer: { name: 'Skewers', desc: 'Attack the big piece, win the one behind it.', skill: 'tactics' },
+  discovered: { name: 'Discovered attacks', desc: 'Move one piece, unleash another.', skill: 'tactics' },
+};

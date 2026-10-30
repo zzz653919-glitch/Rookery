@@ -9,23 +9,17 @@ import { store, markActivity } from '../store.js';
 import { play as sfx, moveSound } from '../sound.js';
 import { checkAchievements } from '../progress.js';
 import { levelToEngine } from '../data/levels.js';
+import { computerLevels, nearestEnabledLevel, timeControls } from '../content.js';
+import { track } from '../telemetry.js';
 
-const TIME_CONTROLS = [
-  { id: 'none', label: 'Untimed', base: 0, inc: 0 },
-  { id: '1+0', label: '1 min', base: 60, inc: 0 },
-  { id: '3+2', label: '3 | 2', base: 180, inc: 2 },
-  { id: '5+0', label: '5 min', base: 300, inc: 0 },
-  { id: '10+0', label: '10 min', base: 600, inc: 0 },
-  { id: '15+10', label: '15 | 10', base: 900, inc: 10 },
-];
 
 export async function mount(root) {
   const profile = store.get('profile');
   const saved = store.get('settings').playSetup || {};
   const setup = {
     color: saved.color || 'w',
-    level: saved.level || levelToEngine(profile.level),
-    time: saved.time || 'none',
+    level: nearestEnabledLevel(ENGINE_LEVELS, saved.level || levelToEngine(profile.level)),
+    time: timeControls().some((t) => t.id === saved.time) ? saved.time : 'none',
     practice: !!saved.practice,
   };
 
@@ -42,7 +36,9 @@ export async function mount(root) {
   let disposed = false;
   let startedAt = 0;
 
-  const lvl = () => ENGINE_LEVELS[setup.level - 1];
+  // names / availability can be customised by the admin panel; strength (depth, time) always comes from the engine
+  const levelList = computerLevels(ENGINE_LEVELS);
+  const lvl = () => levelList.find((l) => l.id === setup.level) || ENGINE_LEVELS[setup.level - 1];
 
   // ------------------------------------------------------------------ setup
   function renderSetup() {
@@ -60,13 +56,13 @@ export async function mount(root) {
             </div></div>
           <div class="opt-group"><label class="lbl">Difficulty</label>
             <div class="level-grid" id="levels">
-              ${ENGINE_LEVELS.map((l) => `<button type="button" class="level-card" data-v="${l.id}" aria-pressed="${setup.level === l.id}"><b>${l.id}. ${l.name}</b><small>${esc(l.blurb)}</small></button>`).join('')}
+              ${levelList.map((l) => `<button type="button" class="level-card" data-v="${l.id}" aria-pressed="${setup.level === l.id}"><b>${l.id}. ${l.name}</b><small>${esc(l.blurb)}</small></button>`).join('')}
             </div>
             <p class="faint" style="font-size:.82rem;margin:4px 0 0">Levels are relative: each one searches deeper than the one before. They are not official ratings.</p>
           </div>
           <div class="opt-group"><label class="lbl">Time control</label>
             <div class="segmented" id="seg-time" role="group" aria-label="Time control">
-              ${TIME_CONTROLS.map((t) => `<button type="button" data-v="${t.id}" aria-pressed="${setup.time === t.id}">${t.label}</button>`).join('')}
+              ${timeControls().map((t) => `<button type="button" data-v="${t.id}" aria-pressed="${setup.time === t.id}">${t.label}</button>`).join('')}
             </div></div>
         </div>
         <div class="card stack">
@@ -119,7 +115,7 @@ export async function mount(root) {
     g = new Chess();
     over = false; thinking = false; reviewPly = null; drawOfferPly = -99;
     startedAt = Date.now();
-    const tc = TIME_CONTROLS.find((t) => t.id === setup.time);
+    const tc = timeControls().find((t) => t.id === setup.time) || timeControls()[0];
     clock = tc.base ? { w: tc.base * 1000, b: tc.base * 1000, running: null, last: 0, inc: tc.inc * 1000, tc } : null;
     engineClient.newGame().catch(() => {});
     renderGame();
@@ -492,6 +488,7 @@ export async function mount(root) {
     if (g.history().length >= 2 || reason === 'resignation') {
       await store.update('games', (list) => { list.push(entry); if (list.length > 100) list.splice(0, list.length - 100); });
       await markActivity();
+      track('game_completed', outcome, setup.practice ? 'practice' : '', setup.level);
       const unlocked = await checkAchievements();
       unlocked.forEach((a) => toast(`🏆 Achievement unlocked: ${a.name}`, 'good'));
     }

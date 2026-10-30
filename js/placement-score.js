@@ -2,7 +2,7 @@
 import { PLACEMENT, PLACEMENT_TIERS } from './data/placement.js';
 import { LEVELS, SKILLS } from './data/levels.js';
 
-const MASTER = 0.6, BRIDGE_LO = 0.4, BRIDGE_NEXT = 0.8;
+import { assessmentThresholds } from './content.js';
 
 // answers: [{ id, ok }]  (unanswered / skipped questions count as wrong)
 export function scorePlacement(answers, items = PLACEMENT) {
@@ -18,6 +18,7 @@ export function scorePlacement(answers, items = PLACEMENT) {
     s.total++; if (ok) s.right++;
   }
   for (const t of tiers) t.acc = t.total ? t.right / t.total : 0;
+  const { master: MASTER, bridgeLo: BRIDGE_LO, bridgeNext: BRIDGE_NEXT } = assessmentThresholds();
   const mastered = tiers.map((t, i) => t.acc >= MASTER || (t.acc >= BRIDGE_LO && i + 1 < tiers.length && tiers[i + 1].acc >= BRIDGE_NEXT));
   let k = 0;
   while (k < mastered.length && mastered[k]) k++;

@@ -5,7 +5,7 @@
 // The board only *displays* and *collects* moves. Legality is decided by the
 // rules engine through the callbacks (legalTargets / onMove).
 
-import { pieceSvg } from './pieces.js';
+import { pieceSvg, resolveBoardTheme, resolvePieceTheme } from './pieces.js';
 import { store } from '../store.js';
 
 const FILES = 'abcdefgh';
@@ -117,8 +117,14 @@ export class BoardView {
 
   applySettings() {
     const s = store.get('settings');
-    this.el.dataset.board = s.boardTheme;
-    this.el.dataset.pieces = s.pieceTheme;
+    this.el.dataset.board = resolveBoardTheme(s.boardTheme);
+    const pieces = resolvePieceTheme(s.pieceTheme);
+    this.el.dataset.pieces = pieces;
+    if (this._pieces !== pieces) {
+      // uploaded image sets render <img>, built-in sets render vectors: redraw the pieces when the set changes
+      this._pieces = pieces;
+      for (const el of this.els.values()) el.innerHTML = pieceSvg(el.dataset.type, el.classList.contains('w') ? 'w' : 'b', pieces);
+    }
     this.el.classList.toggle('no-coords', !s.coords);
     this.el.classList.toggle('no-anim', !s.animations);
     this.showMoves = s.highlightMoves;
@@ -201,7 +207,7 @@ export class BoardView {
     el.className = `piece ${p.color}`;
     el.dataset.sig = sigOf(p);
     el.dataset.type = p.type;
-    el.innerHTML = pieceSvg(p.type, p.color);
+    el.innerHTML = pieceSvg(p.type, p.color, this._pieces);
     this.pcLayer.appendChild(el);
     this.place(el, sq);
     return el;
@@ -397,7 +403,8 @@ export class BoardView {
       const goingDown = y === 0; // promoting on the top edge -> list grows downward
       const order = ['q', 'n', 'r', 'b'];
       // the tap that triggered the picker fires a click on whatever is now under the finger; ignore it
-      const openedAt = performance.now() + 350;
+      let ghost = true; // cleared by a real pointerdown on the picker
+      const openedAt = performance.now() + 400;
       this.overlay.hidden = false;
       this.overlay.innerHTML = '';
       this.overlay.classList.add('open');
@@ -410,13 +417,13 @@ export class BoardView {
         b.type = 'button';
         b.className = 'promo-btn';
         b.setAttribute('aria-label', 'Promote to ' + ({ q: 'queen', n: 'knight', r: 'rook', b: 'bishop' }[t]));
-        b.innerHTML = pieceSvg(t, color);
-        b.onclick = (ev) => { ev.stopPropagation(); if (performance.now() < openedAt) return; this.closePromotion(); resolve(t); };
+        b.innerHTML = pieceSvg(t, color, this._pieces);
+        b.onclick = (ev) => { ev.stopPropagation(); if (ghost && performance.now() < openedAt) return; this.closePromotion(); resolve(t); };
         wrap.appendChild(b);
       });
       this.overlay.appendChild(wrap);
-      this.overlay.onclick = () => { if (performance.now() < openedAt) return; this.closePromotion(); resolve(null); };
-      this.overlay.onpointerdown = (ev) => ev.stopPropagation();
+      this.overlay.onclick = () => { if (ghost && performance.now() < openedAt) return; this.closePromotion(); resolve(null); };
+      this.overlay.onpointerdown = (ev) => { ghost = false; ev.stopPropagation(); };
       this._promoResolve = resolve;
     });
   }

@@ -5,63 +5,69 @@
 //   --p1 highlight  --p2 mid-tone  --p3 shadow  --pe edge  --pd incised detail  --pg specular
 // Gradients are defined per <svg> (unique ids) so each piece resolves its own theme variables.
 
+import { store } from '../store.js';
+
 let uid = 0;
 
 const PARTS = {
-  // body parts use a horizontal "cylinder" gradient (b) plus a sheen overlay (s)
+  // body parts use a horizontal "cylinder" gradient (b) plus a sheen overlay (s); the stepped foot is drawn last
   p: (P) => `
-    ${P.foot()}
-    ${P.body('M43.5 46 C44.5 57 41.5 67 33.5 80.5 H66.5 C58.5 67 55.5 57 56.5 46 z')}
-    ${P.body('M36.5 41 Q50 47 63.5 41 L64 45.6 Q50 51.4 36 45.6 z')}
-    ${P.ball('cx="50" cy="27.5" r="11"')}`,
+    ${P.body('M44 47 C45 58 43 68 36 79 H64 C57 68 55 58 56 47 z')}
+    ${P.body('M35.5 41 Q50 46.4 64.5 41 V45.4 Q50 51 35.5 45.4 z')}
+    ${P.ball('cx="50" cy="28" r="11.5"')}
+    ${P.foot()}`,
   r: (P) => `
-    ${P.foot()}
-    ${P.body('M36.5 38 C37.5 52 36.5 67 31.5 80.5 H68.5 C63.5 67 62.5 52 63.5 38 z')}
-    ${P.body('M32 31 H68 L65 39 H35 z')}
-    ${P.body('M28.5 16 h9 v7.5 h6 v-7.5 h13 v7.5 h6 v-7.5 h9 v14 q0 1.8-1.8 1.8 H30.3 q-1.8 0-1.8-1.8 z')}
-    <path d="M30 29.6 H70" stroke="var(--pd)" stroke-width="1.1" stroke-linecap="round" opacity=".55"/>`,
+    ${P.body('M37 40 C38 54 37 68 31 79 H69 C63 68 62 54 63 40 z')}
+    ${P.body('M32.5 36 H67.5 L66.5 41 H33.5 z')}
+    ${P.body('M27.5 14 h10 v8 h6 v-8 h13 v8 h6 v-8 h10 v17.4 q0 1.6-1.6 1.6 H29.1 q-1.6 0-1.6-1.6 z')}
+    <path d="M29 30.6 H71" stroke="var(--pd)" stroke-width="1.1" stroke-linecap="round" opacity=".55"/>
+    ${P.foot()}`,
   b: (P) => `
-    ${P.foot()}
-    ${P.body('M43 61 C44 69 41 75 33.5 80.5 H66.5 C59 75 56 69 57 61 z')}
-    ${P.body('M35.5 55.5 Q50 61.5 64.5 55.5 L65 60.6 Q50 66.8 35 60.6 z')}
-    ${P.body('M50 18.5 C62 26.5 68 37 63 47 C61 51 58 53 57.5 56 Q50 59 42.5 56 C42 53 39 51 37 47 C32 37 38 26.5 50 18.5 z')}
-    <path d="M45.5 30.5 L55.5 41.5" stroke="var(--pd)" stroke-width="2.4" stroke-linecap="round"/>
-    <path d="M47 29.6 L56.8 40.2" stroke="var(--pg)" stroke-width="1" stroke-linecap="round" opacity=".7"/>
-    ${P.ball('cx="50" cy="13" r="4.6"')}`,
+    ${P.body('M43.5 62 C44.5 69 42 74.5 34 79 H66 C58 74.5 55.5 69 56.5 62 z')}
+    ${P.body('M38.5 58.6 Q50 62.4 61.5 58.6 V62.4 Q50 66.4 38.5 62.4 z')}
+    ${P.body('M35.5 52.4 Q50 57.8 64.5 52.4 V56.6 Q50 62 35.5 56.6 z')}
+    ${P.body('M50 17 C63 24 68.5 36 63.5 45 C61.5 48.6 59.5 50 58.8 52.8 Q50 55.6 41.2 52.8 C40.5 50 38.5 48.6 36.5 45 C31.5 36 37 24 50 17 z')}
+    <path d="M47.2 29.4 L57.2 40" stroke="var(--pd)" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M48.6 28.4 L58.4 38.8" stroke="var(--pg)" stroke-width="1" stroke-linecap="round" opacity=".7"/>
+    ${P.ball('cx="50" cy="13" r="4.6"')}
+    ${P.foot()}`,
   q: (P) => `
-    ${P.foot()}
-    ${P.body('M42 53 C43 65 40 73 32 80.5 H68 C60 73 57 65 58 53 z')}
-    ${P.body('M32.5 44.5 Q50 51 67.5 44.5 L68.5 49.6 Q50 56.4 31.5 49.6 z')}
-    ${P.body('M31.5 43 L23.5 22 L31 32.5 L36.5 17 L43.5 30.5 L50 14 L56.5 30.5 L63.5 17 L69 32.5 L76.5 22 L68.5 43 Q50 48.6 31.5 43 z')}
-    ${P.ball('cx="23.5" cy="20.5" r="3.6"')}${P.ball('cx="36.5" cy="14.8" r="3.6"')}${P.ball('cx="50" cy="11.6" r="3.9"')}
-    ${P.ball('cx="63.5" cy="14.8" r="3.6"')}${P.ball('cx="76.5" cy="20.5" r="3.6"')}`,
+    ${P.body('M42 55 C43 66 40 73 32 79 H68 C60 73 57 66 58 55 z')}
+    ${P.body('M38 52.4 Q50 56.2 62 52.4 V56.2 Q50 60 38 56.2 z')}
+    ${P.body('M33 44 Q50 50.2 67 44 V48.4 Q50 54.8 33 48.4 z')}
+    ${P.body('M30.5 44 L25 24.5 L33 31.5 L38.5 19.5 L44.5 30 L50 18 L55.5 30 L61.5 19.5 L67 31.5 L75 24.5 L69.5 44 Q50 49.2 30.5 44 z')}
+    ${P.ball('cx="25" cy="22.6" r="3.4"')}${P.ball('cx="38.5" cy="17" r="3.4"')}${P.ball('cx="61.5" cy="17" r="3.4"')}${P.ball('cx="75" cy="22.6" r="3.4"')}
+    ${P.ball('cx="50" cy="12.4" r="5.4"')}
+    ${P.foot()}`,
   k: (P) => `
-    ${P.foot()}
-    ${P.body('M41.5 53 C42.5 65 39.5 73 31.5 80.5 H68.5 C60.5 73 57.5 65 58.5 53 z')}
-    ${P.body('M31.5 45.5 Q50 52.5 68.5 45.5 L69.5 50.8 Q50 58 30.5 50.8 z')}
-    ${P.body('M32 45 C29.5 34 38 27.5 50 27.5 C62 27.5 70.5 34 68 45 Q50 50.6 32 45 z')}
-    <path d="M36 37.4 Q50 41.5 64 37.4" stroke="var(--pd)" stroke-width="1.1" fill="none" stroke-linecap="round" opacity=".55"/>
-    ${P.body('M47 5.6 h6 q1.4 0 1.4 1.4 V11.8 H59 q1.4 0 1.4 1.4 v3.4 q0 1.4-1.4 1.4 H54.4 V27.8 H45.6 V17.999 H41 q-1.4 0-1.4-1.4 v-3.4 q0-1.4 1.4-1.4 H45.6 V7 q0-1.4 1.4-1.4 z')}`,
+    ${P.body('M41.5 55 C42.5 66 39.5 73 31.5 79 H68.5 C60.5 73 57.5 66 58.5 55 z')}
+    ${P.body('M37.5 52.6 Q50 56.4 62.5 52.6 V56.4 Q50 60.2 37.5 56.4 z')}
+    ${P.body('M33.5 45 Q50 51 66.5 45 V49.4 Q50 55.6 33.5 49.4 z')}
+    ${P.body('M38 45.4 C36 38.5 32.5 31.5 31 24.5 Q50 29.5 69 24.5 C67.5 31.5 64 38.5 62 45.4 Q50 49.4 38 45.4 z')}
+    ${P.body('M29.5 21.4 Q50 27 70.5 21.4 V25.2 Q50 31 29.5 25.2 z')}
+    ${P.body('M47.4 3.6 h5.2 q1.2 0 1.2 1.2 V9 H58.4 q1.2 0 1.2 1.2 v2.8 q0 1.2-1.2 1.2 H53.8 V22.6 H46.2 V14.2 H41.6 q-1.2 0-1.2-1.2 v-2.8 q0-1.2 1.2-1.2 H46.2 V4.8 q0-1.2 1.2-1.2 z')}
+    ${P.foot()}`,
   n: (P) => `
-    ${P.foot()}
-    ${P.body('M28.5 80.5 C27 69 30 59.5 37.2 53.6 C40 51.4 42 50.2 41.4 48.6 C37.8 51.4 32.2 56.6 27.4 55.6 C23 54.8 19.8 51.8 20.8 48 C21.8 44.4 27.2 40.4 33.2 33.2 C37.6 28 41.6 24.2 43.6 21 L42.8 10.6 L50.4 16.4 C55.2 14 61.6 14.6 66.4 19.2 C75.6 28 78.4 52 74.6 80.5 z')}
+    ${P.body('M28.5 79 C27 69 30 59.5 37.2 53.6 C40 51.4 42 50.2 41.4 48.6 C37.8 51.4 32.2 56.6 27.4 55.6 C23 54.8 19.8 51.8 20.8 48 C21.8 44.4 27.2 40.4 33.2 33.2 C37.6 28 41.6 24.2 43.6 21 L42.8 10.6 L50.4 16.4 L55 13.2 L56.6 18.6 L61.6 16 L62.2 22 L67.2 20.4 L67 26.6 L71.8 26 L70.6 33 L75.2 34 L72.6 41 L76.6 44 L73.6 51 L77 55 L74.2 62.5 L76.2 70 L74.6 79 z')}
     <path d="M22.6 47.6 C24.8 44.8 27.4 42.8 30 40.4" stroke="var(--pg)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".6"/>
     <path d="M39 45.6 C44 43.4 47 38.4 46 33" stroke="var(--pd)" stroke-width="1.6" fill="none" stroke-linecap="round"/>
     <path d="M27.6 55.2 C30 54.4 32.4 53.4 34.6 52.2" stroke="var(--pd)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <path d="M63.6 21 C69.6 30 71.4 46 69 63 M57.8 19.8 C63 29 64.6 42 62.4 55" stroke="var(--pd)" stroke-width="1.7" fill="none" stroke-linecap="round" opacity=".6"/>
+    <path d="M60 23 C66.6 32 68.6 47 66.4 64 M54.4 21 C59.6 30 61 43 59 56" stroke="var(--pd)" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".55"/>
     <ellipse cx="24.6" cy="48.6" rx="1.8" ry="1.1" transform="rotate(-35 24.6 48.6)" fill="var(--pd)"/>
     <ellipse cx="39" cy="34.4" rx="2.7" ry="2.2" fill="var(--pd)"/>
     <circle cx="38.2" cy="33.6" r=".8" fill="var(--pg)"/>
-    <path d="M46.2 17.8 L45.6 13.6 L49.2 16.6 z" fill="var(--pd)" opacity=".55"/>`,
+    <path d="M46.2 17.8 L45.6 13.6 L49.2 16.6 z" fill="var(--pd)" opacity=".55"/>
+    ${P.foot()}`,
 };
 
 function build(id) {
   const body = (d) => `<path d="${d}" fill="url(#${id}b)" stroke="var(--pe)" stroke-width="1.5" stroke-linejoin="round"/><path d="${d}" fill="url(#${id}s)"/>`;
   const ball = (a) => `<circle ${a} fill="url(#${id}r)" stroke="var(--pe)" stroke-width="1.5"/>`;
   const foot = () => `
-    <ellipse cx="50" cy="90.4" rx="31" ry="3.6" fill="url(#${id}g)"/>
-    ${body('M25 89.6 Q23.5 88.6 24 86.2 Q24.6 83.4 28 82.6 H72 Q75.4 83.4 76 86.2 Q76.5 88.6 75 89.6 z')}
-    ${body('M29.5 82.8 Q29.5 79.8 33 79.2 H67 Q70.5 79.8 70.5 82.8 z')}`;
+    <ellipse cx="50" cy="90.6" rx="32" ry="3.4" fill="url(#${id}g)"/>
+    ${body('M22.5 90 Q21 88.6 21.6 86.2 Q22.4 83.6 26.5 83 H73.5 Q77.6 83.6 78.4 86.2 Q79 88.6 77.5 90 z')}
+    ${body('M26.5 83.2 Q26.5 80.4 30.5 79.8 H69.5 Q73.5 80.4 73.5 83.2 z')}
+    ${body('M31 80 Q31 77.2 34.5 76.6 H65.5 Q69 77.2 69 80 z')}`;
   return { body, ball, foot };
 }
 
@@ -78,7 +84,19 @@ function defs(id) {
   </defs>`;
 }
 
-export function pieceSvg(type, color) {
+// Piece sets delivered by the optional admin server: `assets` sets are uploaded images, `css` sets just recolour the
+// built-in vector pieces (done with CSS variables, see content.js). Built-in sets need no registration.
+const SETS = new Map();
+export function registerPieceSets(list) { SETS.clear(); for (const s of list) SETS.set(s.id, s); }
+export function pieceSetDef(id) { return SETS.get(id) || null; }
+const currentTheme = () => { try { return store.get('settings')?.pieceTheme; } catch { return null; } };
+
+export function pieceSvg(type, color, theme = currentTheme()) {
+  const set = SETS.get(theme);
+  if (set && set.kind === 'assets') {
+    const src = set.assets?.[color + type.toUpperCase()];
+    if (src) return `<img class="piece-svg piece-img ${color}" src="${src}" alt="" draggable="false" decoding="async">`;
+  }
   const id = 'pg' + (++uid) + '-';
   return `<svg class="piece-svg ${color}" viewBox="0 0 100 100" aria-hidden="true" focusable="false">${defs(id)}${PARTS[type](build(id))}</svg>`;
 }
@@ -100,3 +118,7 @@ export const PIECE_THEMES = [
   { id: 'ink', name: 'Ink & Ivory' },
   { id: 'gold', name: 'Gold & Onyx' },
 ];
+
+// A saved theme that an administrator has since disabled or removed falls back to the first available one.
+export const resolveBoardTheme = (id) => (BOARD_THEMES.some((t) => t.id === id) ? id : BOARD_THEMES[0]?.id ?? id);
+export const resolvePieceTheme = (id) => (PIECE_THEMES.some((t) => t.id === id) ? id : PIECE_THEMES[0]?.id ?? id);

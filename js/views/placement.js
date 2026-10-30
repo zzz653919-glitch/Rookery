@@ -1,4 +1,5 @@
 // Placement test: mixed multiple-choice and interactive board tasks. The result is an ESTIMATE.
+import { track } from '../telemetry.js';
 import { Chess, START_FEN } from '../chess/rules.js';
 import { BoardView, piecesFromGame } from '../ui/board.js';
 import { runTask } from '../ui/task.js';
@@ -96,6 +97,7 @@ export function mount(root, { navigate }) {
       p.level = result.level; p.levelSource = 'placement'; p.levelDate = result.date; p.onboarded = true;
       p.placement = { level: result.level, pct: result.pct, right: result.right, total: result.total, tiers: result.tiers, skills: result.skills, strengths: result.strengths, weaknesses: result.weaknesses, date: result.date, stoppedEarly };
     });
+    track('placement_completed', result.level, result.level, result.pct);
     await markActivity();
     (await checkAchievements()).forEach((a) => toast(`🏆 Achievement unlocked: ${a.name}`, 'good'));
     if (!disposed) renderResult(result);

@@ -3,6 +3,8 @@ import { store, currentStreak } from './store.js';
 import { icon, LOGO } from './ui/icons.js';
 import { $, $$, esc, toast } from './ui/dom.js';
 import { engineClient } from './engine-client.js';
+import { loadRemoteContent } from './content.js';
+import { installErrorReporting } from './telemetry.js';
 
 const NAV = [
   { id: 'home', label: 'Home', icon: 'home' },
@@ -163,7 +165,9 @@ async function registerSW() {
 }
 
 async function boot() {
+  await loadRemoteContent();   // optional: admin-managed lessons, puzzles, themes and settings (no-op without the server)
   await store.init();
+  installErrorReporting();
   applyTheme();
   buildShell();
   engineClient.start();

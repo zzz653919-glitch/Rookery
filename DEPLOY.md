@@ -35,3 +35,11 @@ Drag the whole `rookery` folder onto https://app.netlify.com/drop . No settings 
 * To update the site: change files → `npm run precache` → deploy again. The service worker detects the new
   `precache.json` version and refreshes the cache on the next visit.
 * A custom domain is configured in the host's dashboard (Vercel: Settings → Domains).
+
+## Admin panel needs a Node host
+
+Everything above hosts the **player site** (static files). The admin panel (`/admin/`) and its API are a small Node.js server
+(`npm start`, Node 22.13+, SQLite file in `data/`) and **cannot run on static hosting**. If you upload this repository to a
+static host the player site works exactly as before, and `/admin/` simply cannot sign in. To use the admin panel, deploy the
+project to a Node host with a persistent disk, run `npm run db:migrate && npm run admin:create -- --username <you>` once, and
+read [ADMIN.md](ADMIN.md) (HTTPS, `ROOKERY_SECURE_COOKIES=1`, backups).

@@ -32,7 +32,7 @@ const server = createServer(async (req, res) => {
     const file = normalize(join(root, rel));
     const rootless = relative(root, file).split('\\').join('/'); // works with Windows and POSIX separators
     if (rootless.startsWith('..') || isAbsolute(rootless)) { res.writeHead(403).end('Forbidden'); return; }
-    if (/^(tests|scripts|node_modules|\.git)(\/|$)/.test(rootless)) { res.writeHead(404).end('Not found'); return; }
+    if (/^(tests|scripts|server|data|node_modules|\.git)(\/|$)|\.(db|sqlite)$/.test(rootless)) { res.writeHead(404).end('Not found'); return; }
     let target = file;
     try {
       const st = await stat(target);
