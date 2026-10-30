@@ -1,5 +1,5 @@
 // Shared UI pieces: toasts, confirm/modal dialogs, form fields, tables with search + pagination, states.
-import { h, clear, icon, append } from './dom.js';
+import { h, clear, icon, append, tr } from './dom.js';
 
 export function toast(message, kind = 'good', ms = 4200) {
   const el = h('div', { class: `toast ${kind}`, role: kind === 'bad' ? 'alert' : 'status' }, message);
@@ -48,7 +48,7 @@ export function field(label, control, { hint, error, id } = {}) {
   if (control.id === '' || !control.id) control.id = i;
   const wrap = h('div', { class: 'field' + (error ? ' invalid' : '') }, label ? h('label', { class: 'lbl', for: control.id }, label) : null, control,
     hint ? h('div', { class: 'hint' }, hint) : null, h('div', { class: 'err', hidden: !error }, error || ''));
-  wrap.setError = (msg) => { wrap.classList.toggle('invalid', !!msg); const e = wrap.querySelector('.err'); e.textContent = msg || ''; e.hidden = !msg; };
+  wrap.setError = (msg) => { wrap.classList.toggle('invalid', !!msg); const e = wrap.querySelector('.err'); e.textContent = tr(msg || ''); e.hidden = !msg; };
   wrap.control = control;
   return wrap;
 }

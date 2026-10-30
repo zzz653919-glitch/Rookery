@@ -1,9 +1,10 @@
+import { tr } from './i18n.js';
 // All requests go through here: JSON in/out, CSRF header on every write, uniform error type.
 export const session = { admin: null, perms: [], csrf: null };
 export const can = (perm) => session.perms.includes('*') || session.perms.includes(perm);
 
 export class ApiError extends Error {
-  constructor(status, message, details) { super(message); this.status = status; this.details = details || null; }
+  constructor(status, message, details) { super(tr(message)); this.status = status; this.details = details || null; }
 }
 const listeners = new Set();
 export const onUnauthorized = (fn) => { listeners.add(fn); return () => listeners.delete(fn); };

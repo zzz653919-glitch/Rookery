@@ -1,4 +1,4 @@
-import { h, clear } from '../dom.js';
+import { h, clear, tr } from '../dom.js';
 import { get, post, put, del, can } from '../api.js';
 import { modal, confirmDialog, field, input, select, toast, badge, problemsBox, loadingState, errorState, emptyState, toggle } from '../ui.js';
 import { previewFrame } from '../preview-frame.js';
@@ -135,13 +135,13 @@ export async function mount(host, ctx) {
       clear(slots);
       for (const side of ['w', 'b']) for (const t of 'KQRBNP') {
         const code = side + t; const url = s.assets?.[code]; const msg = h('div', { class: 'small', style: { color: 'var(--danger)', textAlign: 'center' } });
-        const file = h('input', { type: 'file', accept: '.svg,image/svg+xml,image/png,image/webp', class: 'sr-only', 'aria-label': `Upload ${side === 'w' ? 'white' : 'black'} ${PIECE_NAMES[t]}`, onchange: async () => {
+        const file = h('input', { type: 'file', accept: '.svg,image/svg+xml,image/png,image/webp', class: 'sr-only', 'aria-label': `${tr('Upload')} ${tr(side === 'w' ? 'white' : 'black')} ${tr(PIECE_NAMES[t])}`, onchange: async () => {
           const f = file.files[0]; file.value = ''; if (!f) return; msg.textContent = '';
-          if (f.size > 200 * 1024) { msg.textContent = 'Larger than 200 KB.'; return; }
+          if (f.size > 200 * 1024) { msg.textContent = tr('Larger than 200 KB.'); return; }
           try { const r = await put(`/api/admin/piece-sets/${s.id}/assets/${code}`, new Uint8Array(await f.arrayBuffer())); s = r; data.pieceSets = data.pieceSets.map((x) => (x.id === s.id ? s : x)); draw(); sync(); }
-          catch (e) { msg.textContent = e.message; }
+          catch (e) { msg.textContent = tr(e.message); }
         } });
-        slots.append(h('div', { class: 'slot' }, url ? h('img', { src: url, alt: `${side === 'w' ? 'White' : 'Black'} ${PIECE_NAMES[t]}` }) : h('div', { class: 'ph' }, 'empty'), h('strong', { class: 'small' }, `${side === 'w' ? 'Light' : 'Dark'} ${PIECE_NAMES[t]}`),
+        slots.append(h('div', { class: 'slot' }, url ? h('img', { src: url, alt: `${tr(side === 'w' ? 'White' : 'Black')} ${tr(PIECE_NAMES[t])}` }) : h('div', { class: 'ph' }, 'empty'), h('strong', { class: 'small' }, `${tr(side === 'w' ? 'Light' : 'Dark')} ${tr(PIECE_NAMES[t])}`),
           h('label', { class: 'btn sm', style: { cursor: 'pointer' } }, url ? 'Replace' : 'Upload', file), msg));
       }
     }

@@ -1,4 +1,4 @@
-import { h, icon } from '../dom.js';
+import { h, icon, tr } from '../dom.js';
 import { get } from '../api.js';
 import { loadingState, errorState, emptyState, badge, fmtDate, ago, fmtBytes, fmtDuration } from '../ui.js';
 
@@ -7,8 +7,9 @@ const LABEL = {
   'login.success': 'Administrator signed in', 'login.failed': 'Failed sign-in', 'login.blocked': 'Sign-in blocked (rate limit)', logout: 'Administrator signed out',
 };
 const describe = (a) => {
-  if (a.kind === 'player') return `${LABEL[a.type] || a.type}${a.ref ? ` · ${a.ref}` : ''}${a.type === 'game_completed' && a.value ? ` (level ${a.value})` : ''}`;
-  return `${LABEL[a.type] || a.type.replace('.', ' ')}${a.ref ? ` · ${a.ref}` : ''}${a.by ? ` — ${a.by}` : ''}`;
+  const name = tr(LABEL[a.type] || (a.kind === 'player' ? a.type : a.type.replace('.', ' ')));
+  if (a.kind === 'player') return `${name}${a.ref ? ` · ${a.ref}` : ''}${a.type === 'game_completed' && a.value ? ` (${tr(`level ${a.value}`)})` : ''}`;
+  return `${name}${a.ref ? ` · ${a.ref}` : ''}${a.by ? ` — ${a.by}` : ''}`;
 };
 
 function stat(iconName, value, label, sub) {
@@ -27,7 +28,7 @@ export async function mount(host) {
     h('div', { class: 'grid g4' },
       stat('book', d.lessons.published, 'Published lessons', `${d.lessons.total} total · ${d.lessons.draft} draft`),
       stat('puzzle', d.puzzles.published, 'Published puzzles', `${d.puzzles.total} total · ${d.puzzles.draft} draft`),
-      stat('chess', d.games.total, 'Games completed', `${d.games.last7} in the last 7 days${d.games.total ? ` · ${wins.win || 0} won · ${wins.draw || 0} drawn · ${wins.loss || 0} lost` : ''}`),
+      stat('chess', d.games.total, 'Games completed', [tr(`${d.games.last7} in the last 7 days`), d.games.total ? tr(`${wins.win || 0} won · ${wins.draw || 0} drawn · ${wins.loss || 0} lost`) : null].filter(Boolean).join(' · ')),
       stat('users', d.learners.last30, 'Active learners (30 days)', `${d.learners.last7} in 7 days · ${d.learners.all} ever (anonymous browsers)`)),
     h('div', { class: 'grid g2', style: { marginTop: '14px' } },
       h('section', { class: 'card' }, h('h3', null, 'Most popular lessons'),
@@ -35,11 +36,11 @@ export async function mount(host) {
           h('tbody', null, d.popular.map((p) => h('tr', null, h('td', null, p.title, h('div', { class: 'sub' }, p.level || p.id)), h('td', null, p.completions), h('td', null, p.starts), h('td', null, p.learners)))))
           : emptyState('No lesson activity yet', 'Completions appear here once visitors use lessons on this server.')),
       h('section', { class: 'card' }, h('h3', null, 'Recent activity'),
-        d.activity.length ? h('ul', { class: 'list' }, d.activity.map((a) => h('li', { class: 'item' }, h('span', { class: 'dot ' + (a.kind === 'admin' ? 'info' : 'good') }), h('div', { class: 'grow' }, describe(a), h('div', { class: 'sub faint small' }, `${a.kind === 'admin' ? 'Admin' : 'Player'} · ${ago(a.ts)}`)))))
+        d.activity.length ? h('ul', { class: 'list' }, d.activity.map((a) => h('li', { class: 'item' }, h('span', { class: 'dot ' + (a.kind === 'admin' ? 'info' : 'good') }), h('div', { class: 'grow' }, describe(a), h('div', { class: 'sub faint small' }, `${tr(a.kind === 'admin' ? 'Admin' : 'Player')} · ${ago(a.ts)}`)))))
           : emptyState('No activity yet'))),
     h('div', { class: 'grid g2', style: { marginTop: '14px' } },
       h('section', { class: 'card' }, h('div', { class: 'row spread', style: { marginBottom: '10px' } }, h('h3', { style: { margin: 0 } }, 'Application errors'), badge(`${d.errors.client7 + d.errors.server7} in 7 days`, d.errors.client7 + d.errors.server7 ? 'warn' : 'good')),
-        d.errors.recent.length ? h('ul', { class: 'list' }, d.errors.recent.map((e) => h('li', { class: 'item' }, h('span', { class: 'dot bad' }), h('div', { class: 'grow' }, h('span', { class: 'mono' }, e.message || '(no message)'), h('div', { class: 'faint small' }, `${e.source} · ${e.route || ''} · ${ago(e.ts)}`)))))
+        d.errors.recent.length ? h('ul', { class: 'list' }, d.errors.recent.map((e) => h('li', { class: 'item' }, h('span', { class: 'dot bad' }), h('div', { class: 'grow' }, h('span', { class: 'mono' }, e.message || '(no message)'), h('div', { class: 'faint small' }, `${tr(e.source)} · ${e.route || ''} · ${ago(e.ts)}`)))))
           : h('p', { class: 'muted' }, 'No errors recorded. Server errors and unhandled browser errors from the player site appear here.')),
       h('section', { class: 'card' }, h('div', { class: 'row spread', style: { marginBottom: '10px' } }, h('h3', { style: { margin: 0 } }, 'System status'), badge(sys.status === 'ok' ? 'Healthy' : sys.status, 'good')),
         h('dl', { class: 'kv' },

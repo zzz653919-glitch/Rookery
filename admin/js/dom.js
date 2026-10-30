@@ -1,5 +1,8 @@
 // Tiny DOM builder. Text is always inserted with textContent / text nodes, never as HTML, so data from the
 // server (titles, ids, messages) can never inject markup into the admin panel.
+import { tr } from './i18n.js';
+
+const TEXT_ATTRS = new Set(['placeholder', 'title', 'aria-label', 'alt', 'aria-description']);
 export function h(tag, props, ...kids) {
   const el = document.createElement(tag);
   for (const [k, v] of Object.entries(props || {})) {
@@ -9,7 +12,9 @@ export function h(tag, props, ...kids) {
     else if (k === 'dataset') Object.assign(el.dataset, v);
     else if (k.startsWith('on') && typeof v === 'function') el.addEventListener(k.slice(2).toLowerCase(), v);
     else if (k === 'for') el.htmlFor = v;
-    else if (k === 'value' || k === 'checked' || k === 'disabled' || k === 'selected' || k === 'hidden' || k === 'type' || k === 'textContent') el[k] = v;
+    else if (k === 'textContent') el[k] = tr(v);
+    else if (k === 'value' || k === 'checked' || k === 'disabled' || k === 'selected' || k === 'hidden' || k === 'type') el[k] = v;
+    else if (TEXT_ATTRS.has(k)) el.setAttribute(k, tr(String(v)));
     else el.setAttribute(k, v === true ? '' : String(v));
   }
   append(el, kids);
@@ -18,10 +23,11 @@ export function h(tag, props, ...kids) {
 export function append(el, kids) {
   for (const k of kids.flat(Infinity)) {
     if (k == null || k === false) continue;
-    el.append(k instanceof Node ? k : document.createTextNode(String(k)));
+    el.append(k instanceof Node ? k : document.createTextNode(tr(String(k))));
   }
   return el;
 }
+export { tr };
 export const clear = (el) => { while (el.firstChild) el.removeChild(el.firstChild); return el; };
 export const $ = (sel, root = document) => root.querySelector(sel);
 
@@ -53,6 +59,7 @@ const PATHS = {
   chess: '<path d="M9 3h6M12 3v3M8 21h8M9 21l1-8h4l1 8M10 13c-2-2-2-5 2-7 4 2 4 5 2 7"/>',
   pulse: '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
   flame: '<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-4-1-6 1-9z"/>',
 };
 export function icon(name, size = 18) {

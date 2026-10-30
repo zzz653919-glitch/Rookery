@@ -1,0 +1,733 @@
+Language ||| Til ||| Язык
+Dashboard ||| Boshqaruv paneli ||| Панель управления
+Content ||| Kontent ||| Контент
+Lessons ||| Darslar ||| Уроки
+Puzzles ||| Boshqotirmalar ||| Задачи
+Themes ||| Mavzular ||| Темы
+Translations ||| Tarjimalar ||| Переводы
+Site ||| Sayt ||| Сайт
+Chess settings ||| Shaxmat sozlamalari ||| Настройки шахмат
+Users & progress ||| Foydalanuvchilar va taraqqiyot ||| Пользователи и прогресс
+Administration ||| Boshqaruv ||| Администрирование
+Audit log ||| Audit jurnali ||| Журнал аудита
+Administrators ||| Administratorlar ||| Администраторы
+My account ||| Mening hisobim ||| Мой аккаунт
+Not available ||| Mavjud emas ||| Недоступно
+Sign in ||| Kirish ||| Войти
+Enter your username and password. ||| Foydalanuvchi nomi va parolingizni kiriting. ||| Введите имя пользователя и пароль.
+Signing in… ||| Kirilmoqda… ||| Вход…
+Admin panel ||| Admin panel ||| Админ-панель
+Admin ||| Admin ||| Админ
+Administrators only. Players use the main site. ||| Faqat administratorlar uchun. O'yinchilar asosiy saytdan foydalanadi. ||| Только для администраторов. Игроки пользуются основным сайтом.
+No administrator exists yet.  ||| Hozircha administrator yo'q.  ||| Администратора пока нет. 
+Create the first one on the server, in a terminal: ||| Birinchisini serverda, terminalda yarating: ||| Создайте первого на сервере, в терминале:
+Sessions end after a period of inactivity. Repeated failed sign-ins are temporarily blocked. ||| Faolsiz qolgandan keyin seans tugaydi. Qayta-qayta muvaffaqiyatsiz kirishlar vaqtincha bloklanadi. ||| Сеанс завершается после периода неактивности. Повторные неудачные попытки входа временно блокируются.
+Open player site ||| O'yinchi saytini ochish ||| Открыть сайт игрока
+Collapse menu ||| Menyuni yig'ish ||| Свернуть меню
+Toggle light / dark theme ||| Yorug' / qorong'i mavzuni almashtirish ||| Переключить светлую / тёмную тему
+Open menu ||| Menyuni ochish ||| Открыть меню
+Sign out ||| Chiqish ||| Выйти
+Discard unsaved changes? ||| Saqlanmagan o'zgarishlar bekor qilinsinmi? ||| Отменить несохранённые изменения?
+You have unsaved changes that will be lost. ||| Saqlanmagan o'zgarishlaringiz bor, ular yo'qoladi. ||| У вас есть несохранённые изменения, они будут потеряны.
+Sign out anyway ||| Baribir chiqish ||| Всё равно выйти
+You have been signed out. ||| Siz tizimdan chiqdingiz. ||| Вы вышли из системы.
+You have unsaved changes on this page. Leaving now will lose them. ||| Bu sahifada saqlanmagan o'zgarishlar bor. Hozir chiqsangiz, ular yo'qoladi. ||| На этой странице есть несохранённые изменения. Если уйти сейчас, они будут потеряны.
+Discard and leave ||| Bekor qilib chiqish ||| Отменить и уйти
+You do not have access to this section. ||| Sizda bu bo'limga kirish huquqi yo'q. ||| У вас нет доступа к этому разделу.
+That page does not exist. ||| Bunday sahifa mavjud emas. ||| Такой страницы не существует.
+Your session has ended. Please sign in again. ||| Seansingiz tugadi. Iltimos, qaytadan kiring. ||| Ваш сеанс завершён. Пожалуйста, войдите снова.
+Username ||| Foydalanuvchi nomi ||| Имя пользователя
+Password ||| Parol ||| Пароль
+Cannot reach the server. Check that it is running. ||| Serverga ulanib bo'lmadi. Server ishlayotganini tekshiring. ||| Не удаётся связаться с сервером. Проверьте, что он запущен.
+Request failed ||| So'rov bajarilmadi ||| Запрос не выполнен
+Authentication required. ||| Autentifikatsiya talab qilinadi. ||| Требуется аутентификация.
+You do not have permission to do this. ||| Sizda buning uchun ruxsat yo'q. ||| У вас нет разрешения на это действие.
+Missing or invalid CSRF token. ||| CSRF token yo'q yoki noto'g'ri. ||| Отсутствует или недействителен CSRF-токен.
+Cross-origin request refused. ||| Boshqa manbadan kelgan so'rov rad etildi. ||| Запрос с другого источника отклонён.
+Not found ||| Topilmadi ||| Не найдено
+Method not allowed ||| Usul ruxsat etilmagan ||| Метод не разрешён
+Slow down. ||| Sekinroq. ||| Помедленнее.
+Confirm ||| Tasdiqlash ||| Подтвердить
+Cancel ||| Bekor qilish ||| Отмена
+Type {code} to confirm ||| Tasdiqlash uchun {code} kiriting ||| Введите {code} для подтверждения
+Please fix the following ||| Iltimos, quyidagilarni tuzating ||| Пожалуйста, исправьте следующее
+Something went wrong ||| Nimadir xato ketdi ||| Что-то пошло не так
+Try again ||| Qayta urinish ||| Повторить
+Search… ||| Qidirish… ||| Поиск…
+Search ||| Qidirish ||| Поиск
+No matches ||| Hech narsa topilmadi ||| Ничего не найдено
+Nothing here yet ||| Hozircha bu yerda hech narsa yo'q ||| Здесь пока ничего нет
+Try a different search or clear the filters. ||| Boshqa so'rov kiriting yoki filtrlarni tozalang. ||| Измените запрос или сбросьте фильтры.
+Previous ||| Oldingi ||| Назад
+Next ||| Keyingi ||| Далее
+Page {page} of {pages} ||| {page}-sahifa, jami {pages} ||| Страница {page} из {pages}
+{n} item|{n} items ||| {n} ta element ||| {n} элемент|{n} элемента|{n} элементов
+just now ||| hozirgina ||| только что
+{n} min ago ||| {n} daqiqa oldin ||| {n} мин назад
+{n} h ago ||| {n} soat oldin ||| {n} ч назад
+{n} d ago ||| {n} kun oldin ||| {n} дн. назад
+{n} MB ||| {n} MB ||| {n} МБ
+{n} KB ||| {n} KB ||| {n} КБ
+{d}d {h}h ||| {d}k {h}s ||| {d}д {h}ч
+{h}h {m}m ||| {h}s {m}d ||| {h}ч {m}м
+{m}m {s}s ||| {m}d {s}s ||| {m}м {s}с
+Change password ||| Parolni o'zgartirish ||| Сменить пароль
+Signed in as {name} ({role}). ||| {name} sifatida kirdingiz ({role}). ||| Вы вошли как {name} ({role}).
+The new passwords do not match. ||| Yangi parollar mos kelmadi. ||| Новые пароли не совпадают.
+Password changed. Other devices were signed out. ||| Parol o'zgartirildi. Boshqa qurilmalardan chiqarildi. ||| Пароль изменён. На других устройствах выполнен выход.
+Current password ||| Joriy parol ||| Текущий пароль
+New password ||| Yangi parol ||| Новый пароль
+At least 12 characters, mixing three of: lower-case, upper-case, digits, symbols. ||| Kamida 12 belgi; kichik harf, bosh harf, raqam, belgilardan uchtasini aralashtiring. ||| Не менее 12 символов, сочетающих три вида: строчные, прописные, цифры, символы.
+Repeat new password ||| Yangi parolni takrorlang ||| Повторите новый пароль
+Add administrator ||| Administrator qo'shish ||| Добавить администратора
+Role ||| Rol ||| Роль
+Status ||| Holat ||| Статус
+Disabled ||| O'chirilgan ||| Отключён
+Active ||| Faol ||| Активен
+Last sign-in ||| Oxirgi kirish ||| Последний вход
+Never ||| Hech qachon ||| Никогда
+Edit ||| Tahrirlash ||| Изменить
+View ||| Ko'rish ||| Просмотр
+Roles decide what each administrator may do. Permissions are enforced on the server. ||| Rollar har bir administrator nima qila olishini belgilaydi. Ruxsatlar serverda tekshiriladi. ||| Роли определяют, что может делать каждый администратор. Права проверяются на сервере.
+Roles ||| Rollar ||| Роли
+superadmin ||| superadmin ||| суперадмин
+editor ||| muharrir ||| редактор
+viewer ||| kuzatuvchi ||| наблюдатель
+Everything, including administrator accounts. ||| Hamma narsa, jumladan administrator hisoblari. ||| Всё, включая учётные записи администраторов.
+Create, edit, publish and delete lessons, puzzles and themes; read settings and the audit log. ||| Darslar, boshqotirmalar va mavzularni yaratish, tahrirlash, e'lon qilish va o'chirish; sozlamalar va audit jurnalini ko'rish. ||| Создание, изменение, публикация и удаление уроков, задач и тем; просмотр настроек и журнала аудита.
+Read-only access to the dashboard, content, themes and settings. ||| Boshqaruv paneli, kontent, mavzular va sozlamalarni faqat ko'rish. ||| Доступ только для чтения к панели, контенту, темам и настройкам.
+3–32 letters, digits, dot, dash or underscore. ||| 3–32 ta harf, raqam, nuqta, chiziqcha yoki pastki chiziq. ||| 3–32 буквы, цифры, точка, дефис или подчёркивание.
+Initial password ||| Boshlang'ich parol ||| Начальный пароль
+At least 12 characters, mixing three character types. Share it securely; the administrator should change it after signing in. ||| Kamida 12 belgi, uch xil belgi turini aralashtiring. Uni xavfsiz yo'l bilan yetkazing; administrator kirgandan keyin uni o'zgartirishi kerak. ||| Не менее 12 символов, три вида символов. Передайте его безопасным способом; администратору следует сменить пароль после входа.
+Create ||| Yaratish ||| Создать
+Administrator created. ||| Administrator yaratildi. ||| Администратор создан.
+Leave empty to keep the current password ||| Joriy parolni saqlash uchun bo'sh qoldiring ||| Оставьте пустым, чтобы сохранить текущий пароль
+Save ||| Saqlash ||| Сохранить
+Saved. ||| Saqlandi. ||| Сохранено.
+Edit {name} ||| {name}ni tahrirlash ||| Изменить: {name}
+You cannot change your own role. ||| O'z rolingizni o'zgartira olmaysiz. ||| Вы не можете изменить собственную роль.
+Disabled (cannot sign in) ||| O'chirilgan (kira olmaydi) ||| Отключён (не может войти)
+Reset password ||| Parolni tiklash ||| Сбросить пароль
+Signs the administrator out everywhere. ||| Administratorni hamma joydan chiqarib yuboradi. ||| Выполняет выход администратора на всех устройствах.
+Every administrative change, sign-in and failed sign-in. Secrets are never recorded. ||| Har bir boshqaruv o'zgarishi, kirish va muvaffaqiyatsiz kirish. Maxfiy ma'lumotlar hech qachon yozilmaydi. ||| Каждое административное изменение, вход и неудачная попытка входа. Секреты никогда не записываются.
+Search by action, administrator or id… ||| Harakat, administrator yoki id bo'yicha qidirish… ||| Поиск по действию, администратору или id…
+All areas ||| Barcha bo'limlar ||| Все разделы
+Board themes ||| Taxta mavzulari ||| Темы доски
+Piece sets ||| Dona to'plamlari ||| Наборы фигур
+Settings ||| Sozlamalar ||| Настройки
+When ||| Qachon ||| Когда
+Administrator ||| Administrator ||| Администратор
+Action ||| Harakat ||| Действие
+Target ||| Obyekt ||| Объект
+Details ||| Tafsilotlar ||| Подробности
+No audit entries yet ||| Audit yozuvlari hali yo'q ||| Записей аудита пока нет
+Lesson started ||| Dars boshlandi ||| Урок начат
+Lesson completed ||| Dars tugallandi ||| Урок пройден
+Puzzle attempted ||| Boshqotirma urinishi ||| Попытка решить задачу
+Game finished ||| O'yin tugadi ||| Партия завершена
+Placement test finished ||| Saralash testi tugadi ||| Тест на определение уровня пройден
+Administrator signed in ||| Administrator kirdi ||| Администратор вошёл
+Failed sign-in ||| Muvaffaqiyatsiz kirish ||| Неудачный вход
+Sign-in blocked (rate limit) ||| Kirish bloklandi (tezlik chegarasi) ||| Вход заблокирован (лимит попыток)
+Administrator signed out ||| Administrator chiqdi ||| Администратор вышел
+level {n} ||| {n}-daraja ||| уровень {n}
+Overview ||| Umumiy ko'rinish ||| Обзор
+Live numbers from the database. Player statistics are anonymous and only exist for visits that reached this server. ||| Ma'lumotlar bazasidan jonli raqamlar. O'yinchi statistikasi anonim va faqat shu serverga kirgan tashriflar uchun mavjud. ||| Актуальные данные из базы. Статистика игроков анонимна и есть только для визитов, дошедших до этого сервера.
+Live numbers from the database. Player statistics are anonymous and only count visits served by this server. ||| Ma'lumotlar bazasidan jonli raqamlar. O'yinchi statistikasi anonim va faqat shu server xizmat ko'rsatgan tashriflarni hisoblaydi. ||| Актуальные данные из базы. Статистика игроков анонимна и учитывает только визиты, обслуженные этим сервером.
+Refresh ||| Yangilash ||| Обновить
+Published lessons ||| E'lon qilingan darslar ||| Опубликованные уроки
+{total} total · {draft} draft ||| jami {total} · {draft} ta qoralama ||| всего {total} · черновиков {draft}
+Published puzzles ||| E'lon qilingan boshqotirmalar ||| Опубликованные задачи
+Games completed ||| Tugallangan o'yinlar ||| Завершённые партии
+{n} in the last 7 days ||| So'nggi 7 kunda {n} ta ||| За последние 7 дней: {n}
+{win} won · {draw} drawn · {loss} lost ||| {win} g'alaba · {draw} durang · {loss} mag'lubiyat ||| побед {win} · ничьих {draw} · поражений {loss}
+Active learners (30 days) ||| Faol o'quvchilar (30 kun) ||| Активные ученики (30 дней)
+{week} in 7 days · {all} ever (anonymous browsers) ||| 7 kunda {week} · jami {all} (anonim brauzerlar) ||| за 7 дней {week} · всего {all} (анонимные браузеры)
+Most popular lessons ||| Eng mashhur darslar ||| Самые популярные уроки
+Lesson ||| Dars ||| Урок
+Completions ||| Tugallanganlar ||| Прохождения
+Starts ||| Boshlanganlar ||| Начатые
+Learners ||| O'quvchilar ||| Ученики
+No lesson activity yet ||| Dars faolligi hali yo'q ||| Активности по урокам пока нет
+Completions appear here once visitors use lessons on this server. ||| Tashrifchilar bu serverda darslardan foydalana boshlagach, tugallanganlar shu yerda ko'rinadi. ||| Прохождения появятся здесь, когда посетители начнут проходить уроки на этом сервере.
+Recent activity ||| So'nggi faollik ||| Недавняя активность
+No activity yet ||| Faollik hali yo'q ||| Активности пока нет
+Player ||| O'yinchi ||| Игрок
+Application errors ||| Ilova xatolari ||| Ошибки приложения
+{n} in 7 days ||| 7 kunda {n} ta ||| за 7 дней: {n}
+(no message) ||| (xabar yo'q) ||| (без сообщения)
+No errors recorded. Server errors and unhandled browser errors from the player site appear here. ||| Xatolar qayd etilmagan. Server xatolari va o'yinchi saytidagi ushlanmagan brauzer xatolari shu yerda ko'rinadi. ||| Ошибок нет. Здесь появляются ошибки сервера и необработанные ошибки браузера с сайта игрока.
+server ||| server ||| сервер
+client ||| mijoz ||| клиент
+System status ||| Tizim holati ||| Состояние системы
+Healthy ||| Sog'lom ||| В порядке
+Uptime ||| Ishlash vaqti ||| Время работы
+Database ||| Ma'lumotlar bazasi ||| База данных
+Migrations ||| Migratsiyalar ||| Миграции
+{n} applied ({last}) ||| {n} ta qo'llangan ({last}) ||| применено: {n} ({last})
+Last backup ||| Oxirgi zaxira nusxa ||| Последняя резервная копия
+{when} ({n} stored) ||| {when} ({n} ta saqlangan) ||| {when} (хранится: {n})
+None yet — run npm run db:backup ||| Hali yo'q — npm run db:backup ni ishga tushiring ||| Пока нет — выполните npm run db:backup
+Content version ||| Kontent versiyasi ||| Версия контента
+{n} active · {s} signed-in session(s) ||| {n} ta faol · {s} ta kirgan seans ||| активных: {n} · сеансов: {s}
+Themes enabled ||| Yoqilgan mavzular ||| Включённые темы
+{board} board · {sets} piece sets ||| {board} ta taxta · {sets} ta dona to'plami ||| досок: {board} · наборов фигур: {sets}
+Usage events stored ||| Saqlangan foydalanish hodisalari ||| Сохранённые события использования
+Beginner ||| Boshlovchi ||| Новичок
+Improver ||| Rivojlanayotgan ||| Продолжающий
+Intermediate ||| O'rta ||| Средний
+Advanced ||| Ilg'or ||| Продвинутый
+Expert ||| Ekspert ||| Эксперт
+Rules ||| Qoidalar ||| Правила
+Tactics ||| Taktika ||| Тактика
+Mates ||| Matlar ||| Маты
+Endgames ||| Endshpil ||| Эндшпиль
+Openings ||| Debyutlar ||| Дебюты
+Strategy ||| Strategiya ||| Стратегия
+Forks ||| Vilkalar ||| Вилки
+Pins ||| Bog'lashlar ||| Связки
+Search lessons by title or id… ||| Darslarni sarlavha yoki id bo'yicha qidirish… ||| Поиск уроков по названию или id…
+All levels ||| Barcha darajalar ||| Все уровни
+Any status ||| Istalgan holat ||| Любой статус
+Published ||| E'lon qilingan ||| Опубликован
+published ||| e'lon qilingan ||| опубликован
+Draft ||| Qoralama ||| Черновик
+draft ||| qoralama ||| черновик
+unsaved ||| saqlanmagan ||| не сохранён
+bundled lesson ||| o'rnatilgan dars ||| встроенный урок
+New lesson ||| Yangi dars ||| Новый урок
+No lessons yet ||| Hozircha darslar yo'q ||| Уроков пока нет
+Create your first lesson. ||| Birinchi darsingizni yarating. ||| Создайте свой первый урок.
+Order ||| Tartib ||| Порядок
+Move up ||| Yuqoriga ||| Вверх
+Move down ||| Pastga ||| Вниз
+{id} · {steps} steps · {min} min ||| {id} · {steps} qadam · {min} daqiqa ||| {id} · шагов: {steps} · {min} мин
+Level ||| Daraja ||| Уровень
+Skill ||| Ko'nikma ||| Навык
+Difficulty ||| Qiyinlik ||| Сложность
+Updated ||| Yangilangan ||| Обновлено
+Lesson unpublished. ||| Dars e'londan olindi. ||| Урок снят с публикации.
+Lesson published. ||| Dars e'lon qilindi. ||| Урок опубликован.
+Cannot publish ||| E'lon qilib bo'lmaydi ||| Нельзя опубликовать
+Close ||| Yopish ||| Закрыть
+Unpublish ||| E'londan olish ||| Снять с публикации
+Publish ||| E'lon qilish ||| Опубликовать
+Delete lesson? ||| Dars o'chirilsinmi? ||| Удалить урок?
+“{title}” will be permanently deleted. Learners who completed it keep their own progress, but the lesson disappears from the site. ||| “{title}” butunlay o'chiriladi. Uni tugatgan o'quvchilar o'z taraqqiyotini saqlab qoladi, ammo dars saytdan yo'qoladi. ||| «{title}» будет удалён безвозвратно. Ученики, прошедшие его, сохранят свой прогресс, но урок исчезнет с сайта.
+Delete lesson ||| Darsni o'chirish ||| Удалить урок
+Lesson deleted. ||| Dars o'chirildi. ||| Урок удалён.
+Delete ||| O'chirish ||| Удалить
+Learners are guided through the lessons of their assessed level in the order shown here. Select a level to reorder. ||| O'quvchilar o'z darajasidagi darslardan shu yerda ko'rsatilgan tartibda o'tadi. Tartibni o'zgartirish uchun darajani tanlang. ||| Ученики проходят уроки своего уровня в показанном здесь порядке. Выберите уровень, чтобы изменить порядок.
+Introduction ||| Kirish ||| Введение
+Edit lesson ||| Darsni tahrirlash ||| Изменить урок
+1 — easiest ||| 1 — eng oson ||| 1 — самый лёгкий
+5 — hardest ||| 5 — eng qiyin ||| 5 — самый сложный
+Draft — hidden from learners ||| Qoralama — o'quvchilarga ko'rinmaydi ||| Черновик — скрыт от учеников
+Published — visible to learners ||| E'lon qilingan — o'quvchilarga ko'rinadi ||| Опубликован — виден ученикам
+Objective {n} ||| {n}-maqsad ||| Цель {n}
+Add objective ||| Maqsad qo'shish ||| Добавить цель
+Learners assessed as {level} see this level’s lessons in a fixed order ({n} published now). ||| {level} darajasida baholangan o'quvchilar bu darajadagi darslarni qat'iy tartibda ko'radi (hozir {n} ta e'lon qilingan). ||| Ученики с уровнем «{level}» видят уроки этого уровня в фиксированном порядке (сейчас опубликовано: {n}).
+Learners assessed as {level} see this level’s lessons in a fixed order ({published} published now). ||| {level} darajasida baholangan o'quvchilar bu darajadagi darslarni qat'iy tartibda ko'radi (hozir {published} ta e'lon qilingan). ||| Ученики с уровнем «{level}» видят уроки этого уровня в фиксированном порядке (сейчас опубликовано: {published}).
+This lesson is #{n} of {total}. ||| Bu dars {total} tadan {n}-o'rinda. ||| Этот урок №{n} из {total}.
+It will be added at the end of the level. ||| U daraja oxiriga qo'shiladi. ||| Он будет добавлен в конец уровня.
+Reorder lessons from the lessons list. ||| Darslar tartibini darslar ro'yxatidan o'zgartiring. ||| Порядок уроков меняется в списке уроков.
+Lesson id ||| Dars id ||| Id урока
+Lower-case letters, digits, hyphens. Cannot change later. ||| Kichik harflar, raqamlar, chiziqcha. Keyin o'zgartirib bo'lmaydi. ||| Строчные буквы, цифры, дефисы. Позже изменить нельзя.
+Title ||| Sarlavha ||| Название
+Minutes ||| Daqiqalar ||| Минуты
+Summary (shown on lesson cards) ||| Qisqacha (dars kartochkalarida ko'rsatiladi) ||| Краткое описание (на карточках уроков)
+Description (optional) ||| Tavsif (ixtiyoriy) ||| Описание (необязательно)
+Allowed formatting: <b>, <i>, <p>, <ul>/<li>.  ||| Ruxsat etilgan formatlash: <b>, <i>, <p>, <ul>/<li>.  ||| Допустимое форматирование: <b>, <i>, <p>, <ul>/<li>. 
+Learning objectives ||| O'quv maqsadlari ||| Цели обучения
+Publishing requires at least one exercise and a quiz. ||| E'lon qilish uchun kamida bitta mashq va viktorina kerak. ||| Для публикации нужно хотя бы одно упражнение и тест.
+Move step up ||| Qadamni yuqoriga ||| Шаг вверх
+Move step down ||| Qadamni pastga ||| Шаг вниз
+Duplicate ||| Nusxalash ||| Дублировать
+Delete step? ||| Qadam o'chirilsinmi? ||| Удалить шаг?
+Remove step {n} ({label}) from this lesson? ||| {n}-qadam ({label}) bu darsdan olib tashlansinmi? ||| Удалить шаг {n} ({label}) из этого урока?
+Delete step ||| Qadamni o'chirish ||| Удалить шаг
+No steps yet ||| Hozircha qadamlar yo'q ||| Шагов пока нет
+Add an explanation, exercises and a final quiz. ||| Tushuntirish, mashqlar va yakuniy viktorina qo'shing. ||| Добавьте объяснение, упражнения и итоговый тест.
+Add a step… ||| Qadam qo'shish… ||| Добавить шаг…
+Explanation (text + diagram) ||| Tushuntirish (matn + diagramma) ||| Объяснение (текст + диаграмма)
+Exercise: find the move ||| Mashq: yurishni toping ||| Упражнение: найдите ход
+Exercise: play a sequence ||| Mashq: yurishlar ketma-ketligini o'ynang ||| Упражнение: сыграйте последовательность ходов
+Exercise: click squares ||| Mashq: kataklarni bosing ||| Упражнение: нажмите на клетки
+Exercise: multiple choice ||| Mashq: bir nechta variantdan tanlash ||| Упражнение: выбор из вариантов
+Exercise: coordinate practice ||| Mashq: koordinatalar mashqi ||| Упражнение: тренировка координат
+Final quiz ||| Yakuniy viktorina ||| Итоговый тест
+Add a step ||| Qadam qo'shish ||| Добавить шаг
+Steps ||| Qadamlar ||| Шаги
+Edit as JSON ||| JSON sifatida tahrirlash ||| Изменить как JSON
+Raw step data. The server validates every field (positions, legal moves, allowed formatting) when you save the lesson. ||| Qadamning xom ma'lumotlari. Dars saqlanganda server har bir maydonni (pozitsiyalar, qonuniy yurishlar, ruxsat etilgan formatlash) tekshiradi. ||| Необработанные данные шага. При сохранении урока сервер проверяет каждое поле (позиции, допустимые ходы, форматирование).
+Back to form ||| Shaklga qaytish ||| Назад к форме
+Invalid JSON:  ||| Noto'g'ri JSON:  ||| Некорректный JSON: 
+Apply to lesson ||| Darsga qo'llash ||| Применить к уроку
+{label} — step {n} ||| {label} — {n}-qadam ||| {label} — шаг {n}
+This lesson has problems ||| Bu darsda muammolar bor ||| В этом уроке есть проблемы
+Fix the problems listed below. ||| Quyida ko'rsatilgan muammolarni tuzating. ||| Исправьте перечисленные ниже проблемы.
+Lesson is valid. ||| Dars to'g'ri. ||| Урок корректен.
+Saved and published. ||| Saqlandi va e'lon qilindi. ||| Сохранено и опубликовано.
+Saved as draft. ||| Qoralama sifatida saqlandi. ||| Сохранено как черновик.
+Save lesson ||| Darsni saqlash ||| Сохранить урок
+Validate ||| Tekshirish ||| Проверить
+Preview lesson ||| Darsni oldindan ko'rish ||| Предпросмотр урока
+Back to lessons ||| Darslarga qaytish ||| Назад к урокам
+Preview ||| Oldindan ko'rish ||| Предпросмотр
+Runs the real lesson player with your current, unsaved content. Nothing you do here is recorded as progress. ||| Haqiqiy dars pleyerini joriy, saqlanmagan kontent bilan ishga tushiradi. Bu yerdagi hech narsa taraqqiyot sifatida yozilmaydi. ||| Запускает настоящий проигрыватель уроков с вашим текущим несохранённым содержимым. Ничто из сделанного здесь не записывается как прогресс.
+You have read-only access to content. ||| Sizda kontentni faqat ko'rish huquqi bor. ||| У вас доступ к контенту только для чтения.
+Organisation: tactical theme × skill level ||| Tuzilma: taktik mavzu × mahorat darajasi ||| Структура: тактическая тема × уровень навыка
+Published / total puzzles. Click a cell to filter the table. ||| E'lon qilingan / jami boshqotirmalar. Jadvalni filtrlash uchun katakni bosing. ||| Опубликовано / всего задач. Нажмите на ячейку, чтобы отфильтровать таблицу.
+Search by id, FEN or hint… ||| Id, FEN yoki maslahat bo'yicha qidirish… ||| Поиск по id, FEN или подсказке…
+All themes ||| Barcha mavzular ||| Все темы
+New puzzle ||| Yangi boshqotirma ||| Новая задача
+No puzzles yet ||| Hozircha boshqotirmalar yo'q ||| Задач пока нет
+Puzzle ||| Boshqotirma ||| Задача
+Theme ||| Mavzu ||| Тема
+Moves ||| Yurishlar ||| Ходы
+{n} to find ||| topish kerak: {n} ||| найти: {n}
+Solution ||| Yechim ||| Решение
+Puzzle unpublished. ||| Boshqotirma e'londan olindi. ||| Задача снята с публикации.
+Puzzle published. ||| Boshqotirma e'lon qilindi. ||| Задача опубликована.
+Delete puzzle? ||| Boshqotirma o'chirilsinmi? ||| Удалить задачу?
+Puzzle {id} will be permanently deleted. ||| {id} boshqotirmasi butunlay o'chiriladi. ||| Задача {id} будет удалена безвозвратно.
+Delete puzzle ||| Boshqotirmani o'chirish ||| Удалить задачу
+Puzzle deleted. ||| Boshqotirma o'chirildi. ||| Задача удалена.
+Every puzzle is checked against the chess rules before it can be published. ||| Har bir boshqotirma e'lon qilinishidan oldin shaxmat qoidalari bo'yicha tekshiriladi. ||| Каждая задача проверяется по правилам шахмат перед публикацией.
+Edit puzzle ||| Boshqotirmani tahrirlash ||| Изменить задачу
+No moves recorded yet. ||| Hozircha yurishlar yozilmagan. ||| Ходы пока не записаны.
+Undo last ||| Oxirgisini bekor qilish ||| Отменить последний
+Solver ||| Yechuvchi ||| Решающий
+Reply ||| Javob ||| Ответ
+promotion, fork ||| promosiya, vilka ||| превращение, вилка
+Validating… ||| Tekshirilmoqda… ||| Проверка…
+This puzzle has problems ||| Bu boshqotirmada muammolar bor ||| В этой задаче есть проблемы
+All moves are legal and the position is valid. ||| Barcha yurishlar qonuniy va pozitsiya to'g'ri. ||| Все ходы допустимы, позиция корректна.
+Engine check unavailable. ||| Dvigatel tekshiruvi mavjud emas. ||| Проверка движком недоступна.
+The built-in engine also picks this first move. ||| O'rnatilgan dvigatel ham shu birinchi yurishni tanlaydi. ||| Встроенный движок тоже выбирает этот первый ход.
+Note: the built-in engine prefers {move} for the first move. Make sure your solution is the only strong one. ||| Eslatma: o'rnatilgan dvigatel birinchi yurish uchun {move} ni afzal ko'radi. Yechimingiz yagona kuchli yechim ekaniga ishonch hosil qiling. ||| Примечание: встроенный движок предпочитает {move} в качестве первого хода. Убедитесь, что ваше решение — единственное сильное.
+Validate & publish ||| Tekshirish va e'lon qilish ||| Проверить и опубликовать
+The side to move in the FEN is the solver. Record the solution by playing it on the board. ||| FEN dagi yurish navbati tomon — yechuvchi. Yechimni taxtada o'ynab yozing. ||| Сторона, которая ходит в FEN, — решающая. Запишите решение, сыграв его на доске.
+Back to puzzles ||| Boshqotirmalarga qaytish ||| Назад к задачам
+Position & solution ||| Pozitsiya va yechim ||| Позиция и решение
+Switch to “Play moves”, then play the solver’s first move, the opponent’s reply, and so on. The last recorded move must be the solver’s. ||| “Yurishlarni o'ynash” rejimiga o'ting, so'ng yechuvchining birinchi yurishini, raqibning javobini va hokazoni o'ynang. Oxirgi yozilgan yurish yechuvchiniki bo'lishi kerak. ||| Переключитесь на «Играть ходы», затем сыграйте первый ход решающего, ответ соперника и так далее. Последний записанный ход должен быть ходом решающего.
+Solution moves ||| Yechim yurishlari ||| Ходы решения
+Puzzle id ||| Boshqotirma id ||| Id задачи
+Lower-case letters, digits, hyphens. ||| Kichik harflar, raqamlar, chiziqcha. ||| Строчные буквы, цифры, дефисы.
+Tactical category ||| Taktik toifa ||| Тактическая категория
+Skill level ||| Mahorat darajasi ||| Уровень навыка
+Motif tags (optional) ||| Motiv teglari (ixtiyoriy) ||| Теги мотивов (необязательно)
+Letters and digits, comma separated. ||| Harflar va raqamlar, vergul bilan ajratilgan. ||| Буквы и цифры, через запятую.
+Hint ||| Maslahat ||| Подсказка
+Explanation shown after solving ||| Yechilgandan keyin ko'rsatiladigan tushuntirish ||| Объяснение, показываемое после решения
+Publishing needs a hint, an explanation and a valid solution. Mate-in-1 / Mate-in-2 categories must end in checkmate. ||| E'lon qilish uchun maslahat, tushuntirish va to'g'ri yechim kerak. 1 yurishda mat / 2 yurishda mat toifalari matga yakunlanishi kerak. ||| Для публикации нужны подсказка, объяснение и корректное решение. Категории «Мат в 1 ход» / «Мат в 2 хода» должны заканчиваться матом.
+Validate & test ||| Tekshirish va sinash ||| Проверить и испытать
+Validate solution ||| Yechimni tekshirish ||| Проверить решение
+Test on the board ||| Taxtada sinash ||| Проверить на доске
+Also ask the built-in engine (a few seconds) ||| O'rnatilgan dvigateldan ham so'rash (bir necha soniya) ||| Спросить и встроенный движок (несколько секунд)
+Mate in 1 ||| 1 yurishda mat ||| Мат в 1 ход
+Mate in 2 ||| 2 yurishda mat ||| Мат в 2 хода
+Discovered attacks ||| Ochilgan hujumlar ||| Вскрытые атаки
+Skewers ||| Tikishlar ||| Линейные удары
+Deliver checkmate in a single move. ||| Bir yurishda mat qo'ying. ||| Поставьте мат одним ходом.
+Force checkmate on your second move. ||| Ikkinchi yurishda majburiy mat qo'ying. ||| Поставьте принудительный мат вторым ходом.
+Attack two pieces at once. ||| Bir vaqtda ikkita donaga hujum qiling. ||| Атакуйте две фигуры одновременно.
+Win material with a piece that cannot move. ||| Qimirlay olmaydigan dona yordamida material yutib oling. ||| Выиграйте материал с помощью фигуры, которая не может двигаться.
+Attack the big piece, win the one behind it. ||| Katta donaga hujum qiling, uning orqasidagisini yutib oling. ||| Атакуйте крупную фигуру и выиграйте ту, что за ней.
+Move one piece, unleash another. ||| Bir donani yuring, boshqasini ozod qiling. ||| Сдвиньте одну фигуру — освободите другую.
+Remove {name} ||| {name}ni olib tashlash ||| Удалить {name}
+“{value}” is not valid here. ||| “{value}” bu yerda yaroqsiz. ||| «{value}» здесь недопустимо.
+Enter ||| Kiriting ||| Введите
+Add ||| Qo'shish ||| Добавить
+Option {n} is correct ||| {n}-variant to'g'ri ||| Вариант {n} правильный
+Option {n} ||| {n}-variant ||| Вариант {n}
+Remove option ||| Variantni olib tashlash ||| Удалить вариант
+Add option ||| Variant qo'shish ||| Добавить вариант
+Select the radio button next to the correct answer. ||| To'g'ri javob yonidagi tugmani tanlang. ||| Выберите переключатель рядом с правильным ответом.
+Move ||| Yurish ||| Ход
+Message ||| Xabar ||| Сообщение
+Add note ||| Izoh qo'shish ||| Добавить заметку
+Info (amber) ||| Ma'lumot (sariq) ||| Информация (янтарный)
+Good (green) ||| Yaxshi (yashil) ||| Хорошо (зелёный)
+Bad (red) ||| Yomon (qizil) ||| Плохо (красный)
+Hint (blue) ||| Maslahat (ko'k) ||| Подсказка (синий)
+Gold ||| Oltin ||| Золотой
+Red ||| Qizil ||| Красный
+Green ||| Yashil ||| Зелёный
+Blue ||| Ko'k ||| Синий
+Highlighted squares ||| Ajratilgan kataklar ||| Выделенные клетки
+Square ||| Katak ||| Клетка
+Kind ||| Turi ||| Вид
+Add square ||| Katak qo'shish ||| Добавить клетку
+Arrows ||| O'qlar ||| Стрелки
+From ||| Qayerdan ||| Откуда
+To ||| Qayerga ||| Куда
+Colour ||| Rang ||| Цвет
+Add arrow ||| O'q qo'shish ||| Добавить стрелку
+Allowed formatting: <b>, <i>, <p>, <ul>/<ol>/<li>, <br>, <code>. Anything else is removed. ||| Ruxsat etilgan formatlash: <b>, <i>, <p>, <ul>/<ol>/<li>, <br>, <code>. Qolgan hamma narsa olib tashlanadi. ||| Допустимое форматирование: <b>, <i>, <p>, <ul>/<ol>/<li>, <br>, <code>. Всё остальное удаляется.
+Let the learner click pieces to see where they can move ||| O'quvchi donalarni bosib, ular qayerga yura olishini ko'rsin ||| Позволить ученику нажимать на фигуры, чтобы видеть их возможные ходы
+Show a chess diagram ||| Shaxmat diagrammasini ko'rsatish ||| Показать шахматную диаграмму
+Question {n} ||| {n}-savol ||| Вопрос {n}
+Explanation shown after answering ||| Javob berilgandan keyin ko'rsatiladigan tushuntirish ||| Объяснение, показываемое после ответа
+Add question ||| Savol qo'shish ||| Добавить вопрос
+The quiz ends the lesson: learners must pass it to complete the lesson. ||| Viktorina darsni yakunlaydi: darsni tugatish uchun o'quvchilar uni topshirishi kerak. ||| Тест завершает урок: чтобы пройти урок, ученики должны сдать тест.
+Instruction shown to the learner ||| O'quvchiga ko'rsatiladigan topshiriq ||| Задание, показываемое ученику
+Hint (optional) ||| Maslahat (ixtiyoriy) ||| Подсказка (необязательно)
+Explanation after solving (optional) ||| Yechilgandan keyingi tushuntirish (ixtiyoriy) ||| Объяснение после решения (необязательно)
+Accepted move ||| Qabul qilinadigan yurish ||| Принимаемый ход
+Why this move is not best ||| Bu yurish nega eng yaxshi emas ||| Почему этот ход не лучший
+None ||| Yo'q ||| Нет
+Engine agrees it is the best move (checked in tests) ||| Dvigatel bu eng yaxshi yurish ekaniga rozi (testlarda tekshiriladi) ||| Движок согласен, что это лучший ход (проверяется в тестах)
+It is checkmate in one ||| Bir yurishda mat ||| Мат в один ход
+It stops a mate threat ||| Mat tahdidini to'xtatadi ||| Останавливает угрозу мата
+Choose “Play moves”, then play a correct move on the board to add it to the accepted moves. You can accept several. ||| “Yurishlarni o'ynash”ni tanlang, so'ng to'g'ri yurishni taxtada o'ynab, qabul qilinadiganlarga qo'shing. Bir nechtasini qabul qilish mumkin. ||| Выберите «Играть ходы», затем сыграйте правильный ход на доске, чтобы добавить его в принимаемые. Можно принять несколько.
+Accepted moves ||| Qabul qilinadigan yurishlar ||| Принимаемые ходы
+Common wrong moves and what to tell the learner (optional) ||| Keng tarqalgan xato yurishlar va o'quvchiga nima deyish (ixtiyoriy) ||| Частые неверные ходы и что сказать ученику (необязательно)
+Verification label (optional) ||| Tekshirish yorlig'i (ixtiyoriy) ||| Метка проверки (необязательно)
+This step accepts alternative moves. Saving here keeps only the main line — use the JSON tab to keep alternatives. ||| Bu qadam muqobil yurishlarni qabul qiladi. Bu yerda saqlash faqat asosiy variantni qoldiradi — muqobillarni saqlash uchun JSON bo'limidan foydalaning. ||| Этот шаг принимает альтернативные ходы. Сохранение здесь оставит только основную линию — чтобы сохранить альтернативы, используйте вкладку JSON.
+Moves in order ||| Tartib bilan yurishlar ||| Ходы по порядку
+Target square ||| Maqsad katak ||| Целевая клетка
+Squares the learner must click ||| O'quvchi bosishi kerak bo'lgan kataklar ||| Клетки, которые ученик должен нажать
+Instruction ||| Topshiriq ||| Задание
+Rounds ||| Raundlar ||| Раунды
+Correct answers needed ||| Kerakli to'g'ri javoblar ||| Нужно правильных ответов
+Heading (instruction) ||| Sarlavha (topshiriq) ||| Заголовок (задание)
+Show a chess diagram with the question ||| Savol bilan shaxmat diagrammasini ko'rsatish ||| Показать шахматную диаграмму с вопросом
+Explanation after answering ||| Javobdan keyingi tushuntirish ||| Объяснение после ответа
+This step type can only be edited as JSON. ||| Bu qadam turini faqat JSON sifatida tahrirlash mumkin. ||| Этот тип шага можно редактировать только как JSON.
+New explanation ||| Yangi tushuntirish ||| Новое объяснение
+Play the moves. ||| Yurishlarni o'ynang. ||| Сыграйте ходы.
+Click every square the piece can move to. ||| Dona yura oladigan har bir katakni bosing. ||| Нажмите на каждую клетку, на которую может пойти фигура.
+Which is correct? ||| Qaysi biri to'g'ri? ||| Какой вариант верный?
+Answer A ||| A javob ||| Ответ A
+Answer B ||| B javob ||| Ответ B
+Click the square that is named on the right. ||| O'ngda nomi aytilgan katakni bosing. ||| Нажмите на клетку, название которой указано справа.
+Explanation ||| Tushuntirish ||| Объяснение
+Quiz ||| Viktorina ||| Тест
+Move exercise ||| Yurish mashqi ||| Упражнение на ход
+Move sequence ||| Yurishlar ketma-ketligi ||| Последовательность ходов
+Click squares ||| Kataklarni bosish ||| Нажать на клетки
+Coordinate practice ||| Koordinatalar mashqi ||| Тренировка координат
+Multiple choice ||| Bir nechta variantdan tanlash ||| Выбор из вариантов
+Exercise ||| Mashq ||| Упражнение
+{n} question(s) ||| {n} ta savol ||| вопросов: {n}
+Enter a FEN position. ||| FEN pozitsiyasini kiriting. ||| Введите позицию FEN.
+Not a valid position:  ||| Pozitsiya yaroqsiz:  ||| Недопустимая позиция: 
+check the FEN ||| FEN ni tekshiring ||| проверьте FEN
+FEN position ||| FEN pozitsiyasi ||| Позиция FEN
+White to move ||| Oq yuradi ||| Ход белых
+Black to move ||| Qora yuradi ||| Ход чёрных
+checkmate ||| mat ||| мат
+stalemate ||| pat ||| пат
+in check ||| shoh ||| шах
+Side to move ||| Yuruvchi tomon ||| Очередь хода
+White O-O ||| Oq: qisqa rokirovka ||| Белые: короткая рокировка
+White O-O-O ||| Oq: uzun rokirovka ||| Белые: длинная рокировка
+Black O-O ||| Qora: qisqa rokirovka ||| Чёрные: короткая рокировка
+Black O-O-O ||| Qora: uzun rokirovka ||| Чёрные: длинная рокировка
+Edit pieces ||| Donalarni tahrirlash ||| Расставить фигуры
+Play moves ||| Yurishlarni o'ynash ||| Играть ходы
+Flip board ||| Taxtani aylantirish ||| Перевернуть доску
+Start position ||| Boshlang'ich pozitsiya ||| Начальная позиция
+Paste a FEN from any chess tool, or use “Edit pieces” to place them. ||| Istalgan shaxmat dasturidan FEN ni qo'ying yoki “Donalarni tahrirlash” orqali joylashtiring. ||| Вставьте FEN из любой шахматной программы или расставьте фигуры через «Расставить фигуры».
+Default look for new visitors ||| Yangi tashrifchilar uchun standart ko'rinish ||| Вид по умолчанию для новых посетителей
+Players who already chose their own settings keep them. Add or disable themes on the Themes page. ||| O'z sozlamalarini tanlagan o'yinchilar ularni saqlab qoladi. Mavzularni Mavzular sahifasida qo'shing yoki o'chiring. ||| Игроки, уже выбравшие свои настройки, сохраняют их. Темы добавляются и отключаются на странице «Темы».
+Default board theme ||| Standart taxta mavzusi ||| Тема доски по умолчанию
+Default piece set ||| Standart dona to'plami ||| Набор фигур по умолчанию
+Appearance ||| Tashqi ko'rinish ||| Внешний вид
+Dark theme ||| Qorong'i mavzu ||| Тёмная тема
+Light theme ||| Yorug' mavzu ||| Светлая тема
+Show board coordinates ||| Taxta koordinatalarini ko'rsatish ||| Показывать координаты доски
+Piece animations ||| Dona animatsiyalari ||| Анимация фигур
+Highlight legal moves ||| Qonuniy yurishlarni ajratib ko'rsatish ||| Подсвечивать допустимые ходы
+Level {n} name ||| {n}-daraja nomi ||| Название уровня {n}
+Level {n} description ||| {n}-daraja tavsifi ||| Описание уровня {n}
+Enable level {n} ||| {n}-darajani yoqish ||| Включить уровень {n}
+Computer difficulty levels ||| Kompyuter qiyinlik darajalari ||| Уровни сложности компьютера
+You can rename levels or hide them. Playing strength (search depth and time) is fixed in the engine and cannot be changed here. At least one level must stay enabled. ||| Darajalarni qayta nomlash yoki yashirish mumkin. O'yin kuchi (qidiruv chuqurligi va vaqti) dvigatelda qat'iy belgilangan va bu yerda o'zgartirilmaydi. Kamida bitta daraja yoqilgan bo'lishi kerak. ||| Уровни можно переименовать или скрыть. Сила игры (глубина и время поиска) задана в движке и здесь не меняется. Хотя бы один уровень должен оставаться включённым.
+Name ||| Nomi ||| Название
+Description ||| Tavsif ||| Описание
+Enabled ||| Yoqilgan ||| Включено
+Label ||| Yorliq ||| Подпись
+No clock ||| Soatsiz ||| Без часов
+Minutes per side ||| Har bir tomon uchun daqiqa ||| Минут на сторону
+Increment seconds ||| Qo'shimcha soniyalar ||| Добавка в секундах
+Always on ||| Doim yoqilgan ||| Всегда включено
+Enable {name} ||| {name}ni yoqish ||| Включить: {name}
+Supported time controls ||| Qo'llab-quvvatlanadigan vaqt nazoratlari ||| Поддерживаемые контроли времени
+Add time control ||| Vaqt nazoratini qo'shish ||| Добавить контроль времени
+Increment (s) ||| Qo'shimcha (s) ||| Добавка (с)
+Category id ||| Toifa id ||| Id категории
+Puzzle categories ||| Boshqotirma toifalari ||| Категории задач
+Add category ||| Toifa qo'shish ||| Добавить категорию
+A category that still has puzzles cannot be removed — move or delete those puzzles first. Disabling hides the category (and its puzzles) from players. ||| Hali boshqotirmalari bor toifani o'chirib bo'lmaydi — avval ularni ko'chiring yoki o'chiring. O'chirib qo'yish toifani (va uning boshqotirmalarini) o'yinchilardan yashiradi. ||| Категорию, в которой ещё есть задачи, удалить нельзя — сначала перенесите или удалите эти задачи. Отключение скрывает категорию (и её задачи) от игроков.
+Id ||| Id ||| Id
+Learning-level assessment & lessons ||| O'quv darajasini baholash va darslar ||| Оценка уровня обучения и уроки
+The placement test measures accuracy per difficulty tier. A tier counts as mastered at or above the mastery threshold, or — if the next tier is strong — at or above the “bridge” threshold. Learners start at the first tier that is not mastered. ||| Saralash testi har bir qiyinlik bosqichi bo'yicha aniqlikni o'lchaydi. Bosqich o'zlashtirish chegarasida yoki undan yuqorida — yoki keyingi bosqich kuchli bo'lsa, “ko'prik” chegarasida yoki undan yuqorida — o'zlashtirilgan hisoblanadi. O'quvchilar o'zlashtirilmagan birinchi bosqichdan boshlaydi. ||| Тест определяет точность по каждой ступени сложности. Ступень считается освоенной при достижении порога освоения или — если следующая ступень сильная — «мостового» порога. Ученики начинают с первой неосвоенной ступени.
+Mastery threshold ||| O'zlashtirish chegarasi ||| Порог освоения
+0.50–0.90 · default 0.60 ||| 0,50–0,90 · standart 0,60 ||| 0,50–0,90 · по умолчанию 0,60
+Bridge minimum ||| Ko'prik minimumi ||| Минимум для «моста»
+0.20–0.60 · default 0.40 ||| 0,20–0,60 · standart 0,40 ||| 0,20–0,60 · по умолчанию 0,40
+Bridge: next tier needs ||| Ko'prik: keyingi bosqich talabi ||| Мост: нужно на следующей ступени
+Bridge next tier ||| Ko'prik: keyingi bosqich ||| Мост: следующая ступень
+0.60–0.95 · default 0.80 ||| 0,60–0,95 · standart 0,80 ||| 0,60–0,95 · по умолчанию 0,80
+Quiz pass ratio ||| Viktorinadan o'tish ulushi ||| Доля для сдачи теста
+Share of quiz questions to get right · 0.40–1.00 · default 0.60 ||| To'g'ri javob berilishi kerak bo'lgan savollar ulushi · 0,40–1,00 · standart 0,60 ||| Доля вопросов теста, на которые нужно ответить верно · 0,40–1,00 · по умолчанию 0,60
+Suggested computer level per learning level ||| Har bir o'quv darajasi uchun tavsiya etilgan kompyuter darajasi ||| Рекомендуемый уровень компьютера для каждого уровня обучения
+Chess rules are not configurable.  ||| Shaxmat qoidalarini sozlab bo'lmaydi.  ||| Правила шахмат не настраиваются. 
+Legal-move generation, check/checkmate/draw detection and game-result validation are part of the program and cannot be switched off or changed from this page. ||| Qonuniy yurishlarni hosil qilish, shoh/mat/durangni aniqlash va o'yin natijasini tekshirish dasturning bir qismi bo'lib, bu sahifadan o'chirib yoki o'zgartirib bo'lmaydi. ||| Генерация допустимых ходов, определение шаха/мата/ничьей и проверка результата партии являются частью программы и не могут быть отключены или изменены на этой странице.
+Save settings ||| Sozlamalarni saqlash ||| Сохранить настройки
+Saved ({n} section changed).|Saved ({n} sections changed). ||| Saqlandi ({n} ta bo'lim o'zgardi). ||| Сохранено (изменён {n} раздел).|Сохранено (изменено {n} раздела).|Сохранено (изменено {n} разделов).
+Nothing changed. ||| Hech narsa o'zgarmadi. ||| Ничего не изменилось.
+Reset all settings? ||| Barcha sozlamalar tiklansinmi? ||| Сбросить все настройки?
+Every setting on this page returns to its factory default. Lessons, puzzles and themes are not affected. ||| Bu sahifadagi barcha sozlamalar zavod holatiga qaytadi. Darslar, boshqotirmalar va mavzularga ta'sir qilmaydi. ||| Все настройки на этой странице вернутся к заводским. Уроки, задачи и темы не затрагиваются.
+Reset settings ||| Sozlamalarni tiklash ||| Сбросить настройки
+Settings reset to defaults. ||| Sozlamalar standart holatga qaytarildi. ||| Настройки сброшены к значениям по умолчанию.
+Reset to defaults ||| Standartga qaytarish ||| Сбросить к значениям по умолчанию
+Changes apply to the player site the next time it loads. ||| O'zgarishlar o'yinchi saytiga u keyingi safar yuklanganda qo'llanadi. ||| Изменения применятся на сайте игрока при следующей загрузке.
+You have read-only access to settings. ||| Sizda sozlamalarni faqat ko'rish huquqi bor. ||| У вас доступ к настройкам только для чтения.
+Highlight ||| Ajratish ||| Блик
+Body ||| Asosiy qism ||| Корпус
+Shadow ||| Soya ||| Тень
+Outline ||| Kontur ||| Контур
+Detail lines ||| Detal chiziqlari ||| Линии деталей
+Sheen ||| Yaltirash ||| Глянец
+King ||| Shoh ||| Король
+Queen ||| Farzin ||| Ферзь
+Rook ||| Rux ||| Ладья
+Bishop ||| Fil ||| Слон
+Knight ||| Ot ||| Конь
+Pawn ||| Piyoda ||| Пешка
+white ||| oq ||| белая
+black ||| qora ||| чёрная
+White ||| Oq ||| Белая
+Black ||| Qora ||| Чёрная
+Light ||| Yorug' ||| Светлая
+Dark ||| To'q ||| Тёмная
+Default updated. New visitors see it first. ||| Standart yangilandi. Yangi tashrifchilar buni birinchi ko'radi. ||| Значение по умолчанию обновлено. Новые посетители увидят его первым.
+Default ||| Standart ||| По умолчанию
+Make default ||| Standart qilish ||| Сделать основной
+On ||| Yoqilgan ||| Вкл.
+Enabled. ||| Yoqildi. ||| Включено.
+Disabled. ||| O'chirildi. ||| Отключено.
+Delete board theme? ||| Taxta mavzusi o'chirilsinmi? ||| Удалить тему доски?
+Delete “{name}”? Players using it fall back to the default. ||| “{name}” o'chirilsinmi? Undan foydalanayotgan o'yinchilar standartga qaytadi. ||| Удалить «{name}»? Игроки, использующие её, перейдут на тему по умолчанию.
+Create theme ||| Mavzu yaratish ||| Создать тему
+Save changes ||| O'zgarishlarni saqlash ||| Сохранить изменения
+New board theme ||| Yangi taxta mavzusi ||| Новая тема доски
+Light squares ||| Och kataklar ||| Светлые клетки
+Dark squares ||| To'q kataklar ||| Тёмные клетки
+Pick colours with enough contrast between the two squares, and between the squares and both piece colours — check the preview with a white and a black piece set. ||| Ikki katak o'rtasida, shuningdek kataklar va ikkala dona rangi o'rtasida yetarli kontrast bo'ladigan ranglarni tanlang — oldindan ko'rishni oq va qora dona to'plami bilan tekshiring. ||| Выбирайте цвета с достаточным контрастом между двумя клетками, а также между клетками и обоими цветами фигур — проверьте предпросмотр с белым и чёрным набором фигур.
+Images ||| Rasmlar ||| Изображения
+Colours ||| Ranglar ||| Цвета
+{n}/12 piece images uploaded ||| 12 tadan {n} ta dona rasmi yuklangan ||| Загружено изображений фигур: {n} из 12
+Manage images ||| Rasmlarni boshqarish ||| Управление изображениями
+Edit colours ||| Ranglarni tahrirlash ||| Изменить цвета
+Rename ||| Qayta nomlash ||| Переименовать
+Delete piece set? ||| Dona to'plami o'chirilsinmi? ||| Удалить набор фигур?
+Delete “{name}” and its uploaded images? ||| “{name}” va uning yuklangan rasmlari o'chirilsinmi? ||| Удалить «{name}» и его загруженные изображения?
+Rename piece set ||| Dona to'plamini qayta nomlash ||| Переименовать набор фигур
+Built-in piece designs are part of the site and cannot be recoloured; you can rename, disable or make them the default. ||| O'rnatilgan dona dizaynlari saytning bir qismi va ularni qayta bo'yab bo'lmaydi; ularni qayta nomlash, o'chirish yoki standart qilish mumkin. ||| Встроенные дизайны фигур — часть сайта, их нельзя перекрашивать; можно переименовать, отключить или сделать основными.
+Recoloured built-in pieces (light & dark colours) ||| Qayta bo'yalgan o'rnatilgan donalar (och va to'q ranglar) ||| Перекрашенные встроенные фигуры (светлые и тёмные цвета)
+Uploaded images (SVG, PNG or WebP for all 12 pieces) ||| Yuklangan rasmlar (12 ta dona uchun SVG, PNG yoki WebP) ||| Загруженные изображения (SVG, PNG или WebP для всех 12 фигур)
+New piece set ||| Yangi dona to'plami ||| Новый набор фигур
+Type ||| Turi ||| Тип
+Piece set created. ||| Dona to'plami yaratildi. ||| Набор фигур создан.
+Light pieces ||| Och donalar ||| Светлые фигуры
+Dark pieces ||| To'q donalar ||| Тёмные фигуры
+Upload ||| Yuklash ||| Загрузить
+Larger than 200 KB. ||| 200 KB dan katta. ||| Больше 200 КБ.
+Replace ||| Almashtirish ||| Заменить
+empty ||| bo'sh ||| пусто
+Images for {name} ||| {name} uchun rasmlar ||| Изображения для {name}
+Done ||| Tayyor ||| Готово
+Colours of the light and dark squares. Disabled themes disappear from the player settings. ||| Och va to'q kataklar ranglari. O'chirilgan mavzular o'yinchi sozlamalaridan yo'qoladi. ||| Цвета светлых и тёмных клеток. Отключённые темы исчезают из настроек игрока.
+Light and dark piece variants. Built-in designs stay as they are; add recoloured sets or upload your own images. ||| Och va to'q dona variantlari. O'rnatilgan dizaynlar o'zgarishsiz qoladi; qayta bo'yalgan to'plamlarni qo'shing yoki o'z rasmlaringizni yuklang. ||| Светлые и тёмные варианты фигур. Встроенные дизайны остаются как есть; добавляйте перекрашенные наборы или загружайте свои изображения.
+No piece sets ||| Dona to'plamlari yo'q ||| Нет наборов фигур
+Board colours and piece sets for the chessboard. Everything is stored locally and works offline for players. ||| Shaxmat taxtasi uchun taxta ranglari va dona to'plamlari. Hammasi mahalliy saqlanadi va o'yinchilar uchun oflayn ishlaydi. ||| Цвета доски и наборы фигур для шахматной доски. Всё хранится локально и работает у игроков офлайн.
+Live preview ||| Jonli ko'rinish ||| Живой предпросмотр
+Shows the selected board theme with the selected piece set on a real board. ||| Tanlangan taxta mavzusini tanlangan dona to'plami bilan haqiqiy taxtada ko'rsatadi. ||| Показывает выбранную тему доски с выбранным набором фигур на настоящей доске.
+What this platform can — and cannot — tell you about players. ||| Bu platforma o'yinchilar haqida nimani aytib bera oladi — va nimani aytib bera olmaydi. ||| Что эта платформа может — и чего не может — рассказать об игроках.
+No central user accounts.  ||| Markaziy foydalanuvchi hisoblari yo'q.  ||| Центральных учётных записей пользователей нет. 
+Anonymous aggregates ||| Anonim umumlashmalar ||| Анонимные агрегаты
+Counted from anonymous events sent by browsers that loaded the site from this server (players can switch this off in Settings). They are not linked to any person. ||| Saytni shu serverdan yuklagan brauzerlar yuborgan anonim hodisalardan hisoblanadi (o'yinchilar buni Sozlamalarda o'chirishi mumkin). Ular hech qanday shaxsga bog'lanmagan. ||| Подсчитано по анонимным событиям от браузеров, загрузивших сайт с этого сервера (игроки могут отключить это в настройках). Они не связаны ни с каким человеком.
+Active browsers (30 days) ||| Faol brauzerlar (30 kun) ||| Активные браузеры (30 дней)
+Lessons completed ||| Tugallangan darslar ||| Пройдено уроков
+Puzzle attempts ||| Boshqotirma urinishlari ||| Попытки решить задачи
+{n} ({solved} solved first time) ||| {n} ({solved} tasi birinchi urinishda yechilgan) ||| {n} (с первой попытки решено: {solved})
+Assessed levels (placement test) ||| Baholangan darajalar (saralash testi) ||| Определённые уровни (тест)
+No placement results yet ||| Saralash natijalari hali yo'q ||| Результатов теста пока нет
+Games by computer level ||| Kompyuter darajasi bo'yicha o'yinlar ||| Партии по уровням компьютера
+Level {n} ||| {n}-daraja ||| Уровень {n}
+No completed games yet ||| Tugallangan o'yinlar hali yo'q ||| Завершённых партий пока нет
+What needs extra infrastructure ||| Qo'shimcha infratuzilma talab qiladigan narsalar ||| Что требует дополнительной инфраструктуры
+Listing, searching, suspending or restoring individual users ||| Alohida foydalanuvchilarni ro'yxatlash, qidirish, to'xtatish yoki tiklash ||| Просмотр, поиск, блокировка или восстановление отдельных пользователей
+Per-user statistics, lesson progress, rating history and game archives ||| Foydalanuvchi bo'yicha statistika, dars taraqqiyoti, reyting tarixi va o'yin arxivlari ||| Статистика по пользователям, прогресс по урокам, история рейтинга и архив партий
+Reported content / abuse review — {note} ||| Shikoyat qilingan kontent / suiiste'molni ko'rib chiqish — {note} ||| Жалобы на контент / разбор нарушений — {note}
+Player sign-in, password reset, e-mail verification and a privacy policy ||| O'yinchi kirishi, parolni tiklash, e-pochtani tasdiqlash va maxfiylik siyosati ||| Вход игроков, сброс пароля, подтверждение e-mail и политика конфиденциальности
+Built in ||| O'rnatilgan ||| Встроенный
+Automatic ||| Avtomatik ||| Автоматический
+Edited by hand ||| Qo'lda tahrirlangan ||| Изменён вручную
+Not translated ||| Tarjima qilinmagan ||| Не переведено
+Lessons, puzzles and names you write are shown to players in their own language. Texts that come with Rookery are already translated; new ones are translated automatically when you save, and you can correct any of them by hand. ||| Siz yozgan darslar, boshqotirmalar va nomlar o'yinchilarga o'z tillarida ko'rsatiladi. Rookery bilan kelgan matnlar allaqachon tarjima qilingan; yangilari saqlaganingizda avtomatik tarjima qilinadi va ularning istalganini qo'lda tuzatishingiz mumkin. ||| Уроки, задачи и названия, которые вы пишете, показываются игрокам на их языке. Тексты из комплекта Rookery уже переведены; новые переводятся автоматически при сохранении, и любой из них можно исправить вручную.
+Automatic translation is off.  ||| Avtomatik tarjima o'chiq.  ||| Автоперевод выключен. 
+New texts stay in English until you translate them here by hand. The server owner can switch it on (see ADMIN.md, “Translations”). ||| Yangi matnlar siz ularni shu yerda qo'lda tarjima qilmaguningizcha inglizcha qoladi. Server egasi buni yoqishi mumkin (ADMIN.md, “Translations” bo'limiga qarang). ||| Новые тексты остаются на английском, пока вы не переведёте их здесь вручную. Владелец сервера может включить автоперевод (см. ADMIN.md, раздел «Translations»).
+{translated} of {total} texts translated ||| {total} ta matndan {translated} tasi tarjima qilingan ||| Переведено текстов: {translated} из {total}
+{auto} automatic · {manual} edited by hand ||| {auto} ta avtomatik · {manual} ta qo'lda tahrirlangan ||| автоматических: {auto} · изменено вручную: {manual}
+Translating… ||| Tarjima qilinmoqda… ||| Перевод…
+Translate missing texts now ||| Tarjima qilinmagan matnlarni hozir tarjima qilish ||| Перевести недостающие тексты сейчас
+Last run: {when} · {done} translated, {rejected} rejected ||| Oxirgi ishga tushirish: {when} · {done} ta tarjima qilindi, {rejected} ta rad etildi ||| Последний запуск: {when} · переведено: {done}, отклонено: {rejected}
+Translation started. ||| Tarjima boshlandi. ||| Перевод запущен.
+Search texts… ||| Matnlarni qidirish… ||| Поиск текстов…
+All statuses ||| Barcha holatlar ||| Все статусы
+English text ||| Inglizcha matn ||| Английский текст
+Translation ||| Tarjima ||| Перевод
+Nothing to translate ||| Tarjima qilinadigan narsa yo'q ||| Нечего переводить
+Texts you add to lessons and puzzles appear here. ||| Darslar va boshqotirmalarga qo'shgan matnlaringiz shu yerda ko'rinadi. ||| Тексты, которые вы добавляете в уроки и задачи, появляются здесь.
+Keep the HTML tags (<b>, <p> …) and chess moves (Nf3, e4, O-O) exactly as in the English text. ||| HTML teglarini (<b>, <p> …) va shaxmat yurishlarini (Nf3, e4, O-O) inglizcha matndagidek saqlang. ||| Сохраните HTML-теги (<b>, <p> …) и шахматные ходы (Nf3, e4, O-O) в точности как в английском тексте.
+Reset translation? ||| Tarjima tiklansinmi? ||| Сбросить перевод?
+The stored translation is removed and the text is translated again automatically. ||| Saqlangan tarjima o'chiriladi va matn qaytadan avtomatik tarjima qilinadi. ||| Сохранённый перевод удаляется, и текст переводится заново автоматически.
+Reset ||| Tiklash ||| Сбросить
+Translation reset. ||| Tarjima tiklandi. ||| Перевод сброшен.
+Translation saved. ||| Tarjima saqlandi. ||| Перевод сохранён.
+Restart ||| Qayta boshlash ||| Начать заново
+Text ||| Matn ||| Текст
+Remove ||| Olib tashlash ||| Удалить
+Question ||| Savol ||| Вопрос
+Request body too large ||| So'rov tanasi juda katta ||| Тело запроса слишком большое
+Content-Type must be application/json ||| Content-Type application/json bo'lishi kerak ||| Content-Type должен быть application/json
+Invalid JSON body ||| Noto'g'ri JSON tanasi ||| Некорректное тело JSON
+Too many failed attempts. Try again in {n} minutes. ||| Juda ko'p muvaffaqiyatsiz urinish. {n} daqiqadan keyin qayta urinib ko'ring. ||| Слишком много неудачных попыток. Повторите через {n} мин.
+Incorrect username or password. ||| Foydalanuvchi nomi yoki parol noto'g'ri. ||| Неверное имя пользователя или пароль.
+Your current password is incorrect. ||| Joriy parolingiz noto'g'ri. ||| Ваш текущий пароль неверен.
+The new password is not strong enough. ||| Yangi parol yetarlicha kuchli emas. ||| Новый пароль недостаточно надёжен.
+Lesson not found. ||| Dars topilmadi. ||| Урок не найден.
+A lesson with this id already exists. ||| Bunday id li dars allaqachon mavjud. ||| Урок с таким id уже существует.
+This id is already taken. ||| Bu id band. ||| Этот id уже занят.
+A lesson id cannot be changed. ||| Dars id sini o'zgartirib bo'lmaydi. ||| Id урока нельзя изменить.
+The id is fixed once created. ||| Id yaratilgandan keyin o'zgarmaydi. ||| Id фиксируется при создании.
+Provide a level and the lesson ids in the new order. ||| Daraja va darslarning yangi tartibdagi id larini kiriting. ||| Укажите уровень и id уроков в новом порядке.
+The ids must be exactly the lessons of that level. ||| Id lar aynan shu darajadagi darslar bo'lishi kerak. ||| Id должны точно соответствовать урокам этого уровня.
+Puzzle not found. ||| Boshqotirma topilmadi. ||| Задача не найдена.
+A puzzle with this id already exists. ||| Bunday id li boshqotirma allaqachon mavjud. ||| Задача с таким id уже существует.
+A puzzle id cannot be changed. ||| Boshqotirma id sini o'zgartirib bo'lmaydi. ||| Id задачи нельзя изменить.
+Invalid client id. ||| Noto'g'ri mijoz id si. ||| Недопустимый id клиента.
+Send 1–20 events. ||| 1–20 ta hodisa yuboring. ||| Отправьте от 1 до 20 событий.
+Username: 3–32 letters, digits, dot, dash or underscore. ||| Foydalanuvchi nomi: 3–32 ta harf, raqam, nuqta, chiziqcha yoki pastki chiziq. ||| Имя пользователя: 3–32 буквы, цифры, точка, дефис или подчёркивание.
+Invalid username. ||| Foydalanuvchi nomi noto'g'ri. ||| Недопустимое имя пользователя.
+The password is not strong enough. ||| Parol yetarlicha kuchli emas. ||| Пароль недостаточно надёжен.
+Unknown role. ||| Noma'lum rol. ||| Неизвестная роль.
+Choose a role. ||| Rolni tanlang. ||| Выберите роль.
+That username is already taken. ||| Bu foydalanuvchi nomi band. ||| Это имя пользователя уже занято.
+Already taken. ||| Band. ||| Уже занято.
+Administrator not found. ||| Administrator topilmadi. ||| Администратор не найден.
+At least one active superadmin must remain. ||| Kamida bitta faol superadmin qolishi kerak. ||| Должен остаться хотя бы один активный суперадмин.
+You cannot disable or demote your own account. ||| O'z hisobingizni o'chira yoki pasaytira olmaysiz. ||| Вы не можете отключить или понизить собственную учётную запись.
+Choose an enabled board theme. ||| Yoqilgan taxta mavzusini tanlang. ||| Выберите включённую тему доски.
+Choose an enabled piece set. ||| Yoqilgan dona to'plamini tanlang. ||| Выберите включённый набор фигур.
+Board theme not found. ||| Taxta mavzusi topilmadi. ||| Тема доски не найдена.
+The default board theme cannot be disabled. Pick another default first. ||| Standart taxta mavzusini o'chirib bo'lmaydi. Avval boshqa standartni tanlang. ||| Тему доски по умолчанию нельзя отключить. Сначала выберите другую.
+At least one board theme must stay enabled. ||| Kamida bitta taxta mavzusi yoqilgan bo'lishi kerak. ||| Хотя бы одна тема доски должна оставаться включённой.
+Built-in themes cannot be deleted; disable them instead. ||| O'rnatilgan mavzularni o'chirib bo'lmaydi; ularni o'chirib qo'ying. ||| Встроенные темы нельзя удалить; отключите их.
+The default board theme cannot be deleted. ||| Standart taxta mavzusini o'chirib bo'lmaydi. ||| Тему доски по умолчанию нельзя удалить.
+Piece set not found. ||| Dona to'plami topilmadi. ||| Набор фигур не найден.
+Upload all 12 piece images before enabling this set. ||| Bu to'plamni yoqishdan oldin barcha 12 ta dona rasmini yuklang. ||| Загрузите все 12 изображений фигур, прежде чем включать этот набор.
+The default piece set cannot be disabled. Pick another default first. ||| Standart dona to'plamini o'chirib bo'lmaydi. Avval boshqa standartni tanlang. ||| Набор фигур по умолчанию нельзя отключить. Сначала выберите другой.
+At least one piece set must stay enabled. ||| Kamida bitta dona to'plami yoqilgan bo'lishi kerak. ||| Хотя бы один набор фигур должен оставаться включённым.
+Built-in piece sets cannot be deleted; disable them instead. ||| O'rnatilgan dona to'plamlarini o'chirib bo'lmaydi; ularni o'chirib qo'ying. ||| Встроенные наборы фигур нельзя удалить; отключите их.
+The default piece set cannot be deleted. ||| Standart dona to'plamini o'chirib bo'lmaydi. ||| Набор фигур по умолчанию нельзя удалить.
+Only uploaded-image sets accept files. ||| Faqat rasm yuklanadigan to'plamlar fayl qabul qiladi. ||| Файлы принимают только наборы с загружаемыми изображениями.
+Piece code must be one of {list}. ||| Dona kodi quyidagilardan biri bo'lishi kerak: {list}. ||| Код фигуры должен быть одним из: {list}.
+No such image. ||| Bunday rasm yo'q. ||| Такого изображения нет.
+The default piece set must stay complete. ||| Standart dona to'plami to'liq bo'lib qolishi kerak. ||| Набор фигур по умолчанию должен оставаться полным.
+Choose a language: uz or ru. ||| Tilni tanlang: uz yoki ru. ||| Выберите язык: uz или ru.
+Missing source text. ||| Manba matni yo'q. ||| Отсутствует исходный текст.
+The translation cannot be empty. ||| Tarjima bo'sh bo'lishi mumkin emas. ||| Перевод не может быть пустым.
+The translation must keep the same HTML tags and chess notation (moves, squares) as the English text. ||| Tarjimada inglizcha matndagi HTML teglari va shaxmat yozuvi (yurishlar, kataklar) saqlanishi kerak. ||| В переводе должны сохраниться те же HTML-теги и шахматная нотация (ходы, поля), что и в английском тексте.
+Invalid request. ||| Noto'g'ri so'rov. ||| Недопустимый запрос.
+No stored translation. ||| Saqlangan tarjima yo'q. ||| Сохранённого перевода нет.
+No translation provider is configured on the server (see ADMIN.md, "Translations"). ||| Serverda tarjima provayderi sozlanmagan (ADMIN.md, “Translations” bo'limiga qarang). ||| На сервере не настроен поставщик перевода (см. ADMIN.md, раздел «Translations»).
+No translation provider is configured. ||| Tarjima provayderi sozlanmagan. ||| Поставщик перевода не настроен.
+Deleting requires confirmation. Send ?confirm=<id>. ||| O'chirish tasdiqlashni talab qiladi. ?confirm=<id> yuboring. ||| Для удаления нужно подтверждение. Отправьте ?confirm=<id>.
+Please fix the highlighted fields. ||| Iltimos, ajratilgan maydonlarni tuzating. ||| Пожалуйста, исправьте выделенные поля.
+This field is required. ||| Bu maydon majburiy. ||| Это поле обязательно.
+Must be text. ||| Matn bo'lishi kerak. ||| Должно быть текстом.
+Use at least {n} characters. ||| Kamida {n} ta belgi ishlating. ||| Используйте не менее {n} символов.
+Use at most {n} characters. ||| Ko'pi bilan {n} ta belgi ishlating. ||| Используйте не более {n} символов.
+Contains control characters. ||| Boshqaruv belgilari mavjud. ||| Содержит управляющие символы.
+Must be a whole number from {a} to {b}. ||| {a} dan {b} gacha butun son bo'lishi kerak. ||| Должно быть целым числом от {a} до {b}.
+Must be a number from {a} to {b}. ||| {a} dan {b} gacha son bo'lishi kerak. ||| Должно быть числом от {a} до {b}.
+Unknown field. ||| Noma'lum maydon. ||| Неизвестное поле.
+A FEN position is required. ||| FEN pozitsiyasi talab qilinadi. ||| Требуется позиция FEN.
+Not a valid FEN position. ||| Yaroqli FEN pozitsiyasi emas. ||| Недопустимая позиция FEN.
+Provide {a}–{b} moves. ||| {a}–{b} ta yurish kiriting. ||| Укажите от {a} до {b} ходов.
+Use coordinate notation such as e2e4 (promotion: e7e8q). ||| e2e4 kabi koordinata yozuvidan foydalaning (promosiya: e7e8q). ||| Используйте координатную запись, например e2e4 (превращение: e7e8q).
+{move} is not a legal move in this position. ||| {move} bu pozitsiyada qonuniy yurish emas. ||| {move} — недопустимый ход в этой позиции.
+Must be a list of squares. ||| Kataklar ro'yxati bo'lishi kerak. ||| Должен быть списком клеток.
+Not a square (a1–h8). ||| Katak emas (a1–h8). ||| Это не клетка (a1–h8).
+Use 'w' or 'b'. ||| 'w' yoki 'b' ishlating. ||| Используйте 'w' или 'b'.
+Must be a list of up to 32 marks. ||| Ko'pi bilan 32 ta belgi ro'yxati bo'lishi kerak. ||| Должен быть списком не более чем из 32 отметок.
+A mark needs a square and a kind (hint, good, bad, info). ||| Belgi uchun katak va tur (hint, good, bad, info) kerak. ||| Отметке нужны клетка и вид (hint, good, bad, info).
+Must be a list of up to 16 arrows. ||| Ko'pi bilan 16 ta o'q ro'yxati bo'lishi kerak. ||| Должен быть списком не более чем из 16 стрелок.
+An arrow is [from, to, colour] with squares and an allowed colour. ||| O'q — [qayerdan, qayerga, rang], kataklar va ruxsat etilgan rang bilan. ||| Стрелка — это [откуда, куда, цвет] с клетками и допустимым цветом.
+Provide 2–6 answer options. ||| 2–6 ta javob varianti kiriting. ||| Укажите от 2 до 6 вариантов ответа.
+A step must be an object. ||| Qadam obyekt bo'lishi kerak. ||| Шаг должен быть объектом.
+A quiz needs 1–12 questions. ||| Viktorinada 1–12 ta savol bo'lishi kerak. ||| В тесте должно быть от 1 до 12 вопросов.
+Invalid question. ||| Noto'g'ri savol. ||| Недопустимый вопрос.
+Step type must be 'learn', 'task' or 'quiz'. ||| Qadam turi 'learn', 'task' yoki 'quiz' bo'lishi kerak. ||| Тип шага должен быть 'learn', 'task' или 'quiz'.
+Must map a move to a message. ||| Yurishni xabarga bog'lashi kerak. ||| Должно сопоставлять ход сообщению.
+Not a legal move in this position. ||| Bu pozitsiyada qonuniy yurish emas. ||| Недопустимый ход в этой позиции.
+Unknown verification mode. ||| Noma'lum tekshirish rejimi. ||| Неизвестный режим проверки.
+Provide 1–30 steps. ||| 1–30 ta qadam kiriting. ||| Укажите от 1 до 30 шагов.
+Invalid step. ||| Noto'g'ri qadam. ||| Недопустимый шаг.
+Provide 1–8 accepted moves. ||| 1–8 ta qabul qilinadigan yurish kiriting. ||| Укажите от 1 до 8 принимаемых ходов.
+Use coordinate notation such as e2e4. ||| e2e4 kabi koordinata yozuvidan foydalaning. ||| Используйте координатную запись, например e2e4.
+Use coordinate notation such as e7e5. ||| e7e5 kabi koordinata yozuvidan foydalaning. ||| Используйте координатную запись, например e7e5.
+{move} is not a legal reply after the accepted move. ||| {move} qabul qilingan yurishdan keyin qonuniy javob emas. ||| {move} — недопустимый ответ после принятого хода.
+Select at least one target square. ||| Kamida bitta maqsad katakni tanlang. ||| Выберите хотя бы одну целевую клетку.
+Task kind must be 'move', 'line', 'squares', 'coords' or 'mc'. ||| Topshiriq turi 'move', 'line', 'squares', 'coords' yoki 'mc' bo'lishi kerak. ||| Тип задания должен быть 'move', 'line', 'squares', 'coords' или 'mc'.
+Lesson must be an object. ||| Dars obyekt bo'lishi kerak. ||| Урок должен быть объектом.
+Use 2–41 lower-case letters, digits or hyphens (for example "b-castling"). ||| 2–41 ta kichik harf, raqam yoki chiziqcha ishlating (masalan, "b-castling"). ||| Используйте 2–41 строчную букву, цифру или дефис (например, "b-castling").
+Choose Beginner, Elementary, Intermediate, Advanced or Expert. ||| Boshlovchi, Boshlang'ich, O'rta, Ilg'or yoki Ekspertni tanlang. ||| Выберите «Новичок», «Начальный», «Средний», «Продвинутый» или «Эксперт».
+Choose a skill from the list. ||| Ro'yxatdan ko'nikmani tanlang. ||| Выберите навык из списка.
+Provide up to 8 learning objectives. ||| Ko'pi bilan 8 ta o'quv maqsadini kiriting. ||| Укажите не более 8 целей обучения.
+Status must be 'draft' or 'published'. ||| Holat 'draft' yoki 'published' bo'lishi kerak. ||| Статус должен быть 'draft' или 'published'.
+A lesson needs 1–60 steps. ||| Darsda 1–60 ta qadam bo'lishi kerak. ||| В уроке должно быть от 1 до 60 шагов.
+Published lessons need a quiz step so progress can be checked. ||| E'lon qilingan darslarda taraqqiyotni tekshirish uchun viktorina qadami bo'lishi kerak. ||| В опубликованных уроках нужен шаг-тест, чтобы можно было проверить прогресс.
+Published lessons need at least one interactive exercise. ||| E'lon qilingan darslarda kamida bitta interaktiv mashq bo'lishi kerak. ||| В опубликованных уроках нужно хотя бы одно интерактивное упражнение.
+Puzzle must be an object. ||| Boshqotirma obyekt bo'lishi kerak. ||| Задача должна быть объектом.
+Use 2–41 lower-case letters, digits or hyphens. ||| 2–41 ta kichik harf, raqam yoki chiziqcha ishlating. ||| Используйте 2–41 строчную букву, цифру или дефис.
+The position is already finished (checkmate or draw) — there is nothing to solve. ||| Pozitsiya allaqachon tugagan (mat yoki durang) — yechadigan narsa yo'q. ||| Позиция уже закончена (мат или ничья) — решать нечего.
+Provide 1–11 moves (solver, reply, solver, …). ||| 1–11 ta yurish kiriting (yechuvchi, javob, yechuvchi, …). ||| Укажите от 1 до 11 ходов (решающий, ответ, решающий, …).
+The solution must end with a solver move (an odd number of moves). ||| Yechim yechuvchining yurishi bilan tugashi kerak (yurishlar soni toq). ||| Решение должно заканчиваться ходом решающего (нечётное число ходов).
+{move} is not a legal move here{detail}. ||| {move} bu yerda qonuniy yurish emas{detail}. ||| {move} — недопустимый ход здесь{detail}.
+A 'Mate in 1' puzzle must be a single move that checkmates. ||| “1 yurishda mat” boshqotirmasi mat qo'yadigan bitta yurishdan iborat bo'lishi kerak. ||| Задача «Мат в 1 ход» должна состоять из одного хода, ставящего мат.
+A 'Mate in 2' puzzle must have three moves ending in checkmate. ||| “2 yurishda mat” boshqotirmasi matga yakunlanadigan uchta yurishdan iborat bo'lishi kerak. ||| Задача «Мат в 2 хода» должна состоять из трёх ходов, заканчивающихся матом.
+Choose a tactical category from the list. ||| Ro'yxatdan taktik toifani tanlang. ||| Выберите тактическую категорию из списка.
+Provide up to 6 motif tags. ||| Ko'pi bilan 6 ta motiv tegini kiriting. ||| Укажите не более 6 тегов мотивов.
+Tags use letters and digits only. ||| Teglarda faqat harf va raqamlar ishlatiladi. ||| В тегах допустимы только буквы и цифры.
+Add a hint before publishing. ||| E'lon qilishdan oldin maslahat qo'shing. ||| Добавьте подсказку перед публикацией.
+Add an explanation before publishing. ||| E'lon qilishdan oldin tushuntirish qo'shing. ||| Добавьте объяснение перед публикацией.
+Theme must be an object. ||| Mavzu obyekt bo'lishi kerak. ||| Тема должна быть объектом.
+Use a hex colour such as #e6e2cf. ||| #e6e2cf kabi hex rangdan foydalaning. ||| Используйте hex-цвет, например #e6e2cf.
+Use a hex colour such as #5a8f6b. ||| #5a8f6b kabi hex rangdan foydalaning. ||| Используйте hex-цвет, например #5a8f6b.
+Use a hex colour such as #ffffff. ||| #ffffff kabi hex rangdan foydalaning. ||| Используйте hex-цвет, например #ffffff.
+Light and dark squares need different colours. ||| Och va to'q kataklar turli rangda bo'lishi kerak. ||| Светлые и тёмные клетки должны быть разных цветов.
+Piece set must be an object. ||| Dona to'plami obyekt bo'lishi kerak. ||| Набор фигур должен быть объектом.
+Kind must be 'css' (recoloured built-in pieces) or 'assets' (uploaded images). ||| Tur 'css' (qayta bo'yalgan o'rnatilgan donalar) yoki 'assets' (yuklangan rasmlar) bo'lishi kerak. ||| Вид должен быть 'css' (перекрашенные встроенные фигуры) или 'assets' (загруженные изображения).
+Provide every computer level. ||| Kompyuterning barcha darajalarini kiriting. ||| Укажите все уровни компьютера.
+Level ids are fixed. ||| Daraja id lari o'zgarmas. ||| Id уровней фиксированы.
+At least one computer level must stay enabled. ||| Kamida bitta kompyuter darajasi yoqilgan bo'lishi kerak. ||| Хотя бы один уровень компьютера должен оставаться включённым.
+Provide 1–12 time controls. ||| 1–12 ta vaqt nazoratini kiriting. ||| Укажите от 1 до 12 контролей времени.
+The id must be "{id}" for this time and increment. ||| Bu vaqt va qo'shimcha uchun id "{id}" bo'lishi kerak. ||| Для этого времени и добавки id должен быть "{id}".
+Duplicate time control. ||| Takrorlangan vaqt nazorati. ||| Повторяющийся контроль времени.
+Keep the "Untimed" option. ||| “Soatsiz” variantini saqlang. ||| Оставьте вариант «Без часов».
+The "Untimed" option cannot be disabled. ||| “Soatsiz” variantini o'chirib bo'lmaydi. ||| Вариант «Без часов» нельзя отключить.
+Provide 1–30 puzzle categories. ||| 1–30 ta boshqotirma toifasini kiriting. ||| Укажите от 1 до 30 категорий задач.
+Use 2–20 lower-case letters or digits. ||| 2–20 ta kichik harf yoki raqam ishlating. ||| Используйте 2–20 строчных букв или цифр.
+Duplicate category id. ||| Takrorlangan toifa id si. ||| Повторяющийся id категории.
+Choose a skill. ||| Ko'nikmani tanlang. ||| Выберите навык.
+Category "{id}" is still used by {n} puzzle(s); move or delete them first. ||| "{id}" toifasidan hali {n} ta boshqotirma foydalanmoqda; avval ularni ko'chiring yoki o'chiring. ||| Категория "{id}" всё ещё используется задачами ({n}); сначала перенесите или удалите их.
+Thresholds must satisfy: bridge minimum < mastery < bridge next-tier. ||| Chegaralar quyidagiga mos bo'lishi kerak: ko'prik minimumi < o'zlashtirish < ko'prik keyingi bosqich. ||| Пороги должны удовлетворять условию: минимум «моста» < освоение < следующая ступень «моста».
+Use 'dark' or 'light'. ||| 'dark' yoki 'light' ishlating. ||| Используйте 'dark' или 'light'.
+Clear ||| Tozalash ||| Очистить

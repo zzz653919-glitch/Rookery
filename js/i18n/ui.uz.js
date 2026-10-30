@@ -471,5 +471,9 @@ export default {
  "Drew vs computer level {level}": "Kompyuterning {level}-darajasiga qarshi durang",
  "After {move}, the White {piece} can capture your {captured} with {reply}.": "{move} dan keyin oq {piece} {reply} yurishi bilan sizning figurangizni ({captured}) ola oladi.",
  "After {move}, the Black {piece} can capture your {captured} with {reply}.": "{move} dan keyin qora {piece} {reply} yurishi bilan sizning figurangizni ({captured}) ola oladi.",
- "{n} day|{n} days": "{n} kun"
+ "{n} day|{n} days": "{n} kun",
+ "Find the best move — {n} moves to find.": "Eng yaxshi yurishni toping — topish kerak: {n} ta yurish.",
+ "Solved on the first try.": "Birinchi urinishda yechildi.",
+ "Solved.": "Yechildi.",
+ "Remove a piece": "Donani olib tashlash"
 };

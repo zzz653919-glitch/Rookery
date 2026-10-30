@@ -1,4 +1,4 @@
-import { h, clear } from '../dom.js';
+import { h, clear, tr } from '../dom.js';
 import { get, post, put, del, can } from '../api.js';
 import { dataTable, modal, confirmDialog, field, input, select, toast, badge, fmtDate, problemsBox, loadingState, errorState, emptyState } from '../ui.js';
 import { LEVELS, SKILLS } from '../../../js/data/levels.js';
@@ -99,7 +99,9 @@ async function editor(host, ctx, existingId) {
     try {
       const r = await get('/api/admin/lessons', { level: L.level, pageSize: 100 });
       const idx = r.items.findIndex((x) => x.id === L.id);
-      posNote.textContent = `Learners assessed as ${levelName(L.level)} see this level’s lessons in a fixed order (${r.items.filter((x) => x.status === 'published').length} published now). ${idx >= 0 && L.level === (existingId ? r.items[idx].level : L.level) ? `This lesson is #${idx + 1} of ${r.items.length}; ` : 'It will be added at the end of the level; '}reorder lessons from the lessons list.`;
+      const published = r.items.filter((x) => x.status === 'published').length;
+      const where = idx >= 0 && L.level === (existingId ? r.items[idx].level : L.level) ? tr(`This lesson is #${idx + 1} of ${r.items.length}.`) : tr('It will be added at the end of the level.');
+      posNote.textContent = `${tr(`Learners assessed as ${levelName(L.level)} see this level’s lessons in a fixed order (${published} published now).`)} ${where} ${tr('Reorder lessons from the lessons list.')}`;
     } catch { posNote.textContent = ''; }
   }
   refreshPosition();
@@ -139,8 +141,8 @@ async function editor(host, ctx, existingId) {
     const draw = () => body.replaceChildren(mode === 'form' ? form.node : h('div', { class: 'stack tight' }, h('p', { class: 'muted small' }, 'Raw step data. The server validates every field (positions, legal moves, allowed formatting) when you save the lesson.'), json));
     modeBtn.onclick = () => {
       err.replaceChildren();
-      if (mode === 'form') { json.value = JSON.stringify(form.read(), null, 2); mode = 'json'; modeBtn.textContent = 'Back to form'; }
-      else { try { const s = JSON.parse(json.value); form.dispose(); form = buildStepForm(s); mode = 'form'; modeBtn.textContent = 'Edit as JSON'; } catch (e) { err.replaceChildren(problemsBox([{ message: 'Invalid JSON: ' + e.message }])); return; } }
+      if (mode === 'form') { json.value = JSON.stringify(form.read(), null, 2); mode = 'json'; modeBtn.textContent = tr('Back to form'); }
+      else { try { const s = JSON.parse(json.value); form.dispose(); form = buildStepForm(s); mode = 'form'; modeBtn.textContent = tr('Edit as JSON'); } catch (e) { err.replaceChildren(problemsBox([{ message: 'Invalid JSON: ' + e.message }])); return; } }
       draw();
     };
     draw();
@@ -183,7 +185,7 @@ async function editor(host, ctx, existingId) {
   const side = h('div', { class: 'stack side-col' }, h('section', { class: 'card stack' }, h('h3', null, 'Preview'), h('p', { class: 'muted small', style: { margin: 0 } }, 'Runs the real lesson player with your current, unsaved content. Nothing you do here is recorded as progress.'), frame));
 
   host.replaceChildren(
-    h('div', { class: 'page-head' }, h('div', null, h('h2', null, isNew ? 'New lesson' : L.title || 'Edit lesson'), h('p', null, `${levelName(L.level)} · ${isNew ? 'unsaved' : (L.status === 'published' ? 'published' : 'draft')}${L.source === 'builtin' ? ' · bundled lesson' : ''}`)), actions),
+    h('div', { class: 'page-head' }, h('div', null, h('h2', null, isNew ? 'New lesson' : L.title || 'Edit lesson'), h('p', null, [levelName(L.level), isNew ? 'unsaved' : (L.status === 'published' ? 'published' : 'draft'), L.source === 'builtin' ? 'bundled lesson' : null].filter(Boolean).map(tr).join(' · '))), actions),
     problemsHost,
     h('div', { class: 'split' }, h('div', { class: 'stack' }, details, stepsCard), side));
   if (!writable) host.prepend(h('div', { class: 'notice', style: { marginBottom: '14px' } }, 'You have read-only access to content.'));

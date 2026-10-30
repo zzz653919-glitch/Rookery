@@ -471,5 +471,9 @@ export default {
  "Drew vs computer level {level}": "Ничья с компьютером уровня {level}",
  "After {move}, the White {piece} can capture your {captured} with {reply}.": "После {move} белая фигура ({piece}) может взять вашу фигуру ({captured}) ходом {reply}.",
  "After {move}, the Black {piece} can capture your {captured} with {reply}.": "После {move} чёрная фигура ({piece}) может взять вашу фигуру ({captured}) ходом {reply}.",
- "{n} day|{n} days": "{n} день|{n} дня|{n} дней"
+ "{n} day|{n} days": "{n} день|{n} дня|{n} дней",
+ "Find the best move — {n} moves to find.": "Найдите лучший ход — нужно найти ходов: {n}.",
+ "Solved on the first try.": "Решено с первой попытки.",
+ "Solved.": "Решено.",
+ "Remove a piece": "Убрать фигуру"
 };

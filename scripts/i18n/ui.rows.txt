@@ -470,3 +470,7 @@ Drew vs computer level {level} ||| Kompyuterning {level}-darajasiga qarshi duran
 After {move}, the White {piece} can capture your {captured} with {reply}. ||| {move} dan keyin oq {piece} {reply} yurishi bilan sizning figurangizni ({captured}) ola oladi. ||| После {move} белая фигура ({piece}) может взять вашу фигуру ({captured}) ходом {reply}.
 After {move}, the Black {piece} can capture your {captured} with {reply}. ||| {move} dan keyin qora {piece} {reply} yurishi bilan sizning figurangizni ({captured}) ola oladi. ||| После {move} чёрная фигура ({piece}) может взять вашу фигуру ({captured}) ходом {reply}.
 {n} day|{n} days ||| {n} kun ||| {n} день|{n} дня|{n} дней
+Find the best move — {n} moves to find. ||| Eng yaxshi yurishni toping — topish kerak: {n} ta yurish. ||| Найдите лучший ход — нужно найти ходов: {n}.
+Solved on the first try. ||| Birinchi urinishda yechildi. ||| Решено с первой попытки.
+Solved. ||| Yechildi. ||| Решено.
+Remove a piece ||| Donani olib tashlash ||| Убрать фигуру

@@ -7,6 +7,14 @@ import { store, DEFAULTS } from '../../js/store.js';
 import { registerPieceSets, BOARD_THEMES, PIECE_THEMES, pieceSvg } from '../../js/ui/pieces.js';
 import { themeCss } from '../../js/content.js';
 import { LESSONS } from '../../js/data/lessons.js';
+import { t, setLanguage, loadDictionary, pickLanguage } from '../../js/i18n/core.js';
+
+// Same language as the admin panel, so the real lesson player shows its buttons and feedback in it.
+{
+  let id = null; try { id = localStorage.getItem('rookery-admin:lang'); } catch { /* ignore */ }
+  id = id || pickLanguage(navigator.languages || []);
+  setLanguage(id, await loadDictionary(id, '../../js/i18n/'));
+}
 
 // in-memory player store: no IndexedDB reads or writes from the preview
 for (const [k, v] of Object.entries(DEFAULTS)) store.data[k] = structuredClone(v);
@@ -73,14 +81,14 @@ function puzzle(msg) {
   const steps = []; for (let i = 0; i < p.moves.length; i += 2) steps.push(p.moves[i + 1] ? { accept: [p.moves[i]], reply: p.moves[i + 1] } : { accept: [p.moves[i]] });
   const run = () => {
     ui.replaceChildren();
-    const t = runTask({ kind: 'line', fen: p.fen, steps, instruction: p.moves.length === 1 ? 'Find the best move.' : `Find the best move — ${Math.ceil(p.moves.length / 2)} moves to find.`, hint: p.hint, explain: '' }, {
+    const t = runTask({ kind: 'line', fen: p.fen, steps, instruction: p.moves.length === 1 ? t('Find the best move.') : t('Find the best move — {n} moves to find.', { n: Math.ceil(p.moves.length / 2) }), hint: p.hint, explain: '' }, {
       board: bv, ui, mode: 'lesson',
-      onDone: (res) => { ui.insertAdjacentHTML('beforeend', ''); const note = document.createElement('div'); note.className = 'feedback good'; note.textContent = `Solved${res.firstTry ? ' on the first try' : ''}. ${p.explain || ''}`; ui.appendChild(note); post({ type: 'puzzle-solved', firstTry: !!res.firstTry }); },
+      onDone: (res) => { ui.insertAdjacentHTML('beforeend', ''); const note = document.createElement('div'); note.className = 'feedback good'; note.textContent = `${t(res.firstTry ? 'Solved on the first try.' : 'Solved.')} ${p.explain || ''}`; ui.appendChild(note); post({ type: 'puzzle-solved', firstTry: !!res.firstTry }); },
     });
     current = () => { t?.destroy?.(); bv.destroy(); };
   };
   run();
-  const again = document.createElement('button'); again.className = 'btn'; again.type = 'button'; again.textContent = 'Restart'; again.onclick = () => { current?.(); view.remove(); puzzle(msg); };
+  const again = document.createElement('button'); again.className = 'btn'; again.type = 'button'; again.textContent = t('Restart'); again.onclick = () => { current?.(); view.remove(); puzzle(msg); };
   nav.appendChild(again);
 }
 
@@ -106,10 +114,10 @@ function setup(msg) {
   const btns = [];
   const choose = (t, b) => { tool = t; btns.forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); };
   for (const color of ['w', 'b']) for (const type of PLACE_TYPES) {
-    const b = document.createElement('button'); b.type = 'button'; b.title = `${color === 'w' ? 'White' : 'Black'} ${type}`; b.style.cssText = 'aspect-ratio:1;border:2px solid transparent;border-radius:8px;background:rgba(127,127,127,.18);padding:2px;cursor:pointer';
+    const b = document.createElement('button'); b.type = 'button'; b.title = `${t(color === 'w' ? 'White' : 'Black')} ${type}`; b.style.cssText = 'aspect-ratio:1;border:2px solid transparent;border-radius:8px;background:rgba(127,127,127,.18);padding:2px;cursor:pointer';
     b.innerHTML = pieceSvg(type, color, 'classic'); b.onclick = () => choose({ type, color }, b); btns.push(b); pal.appendChild(b);
   }
-  const eraser = document.createElement('button'); eraser.type = 'button'; eraser.textContent = '⌫'; eraser.title = 'Remove a piece'; eraser.style.cssText = 'border:2px solid transparent;border-radius:8px;background:rgba(127,127,127,.18);font-size:1.3rem;cursor:pointer;color:inherit';
+  const eraser = document.createElement('button'); eraser.type = 'button'; eraser.textContent = '⌫'; eraser.title = t('Remove a piece'); eraser.style.cssText = 'border:2px solid transparent;border-radius:8px;background:rgba(127,127,127,.18);font-size:1.3rem;cursor:pointer;color:inherit';
   eraser.onclick = () => choose(null, eraser); btns.push(eraser); pal.appendChild(eraser);
   const st = document.createElement('style'); st.textContent = 'button[aria-pressed=true]{border-color:#4f8cff!important;background:rgba(79,140,255,.25)!important}'; document.head.appendChild(st);
   choose(tool, btns[5]);

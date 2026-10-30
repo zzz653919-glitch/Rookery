@@ -149,3 +149,8 @@ table.data td.actions { text-align: right; white-space: nowrap; } td .sub { colo
 .modal-back { position: fixed; inset: 0; background: rgba(0, 0, 0, .55); display: grid; place-items: center; padding: 16px; z-index: 100; animation: fin .12s; } @keyframes fin { from { opacity: 0; } }
 .modal { background: var(--panel); border: 1px solid var(--line-2); border-radius: 14px; width: min(560px, 100%); max-height: calc(100vh - 32px); overflow: auto; box-shadow: var(--shadow); } .modal.wide { width: min(860px, 100%); }
 .modal header { padding: 16px 18px 0; } .modal .body { padding: 12px 18px; } .modal footer { padding: 12px 18px 16px; display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+
+/* language switcher + translation coverage */
+.lang-select { width: auto; min-width: 0; padding: 6px 28px 6px 10px; }
+.progress { height: 8px; border-radius: 99px; background: var(--line, rgba(128,128,128,.25)); overflow: hidden; margin: 8px 0; }
+.progress > span { display: block; height: 100%; background: var(--good, #3fb68b); }

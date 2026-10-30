@@ -1,6 +1,6 @@
 // Position picker: FEN text + live board preview with three modes — view, edit pieces, play moves.
 import { Chess } from '../../js/chess/rules.js';
-import { h } from './dom.js';
+import { h, tr } from './dom.js';
 import { field, input, select } from './ui.js';
 import { previewFrame } from './preview-frame.js';
 
@@ -9,7 +9,7 @@ export const EMPTY_FEN = '8/8/8/8/8/8/8/8 w - - 0 1';
 
 export function fenStatus(fen) {
   if (!fen || !fen.trim()) return { ok: false, message: 'Enter a FEN position.' };
-  try { const g = new Chess(fen.trim()); return { ok: true, message: `${g.turn() === 'w' ? 'White' : 'Black'} to move${g.isCheckmate() ? ' · checkmate' : g.isStalemate() ? ' · stalemate' : g.inCheck?.() ? ' · in check' : ''}`, game: g }; }
+  try { const g = new Chess(fen.trim()); return { ok: true, message: [g.turn() === 'w' ? 'White to move' : 'Black to move', g.isCheckmate() ? 'checkmate' : g.isStalemate() ? 'stalemate' : g.inCheck?.() ? 'in check' : null].filter(Boolean).map(tr).join(' · '), game: g }; }
   catch (e) { return { ok: false, message: 'Not a valid position: ' + (e.message || 'check the FEN').replace(/^Error: /, '') }; }
 }
 
@@ -33,7 +33,7 @@ export function positionPicker(opts = {}) {
     const c = castle.filter((l) => l.firstChild.checked).map((l) => l.firstChild.dataset.c).join('') || '-';
     setFen([p[0], turn.value, c, '-', '0', p[5] || '1'].join(' '), true);
   }
-  function check() { const r = fenStatus(st.fen); status.textContent = r.message; status.style.color = r.ok ? 'var(--good)' : 'var(--danger)'; return r; }
+  function check() { const r = fenStatus(st.fen); status.textContent = tr(r.message); status.style.color = r.ok ? 'var(--good)' : 'var(--danger)'; return r; }
   function render() {
     const r = check();
     if (st.mode === 'setup') { frame.send({ type: 'setup', fen: st.fen, orientation: st.orientation, maxWidth: 330 }); return; }
