@@ -1,9 +1,10 @@
 {
- "version": "6b887e8c00",
+ "version": "4a9123fa01",
  "files": [
   "./",
   "ADMIN.md",
   "DEPLOY.md",
+  "api/index.mjs",
   "css/styles.css",
   "fonts/Inter-Bold.otf",
   "fonts/Inter-Regular.otf",

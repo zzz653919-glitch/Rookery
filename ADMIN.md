@@ -163,6 +163,29 @@ Notes:
 * **Tested with** a local libSQL file through the same client library (the whole API test suite passes on both back ends: `ROOKERY_TEST_DB=libsql npm test`). It has **not** been run against a real Turso cloud database, so do a trial run (migrate, create an admin, sign in, save a lesson) before relying on it.
 * Foreign-key enforcement (cascade deletes) is on for the local file; hosted Turso follows its own defaults. The code does not depend on it for correctness (sessions are checked against the admin on every request, uploads are deleted explicitly).
 
+## 6d. Hosting on Vercel (no separate server)
+
+The site can run entirely on Vercel: the static files are served by Vercel and `api/index.mjs` runs the same API as `npm start` as a serverless function. It **requires Turso** (a serverless function has no persistent disk).
+
+1. Create the Turso database (section 6c) and, **once, from your own computer**, prepare it (creates the tables, imports the bundled lessons, creates your first administrator):
+
+   ```bash
+   set TURSO_DATABASE_URL=libsql://rookery-....turso.io
+   set TURSO_AUTH_TOKEN=...
+   npm run db:migrate
+   npm run admin:create -- --username admin
+   ```
+
+2. In Vercel → your project → *Settings → Environment Variables* add, for Production:
+   `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`, `ROOKERY_SECURE_COOKIES` = `1`, `ROOKERY_TRUST_PROXY` = `1`
+   (optional: `ANTHROPIC_API_KEY` + `ROOKERY_TRANSLATE_PROVIDER` = `anthropic`, see 6b).
+3. Settings → General: Framework Preset *Other*, no build command, Node.js 22.x. Redeploy (push to the connected branch).
+4. Open `https://<your-project>.vercel.app/admin` and sign in. `/login` and `/admin/login` also lead there.
+
+If the function answers *"The database is empty"* run step 1 again. Automatic translation runs in the background after a save; a serverless function may be frozen right after answering, so use **Translations → Translate missing texts now** on Vercel if a new lesson is still in English.
+
+Limits: **not tested on a real Vercel deployment** — only the handler (`api/index.mjs`) is tested locally on the libSQL back end (`tests/vercel.test.mjs`). Vercel serves every file of the repository as a static file (source code included, never the database or secrets, which only exist as environment variables). In-memory rate limits are per function instance; the login throttle is stored in the database and works across instances.
+
 ## 7. Tests
 
 ```bash
