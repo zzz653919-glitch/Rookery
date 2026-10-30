@@ -4,8 +4,10 @@ import { gzipSync } from 'node:zlib';
 import { createHash } from 'node:crypto';
 import { getDb, getSetting } from './db.mjs';
 import { DEFAULT_SETTINGS } from './defaults.mjs';
+import { localizeBundle, translationsVersion, isTarget } from './i18n.mjs';
 
 let cache = null;
+const localized = new Map(); // lang -> { key, entry }
 
 export const settingsNow = () => {
   const out = {};
@@ -38,8 +40,23 @@ export function buildContent() {
     .map((r) => ({ id: r.id, fen: r.fen, moves: JSON.parse(r.moves), theme: r.theme, themes: JSON.parse(r.themes), level: r.level, solverMoves: r.solver_moves, solution: r.solution, hint: r.hint, explain: r.explanation }));
   const boardThemes = d.prepare('SELECT id, name, light, dark FROM board_themes WHERE enabled = 1 ORDER BY builtin DESC, rowid').all();
   const pieceSets = d.prepare('SELECT * FROM piece_sets WHERE enabled = 1 ORDER BY builtin DESC, rowid').all().map(pieceSetPublic);
-  const body = JSON.stringify({ version, lessons, puzzles, boardThemes, pieceSets, settings });
+  const bundle = { version, lessons, puzzles, boardThemes, pieceSets, settings };
+  const body = JSON.stringify(bundle);
   const etag = '"' + createHash('sha1').update(body).digest('hex').slice(0, 16) + '"';
-  cache = { version, body, gz: gzipSync(body), etag };
+  cache = { version, body, gz: gzipSync(body), etag, bundle };
   return cache;
+}
+
+// The bundle with all texts in the requested language (English when lang is 'en' or unknown). Cached per content version,
+// translation-memory version and language.
+export function buildContentFor(lang) {
+  const base = buildContent();
+  if (!isTarget(lang)) return base;
+  const key = base.version + ':' + translationsVersion();
+  const hit = localized.get(lang);
+  if (hit && hit.key === key) return hit.entry;
+  const body = JSON.stringify(localizeBundle(base.bundle, lang));
+  const entry = { version: base.version, body, gz: gzipSync(body), etag: '"' + createHash('sha1').update(body).digest('hex').slice(0, 16) + '"' };
+  localized.set(lang, { key, entry });
+  return entry;
 }

@@ -98,8 +98,11 @@ export function setSetting(key, value, by = null) {
     .run(key, JSON.stringify(value), now(), by);
 }
 // Bumped on every content/theme/settings write so the public content cache and ETag refresh.
+const contentListeners = [];
+export const onContentChange = (fn) => { contentListeners.push(fn); };
 export function bumpContentVersion() {
   const v = (getSetting('contentVersion', 0) || 0) + 1;
   setSetting('contentVersion', v);
+  for (const fn of contentListeners) { try { fn(v); } catch { /* listeners must never break a save */ } }
   return v;
 }

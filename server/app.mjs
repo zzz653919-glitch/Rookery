@@ -11,10 +11,11 @@ import { register as contentRoutes } from './routes/content-admin.mjs';
 import { register as themeRoutes } from './routes/themes-admin.mjs';
 import { register as settingsRoutes } from './routes/settings-admin.mjs';
 import { register as systemRoutes } from './routes/system-admin.mjs';
+import { register as translationRoutes } from './routes/translations-admin.mjs';
 import { register as publicRoutes } from './routes/public.mjs';
 
 export const router = new Router();
-for (const r of [publicRoutes, authRoutes, contentRoutes, themeRoutes, settingsRoutes, systemRoutes]) r(router);
+for (const r of [publicRoutes, authRoutes, contentRoutes, themeRoutes, settingsRoutes, systemRoutes, translationRoutes]) r(router);
 
 const safeEqual = (a, b) => typeof a === 'string' && typeof b === 'string' && a.length === b.length && timingSafeEqual(Buffer.from(a), Buffer.from(b));
 

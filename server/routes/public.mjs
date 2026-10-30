@@ -5,7 +5,7 @@ import { getDb, now } from '../db.mjs';
 import { config } from '../config.mjs';
 import { HttpError, bad } from '../http.mjs';
 import { rateLimit } from '../security.mjs';
-import { buildContent } from '../content.mjs';
+import { buildContentFor } from '../content.mjs';
 import { PIECE_CODES } from '../validate.mjs';
 
 const EVENT_TYPES = new Set(['lesson_started', 'lesson_completed', 'puzzle_attempt', 'game_completed', 'placement_completed', 'client_error']);
@@ -15,7 +15,7 @@ export function register(router) {
   router.add('GET', '/api/health', () => ({ ok: true }));
 
   router.add('GET', '/api/public/content', (ctx) => {
-    const c = buildContent();
+    const c = buildContentFor(ctx.query.lang);
     if (ctx.req.headers['if-none-match'] === c.etag) return { raw: true, status: 304, headers: { etag: c.etag, 'cache-control': 'no-cache' } };
     const gz = /\bgzip\b/.test(ctx.req.headers['accept-encoding'] || '');
     return { raw: true, status: 200, body: gz ? c.gz : c.body, headers: { 'content-type': 'application/json; charset=utf-8', etag: c.etag, 'cache-control': 'no-cache', vary: 'accept-encoding', ...(gz ? { 'content-encoding': 'gzip' } : {}) } };
