@@ -9,9 +9,10 @@ import { localizeBundle, translationsVersion, isTarget } from './i18n.mjs';
 let cache = null;
 const localized = new Map(); // lang -> { key, entry }
 
-export const settingsNow = () => {
+export const settingsNow = async () => {
+  const stored = Object.fromEntries((await getDb().prepare('SELECT key, value FROM settings').all()).map((r) => [r.key, r.value]));
   const out = {};
-  for (const k of Object.keys(DEFAULT_SETTINGS)) out[k] = getSetting(k, DEFAULT_SETTINGS[k]);
+  for (const k of Object.keys(DEFAULT_SETTINGS)) out[k] = k in stored ? JSON.parse(stored[k]) : DEFAULT_SETTINGS[k];
   return out;
 };
 
@@ -22,24 +23,24 @@ export function pieceSetPublic(r) {
   return { ...base, assets: Object.fromEntries(Object.entries(a).map(([code, file]) => [code, `/uploads/piece-sets/${r.id}/${file}?v=${r.version}`])) };
 }
 
-export function buildContent() {
-  const version = getSetting('contentVersion', 0);
+export async function buildContent() {
+  const version = await getSetting('contentVersion', 0);
   if (cache && cache.version === version) return cache;
   const d = getDb();
-  const settings = settingsNow();
+  const settings = await settingsNow();
   const enabledCats = new Set(settings.puzzleCategories.filter((c) => c.enabled).map((c) => c.id));
-  const lessons = d.prepare("SELECT * FROM lessons WHERE status = 'published' ORDER BY position, rowid").all().map((r) => {
+  const lessons = (await d.prepare("SELECT * FROM lessons WHERE status = 'published' ORDER BY position, rowid").all()).map((r) => {
     const out = { id: r.id, level: r.level, skill: r.skill, title: r.title, summary: r.summary, minutes: r.minutes, difficulty: r.difficulty, steps: JSON.parse(r.steps) };
     const objectives = JSON.parse(r.objectives);
     if (r.description) out.description = r.description;
     if (objectives.length) out.objectives = objectives;
     return out;
   });
-  const puzzles = d.prepare("SELECT * FROM puzzles WHERE status = 'published' ORDER BY rowid").all()
+  const puzzles = (await d.prepare("SELECT * FROM puzzles WHERE status = 'published' ORDER BY rowid").all())
     .filter((r) => enabledCats.has(r.theme))
     .map((r) => ({ id: r.id, fen: r.fen, moves: JSON.parse(r.moves), theme: r.theme, themes: JSON.parse(r.themes), level: r.level, solverMoves: r.solver_moves, solution: r.solution, hint: r.hint, explain: r.explanation }));
-  const boardThemes = d.prepare('SELECT id, name, light, dark FROM board_themes WHERE enabled = 1 ORDER BY builtin DESC, rowid').all();
-  const pieceSets = d.prepare('SELECT * FROM piece_sets WHERE enabled = 1 ORDER BY builtin DESC, rowid').all().map(pieceSetPublic);
+  const boardThemes = (await d.prepare('SELECT id, name, light, dark FROM board_themes WHERE enabled = 1 ORDER BY builtin DESC, rowid').all());
+  const pieceSets = (await d.prepare('SELECT * FROM piece_sets WHERE enabled = 1 ORDER BY builtin DESC, rowid').all()).map(pieceSetPublic);
   const bundle = { version, lessons, puzzles, boardThemes, pieceSets, settings };
   const body = JSON.stringify(bundle);
   const etag = '"' + createHash('sha1').update(body).digest('hex').slice(0, 16) + '"';
@@ -49,13 +50,13 @@ export function buildContent() {
 
 // The bundle with all texts in the requested language (English when lang is 'en' or unknown). Cached per content version,
 // translation-memory version and language.
-export function buildContentFor(lang) {
-  const base = buildContent();
+export async function buildContentFor(lang) {
+  const base = await buildContent();
   if (!isTarget(lang)) return base;
   const key = base.version + ':' + translationsVersion();
   const hit = localized.get(lang);
   if (hit && hit.key === key) return hit.entry;
-  const body = JSON.stringify(localizeBundle(base.bundle, lang));
+  const body = JSON.stringify(await localizeBundle(base.bundle, lang));
   const entry = { version: base.version, body, gz: gzipSync(body), etag: '"' + createHash('sha1').update(body).digest('hex').slice(0, 16) + '"' };
   localized.set(lang, { key, entry });
   return entry;

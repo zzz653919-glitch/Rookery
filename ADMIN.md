@@ -135,10 +135,39 @@ Tables: `roles`, `admins`, `sessions`, `login_attempts`, `lessons`, `puzzles`, `
 * **Tested with a mock provider only.** The automated tests use a deterministic fake translator (`ROOKERY_TRANSLATE_PROVIDER=mock` together with `ROOKERY_ALLOW_MOCK=1`); the real provider has not been run against the live API. Machine translations of lessons should be reviewed by a person who speaks the language.
 * Translation sources are plain text tables: `scripts/i18n/ui.rows.txt` (player interface), `scripts/i18n/admin.rows.txt` (admin panel), `scripts/i18n/content.{uz,ru}.txt` (lessons / puzzles). After editing run `node scripts/i18n/build.mjs`, `node scripts/i18n/build-admin.mjs` or `node scripts/i18n/build-content.mjs`.
 
+## 6c. Database: local file or Turso
+
+By default the data lives in `data/rookery.db` (SQLite, nothing to install). To keep it in **Turso** (hosted libSQL) instead — useful on hosts whose disk is wiped on every restart — set two environment variables; the code is the same:
+
+```bash
+# one-off, with the Turso CLI (https://docs.turso.tech/cli)
+turso db create rookery
+turso db show rookery --url          # libsql://rookery-<you>.turso.io
+turso db tokens create rookery       # the auth token
+
+# on the machine / host that runs Rookery
+npm install                          # installs the optional @libsql/client driver
+export TURSO_DATABASE_URL="libsql://rookery-<you>.turso.io"
+export TURSO_AUTH_TOKEN="..."
+npm run db:migrate                   # creates the tables in Turso
+npm run admin:create -- --username <name>
+npm start                            # prints "Database: Turso / libSQL"
+```
+
+Notes:
+
+* **Turso is only the database.** The admin panel is still a Node server (`npm start`), so it needs a host that runs Node ≥ 22.13 (Render, Railway, Fly.io, a VPS …). Static hosting (GitHub Pages, Netlify static) cannot run it. On such a host also set `HOST=0.0.0.0`, `ROOKERY_SECURE_COOKIES=1` and (behind the host's proxy) `ROOKERY_TRUST_PROXY=1`; `PORT` is read from the environment.
+* **Uploaded piece images are stored in the database** (migration `003`), so nothing but the database needs to survive a restart. Images uploaded by an older version are still served from `data/uploads/` if that folder exists.
+* **Backups:** with a local file the server writes snapshots to `data/backups/` before migrations and destructive actions. With Turso it does not — use Turso's own branching / point-in-time restore. Keep the token secret; it is only read from the environment.
+* **Speed:** every query is a network round trip. The public content bundle is cached in memory per content version, so players are not slowed down; the admin panel is a little slower than with a local file. The very first start imports the bundled lessons and puzzles (a few hundred statements) and can take a few seconds.
+* **Tested with** a local libSQL file through the same client library (the whole API test suite passes on both back ends: `ROOKERY_TEST_DB=libsql npm test`). It has **not** been run against a real Turso cloud database, so do a trial run (migrate, create an admin, sign in, save a lesson) before relying on it.
+* Foreign-key enforcement (cascade deletes) is on for the local file; hosted Turso follows its own defaults. The code does not depend on it for correctness (sessions are checked against the admin on every request, uploads are deleted explicitly).
+
 ## 7. Tests
 
 ```bash
-npm test                          # unit + 23 admin API/security integration tests (boots the server on a temp database)
+npm test                          # unit + admin API/security integration tests (boots the server on a temp database)
+ROOKERY_TEST_DB=libsql npm test   # the same suite against the libSQL (Turso) back end, using a local libSQL file
 node tests/e2e/admin-i18n.mjs     # admin languages: crawls every page/dialog in uz+ru, translated lessons on the player site
 node tests/e2e/admin.mjs          # 74 browser checks: sign-in/out, roles, lesson/puzzle/theme/settings flows, uploads,
                                   # player integration, offline, mobile layout & touch (needs Playwright)

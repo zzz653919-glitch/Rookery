@@ -9,17 +9,19 @@ import { fileURLToPath } from 'node:url';
 const ROOT = join(fileURLToPath(import.meta.url), '..', '..', '..');
 const NODE = ['--disable-warning=ExperimentalWarning'];
 
+// ROOKERY_TEST_DB=libsql runs the whole suite against the libSQL (Turso) back end, using a local libSQL file as the server.
+const dbEnv = (dataDir) => (process.env.ROOKERY_TEST_DB === 'libsql' ? { TURSO_DATABASE_URL: `file:${join(dataDir, 'turso.db')}` } : {});
 export const freePort = () => new Promise((resolve) => { const s = createServer(); s.listen(0, '127.0.0.1', () => { const p = s.address().port; s.close(() => resolve(p)); }); });
 export const newDataDir = () => mkdtempSync(join(tmpdir(), 'rookery-test-'));
 export const removeDir = (d) => rmSync(d, { recursive: true, force: true });
 
 export function cli(dataDir, args, { password } = {}) {
-  return spawnSync(process.execPath, [...NODE, join(ROOT, 'server/cli.mjs'), ...args], { env: { ...process.env, ROOKERY_DATA_DIR: dataDir, ...(password ? { ROOKERY_ADMIN_PASSWORD: password } : {}) }, encoding: 'utf8' });
+  return spawnSync(process.execPath, [...NODE, join(ROOT, 'server/cli.mjs'), ...args], { env: { ...process.env, ROOKERY_DATA_DIR: dataDir, ...dbEnv(dataDir), ...(password ? { ROOKERY_ADMIN_PASSWORD: password } : {}) }, encoding: 'utf8' });
 }
 
 export async function startServer(dataDir, env = {}) {
   const port = await freePort();
-  const proc = spawn(process.execPath, [...NODE, join(ROOT, 'server/index.mjs'), '--port', String(port)], { env: { ...process.env, ROOKERY_DATA_DIR: dataDir, ...env }, stdio: ['ignore', 'pipe', 'pipe'] });
+  const proc = spawn(process.execPath, [...NODE, join(ROOT, 'server/index.mjs'), '--port', String(port)], { env: { ...process.env, ROOKERY_DATA_DIR: dataDir, ...dbEnv(dataDir), ...env }, stdio: ['ignore', 'pipe', 'pipe'] });
   let log = '';
   proc.stdout.on('data', (d) => { log += d; }); proc.stderr.on('data', (d) => { log += d; });
   const base = `http://127.0.0.1:${port}`;

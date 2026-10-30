@@ -1,7 +1,5 @@
 // Board themes and piece sets (recoloured built-ins or uploaded SVG/PNG/WebP assets).
-import { mkdirSync, writeFileSync, renameSync, rmSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
-import { getDb, now, bumpContentVersion, getSetting, setSetting, backupBeforeDestructive } from '../db.mjs';
+import { getDb, tx, now, bumpContentVersion, getSetting, setSetting, backupBeforeDestructive } from '../db.mjs';
 import { config } from '../config.mjs';
 import { HttpError, bad, readBody } from '../http.mjs';
 import { audit } from '../security.mjs';
@@ -12,16 +10,16 @@ import { mustConfirm, problemsError } from './util.mjs';
 
 const boardRow = (r) => ({ id: r.id, name: r.name, light: r.light, dark: r.dark, builtin: !!r.builtin, enabled: !!r.enabled });
 const setRow = (r) => ({ ...pieceSetPublic(r), enabled: !!r.enabled, assetCount: r.kind === 'assets' ? Object.keys(JSON.parse(r.assets)).length : null });
-const defaults = () => ({ boardTheme: getSetting('defaultBoardTheme', DEFAULT_SETTINGS.defaultBoardTheme), pieceSet: getSetting('defaultPieceSet', DEFAULT_SETTINGS.defaultPieceSet) });
-const setDir = (id) => join(config.uploadDir, 'piece-sets', id);
+const defaults = async () => ({ boardTheme: await getSetting('defaultBoardTheme', DEFAULT_SETTINGS.defaultBoardTheme), pieceSet: await getSetting('defaultPieceSet', DEFAULT_SETTINGS.defaultPieceSet) });
+const MIME = { svg: 'image/svg+xml', png: 'image/png', webp: 'image/webp' };
 
 export function register(router) {
-  router.add('GET', '/api/admin/themes', () => {
+  router.add('GET', '/api/admin/themes', async () => {
     const d = getDb();
     return {
-      boardThemes: d.prepare('SELECT * FROM board_themes ORDER BY builtin DESC, rowid').all().map(boardRow),
-      pieceSets: d.prepare('SELECT * FROM piece_sets ORDER BY builtin DESC, rowid').all().map(setRow),
-      defaults: defaults(), pieceCodes: PIECE_CODES,
+      boardThemes: (await d.prepare('SELECT * FROM board_themes ORDER BY builtin DESC, rowid').all()).map(boardRow),
+      pieceSets: (await d.prepare('SELECT * FROM piece_sets ORDER BY builtin DESC, rowid').all()).map(setRow),
+      defaults: (await defaults()), pieceCodes: PIECE_CODES,
     };
   }, { auth: true, perm: 'themes:read' });
 
@@ -30,16 +28,16 @@ export function register(router) {
     const body = await ctx.json();
     const d = getDb();
     if (body.boardTheme !== undefined) {
-      if (!d.prepare('SELECT 1 FROM board_themes WHERE id = ? AND enabled = 1').get(body.boardTheme)) throw bad('Choose an enabled board theme.');
-      setSetting('defaultBoardTheme', body.boardTheme, ctx.admin.username);
+      if (!(await d.prepare('SELECT 1 FROM board_themes WHERE id = ? AND enabled = 1').get(body.boardTheme))) throw bad('Choose an enabled board theme.');
+      await setSetting('defaultBoardTheme', body.boardTheme, ctx.admin.username);
     }
     if (body.pieceSet !== undefined) {
-      if (!d.prepare('SELECT 1 FROM piece_sets WHERE id = ? AND enabled = 1').get(body.pieceSet)) throw bad('Choose an enabled piece set.');
-      setSetting('defaultPieceSet', body.pieceSet, ctx.admin.username);
+      if (!(await d.prepare('SELECT 1 FROM piece_sets WHERE id = ? AND enabled = 1').get(body.pieceSet))) throw bad('Choose an enabled piece set.');
+      await setSetting('defaultPieceSet', body.pieceSet, ctx.admin.username);
     }
-    bumpContentVersion();
-    audit(ctx, 'theme.default', 'theme', null, body);
-    return defaults();
+    await bumpContentVersion();
+    await audit(ctx, 'theme.default', 'theme', null, body);
+    return (await defaults());
   }, { auth: true, perm: 'themes:write' });
 
   // ---- board themes
@@ -47,38 +45,38 @@ export function register(router) {
     const { P, value: v } = validateBoardTheme(await ctx.json());
     if (!P.ok) throw problemsError(P);
     const d = getDb();
-    if (d.prepare('SELECT 1 FROM board_themes WHERE id = ?').get(v.id)) throw new HttpError(409, 'This id is already taken.', [{ path: 'id', message: 'This id is already taken.' }]);
-    d.prepare('INSERT INTO board_themes(id, name, light, dark, builtin, enabled, created_at, updated_at) VALUES (?,?,?,?,0,?,?,?)').run(v.id, v.name, v.light, v.dark, v.enabled ? 1 : 0, now(), now());
-    bumpContentVersion();
-    audit(ctx, 'boardTheme.create', 'boardTheme', v.id, { name: v.name });
-    return { status: 201, body: boardRow(d.prepare('SELECT * FROM board_themes WHERE id = ?').get(v.id)) };
+    if ((await d.prepare('SELECT 1 FROM board_themes WHERE id = ?').get(v.id))) throw new HttpError(409, 'This id is already taken.', [{ path: 'id', message: 'This id is already taken.' }]);
+    await d.prepare('INSERT INTO board_themes(id, name, light, dark, builtin, enabled, created_at, updated_at) VALUES (?,?,?,?,0,?,?,?)').run(v.id, v.name, v.light, v.dark, v.enabled ? 1 : 0, now(), now());
+    await bumpContentVersion();
+    await audit(ctx, 'boardTheme.create', 'boardTheme', v.id, { name: v.name });
+    return { status: 201, body: boardRow((await d.prepare('SELECT * FROM board_themes WHERE id = ?').get(v.id))) };
   }, { auth: true, perm: 'themes:write' });
 
   router.add('PUT', '/api/admin/board-themes/:id', async (ctx) => {
     const d = getDb();
-    const cur = d.prepare('SELECT * FROM board_themes WHERE id = ?').get(ctx.params.id);
+    const cur = (await d.prepare('SELECT * FROM board_themes WHERE id = ?').get(ctx.params.id));
     if (!cur) throw new HttpError(404, 'Board theme not found.');
     const { P, value: v } = validateBoardTheme({ ...(await ctx.json()), id: cur.id });
     if (!P.ok) throw problemsError(P);
-    if (!v.enabled && defaults().boardTheme === cur.id) throw bad('The default board theme cannot be disabled. Pick another default first.');
-    if (!v.enabled && d.prepare('SELECT count(*) n FROM board_themes WHERE enabled = 1 AND id != ?').get(cur.id).n === 0) throw bad('At least one board theme must stay enabled.');
-    d.prepare('UPDATE board_themes SET name=?, light=?, dark=?, enabled=?, updated_at=? WHERE id=?').run(v.name, v.light, v.dark, v.enabled ? 1 : 0, now(), cur.id);
-    bumpContentVersion();
-    audit(ctx, 'boardTheme.update', 'boardTheme', cur.id, { name: v.name, enabled: v.enabled });
-    return boardRow(d.prepare('SELECT * FROM board_themes WHERE id = ?').get(cur.id));
+    if (!v.enabled && (await defaults()).boardTheme === cur.id) throw bad('The default board theme cannot be disabled. Pick another default first.');
+    if (!v.enabled && (await d.prepare('SELECT count(*) n FROM board_themes WHERE enabled = 1 AND id != ?').get(cur.id)).n === 0) throw bad('At least one board theme must stay enabled.');
+    await d.prepare('UPDATE board_themes SET name=?, light=?, dark=?, enabled=?, updated_at=? WHERE id=?').run(v.name, v.light, v.dark, v.enabled ? 1 : 0, now(), cur.id);
+    await bumpContentVersion();
+    await audit(ctx, 'boardTheme.update', 'boardTheme', cur.id, { name: v.name, enabled: v.enabled });
+    return boardRow((await d.prepare('SELECT * FROM board_themes WHERE id = ?').get(cur.id)));
   }, { auth: true, perm: 'themes:write' });
 
-  router.add('DELETE', '/api/admin/board-themes/:id', (ctx) => {
+  router.add('DELETE', '/api/admin/board-themes/:id', async (ctx) => {
     mustConfirm(ctx.query, ctx.params.id);
     const d = getDb();
-    const cur = d.prepare('SELECT * FROM board_themes WHERE id = ?').get(ctx.params.id);
+    const cur = (await d.prepare('SELECT * FROM board_themes WHERE id = ?').get(ctx.params.id));
     if (!cur) throw new HttpError(404, 'Board theme not found.');
     if (cur.builtin) throw bad('Built-in themes cannot be deleted; disable them instead.');
-    if (defaults().boardTheme === cur.id) throw bad('The default board theme cannot be deleted.');
-    backupBeforeDestructive('pre-delete');
-    d.prepare('DELETE FROM board_themes WHERE id = ?').run(cur.id);
-    bumpContentVersion();
-    audit(ctx, 'boardTheme.delete', 'boardTheme', cur.id, { name: cur.name });
+    if ((await defaults()).boardTheme === cur.id) throw bad('The default board theme cannot be deleted.');
+    await backupBeforeDestructive('pre-delete');
+    await d.prepare('DELETE FROM board_themes WHERE id = ?').run(cur.id);
+    await bumpContentVersion();
+    await audit(ctx, 'boardTheme.delete', 'boardTheme', cur.id, { name: cur.name });
     return { ok: true };
   }, { auth: true, perm: 'themes:write' });
 
@@ -87,18 +85,18 @@ export function register(router) {
     const { P, value: v } = validatePieceSet(await ctx.json());
     if (!P.ok) throw problemsError(P);
     const d = getDb();
-    if (d.prepare('SELECT 1 FROM piece_sets WHERE id = ?').get(v.id)) throw new HttpError(409, 'This id is already taken.', [{ path: 'id', message: 'This id is already taken.' }]);
+    if ((await d.prepare('SELECT 1 FROM piece_sets WHERE id = ?').get(v.id))) throw new HttpError(409, 'This id is already taken.', [{ path: 'id', message: 'This id is already taken.' }]);
     // an asset set cannot be enabled until all 12 images are uploaded
     const enabled = v.kind === 'assets' ? false : v.enabled;
-    d.prepare('INSERT INTO piece_sets(id, name, kind, colors, assets, builtin, enabled, version, created_at, updated_at) VALUES (?,?,?,?,?,0,?,1,?,?)').run(v.id, v.name, v.kind, JSON.stringify(v.colors), '{}', enabled ? 1 : 0, now(), now());
-    bumpContentVersion();
-    audit(ctx, 'pieceSet.create', 'pieceSet', v.id, { name: v.name, kind: v.kind });
-    return { status: 201, body: setRow(d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(v.id)) };
+    await d.prepare('INSERT INTO piece_sets(id, name, kind, colors, assets, builtin, enabled, version, created_at, updated_at) VALUES (?,?,?,?,?,0,?,1,?,?)').run(v.id, v.name, v.kind, JSON.stringify(v.colors), '{}', enabled ? 1 : 0, now(), now());
+    await bumpContentVersion();
+    await audit(ctx, 'pieceSet.create', 'pieceSet', v.id, { name: v.name, kind: v.kind });
+    return { status: 201, body: setRow((await d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(v.id))) };
   }, { auth: true, perm: 'themes:write' });
 
   router.add('PUT', '/api/admin/piece-sets/:id', async (ctx) => {
     const d = getDb();
-    const cur = d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(ctx.params.id);
+    const cur = (await d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(ctx.params.id));
     if (!cur) throw new HttpError(404, 'Piece set not found.');
     const input = await ctx.json();
     const merged = { ...input, id: cur.id, kind: cur.kind };
@@ -106,57 +104,55 @@ export function register(router) {
     const { P, value: v } = validatePieceSet(merged);
     if (!P.ok) throw problemsError(P);
     if (v.enabled && cur.kind === 'assets' && Object.keys(JSON.parse(cur.assets)).length < PIECE_CODES.length) throw bad('Upload all 12 piece images before enabling this set.');
-    if (!v.enabled && defaults().pieceSet === cur.id) throw bad('The default piece set cannot be disabled. Pick another default first.');
-    if (!v.enabled && d.prepare('SELECT count(*) n FROM piece_sets WHERE enabled = 1 AND id != ?').get(cur.id).n === 0) throw bad('At least one piece set must stay enabled.');
-    d.prepare('UPDATE piece_sets SET name=?, colors=?, enabled=?, version=version+1, updated_at=? WHERE id=?').run(v.name, JSON.stringify(cur.kind === 'css' ? v.colors : {}), v.enabled ? 1 : 0, now(), cur.id);
-    bumpContentVersion();
-    audit(ctx, 'pieceSet.update', 'pieceSet', cur.id, { name: v.name, enabled: v.enabled });
-    return setRow(d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(cur.id));
+    if (!v.enabled && (await defaults()).pieceSet === cur.id) throw bad('The default piece set cannot be disabled. Pick another default first.');
+    if (!v.enabled && (await d.prepare('SELECT count(*) n FROM piece_sets WHERE enabled = 1 AND id != ?').get(cur.id)).n === 0) throw bad('At least one piece set must stay enabled.');
+    await d.prepare('UPDATE piece_sets SET name=?, colors=?, enabled=?, version=version+1, updated_at=? WHERE id=?').run(v.name, JSON.stringify(cur.kind === 'css' ? v.colors : {}), v.enabled ? 1 : 0, now(), cur.id);
+    await bumpContentVersion();
+    await audit(ctx, 'pieceSet.update', 'pieceSet', cur.id, { name: v.name, enabled: v.enabled });
+    return setRow((await d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(cur.id)));
   }, { auth: true, perm: 'themes:write' });
 
-  router.add('DELETE', '/api/admin/piece-sets/:id', (ctx) => {
+  router.add('DELETE', '/api/admin/piece-sets/:id', async (ctx) => {
     mustConfirm(ctx.query, ctx.params.id);
     const d = getDb();
-    const cur = d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(ctx.params.id);
+    const cur = (await d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(ctx.params.id));
     if (!cur) throw new HttpError(404, 'Piece set not found.');
     if (cur.builtin) throw bad('Built-in piece sets cannot be deleted; disable them instead.');
-    if (defaults().pieceSet === cur.id) throw bad('The default piece set cannot be deleted.');
-    backupBeforeDestructive('pre-delete');
-    d.prepare('DELETE FROM piece_sets WHERE id = ?').run(cur.id);
-    rmSync(setDir(cur.id), { recursive: true, force: true });
-    bumpContentVersion();
-    audit(ctx, 'pieceSet.delete', 'pieceSet', cur.id, { name: cur.name });
+    if ((await defaults()).pieceSet === cur.id) throw bad('The default piece set cannot be deleted.');
+    await backupBeforeDestructive('pre-delete');
+    await d.prepare('DELETE FROM piece_sets WHERE id = ?').run(cur.id);
+    await d.prepare('DELETE FROM piece_assets WHERE set_id = ?').run(cur.id);
+    await bumpContentVersion();
+    await audit(ctx, 'pieceSet.delete', 'pieceSet', cur.id, { name: cur.name });
     return { ok: true };
   }, { auth: true, perm: 'themes:write' });
 
   // ---- uploads: PUT raw image bytes. The type is detected from the bytes; filenames are never taken from the client.
   router.add('PUT', '/api/admin/piece-sets/:id/assets/:code', async (ctx) => {
     const d = getDb();
-    const cur = d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(ctx.params.id);
+    const cur = (await d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(ctx.params.id));
     if (!cur) throw new HttpError(404, 'Piece set not found.');
     if (cur.kind !== 'assets') throw bad('Only uploaded-image sets accept files.');
     if (!PIECE_CODES.includes(ctx.params.code)) throw bad(`Piece code must be one of ${PIECE_CODES.join(', ')}.`);
     const buf = await readBody(ctx.req, config.maxUploadBytes);
     const chk = checkImageUpload(buf);
     if (chk.error) throw new HttpError(422, chk.error);
-    const dir = setDir(cur.id);
-    mkdirSync(dir, { recursive: true, mode: 0o700 });
     const assets = JSON.parse(cur.assets);
     const file = `${ctx.params.code}.${chk.ext}`;
-    const tmp = join(dir, `.${file}.tmp`);
-    writeFileSync(tmp, buf, { mode: 0o600 });
-    renameSync(tmp, join(dir, file));
-    if (assets[ctx.params.code] && assets[ctx.params.code] !== file) rmSync(join(dir, assets[ctx.params.code]), { force: true });
+    await tx(async (db) => {
+      await db.prepare('DELETE FROM piece_assets WHERE set_id = ? AND file LIKE ?').run(cur.id, `${ctx.params.code}.%`);
+      await db.prepare('INSERT INTO piece_assets(set_id, file, mime, data) VALUES (?,?,?,?)').run(cur.id, file, MIME[chk.ext], buf);
+    });
     assets[ctx.params.code] = file;
-    d.prepare('UPDATE piece_sets SET assets = ?, version = version + 1, updated_at = ? WHERE id = ?').run(JSON.stringify(assets), now(), cur.id);
-    bumpContentVersion();
-    audit(ctx, 'pieceSet.upload', 'pieceSet', cur.id, { code: ctx.params.code, type: chk.type, bytes: buf.length });
-    return setRow(d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(cur.id));
+    await d.prepare('UPDATE piece_sets SET assets = ?, version = version + 1, updated_at = ? WHERE id = ?').run(JSON.stringify(assets), now(), cur.id);
+    await bumpContentVersion();
+    await audit(ctx, 'pieceSet.upload', 'pieceSet', cur.id, { code: ctx.params.code, type: chk.type, bytes: buf.length });
+    return setRow((await d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(cur.id)));
   }, { auth: true, perm: 'themes:write' });
 
-  router.add('DELETE', '/api/admin/piece-sets/:id/assets/:code', (ctx) => {
+  router.add('DELETE', '/api/admin/piece-sets/:id/assets/:code', async (ctx) => {
     const d = getDb();
-    const cur = d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(ctx.params.id);
+    const cur = (await d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(ctx.params.id));
     if (!cur || cur.kind !== 'assets') throw new HttpError(404, 'Piece set not found.');
     const assets = JSON.parse(cur.assets);
     if (!assets[ctx.params.code]) throw new HttpError(404, 'No such image.');
@@ -164,13 +160,12 @@ export function register(router) {
     delete assets[ctx.params.code];
     // an incomplete set cannot stay enabled
     const stillComplete = Object.keys(assets).length === PIECE_CODES.length;
-    if (!stillComplete && defaults().pieceSet === cur.id) throw bad('The default piece set must stay complete.');
-    rmSync(join(setDir(cur.id), removed), { force: true });
-    d.prepare('UPDATE piece_sets SET assets = ?, enabled = ?, version = version + 1, updated_at = ? WHERE id = ?').run(JSON.stringify(assets), stillComplete ? cur.enabled : 0, now(), cur.id);
-    bumpContentVersion();
-    audit(ctx, 'pieceSet.removeAsset', 'pieceSet', cur.id, { code: ctx.params.code });
-    return setRow(d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(cur.id));
+    if (!stillComplete && (await defaults()).pieceSet === cur.id) throw bad('The default piece set must stay complete.');
+    await d.prepare('DELETE FROM piece_assets WHERE set_id = ? AND file = ?').run(cur.id, removed);
+    await d.prepare('UPDATE piece_sets SET assets = ?, enabled = ?, version = version + 1, updated_at = ? WHERE id = ?').run(JSON.stringify(assets), stillComplete ? cur.enabled : 0, now(), cur.id);
+    await bumpContentVersion();
+    await audit(ctx, 'pieceSet.removeAsset', 'pieceSet', cur.id, { code: ctx.params.code });
+    return setRow((await d.prepare('SELECT * FROM piece_sets WHERE id = ?').get(cur.id)));
   }, { auth: true, perm: 'themes:write' });
 }
 
-export const uploadExists = (id, file) => existsSync(join(setDir(id), file));

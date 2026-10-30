@@ -17,10 +17,10 @@ const UI = { uz: uzUi, ru: ruUi }; // interface strings (the player translates b
 let memoryVersion = 0; // bumped whenever a stored translation changes (part of the localized-bundle cache key)
 export const translationsVersion = () => memoryVersion;
 
-export function dictionary(lang) {
+export async function dictionary(lang) {
   if (!isTarget(lang)) return {};
   const out = { ...SEED[lang] };
-  for (const r of getDb().prepare('SELECT hash, text FROM translations WHERE lang = ?').all(lang)) out[r.hash] = r.text;
+  for (const r of (await getDb().prepare('SELECT hash, text FROM translations WHERE lang = ?').all(lang))) out[r.hash] = r.text;
   return out;
 }
 
@@ -44,9 +44,9 @@ export function mapSettingsStrings(settings, fn) {
 const settingsStrings = (s) => { const seen = []; mapSettingsStrings(s, (x) => { seen.push(x); return x; }); return seen; };
 
 // Returns a copy of the content bundle (as built by buildContent) with every text translated where a translation exists.
-export function localizeBundle(bundle, lang) {
+export async function localizeBundle(bundle, lang) {
   if (!isTarget(lang)) return bundle;
-  const dict = dictionary(lang);
+  const dict = await dictionary(lang);
   const fn = (s) => mapStr(s, dict);
   return {
     ...bundle,
@@ -58,61 +58,63 @@ export function localizeBundle(bundle, lang) {
 }
 
 // Every distinct source string of the PUBLISHED and DRAFT content that has no translation yet.
-export function sourceStrings() {
+export async function sourceStrings() {
   const d = getDb();
   const all = new Set();
-  for (const r of d.prepare('SELECT title, summary, description, objectives, steps FROM lessons').all()) {
+  for (const r of (await d.prepare('SELECT title, summary, description, objectives, steps FROM lessons').all())) {
     for (const s of lessonStrings({ title: r.title, summary: r.summary, description: r.description, objectives: JSON.parse(r.objectives), steps: JSON.parse(r.steps) })) all.add(s);
   }
-  for (const r of d.prepare('SELECT hint, explanation FROM puzzles').all()) for (const s of puzzleStrings({ hint: r.hint, explain: r.explanation })) all.add(s);
-  for (const s of settingsFromDb()) all.add(s);
+  for (const r of (await d.prepare('SELECT hint, explanation FROM puzzles').all())) for (const s of puzzleStrings({ hint: r.hint, explain: r.explanation })) all.add(s);
+  for (const s of await settingsFromDb()) all.add(s);
   return [...all].filter(needsTranslation);
 }
-function settingsFromDb() {
+async function settingsFromDb() {
   const out = {};
-  for (const r of getDb().prepare("SELECT key, value FROM settings WHERE key IN ('puzzleCategories','computerLevels','timeControls')").all()) out[r.key] = JSON.parse(r.value);
+  for (const r of (await getDb().prepare("SELECT key, value FROM settings WHERE key IN ('puzzleCategories','computerLevels','timeControls')").all())) out[r.key] = JSON.parse(r.value);
   return settingsStrings(out);
 }
 
-export function missing(lang) {
-  const dict = dictionary(lang);
-  return sourceStrings().filter((s) => dict[hashStr(s)] === undefined && UI[lang][s] === undefined);
+export async function missing(lang) {
+  const dict = await dictionary(lang);
+  return (await sourceStrings()).filter((s) => dict[hashStr(s)] === undefined && UI[lang][s] === undefined);
 }
 
-export function stats() {
-  const src = sourceStrings();
+export async function stats() {
+  const src = await sourceStrings();
   const d = getDb();
-  return TARGET_LANGS.map((lang) => {
-    const dict = dictionary(lang);
-    const rows = d.prepare('SELECT origin, count(*) n FROM translations WHERE lang = ? GROUP BY origin').all(lang);
+  const out = [];
+  for (const lang of TARGET_LANGS) {
+    const dict = await dictionary(lang);
+    const rows = await d.prepare('SELECT origin, count(*) n FROM translations WHERE lang = ? GROUP BY origin').all(lang);
     const n = (o) => rows.find((r) => r.origin === o)?.n || 0;
-    return { lang, total: src.length, translated: src.filter((s) => dict[hashStr(s)] !== undefined || UI[lang][s] !== undefined).length, auto: n('auto'), manual: n('manual') };
-  });
+    out.push({ lang, total: src.length, translated: src.filter((s) => dict[hashStr(s)] !== undefined || UI[lang][s] !== undefined).length, auto: n('auto'), manual: n('manual') });
+  }
+  return out;
 }
 
-export function listEntries(lang, { q = '', onlyMissing = false } = {}) {
-  const dict = dictionary(lang);
-  const rows = new Map(getDb().prepare('SELECT hash, origin, text, updated_by, updated_at FROM translations WHERE lang = ?').all(lang).map((r) => [r.hash, r]));
+export async function listEntries(lang, { q = '', onlyMissing = false } = {}) {
+  const dict = await dictionary(lang);
+  const rows = new Map((await getDb().prepare('SELECT hash, origin, text, updated_by, updated_at FROM translations WHERE lang = ?').all(lang)).map((r) => [r.hash, r]));
   const needle = q.toLowerCase();
-  return sourceStrings().map((source) => {
+  return (await sourceStrings()).map((source) => {
     const hash = hashStr(source);
     const row = rows.get(hash);
     return { hash, source, text: dict[hash] ?? '', origin: row ? row.origin : dict[hash] !== undefined ? 'bundled' : 'missing', updated_by: row?.updated_by || null, updated_at: row?.updated_at || null };
   }).filter((e) => (!onlyMissing || e.origin === 'missing') && (!needle || e.source.toLowerCase().includes(needle) || e.text.toLowerCase().includes(needle)));
 }
 
-export function saveTranslation(lang, source, text, origin, by = null) {
+export async function saveTranslation(lang, source, text, origin, by = null) {
   const d = getDb();
   const hash = hashStr(source);
-  const cur = d.prepare('SELECT origin FROM translations WHERE lang = ? AND hash = ?').get(lang, hash);
+  const cur = (await d.prepare('SELECT origin FROM translations WHERE lang = ? AND hash = ?').get(lang, hash));
   if (cur?.origin === 'manual' && origin !== 'manual') return false; // a person's wording is never overwritten by the machine
-  d.prepare('INSERT INTO translations(lang, hash, source, text, origin, updated_at, updated_by) VALUES (?,?,?,?,?,?,?) ON CONFLICT(lang, hash) DO UPDATE SET text = excluded.text, origin = excluded.origin, updated_at = excluded.updated_at, updated_by = excluded.updated_by')
-    .run(lang, hash, source, text, origin, now(), by);
+  (await d.prepare('INSERT INTO translations(lang, hash, source, text, origin, updated_at, updated_by) VALUES (?,?,?,?,?,?,?) ON CONFLICT(lang, hash) DO UPDATE SET text = excluded.text, origin = excluded.origin, updated_at = excluded.updated_at, updated_by = excluded.updated_by')
+    .run(lang, hash, source, text, origin, now(), by));
   memoryVersion++;
   return true;
 }
-export function deleteTranslation(lang, hash) {
-  const r = getDb().prepare('DELETE FROM translations WHERE lang = ? AND hash = ?').run(lang, hash);
+export async function deleteTranslation(lang, hash) {
+  const r = (await getDb().prepare('DELETE FROM translations WHERE lang = ? AND hash = ?').run(lang, hash));
   if (r.changes) memoryVersion++;
   return r.changes > 0;
 }
@@ -128,14 +130,14 @@ export function translateMissing(langs = TARGET_LANGS) {
       if (!providerName()) throw new Error('No translation provider is configured.');
       for (const lang of langs.filter(isTarget)) {
         lastRun.lang = lang;
-        const todo = missing(lang);
+        const todo = await missing(lang);
         for (let i = 0; i < todo.length; i += BATCH) {
           const chunk = todo.slice(i, i + BATCH);
           const out = await translateBatch(chunk, lang);
-          chunk.forEach((src, j) => {
-            const ok = acceptTranslation(src, out[j]);
-            if (ok) { if (saveTranslation(lang, src, ok, 'auto')) lastRun.translated++; } else lastRun.rejected++;
-          });
+          for (let j = 0; j < chunk.length; j++) {
+            const ok = acceptTranslation(chunk[j], out[j]);
+            if (ok) { if (await saveTranslation(lang, chunk[j], ok, 'auto')) lastRun.translated++; } else lastRun.rejected++;
+          }
         }
       }
     } catch (e) { lastRun.error = String(e.message || e).slice(0, 300); }
@@ -151,6 +153,6 @@ let timer = null;
 onContentChange(() => {
   if (!providerName()) return;
   clearTimeout(timer);
-  timer = setTimeout(() => { if (missing('uz').length || missing('ru').length) translateMissing(); }, 1500);
+  timer = setTimeout(async () => { try { if ((await missing('uz')).length || (await missing('ru')).length) await translateMissing(); } catch { /* the next save retries */ } }, 1500);
   timer.unref?.();
 });

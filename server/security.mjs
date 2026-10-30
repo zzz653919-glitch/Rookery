@@ -43,49 +43,49 @@ export const sha256 = (s) => createHash('sha256').update(s).digest('hex');
 export const newToken = () => randomBytes(32).toString('base64url');
 const plus = (min) => new Date(Date.now() + min * 60000).toISOString();
 
-export function createSession(adminId, userAgent = '') {
+export async function createSession(adminId, userAgent = '') {
   const token = newToken(), csrf = newToken();
-  getDb().prepare('INSERT INTO sessions(token_hash, admin_id, csrf, created_at, last_seen_at, expires_at, user_agent) VALUES (?,?,?,?,?,?,?)')
+  await getDb().prepare('INSERT INTO sessions(token_hash, admin_id, csrf, created_at, last_seen_at, expires_at, user_agent) VALUES (?,?,?,?,?,?,?)')
     .run(sha256(token), adminId, csrf, now(), now(), plus(config.sessionMaxMinutes), String(userAgent).slice(0, 200));
   return { token, csrf };
 }
 
 // Returns { admin, session, perms } for a valid cookie token, otherwise null. Enforces absolute + idle expiry.
-export function loadSession(token) {
+export async function loadSession(token) {
   if (!token || typeof token !== 'string' || token.length > 100) return null;
   const d = getDb();
-  const row = d.prepare(`SELECT s.token_hash, s.csrf, s.created_at, s.last_seen_at, s.expires_at, a.id AS admin_id, a.username, a.disabled, r.name AS role, r.permissions
-    FROM sessions s JOIN admins a ON a.id = s.admin_id JOIN roles r ON r.id = a.role_id WHERE s.token_hash = ?`).get(sha256(token));
+  const row = (await d.prepare(`SELECT s.token_hash, s.csrf, s.created_at, s.last_seen_at, s.expires_at, a.id AS admin_id, a.username, a.disabled, r.name AS role, r.permissions
+    FROM sessions s JOIN admins a ON a.id = s.admin_id JOIN roles r ON r.id = a.role_id WHERE s.token_hash = ?`).get(sha256(token)));
   if (!row) return null;
   const idleLimit = Date.parse(row.last_seen_at) + config.sessionIdleMinutes * 60000;
   if (row.disabled || Date.now() > Date.parse(row.expires_at) || Date.now() > idleLimit) {
-    d.prepare('DELETE FROM sessions WHERE token_hash = ?').run(row.token_hash);
+    await d.prepare('DELETE FROM sessions WHERE token_hash = ?').run(row.token_hash);
     return null;
   }
   // refresh the idle timer at most once a minute to limit writes
-  if (Date.now() - Date.parse(row.last_seen_at) > 60000) d.prepare('UPDATE sessions SET last_seen_at = ? WHERE token_hash = ?').run(now(), row.token_hash);
+  if (Date.now() - Date.parse(row.last_seen_at) > 60000) (await d.prepare('UPDATE sessions SET last_seen_at = ? WHERE token_hash = ?').run(now(), row.token_hash));
   const perms = JSON.parse(row.permissions);
   return { admin: { id: row.admin_id, username: row.username, role: row.role }, csrf: row.csrf, perms, expiresAt: row.expires_at, hash: row.token_hash };
 }
-export const destroySession = (token) => getDb().prepare('DELETE FROM sessions WHERE token_hash = ?').run(sha256(token));
-export const destroyAdminSessions = (adminId, exceptHash = null) => getDb().prepare('DELETE FROM sessions WHERE admin_id = ? AND token_hash IS NOT ?').run(adminId, exceptHash);
-export const purgeExpiredSessions = () => getDb().prepare('DELETE FROM sessions WHERE expires_at < ? OR last_seen_at < ?').run(now(), new Date(Date.now() - config.sessionIdleMinutes * 60000).toISOString());
+export const destroySession = async (token) => (await getDb().prepare('DELETE FROM sessions WHERE token_hash = ?').run(sha256(token)));
+export const destroyAdminSessions = async (adminId, exceptHash = null) => (await getDb().prepare('DELETE FROM sessions WHERE admin_id = ? AND token_hash IS NOT ?').run(adminId, exceptHash));
+export const purgeExpiredSessions = async () => (await getDb().prepare('DELETE FROM sessions WHERE expires_at < ? OR last_seen_at < ?').run(now(), new Date(Date.now() - config.sessionIdleMinutes * 60000).toISOString()));
 
 export const can = (perms, needed) => perms.includes('*') || perms.includes(needed);
 
 // ---- login throttling (persistent, so a restart does not reset it) -------------------------------
-export function loginBlocked(ip, username) {
+export async function loginBlocked(ip, username) {
   const since = new Date(Date.now() - config.loginWindowMinutes * 60000).toISOString();
   const d = getDb();
-  const byIp = d.prepare('SELECT count(*) AS n FROM login_attempts WHERE ts > ? AND ip = ? AND ok = 0').get(since, ip).n;
-  const byUser = d.prepare('SELECT count(*) AS n FROM login_attempts WHERE ts > ? AND username = ? AND ok = 0').get(since, username).n;
+  const byIp = (await d.prepare('SELECT count(*) AS n FROM login_attempts WHERE ts > ? AND ip = ? AND ok = 0').get(since, ip)).n;
+  const byUser = (await d.prepare('SELECT count(*) AS n FROM login_attempts WHERE ts > ? AND username = ? AND ok = 0').get(since, username)).n;
   return byIp >= config.loginMaxPerIp || byUser >= config.loginMaxPerUser;
 }
-export function recordLogin(ip, username, ok) {
+export async function recordLogin(ip, username, ok) {
   const d = getDb();
-  d.prepare('INSERT INTO login_attempts(ts, ip, username, ok) VALUES (?,?,?,?)').run(now(), ip, String(username).slice(0, 64), ok ? 1 : 0);
-  if (ok) d.prepare('DELETE FROM login_attempts WHERE username = ? AND ok = 0').run(String(username).slice(0, 64)); // a good login clears the user's failures
-  d.prepare('DELETE FROM login_attempts WHERE ts < ?').run(new Date(Date.now() - 24 * 3600 * 1000).toISOString());
+  await d.prepare('INSERT INTO login_attempts(ts, ip, username, ok) VALUES (?,?,?,?)').run(now(), ip, String(username).slice(0, 64), ok ? 1 : 0);
+  if (ok) (await d.prepare('DELETE FROM login_attempts WHERE username = ? AND ok = 0').run(String(username).slice(0, 64))); // a good login clears the user's failures
+  (await d.prepare('DELETE FROM login_attempts WHERE ts < ?').run(new Date(Date.now() - 24 * 3600 * 1000).toISOString()));
 }
 
 // ---- in-memory rate limiter for public endpoints --------------------------------------------------
@@ -108,7 +108,7 @@ export function redact(v, depth = 0) {
   if (typeof v === 'string') return v.length > 300 ? v.slice(0, 300) + '…' : v;
   return v;
 }
-export function audit(ctx, action, entity = null, entityId = null, detail = null) {
-  getDb().prepare('INSERT INTO audit_log(ts, admin_id, username, action, entity, entity_id, detail, ip) VALUES (?,?,?,?,?,?,?,?)')
+export async function audit(ctx, action, entity = null, entityId = null, detail = null) {
+  await getDb().prepare('INSERT INTO audit_log(ts, admin_id, username, action, entity, entity_id, detail, ip) VALUES (?,?,?,?,?,?,?,?)')
     .run(now(), ctx?.admin?.id ?? null, ctx?.admin?.username ?? ctx?.username ?? null, action, entity, entityId == null ? null : String(entityId), detail ? JSON.stringify(redact(detail)) : null, ctx?.ip ?? null);
 }
