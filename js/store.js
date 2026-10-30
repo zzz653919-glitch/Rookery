@@ -16,6 +16,7 @@ export const DEFAULTS = {
     animations: true,
     highlightMoves: true,
     autoQueen: false,
+    telemetry: true,      // anonymous usage statistics, sent only when the optional admin server is present
   },
   profile: {
     level: null,          // 'beginner' | ... | 'expert'

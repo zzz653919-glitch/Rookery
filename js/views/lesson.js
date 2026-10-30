@@ -8,8 +8,9 @@ import { LESSONS } from '../data/lessons.js';
 import { LEVELS, SKILLS, levelById } from '../data/levels.js';
 import { completeLesson, lessonDone, recommendedLesson, checkAchievements, lessonsForLevel } from '../progress.js';
 import { play as sfx } from '../sound.js';
+import { quizPassRatio } from '../content.js';
+import { track } from '../telemetry.js';
 
-const QUIZ_PASS = 0.6;
 
 export async function mount(root, { params, navigate }) {
   const lesson = LESSONS.find((l) => l.id === params.id);
@@ -19,6 +20,7 @@ export async function mount(root, { params, navigate }) {
   }
   const lv = levelById(lesson.level);
   const steps = lesson.steps;
+  track('lesson_started', lesson.id, lesson.level);
   let idx = 0;
   let board = null;
   let current = null;       // active task runner
@@ -39,6 +41,7 @@ export async function mount(root, { params, navigate }) {
         <div class="card">
           <div class="eyebrow">${esc(lv.name)} lesson</div>
           <h2 style="margin-bottom:10px">${esc(lesson.title)}</h2>
+          ${lesson.objectives?.length ? `<ul class="muted" style="margin:0 0 10px;padding-left:18px;font-size:.9rem">${lesson.objectives.map((o) => `<li>${esc(o)}</li>`).join('')}</ul>` : ''}
           <div class="step-dots" id="dots" aria-label="Lesson progress"></div>
         </div>
         <div class="card" id="step-card"><div id="step-title"></div><div id="step-text"></div><div id="step-ui"></div><div class="btn-row" id="step-nav" style="margin-top:16px"></div></div>
@@ -204,12 +207,12 @@ export async function mount(root, { params, navigate }) {
       quizScore = Math.max(quizScore ?? 0, score);
       quizResult = { right, total: questions.length };
       for (const ok of results) await recordSkill(lesson.skill, ok);
-      const pass = score >= QUIZ_PASS;
+      const pass = score >= quizPassRatio();
       sfx(pass ? 'win' : 'wrong');
       board.opts.interactive = false;
       stepText.innerHTML = '';
       stepUi.innerHTML = `<div class="reward"><div class="burst">${pass ? '🎉' : '💪'}</div><h3>${right} of ${questions.length} correct</h3>
-        <p class="muted">${pass ? 'You passed the quiz.' : `You need at least ${Math.ceil(QUIZ_PASS * questions.length)} correct to complete the lesson. Review and try again!`}</p></div>`;
+        <p class="muted">${pass ? 'You passed the quiz.' : `You need at least ${Math.ceil(quizPassRatio() * questions.length)} correct to complete the lesson. Review and try again!`}</p></div>`;
       stepNav.innerHTML = pass
         ? `<button class="btn primary" id="done-btn" type="button">Finish lesson ${icon('arrow', 16)}</button>`
         : `<button class="btn primary" id="retry-btn" type="button">${icon('refresh', 16)} Try the quiz again</button><button class="btn ghost" id="review-btn" type="button">Review the lesson</button>`;
@@ -234,6 +237,7 @@ export async function mount(root, { params, navigate }) {
     }
     const was = lessonDone(lesson.id);
     await completeLesson(lesson.id, quizScore ?? 1);
+    track('lesson_completed', lesson.id, lesson.level, Math.round((quizScore ?? 1) * 100));
     await store.update('lessons', (l) => { l.attempts[lesson.id] = (l.attempts[lesson.id] || 0) + 1; });
     await markActivity();
     const unlocked = await checkAchievements();

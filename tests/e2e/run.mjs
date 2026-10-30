@@ -171,13 +171,14 @@ async function takeTest(page, correctFn) {
   const { ctx, page } = await newCtx();
   await go(page, '/welcome');
   await setProfile(page, { onboarded: true, level: 'beginner', levelSource: 'manual' });
-  for (const lesson of LESSONS) {
+  for (const lesson of LESSONS.filter((l) => !process.env.ONLY || l.id === process.env.ONLY)) {
     await go(page, '/learn/' + lesson.id);
-    let ok = true, detail = '';
+    let ok = true, detail = '', stepNo = -1;
     try {
       let guard = 0;
       for (let i = 0; i < lesson.steps.length; i++) {
         const st = lesson.steps[i];
+        stepNo = i;
         if (++guard > 40) throw new Error('loop');
         if (st.type === 'learn') {
           await page.click('#next-btn');
@@ -206,7 +207,7 @@ async function takeTest(page, correctFn) {
       await page.waitForSelector('.reward h2', { timeout: 5000 });
       const done = (await getStore(page, 'lessons')).done[lesson.id];
       if (!done) throw new Error('lesson not marked complete');
-    } catch (e) { ok = false; detail = e.message.split('\n')[0]; }
+    } catch (e) { ok = false; detail = `step ${stepNo}: ` + e.message.split('\n')[0]; }
     check(`lesson ${lesson.id} playable end to end and marked complete`, ok, detail);
   }
   // a lesson is NOT complete if the quiz is failed

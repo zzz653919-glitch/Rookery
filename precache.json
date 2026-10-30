@@ -1,5 +1,5 @@
 {
- "version": "43aa71212c",
+ "version": "aee3b2ce8b",
  "files": [
   "./",
   "DEPLOY.md",
@@ -16,6 +16,7 @@
   "js/app.js",
   "js/chess/engine.js",
   "js/chess/rules.js",
+  "js/content.js",
   "js/data/lesson-kit.js",
   "js/data/lessons-advanced.js",
   "js/data/lessons-beginner.js",
@@ -32,6 +33,7 @@
   "js/progress.js",
   "js/sound.js",
   "js/store.js",
+  "js/telemetry.js",
   "js/ui/board.js",
   "js/ui/dom.js",
   "js/ui/icons.js",

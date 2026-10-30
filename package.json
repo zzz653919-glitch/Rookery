@@ -6,15 +6,21 @@
   "type": "module",
   "license": "MIT",
   "engines": {
-    "node": ">=18"
+    "node": ">=22.13"
   },
   "scripts": {
-    "start": "node scripts/serve.mjs",
+    "start": "node --disable-warning=ExperimentalWarning server/index.mjs",
     "precache": "node scripts/gen-precache.mjs",
     "test": "node --test tests/*.test.mjs",
     "selfplay": "node scripts/selfplay.mjs",
     "e2e": "node tests/e2e/run.mjs",
     "puzzles": "node scripts/build-puzzles.mjs",
-    "icons": "node scripts/make-icons.mjs"
+    "icons": "node scripts/make-icons.mjs",
+    "start:static": "node scripts/serve.mjs",
+    "db:migrate": "node --disable-warning=ExperimentalWarning server/cli.mjs migrate",
+    "db:backup": "node --disable-warning=ExperimentalWarning server/cli.mjs backup",
+    "admin:create": "node --disable-warning=ExperimentalWarning server/cli.mjs create-admin",
+    "admin:reset-password": "node --disable-warning=ExperimentalWarning server/cli.mjs reset-password",
+    "admin:list": "node --disable-warning=ExperimentalWarning server/cli.mjs list-admins"
   }
 }

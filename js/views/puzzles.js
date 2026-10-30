@@ -5,18 +5,12 @@ import { runTask } from '../ui/task.js';
 import { esc, icon, emptyState, progressBar, toast } from '../ui/dom.js';
 import { store, todayISO, markActivity, recordSkill } from '../store.js';
 import { PUZZLES } from '../data/puzzles.js';
-import { LEVELS, levelIndex } from '../data/levels.js';
+import { LEVELS, levelIndex, THEMES } from '../data/levels.js';
 import { checkAchievements, puzzleAccuracy } from '../progress.js';
 import { play as sfx } from '../sound.js';
+import { track } from '../telemetry.js';
 
-export const THEMES = {
-  mate1: { name: 'Mate in 1', desc: 'Deliver checkmate in a single move.', skill: 'mates' },
-  mate2: { name: 'Mate in 2', desc: 'Force checkmate on your second move.', skill: 'mates' },
-  fork: { name: 'Forks', desc: 'Attack two pieces at once.', skill: 'tactics' },
-  pin: { name: 'Pins', desc: 'Win material with a piece that cannot move.', skill: 'tactics' },
-  skewer: { name: 'Skewers', desc: 'Attack the big piece, win the one behind it.', skill: 'tactics' },
-  discovered: { name: 'Discovered attacks', desc: 'Move one piece, unleash another.', skill: 'tactics' },
-};
+export { THEMES }; // puzzle categories live in data/levels.js so remote content can update them
 const LEVEL_NAMES = LEVELS.map((l) => l.name);
 
 export const puzzleLevelFor = (levelId) => Math.max(1, levelIndex(levelId) + 1);
@@ -170,6 +164,7 @@ export function mount(root, { params, navigate }) {
       }
     });
     await recordSkill(THEMES[p.theme]?.skill, firstTry);
+    track('puzzle_attempt', p.id, null, ok ? 1 : 0);
     await markActivity();
   }
 

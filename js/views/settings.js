@@ -1,7 +1,8 @@
 // Settings: appearance, board options, level / placement test, engine and offline status, local data.
 import { Chess } from '../chess/rules.js';
 import { BoardView, piecesFromGame } from '../ui/board.js';
-import { BOARD_THEMES, PIECE_THEMES, pieceSvg } from '../ui/pieces.js';
+import { BOARD_THEMES, PIECE_THEMES, pieceSvg, resolveBoardTheme, resolvePieceTheme } from '../ui/pieces.js';
+import { remote } from '../content.js';
 import { esc, icon, toast, confirmDialog } from '../ui/dom.js';
 import { store, DEFAULTS } from '../store.js';
 import { levelById, LEVELS } from '../data/levels.js';
@@ -25,12 +26,13 @@ export function mount(root, { navigate }) {
             <div class="opt-group"><label class="lbl">Theme</label>
               <div class="segmented" id="seg-theme" role="group" aria-label="Theme"><button type="button" data-v="dark" aria-pressed="${s.theme === 'dark'}">${icon('moon', 16)} Dark</button><button type="button" data-v="light" aria-pressed="${s.theme === 'light'}">${icon('sun', 16)} Light</button></div></div>
             <div class="opt-group"><label class="lbl">Board</label>
-              <div class="theme-swatches" id="sw-board">${BOARD_THEMES.map((t) => `<button class="swatch" type="button" data-v="${t.id}" aria-pressed="${s.boardTheme === t.id}" title="${esc(t.name)}"><div class="sw"><i style="background:${t.light}"></i><i style="background:${t.dark}"></i></div>${esc(t.name)}</button>`).join('')}</div></div>
+              <div class="theme-swatches" id="sw-board">${BOARD_THEMES.map((t) => `<button class="swatch" type="button" data-v="${t.id}" aria-pressed="${resolveBoardTheme(s.boardTheme) === t.id}" title="${esc(t.name)}"><div class="sw"><i style="background:${t.light}"></i><i style="background:${t.dark}"></i></div>${esc(t.name)}</button>`).join('')}</div></div>
             <div class="opt-group"><label class="lbl">Pieces</label>
-              <div class="theme-swatches" id="sw-pieces">${PIECE_THEMES.map((t) => `<button class="swatch" type="button" data-v="${t.id}" aria-pressed="${s.pieceTheme === t.id}" title="${esc(t.name)}"><div class="sw-piece board" data-pieces="${t.id}" style="position:relative"><span class="piece-prev" style="width:32px;height:32px;display:block">${pieceSvg('n', 'w')}</span></div>${esc(t.name)}</button>`).join('')}</div></div>
+              <div class="theme-swatches" id="sw-pieces">${PIECE_THEMES.map((t) => `<button class="swatch" type="button" data-v="${t.id}" aria-pressed="${resolvePieceTheme(s.pieceTheme) === t.id}" title="${esc(t.name)}"><div class="sw-piece board" data-pieces="${t.id}" style="position:relative"><span class="piece-prev" style="width:32px;height:32px;display:block">${pieceSvg('n', 'w', t.id)}</span></div>${esc(t.name)}</button>`).join('')}</div></div>
           </section>
           <section class="card stack" aria-labelledby="h-opt"><h3 id="h-opt">Board &amp; sound</h3>
             ${[['coords', 'Show coordinates', 'Letters and numbers around the board.'], ['highlightMoves', 'Highlight legal moves', 'Dots on the squares a selected piece can reach.'], ['autoQueen', 'Always promote to a queen', 'Skip the promotion picker.'], ['animations', 'Animations', 'Smooth piece movement.'], ['sound', 'Sound effects', 'Synthesised sounds — no files to download.']]
+              .concat(remote.available ? [['telemetry', 'Share anonymous usage statistics', 'Tells the site owner which lessons and puzzles get used. No name, account or progress is sent.']] : [])
               .map(([k, t, d]) => `<label class="row spread" style="gap:16px"><span><b>${t}</b><br><small class="muted">${d}</small></span><span class="switch"><input type="checkbox" data-opt="${k}" ${s[k] ? 'checked' : ''}><span></span></span></label>`).join('')}
           </section>
         </div>
