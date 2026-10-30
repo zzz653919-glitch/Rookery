@@ -222,6 +222,7 @@ test('lesson lifecycle: create, edit, publish gate, preview data, reorder, delet
   assert.equal((await c.del('/api/admin/lessons/lc-noquiz')).status, 400);
   assert.equal((await c.del('/api/admin/lessons/lc-noquiz?confirm=wrong')).status, 400);
   assert.equal((await c.del('/api/admin/lessons/lc-noquiz?confirm=lc-noquiz')).status, 200);
+  assert.ok(readdirSync(join(dir, 'backups')).some((f) => f.includes('pre-delete')), 'a database snapshot is taken before a destructive change');
   assert.equal((await c.get('/api/admin/lessons/lc-noquiz')).status, 404);
   // unpublish removes it from the public bundle
   assert.equal((await c.post('/api/admin/lessons/lc-one/publish', { published: false })).status, 200);
@@ -484,4 +485,10 @@ test('initial administrator setup: no default password, strong password required
     const src = ['server/seed.mjs', 'server/cli.mjs', 'server/security.mjs', 'server/index.mjs', 'server/migrations/001_init.sql'].map((f) => readFileSync(join(ROOT, f), 'utf8')).join('\n');
     assert.ok(!/INSERT INTO admins[^;]*VALUES\s*\(\s*'/i.test(src), 'no admin row is hardcoded in the source');
   } finally { removeDir(d3); }
+});
+
+test('the offline file list never includes the admin panel, server code or data', async () => {
+  const pre = JSON.parse(readFileSync(join(ROOT, 'precache.json'), 'utf8'));
+  assert.ok(pre.files.every((f) => !/^(admin|server|data|tests|scripts)\//.test(f)), pre.files.filter((f) => /^(admin|server|data)\//.test(f)).join());
+  assert.ok(pre.files.includes('js/content.js') && pre.files.includes('js/telemetry.js') && pre.files.includes('js/data/lessons.js'));
 });

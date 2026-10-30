@@ -1,5 +1,5 @@
 // Application settings. Only whitelisted, validated keys exist: nothing here can disable chess rules or result validation.
-import { getDb, tx, setSetting, bumpContentVersion } from '../db.mjs';
+import { getDb, tx, setSetting, bumpContentVersion, backupBeforeDestructive } from '../db.mjs';
 import { audit } from '../security.mjs';
 import { validateSettings } from '../validate.mjs';
 import { settingsNow } from '../content.mjs';
@@ -28,6 +28,7 @@ export function register(router) {
   }, { auth: true, perm: 'settings:write' });
 
   router.add('POST', '/api/admin/settings/reset', async (ctx) => {
+    backupBeforeDestructive('pre-reset');
     tx(() => { for (const [k, v] of Object.entries(DEFAULT_SETTINGS)) setSetting(k, v, ctx.admin.username); });
     bumpContentVersion();
     audit(ctx, 'settings.reset', 'settings');

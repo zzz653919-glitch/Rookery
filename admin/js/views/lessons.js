@@ -83,7 +83,7 @@ async function editor(host, ctx, existingId) {
   f.id = input({ value: L.id, disabled: !isNew || !writable, placeholder: 'b-castling', oninput: (e) => { L.id = e.target.value.trim(); } });
   f.title = input({ value: L.title, disabled: !writable, oninput: (e) => { L.title = e.target.value; if (isNew && !f.id.dataset.touched) { L.id = slug(e.target.value, L.level); f.id.value = L.id; } } });
   f.id.addEventListener('input', () => { f.id.dataset.touched = '1'; });
-  f.level = select(levelOpts, L.level, { disabled: !writable, onchange: (e) => { L.level = e.target.value; refreshPosition(); } });
+  f.level = select(levelOpts, L.level, { disabled: !writable, onchange: (e) => { L.level = e.target.value; if (isNew && !f.id.dataset.touched) { L.id = slug(L.title, L.level); f.id.value = L.id; } refreshPosition(); } });
   f.skill = select(skillOpts, L.skill, { disabled: !writable, onchange: (e) => { L.skill = e.target.value; } });
   f.difficulty = select([[1, '1 — easiest'], [2, '2'], [3, '3'], [4, '4'], [5, '5 — hardest']], L.difficulty, { disabled: !writable, onchange: (e) => { L.difficulty = +e.target.value; } });
   f.minutes = input({ type: 'number', min: 1, max: 90, value: L.minutes, disabled: !writable, oninput: (e) => { L.minutes = +e.target.value; } });
@@ -191,7 +191,8 @@ async function editor(host, ctx, existingId) {
   return () => frame.dispose();
 }
 
+const LEVEL_PREFIX = { beginner: 'b', elementary: 'e', intermediate: 'i', advanced: 'a', expert: 'x' };
 function slug(title, level) {
   const s = String(title).toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 28);
-  return s ? `${(level || 'x')[0]}-${s}`.slice(0, 41) : '';
+  return s ? `${LEVEL_PREFIX[level] || 'x'}-${s}`.slice(0, 41) : '';
 }

@@ -14,7 +14,7 @@ export function previewFrame({ height = 460, onMessage } = {}) {
   window.addEventListener('message', handler);
   function send(msg) {
     pending = msg;
-    if (ready) frame.contentWindow.postMessage({ ...msg, theme: document.documentElement.dataset.theme }, location.origin);
+    if (ready && frame.contentWindow) frame.contentWindow.postMessage({ ...msg, theme: document.documentElement.dataset.theme }, location.origin);
   }
   frame.send = send;
   frame.dispose = () => window.removeEventListener('message', handler);

@@ -1,7 +1,7 @@
 // SQLite access (node:sqlite, built into Node 22.5+) and the migration runner.
 // Before any pending migration touches an existing database, a consistent backup copy is written to data/backups/.
 import { DatabaseSync } from 'node:sqlite';
-import { mkdirSync, readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
+import { mkdirSync, readdirSync, readFileSync, existsSync, statSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { config } from './config.mjs';
@@ -35,6 +35,20 @@ export function backupDatabase(label = 'manual') {
   const target = join(config.backupDir, `rookery-${stamp}-${label}.db`);
   d.exec(`VACUUM INTO '${target.replace(/'/g, "''")}'`);
   return target;
+}
+
+// Destructive admin actions (deletes, settings reset) first snapshot the database. At most one snapshot per 10 minutes
+// is taken, and only the newest 30 snapshots are kept.
+let lastSnapshot = 0;
+export function backupBeforeDestructive(label = 'pre-change') {
+  if (Date.now() - lastSnapshot < 10 * 60 * 1000) return null;
+  lastSnapshot = Date.now();
+  const file = backupDatabase(label);
+  try {
+    const all = readdirSync(config.backupDir).filter((f) => f.endsWith('.db')).sort();
+    for (const old of all.slice(0, Math.max(0, all.length - 30))) rmSync(join(config.backupDir, old), { force: true });
+  } catch { /* pruning is best-effort */ }
+  return file;
 }
 
 // Applies pending migrations in order, each inside a transaction. Returns { applied, backup }.

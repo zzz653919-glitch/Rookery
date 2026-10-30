@@ -1,5 +1,5 @@
 // Lesson and puzzle management.
-import { getDb, tx, now, bumpContentVersion, getSetting } from '../db.mjs';
+import { getDb, tx, now, bumpContentVersion, getSetting, backupBeforeDestructive } from '../db.mjs';
 import { HttpError, bad } from '../http.mjs';
 import { audit } from '../security.mjs';
 import { validateLesson, validatePuzzle, chessOf, uciOf, Problems } from '../validate.mjs';
@@ -123,6 +123,7 @@ export function register(router) {
     const d = getDb();
     const cur = d.prepare('SELECT title FROM lessons WHERE id = ?').get(ctx.params.id);
     if (!cur) throw new HttpError(404, 'Lesson not found.');
+    backupBeforeDestructive('pre-delete');
     d.prepare('DELETE FROM lessons WHERE id = ?').run(ctx.params.id);
     bumpContentVersion();
     audit(ctx, 'lesson.delete', 'lesson', ctx.params.id, { title: cur.title });
@@ -210,6 +211,7 @@ export function register(router) {
     mustConfirm(ctx.query, ctx.params.id);
     const d = getDb();
     if (!d.prepare('SELECT 1 FROM puzzles WHERE id = ?').get(ctx.params.id)) throw new HttpError(404, 'Puzzle not found.');
+    backupBeforeDestructive('pre-delete');
     d.prepare('DELETE FROM puzzles WHERE id = ?').run(ctx.params.id);
     bumpContentVersion();
     audit(ctx, 'puzzle.delete', 'puzzle', ctx.params.id);

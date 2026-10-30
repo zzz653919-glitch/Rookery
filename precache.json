@@ -1,7 +1,8 @@
 {
- "version": "aee3b2ce8b",
+ "version": "df57c305d1",
  "files": [
   "./",
+  "ADMIN.md",
   "DEPLOY.md",
   "css/styles.css",
   "fonts/Inter-Bold.otf",

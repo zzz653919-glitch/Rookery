@@ -1,7 +1,7 @@
 // Board themes and piece sets (recoloured built-ins or uploaded SVG/PNG/WebP assets).
 import { mkdirSync, writeFileSync, renameSync, rmSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { getDb, now, bumpContentVersion, getSetting, setSetting } from '../db.mjs';
+import { getDb, now, bumpContentVersion, getSetting, setSetting, backupBeforeDestructive } from '../db.mjs';
 import { config } from '../config.mjs';
 import { HttpError, bad, readBody } from '../http.mjs';
 import { audit } from '../security.mjs';
@@ -75,6 +75,7 @@ export function register(router) {
     if (!cur) throw new HttpError(404, 'Board theme not found.');
     if (cur.builtin) throw bad('Built-in themes cannot be deleted; disable them instead.');
     if (defaults().boardTheme === cur.id) throw bad('The default board theme cannot be deleted.');
+    backupBeforeDestructive('pre-delete');
     d.prepare('DELETE FROM board_themes WHERE id = ?').run(cur.id);
     bumpContentVersion();
     audit(ctx, 'boardTheme.delete', 'boardTheme', cur.id, { name: cur.name });
@@ -120,6 +121,7 @@ export function register(router) {
     if (!cur) throw new HttpError(404, 'Piece set not found.');
     if (cur.builtin) throw bad('Built-in piece sets cannot be deleted; disable them instead.');
     if (defaults().pieceSet === cur.id) throw bad('The default piece set cannot be deleted.');
+    backupBeforeDestructive('pre-delete');
     d.prepare('DELETE FROM piece_sets WHERE id = ?').run(cur.id);
     rmSync(setDir(cur.id), { recursive: true, force: true });
     bumpContentVersion();
