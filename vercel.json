@@ -1,8 +1,26 @@
 {
   "cleanUrls": false,
+  "functions": { "api/index.mjs": { "maxDuration": 30, "includeFiles": "server/migrations/**" } },
+  "redirects": [
+    { "source": "/admin", "destination": "/admin/", "permanent": false },
+    { "source": "/Admin", "destination": "/admin/", "permanent": false },
+    { "source": "/login", "destination": "/admin/", "permanent": false },
+    { "source": "/admin/login", "destination": "/admin/", "permanent": false },
+    { "source": "/admin/register", "destination": "/admin/", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" },
+    { "source": "/uploads/(.*)", "destination": "/api" }
+  ],
   "headers": [
     { "source": "/sw.js", "headers": [{ "key": "Cache-Control", "value": "no-cache" }, { "key": "Service-Worker-Allowed", "value": "/" }] },
     { "source": "/precache.json", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] },
-    { "source": "/(.*).html", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] }
+    { "source": "/(.*).html", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] },
+    { "source": "/manifest.webmanifest", "headers": [{ "key": "x-rookery-server", "value": "1" }] },
+    { "source": "/admin/(.*)", "headers": [
+      { "key": "Cache-Control", "value": "no-cache" },
+      { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'; base-uri 'none'; form-action 'self'; object-src 'none'" },
+      { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+    ] }
   ]
 }

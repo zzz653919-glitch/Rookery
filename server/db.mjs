@@ -3,7 +3,6 @@
 //   • Turso / libSQL (hosted SQLite)  — when TURSO_DATABASE_URL is set (needs: npm install @libsql/client)
 // Statement helpers:  db.prepare(sql).get(...args) / .all(...args) / .run(...args)  and  db.exec(script)  — all return promises.
 // tx(async (db) => { ... }) runs a transaction; everything awaited inside (also through getDb()) belongs to it.
-import { DatabaseSync } from 'node:sqlite';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { mkdirSync, readdirSync, readFileSync, existsSync, statSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
@@ -22,7 +21,8 @@ const READ = /^\s*(select|with|pragma|explain)\b/i;
 const plain = (row) => (row && typeof row === 'object' ? Object.fromEntries(Object.keys(row).filter((k) => Number.isNaN(Number(k))).map((k) => [k, typeof row[k] === 'bigint' ? Number(row[k]) : row[k]])) : row);
 
 // ---- local file back end -------------------------------------------------------------------------
-function localBackend(file) {
+async function localBackend(file) {
+  const { DatabaseSync } = await import('node:sqlite'); // loaded only when a local file is used (not needed with Turso)
   if (file !== ':memory:') mkdirSync(config.dataDir, { recursive: true, mode: 0o700 });
   const d = new DatabaseSync(file);
   d.exec('PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 4000;');
@@ -90,7 +90,7 @@ function makeDb(target, { inTx = false } = {}) {
 
 export async function openDb(file = config.dbFile) {
   if (facade) return facade;
-  backend = config.tursoUrl ? await libsqlBackend() : localBackend(file);
+  backend = config.tursoUrl ? await libsqlBackend() : await localBackend(file);
   facade = makeDb(() => backend);
   return facade;
 }
