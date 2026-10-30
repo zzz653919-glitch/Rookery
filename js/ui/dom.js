@@ -1,5 +1,6 @@
 // Small DOM helpers shared by all views.
 import { icon } from './icons.js';
+import { t } from '../i18n/core.js';
 
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 export const $ = (sel, root = document) => root.querySelector(sel);
@@ -41,7 +42,7 @@ export function modal(content, { dismissible = true, onClose } = {}) {
   return { close, el: back.firstElementChild, back };
 }
 
-export function confirmDialog({ title, body, ok = 'Confirm', cancel = 'Cancel', danger = false }) {
+export function confirmDialog({ title, body, ok = t('Confirm'), cancel = t('Cancel'), danger = false }) {
   return new Promise((resolve) => {
     const m = modal(`
       <h2>${esc(title)}</h2>
@@ -59,7 +60,7 @@ export function emptyState({ emoji = '♟', title, body, actionHtml = '' }) {
   return `<div class="empty"><div class="big">${emoji}</div><h3>${esc(title)}</h3><p>${body}</p>${actionHtml}</div>`;
 }
 
-export function loader(text = 'Loading') {
+export function loader(text = t('Loading')) {
   return `<div class="row" style="justify-content:center;padding:40px;color:var(--muted)"><span class="spinner"></span><span>${esc(text)}<span class="dots"></span></span></div>`;
 }
 

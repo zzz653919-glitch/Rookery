@@ -1,0 +1,1080 @@
+# Uzbek (Latin) translations of the bundled lessons. Format: "@@ block-id", then one line per string in the order printed by
+# `node scripts/i18n/content-todo.mjs <block-id>` ("N. text"; a lone "=" keeps the English text, e.g. for "e4").
+@@ b-board
+1. Taxta va uning koordinatalari
+2. Vertikallar, gorizontallar va har bir katakning nomi.
+3. Taxta bilan tanishing
+4. <p>Shaxmat taxtasi 8 qator va 8 ustundan iborat <b>64 katak</b>dan tashkil topgan, kataklar och va to'q rangda. Taxtani doim <b>o'ng burchagingizda och katak</b> bo'ladigan qilib qo'ying.</p> <p>Ustunlar <b>vertikallar</b> deyiladi va oqlar tomonidan chapdan o'ngga <b>a dan h gacha</b> nomlanadi. Qatorlar <b>gorizontallar</b> deyiladi va oqlar tomonidan boshlab <b>1 dan 8 gacha</b> raqamlanadi.</p> <p>Har bir katak nomi vertikal va gorizontaldan iborat. Ajratib ko'rsatilgan katak — <b>e1</b>: e vertikali, 1-gorizontal.</p>
+5. Boshlang'ich pozitsiya
+6. <p>Har bir tomon 16 ta figura bilan boshlaydi. Ikkinchi qator <b>piyodalar</b>ga to'la. Ularning orqasida burchaklarda ruxlar, keyin otlar, fillar, farzin va shoh turadi.</p> <p>Esda tuting: <b>farzin o'z rangidagi katakda turadi</b> — oq farzin och katakda (d1), qora farzin to'q katakda (d8) boshlaydi.</p>
+7. Mashq qilish vaqti! O'ngda nomi ko'rsatilgan katakni bosing. Yarmida taxta aylanadi, shunda uni qoralar tomonidan ham ko'rasiz.
+8. Vertikallar — kataklarning tik chiziqlari. <b>d vertikalidagi har bir katakni</b> bosing, keyin <b>Javobni tekshirish</b> tugmasini bosing.
+9. d vertikali chapdan to'rtinchi ustundir.
+10. To'g'ri: d vertikali d1 dan d8 gacha cho'ziladi.
+11. a1 — a vertikali va 1-gorizontalning burchagi.
+12. Oqlar tomonidan qaraganda taxtaning pastki chap burchagidagi katak qaysi?
+13. =
+14. =
+15. =
+16. =
+17. Vertikallar a–h harflari bilan, gorizontallar 1–8 raqamlari bilan belgilanadi; e4 — bu katak.
+18. Quyidagilardan qaysi biri <b>vertikal</b> nomi?
+19. =
+20. =
+21. =
+22. Rux
+23. «Farzin o'z rangini yaxshi ko'radi»: oq farzin och d1 da, qora farzin to'q d8 da.
+24. Boshlang'ich pozitsiyada har bir farzin turadi…
+25. o'z rangidagi katakda
+26. qarama-qarshi rangdagi katakda
+27. istalgan katakda
+28. har doim och katakda
+29. 8 × 8 = 64.
+30. Shaxmat taxtasida nechta katak bor?
+31. =
+32. =
+33. =
+34. =
+@@ b-pieces
+1. Figuralar qanday yuradi
+2. Rux, fil, farzin, ot, shoh va piyoda.
+3. Rux
+4. <p><b>Rux</b> istalgan sondagi katakni <b>to'g'ri chiziq</b> bo'ylab yuradi: oldinga, orqaga yoki yonga. U boshqa figuralar ustidan sakray olmaydi.</p> <p>U raqib figurasi turgan katakka o'tib, uni oladi. Qayerga yura olishini ko'rish uchun ruxni bosing.</p>
+5. Fil
+6. <p><b>Fil</b> istalgan sondagi katakni <b>diagonal</b> bo'ylab yuradi. U ham figuralar ustidan sakray olmaydi.</p> <p>Fil doim o'zi boshlagan rangdagi katakda qoladi, shuning uchun har bir o'yinchida bitta «och katakli» va bitta «to'q katakli» fil bor.</p>
+7. Farzin
+8. <p><b>Farzin</b> — eng kuchli figura. U ruxning <b>va</b> filning yurishlarini birlashtiradi: to'g'ri chiziq yoki diagonal bo'ylab istalgan masofaga.</p>
+9. Ot
+10. <p><b>Ot</b> <b>«G» shaklida</b> yuradi: bir yo'nalishda ikki katak, keyin yonga bir katak. U boshqa figuralar ustidan <b>sakray oladigan</b> yagona figura.</p>
+11. Shoh
+12. <p><b>Shoh</b> istalgan yo'nalishda <b>bir katak</b> yuradi. U eng muhim figura: agar u qamalsa, o'yin yutqaziladi. Shoh hech qachon raqib hujum qilayotgan katakka o'tolmaydi.</p>
+13. Piyoda
+14. <p><b>Piyodalar</b> <b>bir katak oldinga</b> (birinchi yurishda <b>ikki katak</b> ham mumkin) yuradi, lekin <b>diagonal bo'yicha</b> bir katak oldinga oladi. Ular hech qachon orqaga yurmaydi.</p> <p>Agar piyoda taxtaning narigi chetiga yetib borsa, u <b>aylanadi</b>: farzin, rux, fil yoki otga (deyarli doim farzinga!).</p>
+15. Qora piyodani ruxingiz bilan oling.
+16. Rux to'g'ri chiziqlarda yuradi. Piyoda xuddi shu gorizontalda.
+17. Rux 4-gorizontal bo'ylab sirpanib, g4 dagi piyodani oladi.
+18. Qora filni otingiz bilan oling.
+19. Otdan «G» shaklini sanang: ikki katak yuqoriga/yonga, keyin bir katak.
+20. d3 dan ot o'ngga ikki katak va yuqoriga bir katak sakrab f4 ga tushadi — bu «G» shakli.
+21. d4 dagi ot yura oladigan <b>har bir katakni</b> bosing, keyin <b>Javobni tekshirish</b> tugmasini bosing.
+22. «G» ni o'ylang: bir yo'nalishda ikki katak, ikkinchisida bir katak. Jami 8 ta katak bor.
+23. Markazdagi otning sakkizta mumkin bo'lgan katagi bor.
+24. Piyodangizni aylantiring: uni oxirgi gorizontalga olib boring va <b>farzin</b>ni tanlang.
+25. Piyodani bir katak oldinga yuring va farzinni tanlang.
+26. Aylanish piyodani yangi farzinga aylantiradi — bu yerda u hatto shoh ham e'lon qiladi!
+27. Rux ham mos keladi, lekin farzin kuchliroq — farzinni tanlang!
+28. Fil ham mos keladi, lekin farzin kuchliroq.
+29. Ot ham mos keladi, lekin farzin kuchliroq.
+30. Faqat ot figuralar ustidan sakray oladi.
+31. Qaysi figura «G» shaklida yuradi va boshqa figuralar ustidan sakray oladi?
+32. Ot
+33. Fil
+34. Rux
+35. Piyoda
+36. Piyodalar to'g'ri yuradi, lekin diagonal bo'yicha oladi.
+37. Piyoda qanday oladi?
+38. Diagonal bo'yicha oldinga, bir katak
+39. To'g'ri oldinga
+40. Yonga
+41. Otga o'xshab
+42. Farzin ruxni va filni birlashtiradi.
+43. Qaysi figura to'g'ri chiziq <b>yoki</b> diagonal bo'ylab istalgan masofaga yura oladi?
+44. Farzin
+45. Shoh
+46. Ot
+47. Piyoda
+48. Diagonal yurishlar katak rangini hech qachon o'zgartirmaydi.
+49. Fil och katakda boshlaydi. U qaysi kataklarga bora oladi?
+50. Faqat och kataklarga
+51. Faqat to'q kataklarga
+52. Har bir katakka
+53. Faqat chetlarga
+54. U farzin, rux, fil yoki otga aylanadi.
+55. Piyoda taxtaning narigi chetiga yetib borsa, nima bo'ladi?
+56. U aylanadi
+57. U yo'qoladi
+58. U orqaga buriladi
+59. Hech narsa
+@@ b-captures
+1. Olish va himoya qilish
+2. Himoyasiz figuralarni oling va «himoyalangan» nima ekanini o'rganing.
+3. Olish qanday ishlaydi
+4. <p>Raqib figurasini o'z figurangizni uning katagiga qo'yib olasiz. Olingan figura taxtadan olib tashlanadi. O'z figuralaringizni olib bo'lmaydi va (shashkadan farqli ravishda) shaxmatda olish <b>hech qachon majburiy emas</b>.</p> <p>Figuralar har xil qiymatga ega. Qulay ko'rsatma: <b>piyoda = 1, ot = 3, fil = 3, rux = 5, farzin = 9</b>. Shohni olib bo'lmaydi — u butun o'yinga teng.</p>
+5. Himoyalangan figuralar
+6. <p>Agar figura olinsa, do'st figura uni qaytarib ola olsa, u <b>himoyalangan</b> hisoblanadi. Bu yerda qoralarning d5 piyodasini d8 dagi farzin himoya qiladi — agar e4 piyodasi uni olsa, farzin qaytarib oladi.</p> <p>Olishdan oldin doim so'rang: <b>«U himoyalanganmi?»</b> va <b>«Agar qaytarib olishsa, nimani yo'qotaman?»</b></p>
+7. Materialni xavfsiz yuting: <b>himoyalanmagan</b> piyodani oling.
+8. Bitta qora piyodani shoh qo'riqlaydi. Qaysi biri yolg'iz?
+9. a7 piyodasini shoh himoya qiladi, shuning uchun Rxa7+ Kxa7 piyoda evaziga ruxni yo'qotishga olib keladi. e4 piyodasi esa bepul.
+10. a7 piyodasini b8 dagi qora shoh himoya qiladi — siz piyoda uchun ruxingizni yo'qotasiz.
+11. Qora farzinni oling!
+12. Fillar diagonal bo'yicha yuradi. Filingiz diagonalida qaysi qora figura turibdi?
+13. Farzin himoyalanmagan edi, shuning uchun Bxd5 uni bepul yutadi.
+14. Olishdan oldin o'ylang!
+15. a8 dagi otni b7 dagi qora shoh qo'riqlaydi, shuning uchun Rxa8 Kxa8 dan keyin siz ot (3) uchun rux (5) bergan bo'lasiz — yomon almashinuv.
+16. Oqlarning ruxi a8 dagi otni ola oladi. Bu yaxshi fikrmi?
+17. Ha — rux otni bepul oladi
+18. Yo'q — otni shoh himoya qiladi, shuning uchun ot uchun ruxni yo'qotaman
+19. Olingan figura taxtadan olib tashlanadi.
+20. Figurani olish uchun…
+21. o'z figurangizni uning katagiga qo'yasiz
+22. uning ustidan sakraysiz
+23. unga ikki marta tegasiz
+24. uning yoniga yurasiz
+25. O'z figuralaringiz yurishlaringizga to'sqinlik qiladi; ularni olib bo'lmaydi.
+26. O'z figuralaringizni olish mumkinmi?
+27. Yo'q
+28. Ha, shoshilsangiz
+29. Faqat shoh bilan
+30. Faqat piyodalar
+31. Agar raqib uni olsa, siz qaytarib ola olasiz.
+32. Figura «himoyalangan» bo'ladi, qachonki…
+33. do'st figura o'sha katakda qaytarib ola olsa
+34. u chetda tursa
+35. u piyoda bo'lsa
+36. u hali yurmagan bo'lsa
+37. Nima yutganingiz va yo'qotganingizni qo'shing.
+38. Qaysi almashinuv siz uchun <b>eng yaxshi</b>?
+39. Ot (3) evaziga rux (5) yutish
+40. Ot (3) evaziga rux (5) yo'qotish
+41. Piyoda (1) evaziga farzin (9) yo'qotish
+42. Piyoda (1) evaziga filni (3) berish
+@@ b-check
+1. Shoh, mat va pat
+2. O'yinning maqsadi va u qanday tugashi mumkin.
+3. Shoh nima?
+4. <p>Figura raqib shohiga hujum qilganda, shoh <b>shoh ostida</b> bo'ladi. Bu yerda oq fil qora shohga diagonal bo'ylab hujum qilyapti.</p> <p>Agar shoh ostida bo'lsangiz, undan darhol chiqishingiz <b>shart</b>. Aynan uchta yo'l bor:</p> <ol><li>Shohni xavfsiz katakka <b>yurish</b>.</li><li>Hujumni boshqa figura bilan <b>to'sish</b>.</li><li>Hujum qilayotgan figurani <b>olish</b>.</li></ol> <p>O'z shohingizni shoh ostida qoldiradigan yurishni qilish hech qachon mumkin emas.</p>
+5. Shohingiz farzin tomonidan shoh ostida. Uni <b>olib</b> qutuling.
+6. Farzin shohingiz yonida turibdi va uni hech narsa himoya qilmaydi.
+7. Shoh hujumchini olishi mumkin, agar olinadigan katak raqib tomonidan himoyalanmagan bo'lsa.
+8. Shohingiz ruxdan shoh ostida. Otingiz bilan <b>to'sib</b> qutuling.
+9. Otingizni rux va shoh orasiga, birinchi gorizontalning biror joyiga qo'ying.
+10. O'z piyodalaringiz shohni qamab qo'ygan, shuning uchun to'sish yagona yo'l: Nc1 yoki Ne1 ikkalasi ham ishlaydi.
+11. Mat!
+12. <p>Agar shoh shoh ostida bo'lsa va <b>qonuniy chiqish yo'li bo'lmasa</b> — yura olmasa, to'sa olmasa va ola olmasa — bu <b>mat</b> va o'yin tugadi. Bu yerda qora shoh o'z piyodalari tomonidan qamalgan va a8 dagi rux shoh e'lon qilyapti.</p>
+13. Bir yurishda <b>mat</b> qo'ying.
+14. Qora shoh o'z piyodalari bilan o'ralgan. Orqa gorizontalda ruxingizdan foydalaning.
+15. Ra8#: shoh yura olmaydi (o'z piyodalari), ruxni ola olmaydi va hech narsa to'sa olmaydi.
+16. Pat — durang
+17. <p>Agar navbat sizniki bo'lsa, siz shoh ostida <b>emassiz</b>, lekin <b>birorta ham qonuniy yurishingiz yo'q</b> bo'lsa, bu <b>pat</b>. O'yin <b>durang</b>, ko'proq materialga ega tomonning g'alabasi emas!</p> <p>Bu yerda yuradigan qoralarning qonuniy yurishi yo'q, lekin ular shoh ostida emas.</p>
+18. Bir yurishda mat — lekin <b>patdan ehtiyot bo'ling</b>!
+19. Farzin shoh e'lon qilishi kerak, uni shohingiz himoya qiladi.
+20. Qb2# ni c3 dagi shoh himoya qiladi. Qb3 pat bo'lardi!
+21. Pat! Qoralarning qonuniy yurishi yo'q, lekin shoh ostida emas — o'yin durang.
+22. Shoh, lekin shoh oddiygina b1 ga yuradi. Himoya bilan shoh e'lon qilishga urining.
+23. Yuring, to'sing yoki oling — shohni e'tiborsiz qoldirib bo'lmaydi.
+24. Shohingiz shoh ostida bo'lsa, nima qilishingiz kerak?
+25. Shohdan darhol chiqish
+26. Istalgan figurani olish
+27. Taslim bo'lish
+28. Hech narsa — shoh faqat ogohlantirish
+29. Mat o'yinni hujum qilganning g'alabasi bilan tugatadi.
+30. Mat degani…
+31. Shoh shoh ostida va qutula olmaydi
+32. Shohning figuralari qolmagan
+33. Piyoda oxirgi gorizontalga yetdi
+34. Farzin olindi
+35. Pat — durang.
+36. Pat degani…
+37. Yuradigan o'yinchining qonuniy yurishi yo'q va u shoh ostida emas — durang
+38. Yuradigan o'yinchi shoh ostida
+39. Ikkala o'yinchi to'xtashga kelishdi
+40. Shoh olindi
+41. Uchta qonuniy javob — yurish, to'sish va olish.
+42. Quyidagilardan qaysi biri shohdan chiqish yo'li <b>emas</b>?
+43. Uni e'tiborsiz qoldirib, biror narsaga hujum qilish
+44. Hujumchini olish
+45. Hujum chizig'ini to'sish
+46. Shohni yurish
+@@ b-opening
+1. Debyut tamoyillari
+2. O'yinni oqilona qanday boshlash kerak.
+3. Uchta oddiy maqsad
+4. <p>Yaxshi o'ynash uchun uzun debyut variantlarini yodlash shart emas. Uchta tamoyilga amal qiling:</p> <ol><li>Piyodalaringiz bilan <b>markazni nazorat qiling</b> (d4, e4, d5, e5 kataklari).</li> <li><b>Figuralaringizni chiqaring</b>: ot va fillarni erta chiqaring, ular ko'p katakni nazorat qiladigan joyga.</li> <li>Shohni xavfsiz joyga yashirish va ruxni o'yinga kiritish uchun erta <b>rokirovka qiling</b>.</li></ol> <p>Bir figurani qayta-qayta yurishdan va farzinni juda erta chiqarishdan saqlaning — uni quvib yurishlari mumkin.</p>
+5. Yaxshi <b>birinchi yurish</b> qiling: piyodani markazga qo'ying.
+6. Ikki markaziy piyodadan birini oldinga suring.
+7. Markaziy piyodalar joy egallaydi va fil hamda farzin uchun chiziqlarni ochadi. (e4 va d4 — eng mashhur birinchi yurishlar.)
+8. Chetdagi piyodalar markazga kam foyda beradi.
+9. Chetdagi piyodalar markazga kam foyda beradi.
+10. Bu yurish chetda behuda ketadi.
+11. Bu yurish chetda behuda ketadi.
+12. Qoralar sizga taqlid qilib <b>1.e4 e5</b> o'ynadi. Markazga qarab <b>otni chiqaring</b>.
+13. Otlar f3 yoki c3 ga tegishli, chetga emas.
+14. Nf3 figurani chiqaradi va bir vaqtda e5 piyodasiga hujum qiladi.
+15. Figuralaringiz chiqdi. Shohingizni himoya qilish uchun <b>qisqa rokirovka qiling</b>.
+16. Rokirovka qilish uchun shohni ruxga qarab ikki katak yuring.
+17. Rokirovka shohni g1 ga, ruxni f1 ga bir yurishda ko'chiradi — shoh xavfsiz, rux faol.
+18. Markazni nazorat qilish figuralaringizga ko'proq joy beradi.
+19. Qaysi kataklar <b>markaziy</b> kataklar?
+20. =
+21. =
+22. =
+23. =
+24. Farzinni kuchsizroq figuralar quvishi mumkin, bu sizga vaqtni yo'qotadi.
+25. Debyutda bulardan qaysi biri odatda <b>yomon</b> fikr?
+26. Farzinni erta chiqarib, qayta-qayta yurish
+27. Otni chiqarish
+28. Rokirovka
+29. Markaziy piyodani surish
+30. Rokirovka bir yurishda ikki ishni bajaradi.
+31. Rokirovka nima uchun foydali?
+32. U shohni himoya qiladi va ruxni faollashtiradi
+33. U figurani oladi
+34. U piyodani yutadi
+35. U har o'yinda majburiy
+36. Avval yengil figuralar, keyin rokirovka.
+37. Odatda qaysi figuralarni birinchi chiqarish kerak?
+38. Ot va fillarni
+39. Shoh
+40. Barcha piyodalarni
+41. Ruxlarni
+@@ b-mates
+1. Sizning birinchi matlaringiz
+2. Orqa gorizontaldagi mat va ikki ruxli «narvon».
+3. Orqa gorizontaldagi mat
+4. <p>O'z piyodalari orqasida orqa gorizontalda qolgan shoh qamalib qolishi mumkin. O'sha gorizontalga kelgan rux yoki farzin <b>orqa gorizontaldagi mat</b> qo'yadi. Doim uni qidiring — va rokirovka qilganda uni yodda tuting!</p>
+5. Orqa gorizontaldagi matni toping.
+6. Ruxni ochiq vertikal bo'ylab orqa gorizontalga siljiting.
+7. Re8# — f7, g7 va h7 piyodalari shohning qochish kataklarini yopadi.
+8. Farzin va shoh birga ishlaydi. <b>Mat</b>ni toping.
+9. Shohingiz farzinni himoya qiladigan katakda shoh e'lon qiling.
+10. Qg7# — farzinni shoh qo'riqlaydi, shuning uchun qora shoh uni ola olmaydi va qochish yo'li yo'q.
+11. Shoh g8 dagi farzinni oddiygina oladi — u u yerda himoyalanmagan.
+12. Ikki ruxli «narvon»
+13. <p>Ikki rux yolg'iz shohga <b>narvon</b> zinapoyalari kabi ishlab mat qo'yishi mumkin: bir rux gorizontalni kesadi, ikkinchisi keyingi gorizontalda shoh e'lon qiladi va ular chetga qarab navbat bilan sakraydi. Sinab ko'ring: bir rux 7-gorizontalni oladi va shoh chetga siqib chiqariladi.</p>
+14. 2 yurishda mat: ikkala ruxdan narvon kabi foydalaning.
+15. Avval ruxingiz bilan shohni 7-gorizontaldan kesib qo'ying. Keyin ikkinchi rux bilan 8-gorizontalda shoh e'lon qiling.
+16. Rb7 7-gorizontalni kesadi, shoh g8 ga yurishi kerak, keyin Ra8# — mat.
+17. Shoh oldidagi piyodalar uning qochish kataklarini yopadi.
+18. Orqa gorizontaldagi matda shoh qamaladi…
+19. o'z piyodalari tomonidan
+20. ot tomonidan
+21. faqat taxta chetidan
+22. pat
+23. Mat qo'ymasangiz, raqib shohiga doim qonuniy yurish qoldiring.
+24. Materialda ancha oldinda bo'lganingizda nima uchun ehtiyot bo'lishingiz kerak?
+25. Ehtiyotsiz yurish pat va durangga olib kelishi mumkin
+26. Siz taslim bo'lishingiz kerak
+27. Farzin yura olmaydi
+28. Piyodalar sekinlashadi
+29. Uchta qochish yo'lidan biri bo'lsa, bu mat emas.
+30. Mat qo'yadigan yurishni qilishdan oldin shoh…
+31. yura olmasligini, shoh e'lon qilganni ola olmasligini yoki to'sa olmasligini tekshiring
+32. och katakda ekanini tekshiring
+33. farzin yaqinida ekanini tekshiring
+34. piyodasi yo'qligini tekshiring
+@@ e-forks
+1. Vilka: bir vaqtda ikki narsaga hujum
+2. Bitta yurish, ikkita nishon — material yutishning eng keng tarqalgan usuli.
+3. Vilka nima?
+4. <p><b>Vilka</b> — bir vaqtning o'zida raqibning ikkita (yoki undan ko'p) figurasiga hujum qiladigan bitta yurish. Raqibingiz odatda ulardan faqat bittasini qutqara oladi, shuning uchun ikkinchisini yutasiz.</p> <p>Otlar vilka ustalari, chunki ularning «G» shaklidagi sakrashlarini to'sib bo'lmaydi va ular ko'p yo'nalishda hujum qiladi. Bu yerda f7 dagi ot shohga <b>va</b> farzinga hujum qilgan bo'lardi.</p>
+5. Otingiz bilan shoh va farzinga vilka qo'ying — shoh bilan!
+6. Ot d8 ga ham, h6 ga ham hujum qiladigan katakni toping.
+7. Nf7+ shohga hujum qiladi, shuning uchun qoralar uni yurishi kerak, keyin ot h6 dagi farzinni oladi.
+8. Piyodalar ham vilka qila oladi! Otni yuting.
+9. Qaysi katak bir vaqtda ikkala qora otga hujum qiladi? Piyodalar diagonal bo'yicha oladi.
+10. d5 dan keyin ikkala otga ham piyoda hujum qiladi. Hech bir ot uni ola olmaydi, shuning uchun ulardan biri yo'qoladi.
+11. Farzin ham vilka qila oladi. Bitta yurish bilan shohga <b>va</b> ruxga hujum qiling.
+12. d5 orqali o'tadigan ikkita uzun diagonalga qarang.
+13. Qd5+ g8 ga diagonal bo'ylab shoh e'lon qiladi va a8 dagi ruxga ham hujum qiladi. Shoh yurgandan keyin Qxa8 ruxni yutadi.
+14. Vilkani payqang
+15. c7 dan ot e8 (shoh) va a8 (rux) ga hujum qiladi.
+16. Qaysi yurish oq ot bilan qora shoh va ruxga vilka qo'yadi?
+17. =
+18. =
+19. =
+20. =
+21. Raqib faqat bitta nishonni qutqara oladi.
+22. Vilka — bu yurish, u…
+23. bir vaqtda ikki yoki undan ko'p figuraga hujum qiladi
+24. piyodani oladi
+25. shohni to'sadi
+26. ikkita figurani himoya qiladi
+27. Otlar sakraydi, shuning uchun ularni to'xtatish qiyin.
+28. Qaysi figura sakrashlarini to'sib bo'lmagani uchun ko'pincha eng yaxshi vilkachi?
+29. Ot
+30. Rux
+31. Fil
+32. Shoh
+33. Vilka faqat vilka qilayotgan figura xavfsiz bo'lsagina (yoki vilka shoh bilan kelsa) ishlaydi.
+34. Vilka qo'yishdan oldin nimani ikki marta tekshirish kerak?
+35. Vilka qilayotgan figurani oddiygina olib bo'lmasligini
+36. Bu ot ekanini
+37. Rokirovka qilganingizni
+38. Hech narsa
+@@ e-pins
+1. Bog'lash va tikish
+2. Chiziq bo'ylab hujum: oldingi figura yura olmaydi (yoki yurmasligi kerak).
+3. Bog'lash
+4. <p><b>Bog'lash</b> figura raqib figurasiga hujum qilganda sodir bo'ladi, uning <b>orqasida</b> o'sha chiziqda qimmatroq figura (yoki shoh) turadi.</p> <p>Agar orqadagi figura <b>shoh</b> bo'lsa, bog'lash <b>mutlaq</b>: bog'langan figura qonuniy ravishda umuman yura olmaydi. Bu yerda e6 dagi qora filni e1 dagi rux shohiga bog'lagan.</p>
+5. Bog'langan filga piyoda bilan hujum qiling — u qocha olmaydi!
+6. d5 dagi piyoda e6 dagi filga hujum qilardi.
+7. Fil bog'langan, shuning uchun chetga chiqa olmaydi; e6 da olish piyoda evaziga figura yutadi.
+8. Tikish
+9. <p><b>Tikish</b> bog'lashning teskarisi: siz <b>oldindagi qimmatli figura</b>ga hujum qilasiz, u yurishi kerak va siz uning <b>orqasidagi</b> figurani olasiz.</p> <p>Rux, fil va farzin tikish figuralari, chunki ular chiziqlar bo'ylab ishlaydi.</p>
+10. Shoh va farzinni tikib oling.
+11. Shohga 5-gorizontal bo'ylab shoh e'lon qiling — uning orqasida nima turibdi?
+12. Ra5+ shohni gorizontaldan yurishga majbur qiladi, keyin rux h5 dagi farzinni oladi.
+13. Bog'lashmi yoki tikish?
+14. Qimmatroq figura orqada, shuning uchun old figura unga «bog'langan». Tikishda qimmatroq figura oldinda turadi.
+15. Fil ruxga hujum qiladi, uning orqasida o'sha diagonalda <b>qimmatroq</b> farzin turibdi. Bu nima?
+16. Bog'lash
+17. Tikish
+18. Vilka
+19. Pat
+20. Shohga bog'langan figura qonuniy ravishda yura olmaydi.
+21. <b>Mutlaq bog'lash</b>da orqadagi figura…
+22. shoh
+23. piyoda
+24. farzin
+25. ot
+26. U yurishi kerak, shunda orqasidagi figura ochiladi.
+27. Tikishda qaysi figura birinchi bo'lib hujumga uchraydi?
+28. Qimmatroq figura
+29. Arzonroq figura
+30. Piyoda
+31. Istalgan figura
+32. Ular chiziqlar bo'ylab yuradi; otlar va piyodalar yurmaydi.
+33. Qaysi figuralar bog'lay yoki tika oladi?
+34. Fil, rux va farzin
+35. Ot va piyodalar
+36. Faqat farzin
+37. Faqat shoh
+@@ e-defend
+1. Hujumchilar va himoyachilarni sanash
+2. Har bir olishdan oldin sanang — va tahdidlarga e'tibor bering.
+3. Olishdan oldin sanang
+4. <p>e5 dagi piyodaga <b>ikkita</b> oq ot hujum qiladi, lekin uni faqat <b>bitta</b> qora ot himoya qiladi. Agar oqlar olsa, qoralar qaytarib oladi va oqlar yana qaytarib oladi: oqlar bir piyoda ortiq bo'lib qoladi.</p> <p>Qoida: <b>hujumchilar himoyachilardan ko'p bo'lsa va birinchi oluvchi figurangiz yutganingizdan qimmatroq bo'lmasa, olish ishlaydi.</b> Olishdan oldin doim hujumchilar va himoyachilarni sanang.</p>
+5. e5 piyodasini yuting: ikki hujumchi bitta himoyachiga qarshi.
+6. e5 da ot bilan oling. Qaytarib olinganidan keyin, ikkinchi ot bilan qaytarib oling.
+7. Nxe5 Nxe5 Nxe5 — ot evaziga ot va yutilgan piyoda.
+8. Filingizga qora piyoda hujum qilyapti! Uni yurmang — <b>hujumchini oling</b>.
+9. d5 dagi piyoda c4 dagi filingizga hujum qiladi — filingiz ham o'sha piyodaga hujum qiladi.
+10. Bxd5 hujumchini olib tashlaydi va bepul piyoda yutadi: d5 dagi piyoda himoyalanmagan edi.
+11. Bu yaxshi olishmi?
+12. Rxa7 Kxa7 dan keyin siz piyoda (1) evaziga rux (5) berdingiz.
+13. Rux a7 dagi piyodani ola oladi — lekin uni shoh himoya qiladi. Nima bo'ladi?
+14. Piyodani bepul yutaman
+15. Piyoda uchun ruxni yo'qotaman
+16. Almashinuvlarni sanang va figuralar qiymatini solishtiring.
+17. Himoyalangan figurani olish qachon odatda yaxshi?
+18. Arzonroq figura bilan olganingizda yoki hujumchilar himoyachilardan ko'p bo'lganda
+19. Doim
+20. Hech qachon
+21. Faqat farzin bilan
+22. Piyodalar arzon hujumchilar — piyodaga figurani yutqazish yomon almashinuv.
+23. Figurangizga raqib piyodasi hujum qilyapti. Yaxshi birinchi g'oya nima?
+24. Imkon bo'lsa piyodani oling yoki figurani yuring
+25. E'tibor bermang
+26. Piyodaga shoh bilan hujum qiling
+27. Taslim bo'lish
+28. Farzin 9, rux 5, fil 3, ot 3, piyoda 1.
+29. Qaysi figura eng qimmat (shohni hisobga olmaganda)?
+30. Farzin
+31. Rux
+32. Fil
+33. Ot
+@@ e-traps
+1. Erta farzin hujumlari va debyut tuzoqlari
+2. Skolyar matidan himoyalaning — va uni jazolang.
+3. Skolyar mati g'oyasi
+4. <p>Yangi boshlovchilar ko'pincha <b>1.e4 e5 2.Bc4 Nc6 3.Qh5</b> bilan tez yutishga urinadi, farzin va filni zaif f7 katagiga qaratadi. Agar qoralar tahdidni e'tiborsiz qoldirsa, <b>Qxf7#</b> — mat.</p> <p>Himoya oddiy: <b>f7 ni qo'riqlang</b> yoki farzinni quvib yuboring — masalan <b>...g6</b> (farzinga hujum), <b>...Qe7</b> yoki <b>...Nh6</b>. Tabiiy ko'ringan <b>...Nf6??</b> dan ehtiyot bo'ling: u farzinga hujum qiladi, lekin oqlar buni e'tiborsiz qoldirib <b>Qxf7#</b> o'ynaydi!</p>
+5. Qoralar yuradi. Oqlar Qxf7 mat tahdidini qilyapti — uni to'xtating. (Ehtiyot bo'ling: aniq ko'ringan 3...Nf6?? <b>ishlamaydi</b>!)
+6. Yoki f7 ni figura bilan qo'riqlang, yoki farzinga piyoda yurishi bilan hujum qiling.
+7. ...g6 farzinga piyoda bilan hujum qiladi; ...Qe7, ...Qf6 va ...Nh6 hammasi f7 ni qo'riqlaydi. Har biri matni to'xtatadi.
+8. Nf6?? farzinga hujum qiladi, lekin oqlar oddiygina Qxf7# o'ynaydi — f6 dagi ot hatto shohning qochish katagini ham yopadi.
+9. Bu f7 ni qo'riqlamaydi: Qxf7# — mat.
+10. Oqlar sinab ko'rdi va qoralar xato qildi. <b>Matni toping.</b>
+11. f7 piyodasiga ikki marta hujum qilingan va uni faqat shoh himoya qiladi.
+12. Qxf7#: c4 dagi fil himoyalaydi, farzin f7 ni oladi va shohning qochish yo'li yo'q.
+13. f7 boshida faqat shoh bilan himoyalangan.
+14. Skolyar matining nishoni…
+15. f7 piyodasi (qoralar uchun f2)
+16. a-piyoda
+17. qora farzin
+18. d vertikali
+19. Rivojlanayotganda farzinga hujum qilib vaqt yuting.
+20. Erta farzin hujumiga javob berishning yaxshi usuli…
+21. farzinga tahdid bilan figurani chiqarish
+22. h-piyodani surish
+23. taslim bo'lish
+24. ruxni qurbon qilish
+25. Qochishga sarflangan har bir yurish — yo'qotilgan rivojlanish yurishi.
+26. Nima uchun farzinni 2-yurishda chiqarish hujum qiluvchi uchun xavfli?
+27. Farzinni templi yurishlar bilan quvish mumkin
+28. Farzin ola olmaydi
+29. U qoidaga ko'ra o'yinni yutqazadi
+30. U shohni to'sadi
+@@ e-mates
+1. Bir yurishda mat va ikki yurishda mat
+2. Qochishga yo'l qoldirmaydigan shohlarni va jimgina qurbonliklarni qidiring.
+3. Shohlar, olishlar, tahdidlar
+4. <p>G'alaba qidirganda, uchta savolni shu tartibda bering: <b>Shoh e'lon qila olamanmi? Biror narsani ola olamanmi? Tahdid yarata olamanmi?</b></p> <p>Mat uchun qo'yishingiz mumkin bo'lgan <b>har bir</b> shohni tekshiring va so'rang: shoh yura oladimi, shoh e'lon qilganni oladimi yoki to'sa oladimi? Uchalasiga ham javob «yo'q» bo'lsa, bu mat.</p>
+5. Bir yurishda mat: orqa gorizontal.
+6. Qora shoh uchta piyoda orqasida qolib ketgan.
+7. Rd8# — hech narsa to'sa olmaydi yoki ola olmaydi.
+8. Bir yurishda mat: shoh bilan <b>oling</b>.
+9. Qoralarning ruxi orqa gorizontalni himoya qiladi. Uni shoh bilan ola olasizmi?
+10. Rxe8#: qoralar qaytarib ola olmaydi, chunki ikkinchi oq rux e8 ni qo'riqlaydi, shoh esa o'z piyodalari bilan qamalgan.
+11. 2 yurishda mat: <b>avval shoh</b>, keyin to'suvchini oling.
+12. Orqa gorizontalda shoh e'lon qiling. Qoralarning to'sishning faqat bitta yo'li bor.
+13. Qa8+ Re8 ni (yagona to'siq) majbur qiladi, keyin Qxe8# — mat.
+14. 2 yurishda mat: asosiy shohni toping.
+15. Orqa gorizontalda shoh — qaysi figura to'ssa, mat bilan olinadi.
+16. Qb8+ Ne8 (majburiy to'siq), keyin Rxe8# yoki Qxe8# tugatadi.
+17. Shohdan chiqishning aynan shu uchta yo'li bor.
+18. Yurishni «mat» deyishdan oldin shoh quyidagilarni qila olmasligini tekshiring…
+19. yura olmaydi, shoh e'lon qilganni ola olmaydi yoki to'sib bo'lmaydi
+20. rokirovka qilish
+21. piyoda bilan himoyalanish
+22. javob shohi berish
+23. Majburlovchi yurishlar raqib javoblarini cheklaydi.
+24. Taktika qidirayotganda nomzod yurishlarning yaxshi tartibi…
+25. shohlar, olishlar, tahdidlar
+26. avval sokin yurishlar
+27. avval piyoda yurishlari
+28. tasodifiy
+29. Majburiy mat: har qanday himoya yaramaydi.
+30. 2 yurishda mat degani…
+31. qoralar nima javob bersa ham ikkinchi yurishda mat qo'yasiz
+32. o'yin ikki yurish davom etadi
+33. qoralar ikki yurishda mat qo'yadi
+34. farzin ikki marta yuradi
+@@ e-pawnend
+1. Shoh va piyoda endshpillari
+2. Shohingizdan foydalaning: endshpilda shoh jangovar figura.
+3. Shoh yo'l ko'rsatadi
+4. <p>Figuralar kam qolganda matga xavf yo'q, shuning uchun shoh <b>kuchli</b> bo'ladi. Shoh va piyoda endshpilida shohingizni piyodangiz <b>oldiga</b> olib keling. Shunda raqib shohi yo'l berishi kerak va piyodangiz aylanadi.</p> <p>Asosiy fakt: piyodasi oldida <b>6-gorizontalda</b> turgan shoh (piyoda 5-gorizontalda bo'lsa) <b>kim yurishidan qat'i nazar</b> yutadi.</p>
+5. Oqlar yuradi. Qaysi shoh yurishi yutadi? (Maslahat: piyoda oldiga noto'g'ri katakka <b>chiqmang</b>.)
+6. Shohni yonga, 6-gorizontalda qolgan holda yuring, shunda piyoda oldinga yura oladi.
+7. Kd6 (yoki Kf6) va piyoda uyiga yetib boradi. Kd5 yoki Kf5 6-gorizontalni beradi va qoralar duranga erisha oladi.
+8. Kd5 6-gorizontalni beradi — endi majburiy yutuq yo'q.
+9. Kf5 6-gorizontalni beradi — qoralar duranga erishadi.
+10. Kvadrat qoidasi
+11. <p>Shoh qochayotgan piyodani yeta oladimi? Piyodadan aylanish katagigacha <b>kvadrat</b> chizing: agar shoh o'z yurishida kvadrat ichiga kira olsa, u piyodani yetib oladi.</p>
+12. Poyga!
+13. h5 dan piyoda h8 ga yetish uchun 3 yurish kerak; kvadrat h5-h8-e8-e5. d5 dagi qora shoh e5 ga, kvadrat ichiga yuradi va piyodani yetib oladi.
+14. Oq piyoda h5 da, qora shoh d5 da, qoralar yuradi. Shoh piyodani yeta oladimi?
+15. Ha — u kvadratga kiradi
+16. Yo'q — piyoda aylanadi
+17. Material oz bo'lganda shoh xavfsiz harakatga qo'shila oladi.
+18. Endshpilda shoh…
+19. kuchli jangovar figura
+20. doim xavf ostida
+21. qadrsiz
+22. orqa gorizontalda saqlangani ma'qul
+23. Oldingi shoh piyodani oldinga yetaklaydi.
+24. Piyodani qo'llab-quvvatlash uchun shohingizni qo'yishingiz kerak…
+25. uning oldiga
+26. uning orqasiga
+27. boshqa qanotga
+28. orqa gorizontalga
+29. Agar shoh kvadratga kira olsa, u piyodani yetib oladi.
+30. «Kvadrat qoidasi» aytadi…
+31. shoh o'tuvchi piyodani yeta oladimi
+32. qanday rokirovka qilish
+33. qaysi filni almashtirish
+34. qanday durang qilish
+@@ i-discover
+1. Ochilgan hujumlar va qo'sh shoh
+2. Bir figurani yuring va boshqasini ozod qiling.
+3. Ochilgan hujumlar
+4. <p><b>Ochilgan hujum</b> figurani yo'ldan chetga yurib, orqasidagi boshqa figura hujumini ochganingizda sodir bo'ladi. Yurgan figura bir vaqtda <b>o'z</b> zarbasini ham bera oladi, ya'ni siz <b>bitta yurish bilan ikkita tahdid</b> yaratasiz.</p> <p>Ochilgan hujum <b>shoh</b> bo'lsa, bu ochilgan shoh — raqibingiz shohga javob berishi kerak, shuning uchun yurgan figurangiz biror narsani olishga erkin. Bu yerda e5 dagi ot ruxning shohga hujumini yashiradi.</p>
+5. Otni <b>ochilgan shoh</b> bilan yuring va farzinga hujum qiling.
+6. Ot d8 ga hujum qiladigan katakka tushishi kerak.
+7. Nc6+ ruxning shohini ochadi va farzinga hujum qiladi. Qoralar shohga javob berishi kerak, keyin Nxd8 farzinni yutadi.
+8. b8 dagi ruxni yutish uchun ochilgan shohdan foydalaning.
+9. Fil e vertikalida ruxingiz oldida turibdi. U bilan biror narsani oling.
+10. Bxb8+ — ruxdan ochilgan shoh — qoralar filni ola olmaydi va avval shohga javob berishi kerak.
+11. Qo'sh shoh
+12. <p>Agar yurishingiz <b>ikki figura bilan bir vaqtda</b> (yurgan va ochilgan figura) shoh e'lon qilsa, bu <b>qo'sh shoh</b>. Diagrammada Nd6 ot <i>va</i> e vertikalidagi rux bilan shoh e'lon qilardi. Bitta yurish bilan ikki hujumchini to'sib yoki olib bo'lmaydi, shuning uchun shoh <b>yurishi shart</b>. Qo'sh shohlar ko'pincha to'g'ridan-to'g'ri matga olib boradi.</p>
+13. Yuradigan figura bir vaqtda ikkinchi tahdidni yarata oladi.
+14. Ochilgan hujum…
+15. figurani yo'ldan chetga yurib hujumni ochadi
+16. ochuvchiga hujum qiladi
+17. piyodani oladi
+18. faqat farzin bilan ishlaydi
+19. Ikkita shohga to'siq yoki olish bilan javob berib bo'lmaydi.
+20. Qo'sh shohda yagona chiqish yo'li…
+21. shohni yurish
+22. to'sish
+23. hujumchilardan birini olish
+24. taslim bo'lish
+25. Raqibingiz shoh bilan band.
+26. Nima uchun ochilgan <b>shoh</b> shunchalik kuchli?
+27. Yurgan figura istalgan narsani olishga erkin, chunki shohga javob berilishi kerak
+28. U ikkita qo'shimcha yurish beradi
+29. Unga javob berib bo'lmaydi
+30. U doim mat qo'yadi
+@@ i-deflect
+1. Chalg'itish va himoyachini yo'q qilish
+2. Asosiy himoyachini chetga torting, keyin zarba bering.
+3. Qo'riqchini olib tashlang
+4. <p>Ko'p taktikalar <b>himoyachini yo'q qilish</b> yoki uni himoya qilayotgan katak yoki chiziqdan <b>chalg'itish</b> orqali ishlaydi. Ko'pincha bu sizga material yo'qotishga (qurbonlik) tushadi, lekin majburiy mat yoki kattaroq yutuq keladi.</p> <p>So'rang: <b>«Bu yerda asosiy himoyachi kim va uni ketishga yoki yo'q bo'lishga majbur qila olamanmi?»</b> Bu pozitsiyada b8 dagi qora rux orqa gorizontalni himoya qiladigan yagona figura.</p>
+5. 2 yurishda mat: himoyachini shoh bilan oling.
+6. b8 dagi rux orqa gorizontalni qo'riqlaydi. Farzinigiz uni shoh bilan olsachi?
+7. Qxb8+ Qc8 ni (yagona to'siq) majbur qiladi va Qxc8# — mat.
+8. 2 yurishda mat: rux qurbonligi farzinni chetga tortadi.
+9. Orqa gorizontalda shoh e'lon qiling. Qoralar farzini e8 da to'sishga majbur.
+10. Rc8+! Qe8 (majburiy) va Rxe8#. Qurbonlik farzinni orqa gorizontalning qolgan qismini qo'riqlashdan chalg'itdi.
+11. Himoyachi ketgach, tahdidingiz ishlaydi.
+12. Chalg'itish degani…
+13. himoyachini qo'riqlayotgan katak yoki chiziqdan majburan uzoqlashtirish
+14. raqib shohiga hujum qilish
+15. farzinlarni almashtirish
+16. rokirovka qilish
+17. Qurbonlik faqat raqibda yaxshi muqobil bo'lmasa ishlaydi.
+18. Taktika uchun materialni qurbon qilishdan oldin, ishonch hosil qilishingiz kerak…
+19. davomi majburiy ekaniga
+20. chiroyli ko'rinishiga
+21. raqib kuchsizroq ekaniga
+22. bu debyut ekaniga
+23. U orqa gorizontalni qo'riqlagan edi; uni olib tashlash shohni himoyasiz qoldirdi.
+24. Birinchi boshqotirmada asosiy himoyachi qaysi figura edi?
+25. b8 dagi rux
+26. f5 dagi farzin
+27. g7 dagi piyoda
+28. Hech biri
+@@ i-opening
+1. Debyut repertuari: Italyan partiyasi
+2. Haqiqiy debyut variantini o'ynang va uning ortidagi g'oyalarni tushuning.
+3. Nima uchun Italyan partiyasi?
+4. <p><b>Italyan partiyasi</b> (1.e4 e5 2.Nf3 Nc6 3.Bc4) barcha debyut tamoyillariga amal qiladi: markaz uchun kurashadi, ot va fillarni tez chiqaradi va rokirovkaga tayyorlaydi. c4 dagi fil zaif f7 katagiga qaraydi.</p> <p>Endi siz <b>Giuoco Piano</b> asosiy variantini (3...Bc5) o'ynaysiz. Qoralarning javoblari siz uchun o'ynaladi. Har bir yurish <b>nima uchun</b> qilinishini tushuning, faqat tartibini emas.</p>
+5. Variantni o'ynang: 1.e4 e5 2.Nf3 Nc6 3.Bc4 Bc5 4.c3 Nf6 5.d4 exd4 6.cxd4 Bb4+ 7.Bd2 Bxd2+ 8.Nbxd2 d5 9.exd5 Nxd5 10.Qb3 Nce7 11.O-O O-O.
+6. Ko'rsatmadagi yurishlar ro'yxatiga amal qiling: 1.e4, keyin Nf3, Bc4, c3, d4, cxd4, Bd2, Nbxd2, exd5, Qb3 va oxirida rokirovka.
+7. Oqlarda sog'lom markaz, barcha yengil figuralar chiqarilgan va shoh xavfsiz. Bu tipik Italyan o'rta o'yini.
+8. c3 d4 ni qo'llab-quvvatlaydi va filga c2 da chekinish katagini beradi.
+9. Italyan partiyasida 4.c3 ning g'oyasi nima?
+10. Katta piyoda markazini qurish uchun d4 ni tayyorlash
+11. Shohni himoya qilish
+12. Farzinga hujum qilish
+13. a vertikalini ochish
+14. Rivojlanish va shoh yaqinidagi eng zaif katakka bosim.
+15. Oqlar nima uchun 3.Bc4 o'ynaydi?
+16. U f7 ga qaraydi va figurani chiqaradi
+17. U farzinga hujum qiladi
+18. U e-piyodani to'sadi
+19. U farzinlar almashinuviga tayyorlaydi
+20. Tushunish raqibingiz kitobdan chiqib ketganda yaxshi o'ynashga imkon beradi.
+21. Debyutni o'rganganda bitta yaxshi odat nima?
+22. Yurishlar ortidagi g'oyalarni o'rganish
+23. O'ylamasdan 20 ta yurishni yodlash
+24. Faqat onlaynda o'ynash
+25. Hech qachon chetga chiqmaslik
+@@ i-plans
+1. O'rta o'yin rejalari: tayanch punktlar, ochiq vertikallar va zaif kataklar
+2. Figuralaringiz qayerda bo'lishni xohlashini biling.
+3. Tayanch punktlar
+4. <p><b>Tayanch punkt</b> — oldinga siljigan katak (odatda raqib yarmida), u <b>o'z piyodangiz bilan himoyalangan</b> va <b>raqib piyodasi unga hujum qila olmaydi</b>. Tayanch punktdagi ot ko'pincha ruxdan kuchliroq!</p> <p>Bu yerda oqlarning oti d5 ga sakrashga tayyor, uni c4 va e4 dagi piyodalar himoya qiladi. Qoralarda unga hech qachon qarshi chiqa oladigan c- yoki e-piyoda yo'q.</p>
+5. Tayanch punktni toping
+6. d5 ni ikkita piyoda (c4 va e4) himoya qiladi va hech bir qora piyoda unga hujum qila olmaydi.
+7. Oq ot uchun eng yaxshi tayanch punkt qaysi katak?
+8. =
+9. =
+10. =
+11. =
+12. Ochiq vertikallar va ettinchi gorizontal
+13. <p>Ruxlar samarali bo'lishi uchun <b>ochiq vertikallar</b> (piyodasiz vertikallar) kerak. Ruxni ochiq vertikalga qo'ying, keyin 7-gorizontalga bostirib kirishga urining: u yerda u piyodalarga yondan hujum qiladi va raqib shohini orqa gorizontalda qamab qo'yishi mumkin.</p> <p>Yana bir strategik kalit — <b>zaif kataklar va zaif piyodalar</b>: yakkalangan, ikkilangan yoki orqada qolgan piyodalar uzoq muddatli nishonlar bo'lib, ularga qayta-qayta hujum qilishingiz mumkin.</p>
+14. Piyodangiz himoyalagan, raqib piyodalariga daxlsiz.
+15. Bulardan qaysi biri ot uchun yaxshi <b>tayanch punkt</b>?
+16. Raqib piyodasi hech qachon hujum qila olmaydigan himoyalangan katak
+17. Chetdagi katak
+18. 7-gorizontaldagi istalgan katak
+19. O'z lageringizdagi katak
+20. Ochiq chiziqlar ruxlarga imkoniyat beradi.
+21. Ruxlar qayerda bo'lishni afzal ko'radi?
+22. Ochiq vertikallarda
+23. O'z piyodalari orqasida
+24. Abadiy burchakda
+25. Shoh yonida
+26. Zaif tomonlarni (o'zingizniki va raqibniki) aniqlang va ularga qarating.
+27. Yaxshi o'rta o'yin rejasi odatda asoslanadi…
+28. pozitsiyaning zaif va kuchli tomonlariga
+29. tasodifiy yurishlar qilishga
+30. raqibga taqlid qilishga
+31. barcha almashinuvlardan qochishga
+@@ i-endgame
+1. Endshpil texnikasi: rux bilan matlar va ettinchi gorizontal
+2. Ortiqcha ruxni g'alabaga aylantiring.
+3. Shoh va rux bilan mat qo'yish
+4. <p>Shoh va rux yolg'iz shohga qarshi doim g'alaba. G'oya — ruxingiz bilan raqib shohini <b>kesib qo'yish</b>, shohingizni yaqinlashtirish va keyin raqib shohini chetga haydash. Shohlar ro'baro' turganda rux chetda mat qo'yadi.</p> <p>Shohingiz 6-gorizontalda, raqib shohi oldida (8-gorizontalda) turishi kerak.</p>
+5. 2 yurishda mat: qochish kataklarini yopish uchun shohingizdan foydalaning, keyin rux bilan mat qo'ying.
+6. Shohingiz bilan oppozitsiyani oling, keyin Rb8.
+7. Kg6 Kg8 ni majbur qiladi (h7 va g7 yopilgan), keyin Rb8# — mat.
+8. Rux endshpili qoidasi
+9. O'tuvchi piyoda orqasida rux uni uzoqdan qo'llab-quvvatlaydi va piyoda oldinga siljiganda kuchini saqlaydi (Tarrash qoidasi).
+10. Agar o'tuvchi piyodangiz bo'lsa, rux endshpilida ruxingiz qayerda turishi kerak?
+11. O'tuvchi piyoda orqasida
+12. O'tuvchi piyoda oldida
+13. Boshqa qanotda
+14. Burchakda
+15. Shohni kesib qo'ying, o'z shohingizni olib keling, keyin mat qo'ying.
+16. Shoh+rux shohga qarshi…
+17. to'g'ri texnika bilan doim g'alaba
+18. durang
+19. faqat piyoda bilan g'alaba
+20. yutib bo'lmaydi
+21. 7-gorizontalda u piyodalarga hujum qiladi va raqib shohini kesib qo'yadi.
+22. Rux eng faol bo'ladi…
+23. 7-gorizontalda
+24. burchakda
+25. birinchi gorizontalda
+26. shoh yonida
+27. Bu Tarrash qoidasi.
+28. Rux endshpillarida ruxni o'tuvchi piyodaga nisbatan odatda qayerga qo'yish kerak?
+29. Uning orqasiga
+30. Uning oldiga
+31. Uning yoniga
+32. Farqi yo'q
+@@ i-calc
+1. Hisoblash va qo'pol xatolardan qochish
+2. Har bir yurish uchun oddiy fikrlash tartibi.
+3. Har bir yurish uchun tartib
+4. <p>Usta darajasidan past o'yinlarning ko'pchiligi yarqiroq g'oyalar bilan emas, <b>qo'pol xatolar</b> bilan hal bo'ladi. Har yurishda shu tartibdan foydalaning:</p> <ol><li><b>Nima o'zgardi?</b> Raqibingizning oxirgi yurishiga qarang. U nimaga tahdid qiladi?</li> <li><b>Nomzod yurishlarni sanab chiqing</b> — avval shohlar, olishlar va tahdidlar.</li> <li>Har bir majburlovchi variantni oxirigacha <b>hisoblang</b>. «Va keyin?» deb so'rang.</li> <li><b>Qo'pol xatoni tekshirish</b>: mo'ljallangan yurishingizdan keyin raqib biror narsani olishi yoki shoh e'lon qilishi mumkinmi?</li></ol>
+5. Qo'pol xatoni tekshirish
+6. Farzin va c5 dagi fil ikkalasi f2 ga hujum qiladi — Qxf2# tahdid (teskari Skolyar mati). Doim raqibingizning oxirgi yurishi nimaga tahdid qilishini so'rang.
+7. Oqlar navbati. Qoralarning oxirgi yurishi Qh4 edi. Qoralar nimaga tahdid qiladi?
+8. Qxf2 mat
+9. Hech narsa
+10. =
+11. =
+12. Tahdidni tushunish ko'pchilik qo'pol xatolarning oldini oladi.
+13. Har bir yurishda berish kerak bo'lgan eng birinchi savol nima?
+14. Raqibimning oxirgi yurishi nimaga tahdid qiladi?
+15. Qaysi figurani yurishim kerak?
+16. Rokirovka qila olamanmi?
+17. Nechta yurish qoldi?
+18. Majburlovchi yurishlar raqib imkoniyatlarini cheklaydi va hisoblash eng oson.
+19. Hisoblaganda qaysi yurishlarga birinchi qaraysiz?
+20. Shohlar, olishlar va tahdidlar
+21. Sokin piyoda yurishlari
+22. Shoh yurishlari
+23. Chekinishlar
+24. Figurani qo'yib yuborishdan oldin yana bir bor qarang.
+25. «Qo'pol xatoni tekshirish» degani…
+26. yurishni tanlagandan keyin u biror narsani himoyasiz qoldirmayotganini sinash
+27. do'stdan so'rash
+28. pozitsiyani takrorlash
+29. taslim bo'lish
+@@ a-attack
+1. Shohga hujum
+2. Ochiq chiziqlar, figuralarni olib kelish va klassik mat shakllarini bilish.
+3. Qachon hujum qilish kerak
+4. <p>Shohga hujum <b>sizning ko'proq figuralaringiz</b> shoh yaqinidagi himoyachidan ko'ra ko'p qatnashganda va shohga qarab <b>chiziqlar ochiq</b> bo'lganda muvaffaqiyatli bo'ladi. Odatiy tarkibiy qismlar: rivojlanishda ustunlik, ochiq vertikal yoki diagonal, zaiflashgan piyoda himoyasi va <b>temp</b> (majburlovchi yurishlar).</p> <p>Klassik mat shakllarini o'rganing — ular siz maqsad qilgan nishonlar. <b>Bo'g'ilgan mat</b> shulardan biri: ot o'z figuralari bilan o'ralgan shohga shoh e'lon qiladi.</p>
+5. Bo'g'ilgan matni toping.
+6. Shoh o'z rux va piyodalari bilan qamalgan. Qaysi figura olinmasdan shoh e'lon qila oladi?
+7. Nf7# — shohning qochish katagi yo'q: g8 o'z ruxi bilan, g7/h7 piyodalar bilan band.
+8. 2 yurishda mat: orqa gorizontalda rux qurbonligi.
+9. Qoralarning a2 dagi farzini va e5 dagi ruxi xavfli ko'rinadi, lekin sizda majburlovchi shoh bor.
+10. Qc8+! Re8 (yagona to'siq) va Qxe8#.
+11. 2 yurishda mat: ruxingizni orqa gorizontalga olib boring.
+12. Rd8+ — shoh. Qoralar farzin bilan to'sishi kerak.
+13. Rd8+ Qe8 va keyin Qxe8# yoki Rxe8# mat qo'yadi.
+14. Shoh yaqinidagi material va ochiq chiziqlar hujumlarni hal qiladi.
+15. Bulardan qaysi biri shohga hujumning muvaffaqiyatli bo'lish ehtimolini oshiradi?
+16. Shoh yaqinida himoyachilardan ko'proq hujumchilar va ochiq chiziqlar
+17. Barcha farzinlarni almashtirish
+18. Barcha figuralarni uyda saqlash
+19. a-piyodani surish
+20. Faqat ot qamalgan shohga shoh e'lon qilish uchun sakray oladi.
+21. Bo'g'ilgan matni qo'yadi…
+22. ot
+23. fil
+24. piyoda
+25. uzoqdan farzin
+26. Temp — hujumlarning valyutasi.
+27. Hujum qilganda majburlovchi yurishlar (shohlar, olishlar, tahdidlar) qimmatli, chunki…
+28. ular raqibga himoyalanishga vaqt qoldirmaydi
+29. ular qoidaga ko'ra material yutadi
+30. ular hech narsaga tushmaydi
+31. ular a vertikalini ochadi
+@@ a-structure
+1. Piyoda tuzilmasi
+2. Yakkalangan, orqada qolgan, ikkilangan va o'tuvchi piyodalar.
+3. Piyodalar — shaxmatning joni
+4. <p>Piyodalar orqaga yurmaydi, shuning uchun har bir piyoda yurishi pozitsiyani <b>butunlay</b> o'zgartiradi. Bu tuzilmalarni biling:</p> <ul><li><b>Yakkalangan piyoda</b>: qo'shni vertikallarda do'st piyoda yo'q. Uni piyodalar himoya qila olmaydi, shuning uchun u nishon — lekin u faol figura o'yini ham beradi.</li> <li><b>Ikkilangan piyodalar</b>: bir vertikaldagi ikkita piyoda; kamroq harakatchan va himoyasi qiyin.</li> <li><b>Orqada qolgan piyoda</b>: qo'shnilari orqasida va xavfsiz oldinga yura olmaydi, ko'pincha yarim ochiq vertikalda.</li> <li><b>O'tuvchi piyoda</b>: oldida yoki qo'shni vertikallarda raqib piyodasi yo'q; u aylanishgacha yura oladi. <i>«O'tuvchi piyoda qulf-kalit ostida saqlanishi kerak bo'lgan jinoyatchi».</i></li></ul>
+5. Zaiflikni toping
+6. c- yoki e-vertikallarda oq piyodalar yo'q, shuning uchun d4 piyodasining piyoda qo'shnilari yo'q va uni piyoda himoya qila olmaydi.
+7. Qaysi oq piyoda <b>yakkalangan</b>?
+8. =
+9. =
+10. =
+11. =
+12. Kuchli tomonni toping
+13. Qoralarning c-, d- yoki e-vertikallarda piyodasi yo'q, shuning uchun d5 piyodasini piyoda yurishlari bilan hech narsa to'xtata olmaydi yoki ola olmaydi.
+14. Qaysi oq piyoda <b>o'tuvchi piyoda</b>?
+15. =
+16. =
+17. =
+18. =
+19. U figuralar bilan himoya qilinishi kerak.
+20. Yakkalangan piyoda — bu…
+21. qo'shni vertikallarda do'st piyodasi yo'q piyoda
+22. chetdagi piyoda
+23. ikkilangan piyoda
+24. ikki marta yurgan piyoda
+25. Uni faqat figuralar to'xtata oladi.
+26. O'tuvchi piyoda xavfli, chunki…
+27. hech bir raqib piyodasi uni to'g'ridan-to'g'ri to'xtata olmaydi
+28. uni shoh himoya qiladi
+29. u 7-gorizontalda
+30. u ikkilangan
+31. Piyoda yurishlari qaytarilmas — ular doimiy zaifliklar yaratadi.
+32. Piyodalarni surishda nima uchun ehtiyot bo'lish kerak?
+33. Ular orqaga yura olmaydi
+34. Ular charchaydi
+35. Ular qiymatini yo'qotadi
+36. Ular shohni to'sadi
+@@ a-opening
+1. Debyutga tayyorgarlik: Farzin gambiti va Sitsiliya
+2. Ikki puxta repertuar — biri klassik, biri dinamik.
+3. Repertuar tanlash
+4. <p>Bu darajada siz o'ynaydigan debyutlarning faqat yurishlarini emas, <b>asosiy rejalarini</b> bilishingiz kerak. Biz ikkita ishonchli tizimni o'rganamiz:</p> <ul><li><b>Qabul qilinmagan Farzin gambiti</b> (1.d4 d5 2.c4 e6): puxta. Qoralar sog'lom piyoda tuzilmasi evaziga biroz passiv pozitsiyani qabul qiladi. Asosiy g'oya — ...b6 Tartakover tuzilmasi va o'z vaqtidagi ...c5.</li> <li><b>Sitsiliya himoyasi, Najdorf</b> (1.e4 c5 … 5...a6): o'tkir. Qoralar d4 katagi uchun kurashadi va farzin qanotida qarshi hujumlar bilan g'alabaga o'ynaydi.</li></ul>
+5. Qabul qilinmagan Farzin gambitining asosiy variantini o'ynab chiqing: 1.d4 d5 2.c4 e6 3.Nc3 Nf6 4.Bg5 Be7 5.e3 O-O 6.Nf3 h6 7.Bh4 b6
+6. Yurishlar: d4, c4, Nc3, Bg5, e3, Nf3, Bh4.
+7. Klassik pozitsiya. Oqlarda ko'proq joy bor; qoralar pozitsiyasi puxta va ular ...Bb7 va ...c5 ga intiladi.
+8. Najdorf Sitsiliyasini o'ynab chiqing: 1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 a6 6.Be3 e5 7.Nb3 Be6
+9. Yurishlar: e4, Nf3, d4, Nxd4, Nc3, Be3, Nb3.
+10. Bu 6.Be3 bilan asosiy variant. Qoralarda tenglik va ikkala qanotda qarshi imkoniyatlar bor.
+11. 2...dxc4 dan keyin oqlar piyodani oson qaytarib oladi.
+12. Nima uchun Farzin gambiti aslida «gambit» emas?
+13. Qoralar piyodani har doim qaytarib ola oladi
+14. Oqlar figurani yutqazadi
+15. U noqonuniy
+16. U faqat blitsda ishlaydi
+17. U b5 ni nazorat qiladi va farzin qanotida kengayishga tayyorlaydi.
+18. Najdorf yurishi 5...a6 tayyorlaydi…
+19. ...e5 yoki ...b5 ni va Nb5 ni to'xtatadi
+20. rokirovka qilish
+21. farzinlar almashinuvini
+22. ...h5 ni
+23. Raqib nazariyadan chiqib ketganda rejalar ko'chib o'tadi.
+24. Debyutni o'rganayotganda eng ko'p e'tibor berishingiz kerak…
+25. odatiy reja va tuzilmalarga
+26. 30 ta yurishni yodlashga
+27. faqat birinchi yurishga
+28. nazariyadan qochishga
+@@ a-endgame
+1. Endshpil nazariyasi: Lusena, Filidor va pat himoyalari
+2. Har bir kuchli o'yinchi biladigan asosiy rux endshpillari.
+3. Lusena pozitsiyasi
+4. <p><b>Lusena pozitsiyasi</b> — hujum qiluvchi 7-gorizontalda piyodaga va uning oldida shohga ega bo'lgan, raqib shohi kesib qo'yilgan bo'lsa rux himoyachisiga qarshi yutadigan rux endshpili. G'alaba usuli — <b>«ko'prik»</b>: hujum qiluvchining ruxi 4-gorizontalga boradi (masalan <b>Rf4</b>), shunda himoyachi rux shoh e'lon qilgandan so'ng, shoh shohlardan chiqib, rux orqasida panoh topadi.</p> <p>Shoh kamida bitta vertikal bilan kesilgandan keyin himoyachi buni to'xtata olmaydi.</p>
+5. Filidor pozitsiyasi
+6. <p><b>Filidor pozitsiyasi</b> — himoyachining asosiy durang usuli. Himoyachi shoh piyoda oldida turganda, himoyachi <b>rux 6-gorizontalda qoladi</b>, shunda raqib shohi oldinga siljiy olmaydi. Piyoda 6-gorizontalga chiqqanda himoyachi ruxi <b>piyoda orqasiga o'tadi</b> va orqadan shoh e'lon qiladi, shunda hujum qiluvchi shohini yashira olmaydi.</p>
+7. Rux endshpillari
+8. Faol rux va piyoda oldidagi shoh sizga eng yaxshi durang imkoniyatlarini beradi.
+9. Siz bir piyoda kam bo'lib rux endshpilida himoyalanyapsiz. Eng muhim himoya vositasi nima?
+10. Shohni piyoda oldida saqlash va faol shohlardan foydalanish
+11. Ruxlarni darhol almashtirish
+12. O'z piyodalaringizni oldinga surish
+13. Ruxni burchakda passiv saqlash
+14. 7-gorizontdagi piyoda
+15. Farzin odatda raqib shohini o'z piyodasi oldiga majburlab yutadi. Faqat fil yoki rux piyodasi bilan (va shoh uzoqda bo'lsa) pat hiylasi himoyachini qutqara oladi.
+16. Farzin va shoh 7-gorizontdagi shoh va piyodaga qarshi (rux yoki fil piyodasi emas): odatda kim yutadi?
+17. Farzinli tomon
+18. Piyodali tomon
+19. Doim durang
+20. Bu kataklar rangiga bog'liq
+21. 4-gorizontdagi rux shoh e'lon qilayotgan rux chizig'ini to'sadi.
+22. Lusena «ko'prigi» degani…
+23. shohni shohlardan himoya qilish uchun ruxni 4-gorizontalga qo'yish
+24. piyoda zanjirini qurish
+25. ruxni qurbon qilish
+26. doimiy shoh e'lon qilish
+27. Bu hujum qiluvchi shohning oldinga o'tishiga to'sqinlik qiladi.
+28. Filidor pozitsiyasida himoyachi ruxi qoladi…
+29. piyoda oldinga siljigunga qadar 6-gorizontalda
+30. abadiy 1-gorizontalda
+31. piyoda vertikalida
+32. 7-gorizontalda
+33. Tarrash qoidasi: ruxlar o'tuvchi piyodalar orqasida turishi kerak.
+34. Keng tarqalgan rux endshpili tamoyili…
+35. Ruxlar o'tuvchi piyodalar orqasida turishi kerak
+36. Ruxlar o'tuvchi piyodalar oldida turishi kerak
+37. Doim ruxlarni almashtirish
+38. Shohni hech qachon yurmaslik
+@@ a-prophylaxis
+1. Profilaktika: raqib rejasini to'xtatish
+2. Har bir yurishdan oldin «raqibim nima xohlaydi?» deb so'rang.
+3. Raqibim nima xohlaydi?
+4. <p><b>Profilaktika</b> — raqibingiz rejasini u boshlanmasdan oldin oldini olish. Kuchli o'yinchilar so'raydi: <i>«Agar raqibning navbati bo'lsa, men nima o'ynagan bo'lardim?»</i> va keyin buni to'xtatish kerakmi yoki yo'qligini hal qiladi.</p> <p>Bu qo'pol xatolarning eng ishonchli davosi ham: agar siz avval doim raqibning eng yaxshi tahdidini topsangiz, kamdan-kam hayron qolasiz. Bu yerda oqlar Skolyar matiga o'xshash Qxf7# hujumi bilan tahdid qilyapti.</p>
+5. Tahdidni toping
+6. Oqlarning farzini va fili ikkalasi f7 ga hujum qiladi, uni faqat shoh himoya qiladi: Qxf7# — mat.
+7. Qoralar yuradi. Oqlarning <b>darhol</b> tahdidi nima?
+8. Qxf7 mat
+9. =
+10. =
+11. Hech narsa
+12. Endi siz oqlarsiz. Qoralar Qxf2# tahdidini qilyapti. Uni to'xtatadigan yurishni toping — lekin har bir nomzodni tekshiring: ba'zi tabiiy yurishlar <b>ishlamaydi</b>.
+13. f2 ga ikki marta (farzin va fil) hujum qilingan va bir marta himoyalangan. Himoyachi qo'shing, farzin chizig'ini to'sing yoki hujumchilardan biriga hujum qiling.
+14. Bulardan har biri f2 ni yopadi yoki farzin yo'lini kesadi. Farzinga hujum qiladigan Nf3 ishlamasligini unutmang: qoralar darhol Qxf2# o'ynaydi.
+15. Nf3 farzinga hujum qiladi, lekin qoralar yuradi: Qxf2# — mat.
+16. Nc3 tahdidni e'tiborsiz qoldiradi: Qxf2#.
+17. Uni boshlanishidan oldin to'xtating.
+18. Profilaktika degani…
+19. raqib rejasi yoki tahdidining oldini olish
+20. darhol hujum qilish
+21. doim almashtirish
+22. uzun rokirovka qilish
+23. «Agar yura olsa, nima qilardi?» deb so'rang.
+24. Eng yaxshi profilaktik yurishni topishning yaxshi usuli…
+25. joriy pozitsiyada raqibning eng yaxshi yurishini tasavvur qilish
+26. ko'rgan birinchi yurishni o'ynash
+27. pozitsiyani takrorlash
+28. farzinlarni almashtirish
+29. Ko'pchilik qo'pol xatolar — o'tkazib yuborilgan tahdidlar.
+30. Qaysi odat qo'pol xatolarni eng ko'p kamaytiradi?
+31. Har yurishdan oldin raqib tahdidlarini tekshirish
+32. Tez yurish
+33. Faqat piyoda yurishlari bilan o'ynash
+34. Olishlardan qochish
+@@ a-convert
+1. Ustunlikni g'alabaga aylantirish
+2. Yaxshiroq pozitsiyani qanday g'alabaga aylantirish kerak.
+3. Texnika
+4. <p>G'alaba pozitsiyasiga erishish ishning faqat yarmi — uni <b>g'alabaga aylantirish</b> kerak. Ishonchli retsept:</p> <ol><li>Avval <b>qarshi o'yinni yo'q qiling</b>: raqibning faol g'oyalarini oling va shohingizni xavfsiz saqlang.</li> <li>Materialda oldinda bo'lsangiz, <b>piyodalarni emas, figuralarni almashtiring</b> — har bir almashinuv ustunligingiz qiymatini oshiradi.</li> <li>Taxtaning narigi tomonida <b>ikkinchi zaiflik</b> yarating; bitta zaiflikni himoya qilish mumkin, ikkitasini esa yo'q.</li> <li>Xotirjam bo'ling: oddiy reja ishlaganda yaltiroq yakun uchun shoshilmang.</li></ol>
+5. Material ustunligi
+6. Oldinda bo'lganda figuralarni almashtiring, soddalashtiring va qarshi o'yinni zararsizlantiring.
+7. Siz o'rta o'yinda to'liq ruxga oldindasiz. Qaysi yondashuv eng yaxshi?
+8. Figuralarni almashtirish va qarshi o'yindan qochish
+9. Asossiz hujum boshlash
+10. Barcha piyodalarni almashtirish
+11. Shohni markazga yurish
+12. Almashinuvlar qolganlarga nisbatan ustunligingizni kattalashtiradi.
+13. Materialda oldinda bo'lganda odatda…
+14. figuralarni almashtirish kerak
+15. almashinuvlardan qochish kerak
+16. farzinni qurbon qilish kerak
+17. ruxlarni taxtadan olib tashlash kerak
+18. Himoyachini ikkinchi front bilan ortiqcha yuklang.
+19. «Ikki zaiflik tamoyili» aytadi…
+20. bitta zaiflikni himoya qilish mumkin, ikkitasini esa yo'q
+21. ikki zaiflik durang beradi
+22. hech qachon zaiflik yaratmang
+23. yutish uchun uchta zaiflik kerak
+24. Bosimni davom ettirishdan oldin raqib imkoniyatlarini yo'q qiling.
+25. Ustunlikni aylantirishdagi birinchi qadam…
+26. qarshi o'yinni yo'q qilish
+27. materialni qurbon qilish
+28. uzun rokirovka qilish
+29. farzinlarni har qanday narxda almashtirish
+@@ x-rep
+1. Usta repertuarlari: Yopiq Ispan partiyasi va Slav
+2. O'yinning har bir darajasida qo'llaniladigan ikki tizim.
+3. Kenglikdan ko'ra chuqurlik
+4. <p>Ekspert darajasida repertuaringizni <b>chuqur</b> bilishingiz kerak: odatiy piyoda tuzilmalari, figuralar joylashuvi, rejalar va asosiy taktik motivlar. Biz nazariy jihatdan boy va ishonchli ikkita tizimni ko'rib chiqamiz:</p> <ul><li><b>Yopiq Ispan partiyasi</b> (1.e4 e5 2.Nf3 Nc6 3.Bb5 a6 4.Ba4 Nf6 5.O-O Be7 6.Re1 b5 7.Bb3 d6 8.c3 O-O): oqlar kuchli markaz quradi va d4 ga o'ynaydi; qoralar puxta pozitsiyani saqlaydi va ...Na5, ...c5 va ...Qc7 ga tayyorlanadi.</li> <li><b>Slav himoyasi</b> (1.d4 d5 2.c4 c6): puxta, lekin moslashuvchan. Qoralar d5 ni qo'llab-quvvatlaydi va och katakli filni piyoda zanjiridan tashqarida faol saqlaydi.</li></ul>
+5. Yopiq Ispan partiyasini o'ynab chiqing: 1.e4 e5 2.Nf3 Nc6 3.Bb5 a6 4.Ba4 Nf6 5.O-O Be7 6.Re1 b5 7.Bb3 d6 8.c3 O-O 9.h3
+6. Yurishlar: e4, Nf3, Bb5, Ba4, O-O, Re1, Bb3, c3, h3.
+7. Bu Yopiq Ispan partiyasining asosiy variantlaridan biri. Ikkala tomon ham uzoq manevrli kurashga tayyorlanadi.
+8. Slav himoyasini o'ynab chiqing: 1.d4 d5 2.c4 c6 3.Nf3 Nf6 4.Nc3 dxc4 5.a4 Bf5 6.e3 e6 7.Bxc4 Bb4 8.O-O
+9. Yurishlar: d4, c4, Nf3, Nc3, a4, e3, Bxc4, O-O.
+10. Oqlar piyodani qaytarib oldi; qoralar «muammoli fil»ni chiqardi va puxta.
+11. c3 d4 ni qo'llab-quvvatlaydi, h3 f3 dagi bog'lashni to'xtatadi.
+12. Yopiq Ispan partiyasida oqlarning c3 va h3 ning asosiy g'oyasi nima?
+13. d4 ni tayyorlash va ...Bg4 ning oldini olish
+14. Farzinga hujum qilish
+15. h vertikalini ochish
+16. Fillarni almashtirish
+17. Bu Slavning odatiy rejasi.
+18. Slavda qoralar ...Bf5 bilan nimaga intiladi?
+19. Och katakli filni piyoda zanjiridan tashqarida chiqarish
+20. e4 ga hujum qilish
+21. Uzun rokirovka qilish
+22. Piyoda yutish
+23. Tushunish yodlashdan ustun.
+24. Ekspert darajasida tushuntira olmaydigan debyut varianti bilan nima qilish kerak?
+25. Uning ortidagi rejalarni o'rganish
+26. Ko'proq yurishni yodlash
+27. E'tibor bermang
+28. Uni tezroq o'ynash
+@@ x-opera
+1. Opera partiyasi: rivojlanish va hujum namunasi
+2. Pol Morfining mashhur 1858-yilgi miniaturasi, qadam-baqadam.
+3. Morfi — Braunshveyg gersogi va graf Izuarga qarshi (Parij, 1858)
+4. <p>Bu mashhur o'yin debyut tamoyillarining eng yaxshi namunasi: <b>tez rivojlaning, chiziqlarni oching va barcha figuralar bilan hujum qiling</b>. Oqlar (Morfi) har bir figurani temp bilan chiqaradi, qoralar (ittifoqchilar) fil va farzin bilan vaqtni behuda o'tkazadi. Oqlarning oxirgi yurishlarining har biri <b>majburlovchi yurish</b>: shoh yoki olish.</p> <p>O'yinni o'ynab chiqing va Morfi barcha figuralarini ishga solib yakunlash uchun materialni qanday qurbon qilganiga e'tibor bering.</p>
+5. Morfining yurishlarini o'ynang: 1.e4 e5 2.Nf3 d6 3.d4 Bg4 4.dxe5 Bxf3 5.Qxf3 dxe5 6.Bc4 Nf6 7.Qb3 Qe7 8.Nc3 c6 9.Bg5 b5 10.Nxb5 cxb5 11.Bxb5+ Nbd7 12.O-O-O Rd8 13.Rxd7 Rxd7 14.Rd1 Qe6 15.Bxd7+ Nxd7 16.Qb8+ Nxb8 17.Rd8#
+6. Yurishlar ro'yxatiga amal qiling: u 17.Rd8# bilan tugaydi.
+7. Durdona: 10.Nxb5! c- va d-vertikallarni ochadi, 11.Bxb5+ va 12.O-O-O! temp bilan hujum qiladi, 16.Qb8+!! otni chalg'itadi va 17.Rd8# — mat.
+8. Endi yakunni o'zingiz toping! Oqlar yuradi: 2 yurishda mat (farzin qurbonligi).
+9. b8 da shoh — d7 dagi ot olishi kerak va bu d8 katagini ortiqcha yuklaydi.
+10. Qb8+! Nxb8 (majburiy) va Rd8#. Farzin qurbonligi d8 ning yagona himoyachisini olib tashlaydi.
+11. Oqlar temp va ochiq chiziqlar uchun otni qurbon qiladi.
+12. 10.Nxb5! ning asosiy g'oyasi nima edi?
+13. Rivojlanishda oldinda bo'lganda shohga qarshi chiziqlarni ochish
+14. Piyoda yutish
+15. Farzinlarni almashtirish
+16. Filni himoya qilish
+17. O-O-O ruxni rivojlantiradi va Rxd7 tahdidini yaratadi.
+18. Nima uchun Morfi 12-yurishda uzun rokirovka qildi?
+19. Ruxni temp bilan ochiq d vertikaliga olib kelish uchun
+20. Shohini himoya qilish uchun
+21. Almashinuvdan qochish uchun
+22. Farzinga hujum qilish uchun
+23. Ot d8 ni qo'riqlashdan chalg'itiladi.
+24. Yakuniy kombinatsiya mavzusi…
+25. chalg'itish
+26. sugsvang
+27. pat
+28. rokirovka qilish
+@@ x-legall
+1. Legal mati: farzin qurbonligi tuzog'i
+2. Farzin qurbonligi bilan klassik debyut tuzog'i.
+3. Bilishga arziydigan tuzoq
+4. <p><b>Legal mati</b> — klassik debyut tuzog'i. 1.e4 e5 2.Nf3 d6 3.Bc4 Bg4 4.Nc3 g6 dan keyin oqlar <b>5.Nxe5!</b> o'ynaydi. g4 dagi fil farzinni olishi mumkin, lekin shunda <b>6.Bxf7+ Ke7 7.Nd5#</b> kombinatsiyasi — mat. Mat ikkita yengil figura bilan qo'yiladi.</p> <p>Saboq: <b>keyin nima bo'lishini tekshirmasdan farzinni olmang</b>.</p>
+5. Legal matini o'ynang: 1.e4 e5 2.Nf3 d6 3.Bc4 Bg4 4.Nc3 g6 5.Nxe5 Bxd1 6.Bxf7+ Ke7 7.Nd5#
+6. Yurishlar: e4, Nf3, Bc4, Nc3, Nxe5!, Bxf7+, Nd5#.
+7. Nd5#: ot e7 dagi shohga shoh e'lon qiladi; e8, e6, f6 va d7 fil va otlar bilan yopilgan, d8, d6 va f8 esa qoralarning o'z figuralari bilan to'silgan.
+8. Bxd1 dan keyin Bxf7+ va Nd5# keladi.
+9. Legal tuzog'ida qoralar nima uchun d1 dagi farzinni olmasligi kerak?
+10. Bu majburiy matga yo'l qo'yadi
+11. Farzin himoyalangan
+12. Bu piyodani yutqazadi
+13. U noqonuniy
+14. Fil f7 da shoh e'lon qiladi va ot d5 da mat qo'yadi.
+15. Matni qaysi figuralar qo'yadi?
+16. Fil va ot
+17. Farzin va rux
+18. Ikki rux
+19. Piyodalar
+20. Doim «qurbonlik nimaga tahdid qiladi?» deb so'rang.
+21. Tuzoqning umumiy saboqi…
+22. olishdan oldin raqib yurishi nimaga imkon berishiga qarang
+23. hech qachon figura olmang
+24. doim erta rokirovka qiling
+25. farzinlarni almashtiring
+@@ x-endgame
+1. Endshpil mahorati: faollik, sugsvang va oppozitsiya
+2. O'yinning texnik bosqichini hal qiladigan tamoyillar.
+3. Sugsvang va oppozitsiya
+4. <p>Ko'p endshpillarda yurishi kerak bo'lgan tomon <b>noqulay ahvolda</b> bo'ladi; bu <b>sugsvang</b> («yurishga majburlik») deyiladi. <b>Oppozitsiya</b> — oralarida bitta katak bo'lgan ro'baro' shohlar — shoh va piyoda endshpilida bu temp kurashida g'alaba qozonish usuli: yurishi <b>shart bo'lmagan</b> tomon oppozitsiyaga ega.</p> <p>Rux endshpillarida xuddi shu mantiq <b>faol rux</b> sifatida namoyon bo'ladi: passiv himoya yutqazadi, shuning uchun kutish o'rniga qarshi o'yin va kesish g'oyalarini qidiring.</p>
+5. Piyodani emas, shohingizdan foydalaning. Qaysi yurish yutadi?
+6. 6-gorizontalda yonga yuring.
+7. Kd6 (yoki Kf6): shoh 6-gorizontalda oppozitsiyani saqlaydi va piyodani kuzatib boradi.
+8. Kf5 6-gorizontalni beradi — qoralar duranga erishadi.
+9. Rux endshpillari
+10. Passiv himoya odatda yutqazadi. Faol ruxlar va qarshi tahdidlar duranga imkon beradi.
+11. Yomonroq rux endshpilini himoya qilishning umuman eng yaxshi usuli qaysi?
+12. Faollik: qarshi hujum va orqadan shohlar
+13. Passiv kutish
+14. Piyodalarni almashtirish
+15. Shohni uzoqlashtirish
+16. Yurishga majburlikning o'zi noqulaylik bo'lishi mumkin.
+17. Sugsvang degani…
+18. tomon o'tkazib yubormoqchi, lekin zararli yurish qilishi kerak
+19. pat
+20. doimiy shoh
+21. farzinlar almashinuvi
+22. Raqib yo'l berishi kerak.
+23. Oppozitsiyaga ega bo'lish degani…
+24. shohingiz raqib shohi bilan ro'baro', yuradigan raqib bo'lganda
+25. sizda ko'proq piyoda bor
+26. siz oxirgi bo'lib yurgansiz
+27. siz markazni nazorat qilasiz
+28. Faol rux piyodadan qimmatroq.
+29. Rux endshpillaridagi eng muhim tamoyil…
+30. faollik
+31. material
+32. faqat piyoda tuzilmasi
+33. faqat shoh xavfsizligi
+@@ x-plan
+1. Rejalashtirish va baholash
+2. Taktika bo'lmaganda nima qilishni hal qilish uchun tuzilma.
+3. Baholash ro'yxati
+4. <p>Darhol taktika bo'lmaganda pozitsiyani Shteynits elementlari bilan baholang:</p> <ol><li><b>Material</b> — kim oldinda?</li><li><b>Shoh xavfsizligi</b> — har ikki shoh yonida zaifliklar bormi?</li><li><b>Faollik</b> — kimning figuralari yaxshiroq joylashgan, ochiq chiziqlarni kim nazorat qiladi?</li><li><b>Piyoda tuzilmasi</b> — zaifliklar, o'tuvchi piyodalar, ko'pchiliklar.</li><li><b>Joy va asosiy kataklar nazorati</b>.</li></ol> <p>Keyin rejalashtiring: <b>eng yomon figurangizni yaxshilang</b>, raqibning eng zaif nuqtasiga hujum qiling yoki tuzilmani o'z foydangizga o'zgartiring. Tasdiqlash uchun doim aniq variantlarni hisoblang.</p>
+5. Rejalashtirish qarori
+6. Oddiy, foydali reja: har qanday operatsiyani boshlashdan oldin eng yomon figurangizni o'yinga kiriting.
+7. Pozitsiyangiz sokin va teng. Qaysi yondashuv eng yaxshi?
+8. Eng yomon joylashgan figurani yaxshilash
+9. Bir figurani oldinga-orqaga yurish
+10. Tasodifiy piyoda hujumini boshlash
+11. Darhol durang taklif qilish
+12. Baholash qaysi reja mos kelishini aytadi.
+13. Sokin pozitsiyada yaxshi birinchi qadam nima?
+14. Material, shoh xavfsizligi, faollik va tuzilmani baholash
+15. Piyoda hujumini boshlash
+16. Farzinlarni almashtirish
+17. Kutish yurishini qilish
+18. Zanjir eng zaif bo'g'ini kabi mustahkam.
+19. «Eng yomon figurangizni yaxshilang» degani…
+20. eng kam faol figurangizni yaxshiroq katakka olib kelish
+21. uni qurbon qilish
+22. uni piyodaga almashtirish
+23. shohingizni yurish
+24. Strategiya va taktika birga ishlaydi.
+25. Rejangiz bo'lsa ham nima uchun aniq variantlarni hisoblash kerak?
+26. Taktikaga imkon beradigan reja noto'g'ri
+27. Bu qoidalar bilan talab qilinadi
+28. Bu vaqtni tejaydi
+29. Bu shart emas
+@@ placement
+1. Qaysi figura «G» shaklida yuradi va boshqa figuralar ustidan sakray oladi?
+2. Ot
+3. Fil
+4. Rux
+5. Piyoda
+6. Qora piyodani filingiz bilan oling.
+7. Oqlar yuradi va oq shoh e8 dagi rux tomonidan hujumga uchrayapti. Nima to'g'ri?
+8. Oqlar shohdan darhol chiqishi kerak
+9. Oqlar rokirovka qilishi mumkin
+10. Oqlar istalgan piyodani sura oladi
+11. Oqlar bu yurishda shohni e'tiborsiz qoldira oladi
+12. Bir yurishda mat.
+13. Himoyalanmagan qora farzinni oling.
+14. Qaysi birinchi yurish debyut tamoyillariga eng yaxshi amal qiladi?
+15. 1.e4 — markaziy piyoda
+16. =
+17. =
+18. =
+19. Vilkani toping.
+20. Farzinni tikish bilan yuting.
+21. Bir yurishda mat.
+22. Oqlarning ruxi a7 dagi piyodani ola oladi. Olsa nima bo'ladi?
+23. Piyoda uchun ruxni yo'qotaman: a7 ni shoh himoya qiladi
+24. Piyodani bepul yutaman
+25. Bu mat
+26. Alohida hech narsa
+27. Figuralar chiqarilgan — shohni xavfsizlashtiradigan oqilona yurishni qiling.
+28. Shoh va piyoda endshpili: qaysi yurish yutadi?
+29. Farzinni yutadigan ochilgan shohni toping.
+30. 2 yurishda mat: himoyachini yo'q qiling.
+31. Fil shohga bog'langan. Uni yuting.
+32. Oqlar yuradi. Qoralar nimaga tahdid qilyapti?
+33. Qxf2 mat
+34. =
+35. Faqat piyoda yutadigan Bxf2+
+36. Hech narsa
+37. Oq ot uchun eng yaxshi tayanch punkt qaysi katak?
+38. =
+39. =
+40. =
+41. =
+42. O'tuvchi piyodali rux endshpilida ruxni qayerga qo'yish kerak?
+43. O'tuvchi piyoda orqasida
+44. O'tuvchi piyoda oldida
+45. Qarama-qarshi qanotda
+46. Farqi yo'q
+47. 2 yurishda mat: orqa gorizontalda farzin qurbonligi.
+48. 2 yurishda mat: farzinni chalg'iting.
+49. Bo'g'ilgan matni toping.
+50. Qaysi oq piyoda yakkalangan (qo'shni vertikallarda do'st piyodasi yo'q)?
+51. =
+52. =
+53. =
+54. =
+55. Lusena pozitsiyasida «ko'prik» nima?
+56. Shohni shohlardan himoya qilish uchun ruxni 4-gorizontalga qo'yish
+57. Ikkinchi piyodani surish
+58. Doimiy shoh e'lon qilish
+59. Ruxlarni almashtirish
+@@ puzzles
+1. Figurani yo'ldan chetga yuring va orqasidagi figura hujumini ozod qiling.
+2. Ochilgan hujum: bir figurani yurish boshqasining hujumini ochadi va bir vaqtning o'zida ikkita tahdid yaratadi.
+3. Bir vaqtning o'zida ikkita figuraga hujum qiladigan bitta yurishni qidiring.
+4. Vilka: bitta figura ikkita nishonga hujum qiladi va raqib faqat bittasini qutqara oladi.
+5. Shohga qochish yo'li qoldirmaydigan shohni qidiring.
+6. Mat: shohga hujum qilingan va u yura olmaydi, shoh e'lon qilayotgan figurani ola olmaydi yoki to'sa olmaydi.
+7. Majburlovchi yurishdan boshlang: faqat bitta javob qoldiradigan shoh yoki qurbonlik.
+8. 2 yurishda majburiy mat: birinchi yurishdan keyin har qanday himoya matga olib keladi.
+9. Orqasidagi qimmatroq narsani ochmasdan yura olmaydigan figurani qidiring.
+10. Bog'lash: bog'langan figura qotib qolgan, shuning uchun hujum qiluvchi material yutadi.
+11. Qimmatroq figuraga hujum qiling, shunda u yurishi va orqasidagi figurani ochishi kerak.
+12. Tikish: oldindagi qimmatli figura yurishi kerak va orqasidagi figura olinadi.

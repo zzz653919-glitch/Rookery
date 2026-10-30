@@ -5,7 +5,11 @@ import { $, $$, esc, toast } from './ui/dom.js';
 import { engineClient } from './engine-client.js';
 import { loadRemoteContent } from './content.js';
 import { installErrorReporting } from './telemetry.js';
+import { t, tn, LANGS, getLang } from './i18n/core.js';
+import { initLanguage, reconcileLanguage, changeLanguage } from './i18n/runtime.js';
+import { applyBundledTranslations } from './i18n/content-runtime.js';
 
+// labels are English dictionary keys, translated where they are displayed
 const NAV = [
   { id: 'home', label: 'Home', icon: 'home' },
   { id: 'play', label: 'Play', icon: 'play' },
@@ -14,6 +18,7 @@ const NAV = [
   { id: 'progress', label: 'Progress', icon: 'chart' },
   { id: 'settings', label: 'Settings', icon: 'gear' },
 ];
+const langSelect = (id) => `<select class="lang-select" id="${id}" aria-label="${t('Language')}">${LANGS.map((l) => `<option value="${l.id}" ${getLang() === l.id ? 'selected' : ''}>${l.short} · ${l.name}</option>`).join('')}</select>`;
 
 const VIEWS = {
   home: () => import('./views/home.js'),
@@ -51,28 +56,31 @@ function buildShell() {
   const app = appEl();
   app.hidden = false;
   app.innerHTML = `
-    <aside class="sidebar" aria-label="Main">
-      <a class="brand" href="#/home" aria-label="Rookery home">${LOGO}<div><div class="brand-name">Rookery</div><div class="brand-sub">Chess academy</div></div></a>
-      <nav class="nav" aria-label="Primary">
-        ${NAV.map((n) => `<a href="#/${n.id}" data-nav="${n.id}">${icon(n.icon, 20)}<span>${n.label}</span></a>`).join('')}
+    <aside class="sidebar" aria-label="${t('Main')}">
+      <a class="brand" href="#/home" aria-label="${t('Rookery home')}">${LOGO}<div><div class="brand-name">Rookery</div><div class="brand-sub">${t('Chess academy')}</div></div></a>
+      <nav class="nav" aria-label="${t('Primary')}">
+        ${NAV.map((n) => `<a href="#/${n.id}" data-nav="${n.id}">${icon(n.icon, 20)}<span>${t(n.label)}</span></a>`).join('')}
       </nav>
       <div class="sidebar-foot">
-        <div class="streak-chip" id="streak-chip">${icon('flame', 22)}<div><span id="streak-n">0</span> day streak<small id="streak-sub">Learn something today</small></div></div>
-        <div class="chip" id="net-chip" title="Rookery stores everything on this device"></div>
+        <div class="streak-chip" id="streak-chip">${icon('flame', 22)}<div><span id="streak-n">0</span><small id="streak-sub">${t('Learn something today')}</small></div></div>
+        <div class="chip" id="net-chip" title="${t('Rookery stores everything on this device')}"></div>
+        ${langSelect('lang-sel')}
         <button class="theme-toggle" id="theme-btn" type="button"></button>
       </div>
     </aside>
     <div class="main">
       <header class="topbar">
         <a class="brand" href="#/home">${LOGO}<div class="brand-name">Rookery</div></a>
-        <button class="btn icon-btn ghost" id="theme-btn-m" type="button" aria-label="Switch theme"></button>
+        ${langSelect('lang-sel-m')}
+        <button class="btn icon-btn ghost" id="theme-btn-m" type="button" aria-label="${t('Switch theme')}"></button>
       </header>
       <main id="view" tabindex="-1"></main>
     </div>
-    <nav class="bottomnav" aria-label="Primary mobile">
-      ${NAV.map((n) => `<a href="#/${n.id}" data-nav="${n.id}">${icon(n.icon, 22)}<span>${n.label}</span></a>`).join('')}
+    <nav class="bottomnav" aria-label="${t('Primary mobile')}">
+      ${NAV.map((n) => `<a href="#/${n.id}" data-nav="${n.id}">${icon(n.icon, 22)}<span>${t(n.label)}</span></a>`).join('')}
     </nav>`;
   $('#theme-btn').onclick = $('#theme-btn-m').onclick = toggleTheme;
+  for (const id of ['#lang-sel', '#lang-sel-m']) $(id).onchange = (e) => changeLanguage(e.target.value);
   updateThemeButtons();
   updateStreak();
   updateNet();
@@ -82,17 +90,17 @@ function buildShell() {
 }
 
 export function applyTheme() {
-  const t = store.get('settings').theme;
-  document.documentElement.setAttribute('data-theme', t);
-  try { localStorage.setItem('rookery:theme-hint', t); } catch { /* ignore */ }
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', t === 'dark' ? '#0c1311' : '#f5f2ea');
+  const theme = store.get('settings').theme;
+  document.documentElement.setAttribute('data-theme', theme);
+  try { localStorage.setItem('rookery:theme-hint', theme); } catch { /* ignore */ }
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0c1311' : '#f5f2ea');
   updateThemeButtons();
 }
 
 function updateThemeButtons() {
   const dark = store.get('settings').theme === 'dark';
   const b = $('#theme-btn'), m = $('#theme-btn-m');
-  if (b) b.innerHTML = `${icon(dark ? 'sun' : 'moon', 18)}<span>${dark ? 'Light theme' : 'Dark theme'}</span>`;
+  if (b) b.innerHTML = `${icon(dark ? 'sun' : 'moon', 18)}<span>${dark ? t('Light theme') : t('Dark theme')}</span>`;
   if (m) m.innerHTML = icon(dark ? 'sun' : 'moon', 20);
 }
 
@@ -107,15 +115,15 @@ function updateStreak() {
   const n = currentStreak();
   const el = $('#streak-n');
   if (!el) return;
-  el.textContent = n;
-  $('#streak-sub').textContent = n ? 'Keep it going!' : 'Learn something today';
+  el.textContent = tn(n, '{n} day streak|{n} day streak');
+  $('#streak-sub').textContent = n ? t('Keep it going!') : t('Learn something today');
 }
 
 function updateNet() {
   const el = $('#net-chip');
   if (!el) return;
   const online = navigator.onLine;
-  el.innerHTML = online ? `${icon('check', 14)} Works offline` : `${icon('wifioff', 14)} Offline — all good`;
+  el.innerHTML = online ? `${icon('check', 14)} ${t('Works offline')}` : `${icon('wifioff', 14)} ${t('Offline — all good')}`;
   el.className = 'chip ' + (online ? '' : 'good');
 }
 
@@ -134,9 +142,9 @@ async function route() {
 
   const mount = $('#view');
   if (cleanup) { try { cleanup(); } catch (e) { console.error(e); } cleanup = null; }
-  mount.innerHTML = `<div class="view"><div class="row" style="justify-content:center;padding:80px;color:var(--muted)"><span class="spinner"></span><span>Loading<span class="dots"></span></span></div></div>`;
+  mount.innerHTML = `<div class="view"><div class="row" style="justify-content:center;padding:80px;color:var(--muted)"><span class="spinner"></span><span>${t('Loading')}<span class="dots"></span></span></div></div>`;
   $$('[data-nav]').forEach((a) => a.classList.toggle('active', a.dataset.nav === r.nav));
-  document.title = `${NAV.find((n) => n.id === r.nav)?.label ?? 'Rookery'} · Rookery`;
+  document.title = `${t(NAV.find((n) => n.id === r.nav)?.label ?? 'Rookery')} · Rookery`;
 
   try {
     const mod = await VIEWS[r.name]();
@@ -151,7 +159,7 @@ async function route() {
     mount.focus({ preventScroll: true });
   } catch (err) {
     console.error(err);
-    mount.innerHTML = `<div class="view"><div class="empty"><div class="big">⚠️</div><h3>Something went wrong</h3><p>${esc(err.message || err)}</p><a class="btn" href="#/home">Back to Home</a></div></div>`;
+    mount.innerHTML = `<div class="view"><div class="empty"><div class="big">⚠️</div><h3>${t('Something went wrong')}</h3><p>${esc(err.message || err)}</p><a class="btn" href="#/home">${t('Back to Home')}</a></div></div>`;
   }
 }
 
@@ -165,8 +173,11 @@ async function registerSW() {
 }
 
 async function boot() {
+  await initLanguage();        // dictionary for the remembered / browser language, before anything is rendered
   await loadRemoteContent();   // optional: admin-managed lessons, puzzles, themes and settings (no-op without the server)
   await store.init();
+  if (reconcileLanguage()) { location.reload(); return; } // saved language differs from the early hint (e.g. restored backup)
+  await applyBundledTranslations(getLang());
   installErrorReporting();
   applyTheme();
   buildShell();
@@ -177,10 +188,10 @@ async function boot() {
   splash.classList.add('hide');
   setTimeout(() => splash.remove(), 450);
   registerSW();
-  if (store.mode === 'memory') toast('Storage is unavailable in this browser — progress will not be saved.', 'bad');
+  if (store.mode === 'memory') toast(t('Storage is unavailable in this browser — progress will not be saved.'), 'bad');
 }
 
 boot().catch((e) => {
   console.error(e);
-  document.getElementById('splash').innerHTML = `<div class="splash-inner"><div>Rookery could not start: ${esc(e.message || e)}</div></div>`;
+  document.getElementById('splash').innerHTML = `<div class="splash-inner"><div>${t('Rookery could not start: {error}', { error: esc(e.message || e) })}</div></div>`;
 });

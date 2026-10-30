@@ -1,0 +1,472 @@
+Language ||| Til ||| Язык
+Main ||| Asosiy ||| Главное меню
+Rookery home ||| Rookery bosh sahifasi ||| Главная Rookery
+Chess academy ||| Shaxmat akademiyasi ||| Шахматная академия
+Primary ||| Asosiy menyu ||| Основная навигация
+Learn something today ||| Bugun biror narsa o'rganing ||| Научитесь чему-нибудь сегодня
+Rookery stores everything on this device ||| Rookery hamma narsani shu qurilmada saqlaydi ||| Rookery хранит всё на этом устройстве
+Switch theme ||| Mavzuni almashtirish ||| Сменить тему
+Primary mobile ||| Asosiy menyu (mobil) ||| Основная навигация (мобильная)
+Light theme ||| Yorug' mavzu ||| Светлая тема
+Dark theme ||| Qorong'i mavzu ||| Тёмная тема
+{n} day streak|{n} day streak ||| {n} kunlik seriya ||| {n} день подряд|{n} дня подряд|{n} дней подряд
+Keep it going! ||| Davom eting! ||| Так держать!
+Works offline ||| Internetsiz ishlaydi ||| Работает офлайн
+Offline — all good ||| Oflayn — hammasi joyida ||| Офлайн — всё в порядке
+Loading ||| Yuklanmoqda ||| Загрузка
+Something went wrong ||| Xatolik yuz berdi ||| Что-то пошло не так
+Back to Home ||| Bosh sahifaga qaytish ||| На главную
+Rookery could not start: {error} ||| Rookery ishga tushmadi: {error} ||| Не удалось запустить Rookery: {error}
+Chessboard ||| Shaxmat taxtasi ||| Шахматная доска
+Confirm ||| Tasdiqlash ||| Подтвердить
+Cancel ||| Bekor qilish ||| Отмена
+{move} walks into checkmate: the reply {reply} ends the game. ||| {move} yurishi matga olib keladi: {reply} javobi o'yinni tugatadi. ||| {move} ведёт к мату: ответ {reply} заканчивает партию.
+Hint ||| Maslahat ||| Подсказка
+Reset ||| Qayta boshlash ||| Сбросить
+Good move — now watch the reply… ||| Yaxshi yurish — endi javobni kuzating… ||| Хороший ход — теперь смотрите на ответ…
+Your turn again — keep going. ||| Yana sizning navbatingiz — davom eting. ||| Снова ваш ход — продолжайте.
+Not quite. ||| To'liq emas. ||| Не совсем.
+{move} is legal, but it doesn't solve this exercise. ||| {move} qoidaga mos, lekin bu mashqni yechmaydi. ||| {move} возможен по правилам, но не решает это упражнение.
+Press Hint if you need a nudge. ||| Yordam kerak bo'lsa, «Maslahat» tugmasini bosing. ||| Нажмите «Подсказка», если нужна помощь.
+Correct! ||| To'g'ri! ||| Верно!
+(after a few tries) ||| (bir necha urinishdan keyin) ||| (после нескольких попыток)
+Look for the piece that can make a real difference here. ||| Bu yerda haqiqiy farq qila oladigan figurani qidiring. ||| Найдите фигуру, которая здесь может изменить ход событий.
+Look at the highlighted piece. ||| Ajratib ko'rsatilgan figuraga qarang. ||| Посмотрите на выделенную фигуру.
+Here is the move ||| Mana yurish ||| Вот ход
+Play the highlighted move to continue. ||| Davom etish uchun ajratib ko'rsatilgan yurishni qiling. ||| Сделайте выделенный ход, чтобы продолжить.
+Check answer ||| Javobni tekshirish ||| Проверить ответ
+Clear ||| Tozalash ||| Очистить
+{n} wrong (red). ||| {n} tasi noto'g'ri (qizil). ||| Неверных: {n} (красные).
+You're missing {n}. ||| {n} tasi yetishmayapti. ||| Не хватает: {n}.
+Try again — look at how this piece moves. ||| Yana urinib ko'ring — bu figura qanday yurishiga qarang. ||| Попробуйте ещё раз — посмотрите, как ходит эта фигура.
+Well done — {right} of {total} correct. ||| Barakalla — {total} tadan {right} tasi to'g'ri. ||| Отлично — верно {right} из {total}.
+{right} of {total} correct. Let's try again! ||| {total} tadan {right} tasi to'g'ri. Yana urinib ko'ramiz! ||| Верно {right} из {total}. Попробуем ещё раз!
+Square {n} of {total} ||| Maydon {n} / {total} ||| Поле {n} из {total}
+Answers ||| Javoblar ||| Ответы
+Not quite — try another answer. ||| To'liq emas — boshqa javobni tanlang. ||| Не совсем — выберите другой ответ.
+Good morning ||| Xayrli tong ||| Доброе утро
+Good afternoon ||| Xayrli kun ||| Добрый день
+Good evening ||| Xayrli kech ||| Добрый вечер
+Keep climbing, {name}. ||| Olg'a intiling, {name}. ||| Продолжайте расти, {name}.
+Learn chess, one move at a time. ||| Shaxmatni bir yurishdan o'rganing. ||| Учитесь шахматам — ход за ходом.
+Rookery is an offline chess academy: lessons that fit your level, puzzles, and a computer opponent — all on this device. ||| Rookery — internetsiz ishlaydigan shaxmat akademiyasi: darajangizga mos darslar, boshqotirmalar va kompyuter raqib — hammasi shu qurilmada. ||| Rookery — шахматная академия, работающая без интернета: уроки по вашему уровню, задачи и компьютерный соперник — всё на этом устройстве.
+Continue: {title} ||| Davom etish: {title} ||| Продолжить: {title}
+Review your path ||| Yo'lingizni ko'rib chiqing ||| Просмотреть ваш путь
+Find my level ||| Darajamni aniqlash ||| Определить мой уровень
+Play the computer ||| Kompyuter bilan o'ynash ||| Играть с компьютером
+{done} of {total} {level} lessons ||| {total} tadan {done} ta «{level}» darsi ||| {done} из {total} уроков уровня «{level}»
+Daily puzzle ||| Kunlik boshqotirma ||| Задача дня
+Solved today ✓ ||| Bugun yechildi ✓ ||| Решена сегодня ✓
+Ready when you are ||| Tayyor bo'lsangiz boshlaymiz ||| Готово, когда вы готовы
+A fresh puzzle every day, matched to your level. ||| Har kuni yangi boshqotirma, darajangizga mos. ||| Каждый день новая задача по вашему уровню.
+Streak ||| Seriya ||| Серия
+Solve a puzzle to start tracking accuracy. ||| Aniqlikni kuzatish uchun boshqotirma yeching. ||| Решите задачу, чтобы начать отслеживать точность.
+Puzzle accuracy {pct}%. ||| Boshqotirma aniqligi {pct}%. ||| Точность решения задач: {pct}%.
+Curriculum ||| O'quv dasturi ||| Программа обучения
+{n} lesson|{n} lessons ||| {n} ta dars ||| {n} урок|{n} урока|{n} уроков
+From the first move to master-level endgames. ||| Birinchi yurishdan ustalar darajasidagi endshpilgacha. ||| От первого хода до эндшпилей мастерского уровня.
+Choose your level first ||| Avval darajangizni tanlang ||| Сначала выберите свой уровень
+Lessons are matched to your level. Take the placement test or pick a level yourself. ||| Darslar darajangizga moslashtiriladi. Daraja aniqlash testini topshiring yoki darajani o'zingiz tanlang. ||| Уроки подбираются под ваш уровень. Пройдите тест на определение уровня или выберите уровень сами.
+Choose my level ||| Darajamni tanlash ||| Выбрать мой уровень
+Up next ||| Keyingisi ||| Далее
+Review ||| Takrorlash ||| Повторение
+Focus ||| Diqqat ||| Фокус
+Completed ||| Tugallangan ||| Пройден
+{n} min ||| {n} daqiqa ||| {n} мин
+Learn ||| O'rganish ||| Обучение
+{level} path ||| «{level}» yo'li ||| Путь «{level}»
+You finished every {level} lesson! ||| Siz «{level}» darajasidagi barcha darslarni tugatdingiz! ||| Вы прошли все уроки уровня «{level}»!
+Ready for {level}? ||| «{level}» darajasiga tayyormisiz? ||| Готовы к уровню «{level}»?
+Move up to {level} ||| «{level}» darajasiga o'tish ||| Перейти на уровень «{level}»
+Based on your answers, lessons on <b>{skills}</b> are marked <i>Focus</i> and come first. ||| Javoblaringizga ko'ra, <b>{skills}</b> bo'yicha darslar <i>Diqqat</i> deb belgilangan va birinchi o'rinda turadi. ||| По вашим ответам уроки по теме <b>{skills}</b> помечены как <i>Фокус</i> и идут первыми.
+Review before you continue ||| Davom etishdan oldin takrorlang ||| Повторите перед продолжением
+Your lessons ||| Sizning darslaringiz ||| Ваши уроки
+All levels ||| Barcha darajalar ||| Все уровни
+Your level ||| Sizning darajangiz ||| Ваш уровень
+Ahead ||| Oldinda ||| Впереди
+{done}/{total} lessons ||| {done}/{total} ta dars ||| {done}/{total} уроков
+Not the right level? ||| Daraja mos emasmi? ||| Уровень не подходит?
+Change it ||| O'zgartiring ||| Измените его
+or ||| yoki ||| или
+retake the placement test ||| daraja aniqlash testini qayta topshiring ||| пройдите тест на определение уровня заново
+Lesson not found ||| Dars topilmadi ||| Урок не найден
+That lesson does not exist. ||| Bunday dars mavjud emas. ||| Такого урока не существует.
+Back to lessons ||| Darslarga qaytish ||| Назад к урокам
+All lessons ||| Barcha darslar ||| Все уроки
+Board ||| Taxta ||| Доска
+{level} lesson ||| «{level}» darsi ||| Урок уровня «{level}»
+Lesson progress ||| Dars jarayoni ||| Прогресс урока
+Continue ||| Davom etish ||| Продолжить
+Back ||| Orqaga ||| Назад
+Try it: click the piece to see where it can go, then move it. The board only allows legal moves. ||| Sinab ko'ring: figurani bosib, qayerga yura olishini ko'ring, keyin yuring. Taxta faqat qoidaga mos yurishlarga ruxsat beradi. ||| Попробуйте: нажмите на фигуру, чтобы увидеть, куда она может пойти, и сделайте ход. Доска допускает только ходы по правилам.
+Reset position ||| Pozitsiyani qayta tiklash ||| Сбросить позицию
+Captured a {piece}! ||| {piece} olindi! ||| Взята фигура — {piece}!
+That gives check! The position will reset. ||| Bu shoh e'lon qiladi! Pozitsiya qayta tiklanadi. ||| Это шах! Позиция будет сброшена.
+Your turn ||| Sizning navbatingiz ||| Ваш ход
+You already solved this exercise ✓ ||| Bu mashqni allaqachon yechgansiz ✓ ||| Вы уже решили это упражнение ✓
+Try it again ||| Yana urinib ko'ring ||| Попробовать снова
+Solve it to continue ||| Davom etish uchun yeching ||| Решите, чтобы продолжить
+Final quiz ||| Yakuniy test ||| Итоговый тест
+Question {n} of {total} ||| Savol {n} / {total} ||| Вопрос {n} из {total}
+{n} correct ||| {n} ta to'g'ri ||| Верно: {n}
+Next question ||| Keyingi savol ||| Следующий вопрос
+See result ||| Natijani ko'rish ||| Посмотреть результат
+{right} of {total} correct ||| {total} tadan {right} tasi to'g'ri ||| Верно {right} из {total}
+You passed the quiz. ||| Siz testdan o'tdingiz. ||| Вы прошли тест.
+You need at least {n} correct to complete the lesson. Review and try again! ||| Darsni tugatish uchun kamida {n} ta to'g'ri javob kerak. Takrorlab, qayta urinib ko'ring! ||| Чтобы завершить урок, нужно минимум {n} верных ответов. Повторите материал и попробуйте снова!
+Finish lesson ||| Darsni tugatish ||| Завершить урок
+Try the quiz again ||| Testni qayta topshirish ||| Пройти тест заново
+Review the lesson ||| Darsni takrorlash ||| Повторить урок
+Almost there — finish all the exercises and the quiz to complete this lesson. ||| Deyarli tayyor — darsni tugatish uchun barcha mashqlar va testni bajaring. ||| Почти готово — выполните все упражнения и тест, чтобы завершить урок.
+Go to the first unfinished step ||| Birinchi tugallanmagan qadamga o'tish ||| Перейти к первому незавершённому шагу
+Lesson complete! ||| Dars tugadi! ||| Урок пройден!
+You revisited this lesson. ||| Siz bu darsni qayta ko'rib chiqdingiz. ||| Вы повторили этот урок.
+Added to your progress. ||| Yutuqlaringizga qo'shildi. ||| Добавлено в ваш прогресс.
+Quiz: {right}/{total}. ||| Test: {right}/{total}. ||| Тест: {right}/{total}.
+Next: {title} ||| Keyingisi: {title} ||| Далее: {title}
+Play a game ||| O'yin o'ynash ||| Сыграть партию
+Placement test ||| Daraja aniqlash testi ||| Тест на определение уровня
+Let's find your starting point ||| Boshlang'ich nuqtangizni aniqlaymiz ||| Определим вашу отправную точку
+You will answer {n} questions: piece movement, check and checkmate, hanging pieces, forks, pins and skewers, opening principles, mates in one and two moves, and simple endgames. Some are multiple choice, some you solve on the board. ||| Siz {n} ta savolga javob berasiz: figuralar yurishi, shoh va mat, himoyasiz figuralar, vilka, bog'lash va tikish, debyut tamoyillari, bir va ikki yurishli matlar hamda oddiy endshpillar. Ba'zilari variantli savol, ba'zilarini taxtada yechasiz. ||| Вас ждут {n} вопросов: ходы фигур, шах и мат, незащищённые фигуры, вилки, связки и «шашлыки», принципы дебюта, маты в один и два хода, простые эндшпили. Часть вопросов с выбором ответа, часть нужно решить на доске.
+No feedback is shown while you answer. The questions get harder; if they become too hard the test ends early. The result is an <b>estimate</b> of your level — not an official rating — and you can retake it or choose a level yourself at any time. ||| Javob berayotganda natija ko'rsatilmaydi. Savollar qiyinlashib boradi; juda qiyin bo'lib qolsa, test erta tugaydi. Natija darajangizning <b>taxminiy bahosi</b>, rasmiy reyting emas — istalgan vaqt qayta topshirishingiz yoki darajani o'zingiz tanlashingiz mumkin. ||| Пока вы отвечаете, правильность не показывается. Вопросы становятся сложнее; если они окажутся слишком трудными, тест завершится раньше. Результат — это <b>оценка</b> вашего уровня, а не официальный рейтинг; вы можете пройти тест заново или выбрать уровень сами в любой момент.
+Start the test ||| Testni boshlash ||| Начать тест
+Exit ||| Chiqish ||| Выйти
+I don't know ||| Bilmayman ||| Не знаю
+Your estimated level ||| Taxminiy darajangiz ||| Ваш предполагаемый уровень
+You answered {right} of {total} questions correctly ({pct}%) ||| Siz {total} ta savoldan {right} tasiga to'g'ri javob berdingiz ({pct}%) ||| Вы ответили правильно на {right} из {total} вопросов ({pct}%)
+The test ended early because the later questions were too hard ||| Keyingi savollar juda qiyin bo'lgani uchun test erta tugadi ||| Тест завершён раньше, так как следующие вопросы оказались слишком сложными
+This is an estimate, not an official rating. ||| Bu taxminiy baho, rasmiy reyting emas. ||| Это оценка, а не официальный рейтинг.
+Strengths ||| Kuchli tomonlar ||| Сильные стороны
+No clear strengths yet — that is fine, this is where we start. ||| Hozircha aniq kuchli tomonlar yo'q — bu normal, aynan shu yerdan boshlaymiz. ||| Пока нет явных сильных сторон — это нормально, мы с этого и начинаем.
+To work on ||| Ustida ishlash kerak ||| Над чем поработать
+Nothing stands out — great! ||| Ajralib turadigan zaif joy yo'q — ajoyib! ||| Ничего не выделяется — отлично!
+By skill ||| Ko'nikmalar bo'yicha ||| По навыкам
+Recommended start ||| Tavsiya etilgan boshlanish ||| Рекомендуемое начало
+Choose a lesson ||| Dars tanlang ||| Выберите урок
+This lesson covers one of your weaker skills. ||| Bu dars zaifroq ko'nikmalaringizdan birini qamrab oladi. ||| Этот урок охватывает один из ваших слабых навыков.
+Start {title} ||| Boshlash: {title} ||| Начать: {title}
+See my learning path ||| O'quv yo'limni ko'rish ||| Посмотреть мой путь обучения
+Choose a different level ||| Boshqa daraja tanlash ||| Выбрать другой уровень
+Retake the test ||| Testni qayta topshirish ||| Пройти тест заново
+Play ||| O'ynash ||| Играть
+The engine runs entirely on this device, so you can play without an internet connection. ||| Dvigatel butunlay shu qurilmada ishlaydi, shuning uchun internetsiz o'ynashingiz mumkin. ||| Движок полностью работает на этом устройстве, поэтому можно играть без интернета.
+You play ||| Siz o'ynaysiz ||| Вы играете
+Your colour ||| Sizning rangingiz ||| Ваш цвет
+White ||| Oq ||| Белые
+Black ||| Qora ||| Чёрные
+Random ||| Tasodifiy ||| Случайно
+Difficulty ||| Qiyinlik darajasi ||| Сложность
+Levels are relative: each one searches deeper than the one before. They are not official ratings. ||| Darajalar nisbiy: har biri oldingisidan chuqurroq hisoblaydi. Ular rasmiy reyting emas. ||| Уровни относительны: каждый считает глубже предыдущего. Это не официальные рейтинги.
+Time control ||| Vaqt nazorati ||| Контроль времени
+Practice mode ||| Mashq rejimi ||| Режим тренировки
+Enable undo and move hints. Practice games don't count toward results. ||| Yurishni qaytarish va yurish maslahatlarini yoqadi. Mashq o'yinlari natijaga hisoblanmaydi. ||| Включает отмену хода и подсказки. Тренировочные партии не учитываются в результатах.
+Engine status: ||| Dvigatel holati: ||| Состояние движка:
+checking… ||| tekshirilmoqda… ||| проверка…
+Start game ||| O'yinni boshlash ||| Начать игру
+ready (runs locally in a background worker) ||| tayyor (fon rejimida mahalliy ishlaydi) ||| готов (работает локально в фоновом потоке)
+ready (runs locally) ||| tayyor (mahalliy ishlaydi) ||| готов (работает локально)
+unavailable ||| mavjud emas ||| недоступен
+Your recent games will appear here. ||| So'nggi o'yinlaringiz shu yerda ko'rinadi. ||| Ваши последние партии появятся здесь.
+Recent games ||| So'nggi o'yinlar ||| Последние партии
+Win ||| G'alaba ||| Победа
+Loss ||| Mag'lubiyat ||| Поражение
+Draw ||| Durang ||| Ничья
+vs level {level} ||| {level}-daraja bilan ||| против уровня {level}
+Practice ||| Mashq ||| Тренировка
+You vs {name} ||| Siz — {name} ||| Вы — {name}
+New game ||| Yangi o'yin ||| Новая игра
+Game board ||| O'yin taxtasi ||| Игровая доска
+Viewing an earlier position. ||| Oldingi pozitsiya ko'rilmoqda. ||| Просмотр предыдущей позиции.
+Back to game ||| O'yinga qaytish ||| Вернуться к игре
+Move list ||| Yurishlar ro'yxati ||| Список ходов
+Make your first move. Click a piece, then a highlighted square — or drag it. ||| Birinchi yurishni qiling. Figurani bosing, so'ng ajratib ko'rsatilgan katakni bosing — yoki sudrab olib boring. ||| Сделайте первый ход. Нажмите на фигуру, затем на подсвеченное поле — или перетащите её.
+Resign ||| Taslim bo'lish ||| Сдаться
+Offer draw ||| Durang taklif qilish ||| Предложить ничью
+Undo ||| Qaytarish ||| Отменить
+Flip board ||| Taxtani aylantirish ||| Перевернуть доску
+Restart ||| Qayta boshlash ||| Начать заново
+Copy PGN ||| PGN nusxalash ||| Скопировать PGN
+Leave this game? ||| Bu o'yinni tark etasizmi? ||| Покинуть эту партию?
+The game in progress will be abandoned and not counted. ||| Davom etayotgan o'yin to'xtatiladi va hisobga olinmaydi. ||| Текущая партия будет прервана и не засчитана.
+Leave game ||| O'yinni tark etish ||| Покинуть партию
+Restart the game? ||| O'yinni qayta boshlaysizmi? ||| Начать партию заново?
+The current game will be abandoned. ||| Joriy o'yin to'xtatiladi. ||| Текущая партия будет прервана.
+Captured pieces ||| Olingan figuralar ||| Взятые фигуры
+You ||| Siz ||| Вы
+Computer ||| Kompyuter ||| Компьютер
+Level {n} ||| {n}-daraja ||| Уровень {n}
+Computer is thinking ||| Kompyuter o'ylamoqda ||| Компьютер думает
+Check! Your move. ||| Shoh! Sizning yurishingiz. ||| Шах! Ваш ход.
+Your move ||| Sizning yurishingiz ||| Ваш ход
+Resign this game? ||| Bu o'yinda taslim bo'lasizmi? ||| Сдаться в этой партии?
+The computer will be awarded the win. ||| G'alaba kompyuterga beriladi. ||| Победа будет присуждена компьютеру.
+Computer is considering your offer ||| Kompyuter taklifingizni ko'rib chiqmoqda ||| Компьютер обдумывает ваше предложение
+Looking for a good move ||| Yaxshi yurish qidirilmoqda ||| Ищем хороший ход
+Close ||| Yopish ||| Закрыть
+You won ||| Siz yutdingiz ||| Вы выиграли
+Computer won ||| Kompyuter yutdi ||| Компьютер выиграл
+You won! ||| Siz yutdingiz! ||| Вы выиграли!
+Computer wins ||| Kompyuter yutdi ||| Компьютер победил
+vs {name} (level {n}) ||| {name} ({n}-daraja) bilan ||| против {name} (уровень {n})
+practice ||| mashq ||| тренировка
+Rematch (swap colours) ||| Revansh (ranglarni almashtirish) ||| Реванш (поменять цвета)
+Review game ||| O'yinni ko'rib chiqish ||| Разобрать партию
+Completed lesson “{title}” ||| Dars tugallandi: «{title}» ||| Пройден урок «{title}»
+Puzzle solved first try ||| Boshqotirma birinchi urinishda yechildi ||| Задача решена с первой попытки
+Puzzle solved with help ||| Boshqotirma yordam bilan yechildi ||| Задача решена с подсказкой
+Puzzle missed ||| Boshqotirma yechilmadi ||| Задача не решена
+(practice) ||| (mashq) ||| (тренировка)
+Progress ||| Yutuqlar ||| Прогресс
+Your journey ||| Sizning yo'lingiz ||| Ваш путь
+Everything below is calculated from what you actually did on this device. ||| Quyidagi hamma narsa shu qurilmada haqiqatda qilgan ishlaringiz asosida hisoblanadi. ||| Всё ниже рассчитано по тому, что вы реально делали на этом устройстве.
+(estimate) ||| (taxminiy) ||| (оценка)
+Lessons completed ||| Tugallangan darslar ||| Пройдено уроков
+Puzzle accuracy ||| Boshqotirma aniqligi ||| Точность в задачах
+Day streak · best {n} ||| Kunlik seriya · eng yaxshisi {n} ||| Серия дней · рекорд {n}
+Recommended next ||| Keyingi tavsiya ||| Рекомендуем дальше
+Start ||| Boshlash ||| Начать
+You have completed every lesson on your path. Try puzzles or play the computer! ||| Yo'lingizdagi barcha darslarni tugatdingiz. Boshqotirmalarni yechib ko'ring yoki kompyuter bilan o'ynang! ||| Вы прошли все уроки своего пути. Попробуйте задачи или сыграйте с компьютером!
+Choose your level to get recommendations. ||| Tavsiyalar olish uchun darajangizni tanlang. ||| Выберите уровень, чтобы получать рекомендации.
+Lessons by level ||| Darajalar bo'yicha darslar ||| Уроки по уровням
+Strengths & weaknesses ||| Kuchli va zaif tomonlar ||| Сильные и слабые стороны
+Work on: {skill} ||| Ustida ishlang: {skill} ||| Поработайте над: {skill}
+Take the placement test or solve a few exercises and your strengths will show up here. ||| Daraja aniqlash testini topshiring yoki bir nechta mashq yeching — kuchli tomonlaringiz shu yerda ko'rinadi. ||| Пройдите тест на определение уровня или решите несколько упражнений — ваши сильные стороны появятся здесь.
+Recent results ||| So'nggi natijalar ||| Последние результаты
+Nothing here yet ||| Hozircha hech narsa yo'q ||| Пока ничего нет
+Finish a lesson, a puzzle or a game and it will show up here. ||| Darsni, boshqotirmani yoki o'yinni tugating — u shu yerda ko'rinadi. ||| Завершите урок, задачу или партию — они появятся здесь.
+Activity · last 4 weeks ||| Faollik · so'nggi 4 hafta ||| Активность · последние 4 недели
+Current streak ||| Joriy seriya ||| Текущая серия
+Longest ||| Eng uzun ||| Самая длинная
+Puzzle records ||| Boshqotirma rekordlari ||| Рекорды по задачам
+Solved ||| Yechilgan ||| Решено
+Best first-try streak ||| Birinchi urinishdagi eng yaxshi seriya ||| Лучшая серия с первой попытки
+Achievements ||| Yutuqlar ||| Достижения
+Your progress is stored only on this device. It will not appear on other devices or browsers, and clearing browser data removes it. You can export a backup in Settings. ||| Yutuqlaringiz faqat shu qurilmada saqlanadi. U boshqa qurilma yoki brauzerlarda ko'rinmaydi, brauzer ma'lumotlarini tozalash uni o'chirib yuboradi. Zaxira nusxasini Sozlamalarda eksport qilishingiz mumkin. ||| Ваш прогресс хранится только на этом устройстве. Он не появится на других устройствах и в других браузерах, а очистка данных браузера его удалит. Резервную копию можно экспортировать в настройках.
+No puzzles bundled ||| Boshqotirmalar topilmadi ||| Задачи не найдены
+Run <code>node scripts/build-puzzles.mjs</code> to generate the puzzle set. ||| Boshqotirmalar to'plamini yaratish uchun <code>node scripts/build-puzzles.mjs</code> buyrug'ini ishga tushiring. ||| Запустите <code>node scripts/build-puzzles.mjs</code>, чтобы сгенерировать набор задач.
+Puzzles ||| Boshqotirmalar ||| Задачи
+Sharpen your tactics ||| Taktikangizni charxlang ||| Отточите тактику
+Every puzzle has one best move, checked by an engine. Hints and explanations are always available. ||| Har bir boshqotirmada bitta eng yaxshi yurish bor, u dvigatel bilan tekshirilgan. Maslahat va izohlar doim mavjud. ||| В каждой задаче один лучший ход, проверенный движком. Подсказки и объяснения всегда доступны.
+Puzzles solved ||| Yechilgan boshqotirmalar ||| Решено задач
+First-try accuracy ||| Birinchi urinish aniqligi ||| Точность с первой попытки
+Best streak (record) ||| Eng yaxshi seriya (rekord) ||| Лучшая серия (рекорд)
+Today's puzzle is waiting ||| Bugungi boshqotirma kutmoqda ||| Задача на сегодня ждёт
+{level} level ||| «{level}» darajasi ||| Уровень «{level}»
+solved on the first try! ||| birinchi urinishda yechildi! ||| решена с первой попытки!
+solved with help. ||| yordam bilan yechildi. ||| решена с подсказкой.
+Play again ||| Qayta o'ynash ||| Играть снова
+Solve it ||| Yechish ||| Решить
+Train a theme ||| Mavzuni mashq qiling ||| Тренируйте тему
+Puzzle level ||| Boshqotirma darajasi ||| Уровень задач
+{solved}/{total} solved ||| {solved}/{total} ta yechilgan ||| решено {solved}/{total}
+No puzzles at this level yet. Try another level. ||| Bu darajada hozircha boshqotirma yo'q. Boshqa darajani sinab ko'ring. ||| На этом уровне пока нет задач. Попробуйте другой уровень.
+Mixed ||| Aralash ||| Смешанные
+A bit of everything at your level. ||| Darajangizda hammasidan ozdan. ||| Понемногу всего на вашем уровне.
+All puzzles ||| Barcha boshqotirmalar ||| Все задачи
+White to move ||| Oq yuradi ||| Ход белых
+Black to move ||| Qora yuradi ||| Ход чёрных
+Show solution ||| Yechimni ko'rsatish ||| Показать решение
+Find the best move. ||| Eng yaxshi yurishni toping. ||| Найдите лучший ход.
+Find the best move — then keep going: there are {n} moves to find. ||| Eng yaxshi yurishni toping — so'ng davom eting: topish kerak bo'lgan {n} ta yurish bor. ||| Найдите лучший ход — и продолжайте: нужно найти ходов: {n}.
+Solved on the first try! 🎉 ||| Birinchi urinishda yechildi! 🎉 ||| Решено с первой попытки! 🎉
+Solved — with a little help. ||| Yechildi — ozgina yordam bilan. ||| Решено — с небольшой помощью.
+Not this time. ||| Bu safar emas. ||| В этот раз не вышло.
+Solution: ||| Yechim: ||| Решение:
+Back to puzzles ||| Boshqotirmalarga qaytish ||| Назад к задачам
+More puzzles ||| Yana boshqotirmalar ||| Ещё задачи
+Next puzzle ||| Keyingi boshqotirma ||| Следующая задача
+Settings ||| Sozlamalar ||| Настройки
+Make it yours ||| O'zingizga moslang ||| Настройте под себя
+Everything here is saved on this device. ||| Bu yerdagi hamma narsa shu qurilmada saqlanadi. ||| Всё здесь сохраняется на этом устройстве.
+Appearance ||| Ko'rinish ||| Оформление
+Theme ||| Mavzu ||| Тема
+Dark ||| Qorong'i ||| Тёмная
+Light ||| Yorug' ||| Светлая
+Pieces ||| Figuralar ||| Фигуры
+Board & sound ||| Taxta va tovush ||| Доска и звук
+Show coordinates ||| Koordinatalarni ko'rsatish ||| Показывать координаты
+Letters and numbers around the board. ||| Taxta atrofidagi harflar va raqamlar. ||| Буквы и цифры вокруг доски.
+Highlight legal moves ||| Mumkin yurishlarni ajratib ko'rsatish ||| Подсвечивать возможные ходы
+Dots on the squares a selected piece can reach. ||| Tanlangan figura bora oladigan kataklardagi nuqtalar. ||| Точки на полях, куда может пойти выбранная фигура.
+Always promote to a queen ||| Doim farzinga aylantirish ||| Всегда превращать в ферзя
+Skip the promotion picker. ||| Aylantirish tanlovini o'tkazib yuborish. ||| Пропускать выбор фигуры при превращении.
+Animations ||| Animatsiyalar ||| Анимации
+Smooth piece movement. ||| Figuralarning silliq harakati. ||| Плавное движение фигур.
+Sound effects ||| Ovoz effektlari ||| Звуковые эффекты
+Synthesised sounds — no files to download. ||| Sintezlangan tovushlar — yuklab olinadigan fayllar yo'q. ||| Синтезированные звуки — без загружаемых файлов.
+Share anonymous usage statistics ||| Anonim foydalanish statistikasini yuborish ||| Отправлять анонимную статистику использования
+Tells the site owner which lessons and puzzles get used. No name, account or progress is sent. ||| Sayt egasiga qaysi dars va boshqotirmalar ishlatilishini bildiradi. Ism, akkaunt yoki yutuqlar yuborilmaydi. ||| Показывает владельцу сайта, какие уроки и задачи используются. Имя, аккаунт и прогресс не отправляются.
+Preview ||| Ko'rib chiqish ||| Предпросмотр
+Not chosen yet. ||| Hali tanlanmagan. ||| Пока не выбран.
+from the placement test (an estimate) ||| daraja aniqlash testidan (taxminiy) ||| по результатам теста (оценка)
+chosen by you ||| siz tanlagansiz ||| выбран вами
+Retake the placement test ||| Daraja aniqlash testini qayta topshirish ||| Пройти тест на определение уровня заново
+Choose level manually ||| Darajani qo'lda tanlash ||| Выбрать уровень вручную
+Computer opponent & offline use ||| Kompyuter raqib va oflayn ishlatish ||| Компьютерный соперник и офлайн-режим
+Checking the engine… ||| Dvigatel tekshirilmoqda… ||| Проверяем движок…
+Your data ||| Ma'lumotlaringiz ||| Ваши данные
+Rookery has no accounts and no server. Your level, progress and settings are stored <b>only on this device and in this browser</b> (IndexedDB). Clearing your browser data erases them, and they do not sync to other devices. ||| Rookery'da akkauntlar ham, server ham yo'q. Darajangiz, yutuqlaringiz va sozlamalaringiz <b>faqat shu qurilma va shu brauzerda</b> (IndexedDB) saqlanadi. Brauzer ma'lumotlarini tozalash ularni o'chiradi va ular boshqa qurilmalar bilan sinxronlanmaydi. ||| В Rookery нет аккаунтов и сервера. Ваш уровень, прогресс и настройки хранятся <b>только на этом устройстве и в этом браузере</b> (IndexedDB). Очистка данных браузера удалит их, а на другие устройства они не синхронизируются.
+Export backup ||| Zaxira nusxasini eksport qilish ||| Экспортировать резервную копию
+Import backup ||| Zaxira nusxasini import qilish ||| Импортировать резервную копию
+Reset progress ||| Yutuqlarni tiklash ||| Сбросить прогресс
+Erase everything ||| Hammasini o'chirish ||| Стереть всё
+Reset progress? ||| Yutuqlar tiklansinmi? ||| Сбросить прогресс?
+Lessons, puzzles, games, streaks, achievements and your level will be cleared. Settings are kept. ||| Darslar, boshqotirmalar, o'yinlar, seriyalar, yutuqlar va darajangiz tozalanadi. Sozlamalar saqlanib qoladi. ||| Уроки, задачи, партии, серии, достижения и ваш уровень будут очищены. Настройки сохранятся.
+Erase everything? ||| Hammasi o'chirilsinmi? ||| Стереть всё?
+All progress and settings on this device will be deleted. ||| Shu qurilmadagi barcha yutuqlar va sozlamalar o'chiriladi. ||| Весь прогресс и все настройки на этом устройстве будут удалены.
+Storage: {mode}. ||| Saqlash: {mode}. ||| Хранилище: {mode}.
+localStorage (fallback) ||| localStorage (zaxira) ||| localStorage (запасной вариант)
+memory only — progress will not survive a reload in this browser ||| faqat xotirada — yutuqlar bu brauzerda sahifa qayta yuklanganda yo'qoladi ||| только в памяти — прогресс не сохранится после перезагрузки в этом браузере
+Online ||| Onlayn ||| Онлайн
+Offline ||| Oflayn ||| Офлайн
+the app is cached and works offline. ||| ilova keshlangan va internetsiz ishlaydi. ||| приложение закэшировано и работает офлайн.
+offline caching activates after the first full load. ||| oflayn keshlash birinchi to'liq yuklashdan keyin yoqiladi. ||| офлайн-кэш включится после первой полной загрузки.
+offline caching needs the app to be served over http (see README); file:// is not supported. ||| oflayn keshlash uchun ilova http orqali ishga tushirilishi kerak (README ga qarang); file:// qo'llab-quvvatlanmaydi. ||| для офлайн-кэша приложение должно работать по http (см. README); file:// не поддерживается.
+<b>Built-in engine ready</b> — runs on this device ({mode}), no internet needed. Response {ms} ms. It is a custom alpha-beta search engine (8 levels), not Stockfish. ||| <b>O'rnatilgan dvigatel tayyor</b> — shu qurilmada ishlaydi ({mode}), internet kerak emas. Javob vaqti {ms} ms. Bu maxsus alfa-beta qidiruv dvigateli (8 daraja), Stockfish emas. ||| <b>Встроенный движок готов</b> — работает на этом устройстве ({mode}), интернет не нужен. Отклик {ms} мс. Это собственный альфа-бета-движок (8 уровней), а не Stockfish.
+main thread ||| asosiy oqim ||| основной поток
+Engine failed to start: {error} ||| Dvigatel ishga tushmadi: {error} ||| Не удалось запустить движок: {error}
+Change your level ||| Darajangizni o'zgartiring ||| Смените свой уровень
+Welcome to Rookery ||| Rookery'ga xush kelibsiz ||| Добро пожаловать в Rookery
+What is your chess level? ||| Shaxmat darajangiz qanday? ||| Каков ваш уровень игры в шахматы?
+Rookery builds a lesson path around you. Take a short placement test, or pick the level that fits. You can change it any time in Settings. ||| Rookery siz uchun dars yo'lini tuzadi. Qisqa daraja aniqlash testini topshiring yoki mos darajani tanlang. Uni istalgan vaqt Sozlamalarda o'zgartirishingiz mumkin. ||| Rookery выстраивает путь обучения под вас. Пройдите короткий тест на определение уровня или выберите подходящий. Его можно сменить в любой момент в настройках.
+Take the placement test ||| Daraja aniqlash testini topshirish ||| Пройти тест на определение уровня
+{n} short questions about rules, tactics, openings and endgames. About 8 minutes. Recommended. ||| Qoidalar, taktika, debyut va endshpil haqida {n} ta qisqa savol. Taxminan 8 daqiqa. Tavsiya etiladi. ||| {n} коротких вопросов о правилах, тактике, дебютах и эндшпилях. Около 8 минут. Рекомендуется.
+You already know roughly how well you play. ||| Qanchalik yaxshi o'ynashingizni taxminan bilasiz. ||| Вы примерно знаете, насколько хорошо играете.
+Pick your level ||| Darajangizni tanlang ||| Выберите свой уровень
+Unsure? The placement test will tell you — your result is an estimate, and you can always change level later. ||| Ishonchingiz komil emasmi? Daraja aniqlash testi aytib beradi — natija taxminiy, darajani keyin ham o'zgartirishingiz mumkin. ||| Не уверены? Тест подскажет — результат приблизителен, а уровень всегда можно сменить позже.
+Beginner ||| Boshlovchi ||| Новичок
+Knows little or nothing about chess. ||| Shaxmat haqida kam narsa biladi yoki umuman bilmaydi. ||| Почти ничего не знает о шахматах.
+Learn how the pieces move, what check and checkmate mean, and a few opening ideas. ||| Figuralar qanday yurishini, shoh va mat nima ekanini hamda bir nechta debyut g'oyalarini o'rganing. ||| Узнайте, как ходят фигуры, что такое шах и мат, и несколько идей дебюта.
+Elementary ||| Boshlang'ich ||| Начальный
+Understands the rules and basic tactics. ||| Qoidalarni va oddiy taktikani tushunadi. ||| Понимает правила и базовую тактику.
+Spot forks, pins and skewers, defend your pieces and find short checkmates. ||| Vilka, bog'lash va tikishlarni payqang, figuralaringizni himoya qiling va qisqa matlarni toping. ||| Замечайте вилки, связки и «шашлыки», защищайте фигуры и находите короткие маты.
+Intermediate ||| O'rta ||| Средний
+Understands tactics and basic positional ideas. ||| Taktikani va oddiy pozitsion g'oyalarni tushunadi. ||| Понимает тактику и базовые позиционные идеи.
+Combine tactics, plan around weaknesses and convert rook endgames. ||| Taktikalarni birlashtiring, zaif joylar atrofida reja tuzing va rux endshpillarini g'alabaga aylantiring. ||| Сочетайте тактические приёмы, стройте план вокруг слабостей и реализуйте ладейные эндшпили.
+Advanced ||| Ilg'or ||| Продвинутый
+Handles complex tactics and strategic positions. ||| Murakkab taktika va strategik pozitsiyalarni uddalaydi. ||| Справляется со сложной тактикой и стратегическими позициями.
+Calculate candidate moves, prevent your opponent's plans and prepare your openings. ||| Nomzod yurishlarni hisoblang, raqibingiz rejalarining oldini oling va debyutlaringizni tayyorlang. ||| Считайте ходы-кандидаты, предотвращайте планы соперника и готовьте дебюты.
+Expert ||| Ekspert ||| Эксперт
+Strong tactical and positional understanding. ||| Kuchli taktik va pozitsion tushuncha. ||| Сильное тактическое и позиционное понимание.
+Deep calculation, imbalances, endgame technique and master-game analysis. ||| Chuqur hisoblash, nomutanosibliklar, endshpil texnikasi va usta o'yinlari tahlili. ||| Глубокий расчёт, дисбалансы, эндшпильная техника и разбор партий мастеров.
+Piece movement ||| Figuralar yurishi ||| Ходы фигур
+Check, mate & rules ||| Shoh, mat va qoidalar ||| Шах, мат и правила
+Captures & loose pieces ||| Olishlar va himoyasiz figuralar ||| Взятия и незащищённые фигуры
+Forks, pins & skewers ||| Vilka, bog'lash va tikish ||| Вилки, связки и «шашлыки»
+Opening principles ||| Debyut tamoyillari ||| Принципы дебюта
+Checkmate patterns ||| Mat shakllari ||| Матовые комбинации
+Endgames ||| Endshpillar ||| Эндшпили
+Positional play ||| Pozitsion o'yin ||| Позиционная игра
+Calculation ||| Hisoblash ||| Расчёт
+Forks ||| Vilkalar ||| Вилки
+Pins ||| Bog'lashlar ||| Связки
+Mate in 1 ||| 1 yurishda mat ||| Мат в 1 ход
+Deliver checkmate in a single move. ||| Bir yurishda mat qo'ying. ||| Поставьте мат одним ходом.
+Mate in 2 ||| 2 yurishda mat ||| Мат в 2 хода
+Force checkmate on your second move. ||| Ikkinchi yurishingizda majburiy mat qo'ying. ||| Поставьте мат вторым ходом.
+Attack two pieces at once. ||| Bir vaqtning o'zida ikkita figuraga hujum qiling. ||| Атакуйте две фигуры одновременно.
+Win material with a piece that cannot move. ||| Yura olmaydigan figura yordamida material yuting. ||| Выигрывайте материал с помощью фигуры, которая не может ходить.
+Skewers ||| Tikishlar ||| «Шашлыки»
+Attack the big piece, win the one behind it. ||| Katta figurani urib, orqasidagisini yutib oling. ||| Атакуйте крупную фигуру — выигрывайте ту, что за ней.
+Discovered attacks ||| Ochilgan hujumlar ||| Вскрытые нападения
+Move one piece, unleash another. ||| Bir figurani yurib, boshqasini ozod qiling. ||| Сдвиньте одну фигуру — освободите другую.
+Know thyself ||| O'zingni angla ||| Познай себя
+Complete the placement test ||| Daraja aniqlash testini tugating ||| Пройдите тест на определение уровня
+First game ||| Birinchi o'yin ||| Первая партия
+Finish a game against the computer ||| Kompyuterga qarshi o'yinni tugating ||| Завершите партию против компьютера
+First victory ||| Birinchi g'alaba ||| Первая победа
+Beat the computer ||| Kompyuterni yuting ||| Победите компьютер
+Checkmate! ||| Mat! ||| Мат!
+Win a game by checkmate ||| O'yinni mat bilan yuting ||| Выиграйте партию матом
+Strong opponent ||| Kuchli raqib ||| Сильный соперник
+Beat computer level 5 or higher ||| Kompyuterning 5-yoki undan yuqori darajasini yuting ||| Победите компьютер 5-го уровня или выше
+Student ||| Talaba ||| Ученик
+Complete your first lesson ||| Birinchi darsingizni tugating ||| Пройдите свой первый урок
+Dedicated ||| Qat'iyatli ||| Целеустремлённый
+Complete 5 lessons ||| 5 ta darsni tugating ||| Пройдите 5 уроков
+Scholar ||| Olim ||| Знаток
+Complete 10 lessons ||| 10 ta darsni tugating ||| Пройдите 10 уроков
+Path complete ||| Yo'l tugadi ||| Путь пройден
+Finish every lesson in your level ||| Darajangizdagi barcha darslarni tugating ||| Пройдите все уроки своего уровня
+Perfect quiz ||| Mukammal test ||| Идеальный тест
+Score 100% on a lesson quiz ||| Dars testida 100% natija oling ||| Наберите 100% в тесте урока
+Puzzle starter ||| Boshqotirma boshlovchisi ||| Начинающий решатель
+Solve your first puzzle ||| Birinchi boshqotirmangizni yeching ||| Решите свою первую задачу
+Puzzle fan ||| Boshqotirma ishqibozi ||| Любитель задач
+Solve 10 puzzles ||| 10 ta boshqotirma yeching ||| Решите 10 задач
+Puzzle master ||| Boshqotirma ustasi ||| Мастер задач
+Solve 25 puzzles ||| 25 ta boshqotirma yeching ||| Решите 25 задач
+On a roll ||| Zo'r ketyapti ||| В ударе
+Solve 5 puzzles in a row ||| Ketma-ket 5 ta boshqotirma yeching ||| Решите 5 задач подряд
+Unstoppable ||| To'xtatib bo'lmas ||| Неудержимый
+Solve 10 puzzles in a row ||| Ketma-ket 10 ta boshqotirma yeching ||| Решите 10 задач подряд
+Daily habit ||| Kundalik odat ||| Ежедневная привычка
+Solve a daily puzzle ||| Kunlik boshqotirmani yeching ||| Решите задачу дня
+Three days ||| Uch kun ||| Три дня
+Learn on 3 days in a row ||| Ketma-ket 3 kun o'rganing ||| Занимайтесь 3 дня подряд
+One week ||| Bir hafta ||| Одна неделя
+Learn on 7 days in a row ||| Ketma-ket 7 kun o'rganing ||| Занимайтесь 7 дней подряд
+Rookie ||| Yangi boshlovchi ||| Новобранец
+Plays quickly and often overlooks tactics. Great for learning the rules. ||| Tez o'ynaydi va taktikani tez-tez ko'rmay qoladi. Qoidalarni o'rganish uchun ajoyib. ||| Играет быстро и часто пропускает тактику. Отлично подходит для изучения правил.
+Sees one move ahead for both sides. Makes plenty of mistakes. ||| Ikkala tomon uchun bir yurish oldinni ko'radi. Ko'p xato qiladi. ||| Видит на один ход вперёд за обе стороны. Совершает много ошибок.
+Casual ||| Havaskor ||| Любитель
+Spots simple tactics, still slips under pressure. ||| Oddiy taktikani payqaydi, lekin bosim ostida xato qiladi. ||| Замечает простую тактику, но всё ещё ошибается под давлением.
+Club ||| Klub o'yinchisi ||| Клубный игрок
+Solid tactically. Punishes loose pieces. ||| Taktik jihatdan puxta. Himoyasiz figuralarni jazolaydi. ||| Надёжен в тактике. Наказывает за незащищённые фигуры.
+Strong ||| Kuchli ||| Сильный
+Calculates several moves ahead and rarely blunders. ||| Bir necha yurish oldinni hisoblaydi va kamdan-kam qo'pol xato qiladi. ||| Считает на несколько ходов вперёд и редко делает грубые ошибки.
+Deeper search with time management. ||| Vaqtni boshqarish bilan chuqurroq qidiruv. ||| Более глубокий поиск с управлением временем.
+Deep tactical calculation. ||| Chuqur taktik hisoblash. ||| Глубокий тактический расчёт.
+Maximum ||| Maksimal ||| Максимум
+The strongest setting this built-in engine offers. ||| Bu o'rnatilgan dvigatelning eng kuchli sozlamasi. ||| Самая сильная настройка этого встроенного движка.
+Forest ||| O'rmon ||| Лес
+Walnut ||| Yong'oq ||| Орех
+Slate ||| Tosh ||| Сланец
+Sand ||| Qum ||| Песок
+Midnight ||| Yarim tun ||| Полночь
+Classic ||| Klassik ||| Классика
+Emerald ||| Zumrad ||| Изумруд
+Ink & Ivory ||| Siyoh va fil suyagi ||| Чернила и слоновая кость
+Gold & Onyx ||| Oltin va oniks ||| Золото и оникс
+Untimed ||| Vaqtsiz ||| Без часов
+1 min ||| 1 daq ||| 1 мин
+3 | 2 ||| 3 | 2 ||| 3 | 2
+5 min ||| 5 daq ||| 5 мин
+10 min ||| 10 daq ||| 10 мин
+15 | 10 ||| 15 | 10 ||| 15 | 10
+pawn ||| piyoda ||| пешка
+knight ||| ot ||| конь
+bishop ||| fil ||| слон
+rook ||| rux ||| ладья
+queen ||| farzin ||| ферзь
+king ||| shoh ||| король
+piece ||| figura ||| фигура
+checkmate ||| mat ||| мат
+stalemate ||| pat ||| пат
+insufficient material ||| material yetishmasligi ||| недостаток материала
+threefold repetition ||| uch marta takrorlanish ||| троекратное повторение
+fifty-move rule ||| ellik yurish qoidasi ||| правило пятидесяти ходов
+resignation ||| taslim bo'lish ||| сдача
+time ||| vaqt ||| время
+agreement ||| kelishuv ||| соглашение
+timeout vs insufficient material ||| vaqt tugashi va material yetishmasligi ||| просрочка времени при недостатке материала
+by checkmate ||| mat bilan ||| матом
+by stalemate ||| pat bilan ||| из-за пата
+by insufficient material ||| material yetishmasligi tufayli ||| из-за недостатка материала
+by threefold repetition ||| uch marta takrorlanish tufayli ||| из-за троекратного повторения
+by the fifty-move rule ||| ellik yurish qoidasi bo'yicha ||| по правилу пятидесяти ходов
+by resignation ||| taslim bo'lish orqali ||| из-за сдачи
+on time ||| vaqt bo'yicha ||| по времени
+by agreement ||| kelishuv bilan ||| по соглашению
+on time (not enough material to mate) ||| vaqt bo'yicha (mat qo'yishga material yetarli emas) ||| по времени (материала для мата недостаточно)
+Home ||| Bosh sahifa ||| Главная
+Promote to queen ||| Farzinga aylantirish ||| Превратить в ферзя
+Promote to knight ||| Otga aylantirish ||| Превратить в коня
+Promote to rook ||| Ruxga aylantirish ||| Превратить в ладью
+Promote to bishop ||| Filga aylantirish ||| Превратить в слона
+Won vs computer level {level} ||| Kompyuterning {level}-darajasiga qarshi g'alaba ||| Победа над компьютером уровня {level}
+Lost vs computer level {level} ||| Kompyuterning {level}-darajasiga qarshi mag'lubiyat ||| Поражение от компьютера уровня {level}
+Drew vs computer level {level} ||| Kompyuterning {level}-darajasiga qarshi durang ||| Ничья с компьютером уровня {level}
+After {move}, the White {piece} can capture your {captured} with {reply}. ||| {move} dan keyin oq {piece} {reply} yurishi bilan sizning figurangizni ({captured}) ola oladi. ||| После {move} белая фигура ({piece}) может взять вашу фигуру ({captured}) ходом {reply}.
+After {move}, the Black {piece} can capture your {captured} with {reply}. ||| {move} dan keyin qora {piece} {reply} yurishi bilan sizning figurangizni ({captured}) ola oladi. ||| После {move} чёрная фигура ({piece}) может взять вашу фигуру ({captured}) ходом {reply}.
+{n} day|{n} days ||| {n} kun ||| {n} день|{n} дня|{n} дней

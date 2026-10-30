@@ -14,6 +14,7 @@ import { piecesFromGame, legalTargetsFor } from './board.js';
 import { esc, icon } from './dom.js';
 import { play as sfx, moveSound } from '../sound.js';
 import { pieceSvg, PIECE_NAMES } from './pieces.js';
+import { t } from '../i18n/core.js';
 
 export const uciOf = (mv) => mv.from + mv.to + (mv.promotion || '');
 const VALUES = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 100 };
@@ -38,11 +39,11 @@ async function explainWrong(g, mv) {
     const reply = new Chess(t.fen());
     const rv = reply.move(r.move);
     if (!rv) return null;
-    const name = (x) => PIECE_NAMES[x].toLowerCase();
-    if (reply.isCheckmate()) return `${played.san} walks into checkmate: the reply ${rv.san} ends the game.`;
+    const name = (x) => t(PIECE_NAMES[x].toLowerCase());
+    if (reply.isCheckmate()) return t('{move} walks into checkmate: the reply {reply} ends the game.', { move: played.san, reply: rv.san });
     if (rv.captured && rv.color !== mover) {
       const lost = VALUES[rv.captured] >= 3 || VALUES[rv.captured] > VALUES[played.captured || 'x'] || 0;
-      if (lost) return `After ${played.san}, the ${rv.color === 'w' ? 'White' : 'Black'} ${name(rv.piece)} can capture your ${name(rv.captured)} with ${rv.san}.`;
+      if (lost) return t(rv.color === 'w' ? 'After {move}, the White {piece} can capture your {captured} with {reply}.' : 'After {move}, the Black {piece} can capture your {captured} with {reply}.', { move: played.san, piece: name(rv.piece), captured: name(rv.captured), reply: rv.san });
     }
     return null;
   } catch { return null; }
@@ -62,7 +63,7 @@ function uiShell(ui, { instruction, hint = true, reset = true, mode }) {
     <div class="stack">
       <div class="task-instr" style="font-weight:600;font-size:1.05rem">${instruction}</div>
       <div id="t-fb" aria-live="polite"></div>
-      ${mode === 'lesson' ? `<div class="btn-row">${hint ? `<button class="btn sm" id="t-hint" type="button">${icon('bulb', 16)} Hint</button>` : ''}${reset ? `<button class="btn sm ghost" id="t-reset" type="button">${icon('refresh', 16)} Reset</button>` : ''}</div>` : ''}
+      ${mode === 'lesson' ? `<div class="btn-row">${hint ? `<button class="btn sm" id="t-hint" type="button">${icon('bulb', 16)} ${t('Hint')}</button>` : ''}${reset ? `<button class="btn sm ghost" id="t-reset" type="button">${icon('refresh', 16)} ${t('Reset')}</button>` : ''}</div>` : ''}
     </div>`;
   return { fb: ui.querySelector('#t-fb'), hintBtn: ui.querySelector('#t-hint'), resetBtn: ui.querySelector('#t-reset') };
 }
@@ -105,7 +106,7 @@ function runMoveOrLine(task, ctx) {
       if (stepIdx >= steps.length) return finish(true);
       // scripted reply
       busy = true;
-      fb.innerHTML = feedbackHtml('good', 'Good move — now watch the reply…');
+      fb.innerHTML = feedbackHtml('good', t('Good move — now watch the reply…'));
       await new Promise((r) => setTimeout(r, 650));
       const rp = steps[stepIdx - 1].reply;
       if (rp) {
@@ -113,7 +114,7 @@ function runMoveOrLine(task, ctx) {
         if (rm) { board.setPosition(piecesFromGame(g), { from: rm.from, to: rm.to }); board.setCheck(g.checkSquare()); moveSound(rm, g); }
       }
       busy = false;
-      fb.innerHTML = feedbackHtml('good', 'Your turn again — keep going.');
+      fb.innerHTML = feedbackHtml('good', t('Your turn again — keep going.'));
       return true;
     }
     // wrong
@@ -123,7 +124,7 @@ function runMoveOrLine(task, ctx) {
     const custom = task.wrong && task.wrong[uci];
     let msg = custom || null;
     if (!msg) msg = await explainWrong(g, legal);
-    fb.innerHTML = feedbackHtml('bad', 'Not quite.', msg || `${esc(legal.san)} is legal, but it doesn't solve this exercise.${task.hint ? ' Press Hint if you need a nudge.' : ''}`);
+    fb.innerHTML = feedbackHtml('bad', t('Not quite.'), msg || `${t("{move} is legal, but it doesn't solve this exercise.", { move: esc(legal.san) })}${task.hint ? ' ' + t('Press Hint if you need a nudge.') : ''}`);
     return false;
   }
 
@@ -132,7 +133,7 @@ function runMoveOrLine(task, ctx) {
     done = true;
     if (ok) {
       sfx('correct');
-      fb.innerHTML = mode === 'test' ? '' : feedbackHtml('good', 'Correct! ' + (wrongs === 0 ? '' : '(after a few tries)'), task.explain || '');
+      fb.innerHTML = mode === 'test' ? '' : feedbackHtml('good', t('Correct!') + (wrongs === 0 ? '' : ' ' + t('(after a few tries)')), task.explain || '');
     }
     ctx.onDone({ ok, attempts, hints, firstTry: wrongs === 0 && hints === 0 });
     return true;
@@ -144,14 +145,14 @@ function runMoveOrLine(task, ctx) {
     const step = steps[stepIdx];
     const best = step.accept[0];
     if (hints === 1) {
-      fb.innerHTML = feedbackHtml('hint', 'Hint', esc(task.hint || 'Look for the piece that can make a real difference here.'));
+      fb.innerHTML = feedbackHtml('hint', t('Hint'), esc(task.hint || t('Look for the piece that can make a real difference here.')));
     } else if (hints === 2) {
       board.setMarks([{ sq: best.slice(0, 2), kind: 'hint' }]);
-      fb.innerHTML = feedbackHtml('hint', 'Hint', 'Look at the highlighted piece.');
+      fb.innerHTML = feedbackHtml('hint', t('Hint'), t('Look at the highlighted piece.'));
     } else {
       board.setMarks([{ sq: best.slice(0, 2), kind: 'hint' }, { sq: best.slice(2, 4), kind: 'good' }]);
       board.setArrows([{ from: best.slice(0, 2), to: best.slice(2, 4), color: '#4cc3ff' }]);
-      fb.innerHTML = feedbackHtml('hint', 'Here is the move', 'Play the highlighted move to continue.');
+      fb.innerHTML = feedbackHtml('hint', t('Here is the move'), t('Play the highlighted move to continue.'));
     }
   };
   if (resetBtn) resetBtn.onclick = () => {
@@ -169,7 +170,7 @@ function runSquares(task, ctx) {
   const { board, ui, mode } = ctx;
   const g = new Chess(task.fen);
   const { fb, hintBtn } = uiShell(ui, { instruction: task.instruction, reset: false, mode });
-  ui.querySelector('.stack').insertAdjacentHTML('beforeend', `<div class="btn-row"><button class="btn primary" id="t-check" type="button">${icon('check', 16)} Check answer</button><button class="btn ghost" id="t-clear" type="button">Clear</button></div>`);
+  ui.querySelector('.stack').insertAdjacentHTML('beforeend', `<div class="btn-row"><button class="btn primary" id="t-check" type="button">${icon('check', 16)} ${t('Check answer')}</button><button class="btn ghost" id="t-clear" type="button">${t('Clear')}</button></div>`);
   const chosen = new Set();
   let done = false, attempts = 0, hints = 0, wrongs = 0;
   resetBoardState(board);
@@ -194,21 +195,21 @@ function runSquares(task, ctx) {
       done = true;
       sfx('correct');
       board.setMarks([...target].map((sq) => ({ sq, kind: 'good' })));
-      fb.innerHTML = mode === 'test' ? '' : feedbackHtml('good', 'Correct!', task.explain || '');
+      fb.innerHTML = mode === 'test' ? '' : feedbackHtml('good', t('Correct!'), task.explain || '');
       ctx.onDone({ ok: true, attempts, hints, firstTry: wrongs === 0 && hints === 0 });
     } else {
       wrongs++;
       sfx('wrong');
       if (mode === 'test') { done = true; ctx.onDone({ ok: false, attempts, hints, firstTry: false }); return; }
       board.setMarks([...chosen].map((sq) => ({ sq, kind: target.has(sq) ? 'good' : 'bad' })));
-      fb.innerHTML = feedbackHtml('bad', 'Not quite.', `${extra.length ? `${extra.length} square${extra.length > 1 ? 's are' : ' is'} wrong (red). ` : ''}${missing.length ? `You're missing ${missing.length}.` : ''}`);
+      fb.innerHTML = feedbackHtml('bad', t('Not quite.'), `${extra.length ? t('{n} wrong (red).', { n: extra.length }) + ' ' : ''}${missing.length ? t("You're missing {n}.", { n: missing.length }) : ''}`);
     }
   };
   if (hintBtn) hintBtn.onclick = () => {
     if (done) return;
     hints++;
     const miss = task.target.find((s) => !chosen.has(s));
-    fb.innerHTML = feedbackHtml('hint', 'Hint', esc(task.hint || 'Try again — look at how this piece moves.'));
+    fb.innerHTML = feedbackHtml('hint', t('Hint'), esc(task.hint || t('Try again — look at how this piece moves.')));
     if (miss && hints >= 2) board.setMarks([...chosen].map((sq) => ({ sq, kind: 'info' })).concat([{ sq: miss, kind: 'hint' }]));
   };
   return { destroy() { done = true; resetBoardState(board); } };
@@ -233,7 +234,7 @@ function runCoords(task, ctx) {
       done = true;
       const ok = right >= pass;
       sfx(ok ? 'correct' : 'wrong');
-      fb.innerHTML = feedbackHtml(ok ? 'good' : 'bad', ok ? `Well done — ${right} of ${rounds} correct.` : `${right} of ${rounds} correct. Let's try again!`);
+      fb.innerHTML = feedbackHtml(ok ? 'good' : 'bad', ok ? t('Well done — {right} of {total} correct.', { right, total: rounds }) : t("{right} of {total} correct. Let's try again!", { right, total: rounds }));
       if (ok) ctx.onDone({ ok: true, attempts, hints: 0, firstTry: right === rounds });
       else setTimeout(() => { n = 0; right = 0; fb.innerHTML = ''; next(); }, 1400);
       return;
@@ -243,7 +244,7 @@ function runCoords(task, ctx) {
     do { sq = FILES[Math.floor(Math.random() * 8)] + (1 + Math.floor(Math.random() * 8)); } while (sq === target);
     target = sq;
     if (n === Math.ceil(rounds / 2) + 1 && board.orientation === 'w') board.setOrientation('b'); // look from the other side too
-    ui.querySelector('#t-round').textContent = `Square ${n} of ${rounds}`;
+    ui.querySelector('#t-round').textContent = t('Square {n} of {total}', { n, total: rounds });
     ui.querySelector('#t-target').textContent = target;
     board.setMarks([]);
     locked = false;
@@ -275,7 +276,7 @@ export function runChoice(q, ctx) {
   }
   let answered = false, attempts = 0, wrongs = 0;
   ui.innerHTML = `<div class="stack"><div class="task-instr" style="font-weight:600;font-size:1.05rem">${q.q}</div>
-    <div class="quiz-opts" role="group" aria-label="Answers">${q.options.map((o, i) => `<button class="quiz-opt" type="button" data-i="${i}"><span class="k">${'ABCD'[i]}</span><span>${o}</span></button>`).join('')}</div>
+    <div class="quiz-opts" role="group" aria-label="${t('Answers')}">${q.options.map((o, i) => `<button class="quiz-opt" type="button" data-i="${i}"><span class="k">${'ABCD'[i]}</span><span>${o}</span></button>`).join('')}</div>
     <div id="t-fb" aria-live="polite"></div></div>`;
   const fb = ui.querySelector('#t-fb');
   ui.querySelectorAll('.quiz-opt').forEach((btn) => {
@@ -296,7 +297,7 @@ export function runChoice(q, ctx) {
         sfx('correct');
         btn.classList.add('right');
         ui.querySelectorAll('.quiz-opt').forEach((b) => { b.disabled = true; });
-        fb.innerHTML = feedbackHtml('good', 'Correct!', q.explain || '');
+        fb.innerHTML = feedbackHtml('good', t('Correct!'), q.explain || '');
         ctx.onDone({ ok: true, attempts, hints: 0, firstTry: wrongs === 0 });
       } else {
         wrongs++;
@@ -305,10 +306,10 @@ export function runChoice(q, ctx) {
         if (ctx.singleAttempt) {
           answered = true;
           ui.querySelectorAll('.quiz-opt').forEach((b, idx) => { b.disabled = true; if (idx === q.answer) b.classList.add('right'); });
-          fb.innerHTML = feedbackHtml('bad', 'Not quite.', q.explain || '');
+          fb.innerHTML = feedbackHtml('bad', t('Not quite.'), q.explain || '');
           ctx.onDone({ ok: false, attempts, hints: 0, firstTry: false });
         } else {
-          fb.innerHTML = feedbackHtml('bad', 'Not quite — try another answer.');
+          fb.innerHTML = feedbackHtml('bad', t('Not quite — try another answer.'));
         }
       }
     };
