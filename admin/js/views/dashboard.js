@@ -34,6 +34,7 @@ export async function mount(host) {
     ps ? h('div', { class: 'grid g4', style: { marginTop: '14px' } },
       stat('users', ps.players.total, 'Registered players', `${ps.players.new7} new in 7 days · ${ps.players.online} online now`),
       stat('chess', ps.games.today, 'Online games today', `${ps.games.live} live now · ${ps.games.total} played in total`),
+      stat('users', ps.visits.today, 'Site visits today', `${ps.visits.visitors7} visitors · ${ps.visits.week} visits in 7 days`),
       stat('alert', ps.reports.open, 'Open reports', ps.players.banned ? `${ps.players.banned} banned players` : 'Nothing to review'),
       stat('chess', ps.tournaments.running + ps.tournaments.upcoming, 'Tournaments', `${ps.tournaments.running} running · ${ps.tournaments.upcoming} upcoming`)) : null,
     h('div', { class: 'grid g2', style: { marginTop: '14px' } },

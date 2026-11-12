@@ -8,7 +8,7 @@ import { rateLimit } from '../security.mjs';
 import { buildContentFor } from '../content.mjs';
 import { PIECE_CODES } from '../validate.mjs';
 
-const EVENT_TYPES = new Set(['lesson_started', 'lesson_completed', 'puzzle_attempt', 'game_completed', 'placement_completed', 'client_error']);
+const EVENT_TYPES = new Set(['lesson_started', 'lesson_completed', 'puzzle_attempt', 'game_completed', 'placement_completed', 'client_error', 'visit']);
 const MIME = { '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp' };
 
 export function register(router) {

@@ -105,5 +105,7 @@ test('reports and moderation: report → admin bans → login, sessions and runn
   const detail = (await admin.get(`/api/admin/players/${rep.targetId}`)).json; assert.equal(detail.reports.length, 1);
   assert.equal((await admin.post(`/api/admin/players/${rep.targetId}/password`, { password: 'weak' })).status, 400);
   assert.equal((await admin.post(`/api/admin/players/${rep.targetId}/password`, { password: 'Fresh-4455-pw' })).status, 200);
+  assert.equal((await client(srv.base).post('/api/events', { anon: 'visitor12345', events: [{ type: 'visit', level: 'uz' }] })).status, 202);
   const stats = (await admin.get('/api/admin/platform-stats')).json; assert.ok(stats.players.total >= 2); assert.equal(stats.reports.open, 0);
+  assert.ok(stats.visits.today >= 1 && stats.visits.visitors7 >= 1, 'site visits reach the admin overview');
 });

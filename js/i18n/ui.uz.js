@@ -940,5 +940,7 @@ export default {
  "The game is not over yet.": "O'yin hali tugamagan.",
  "Finish your running games before starting new ones.": "Yangilarini boshlashdan oldin davom etayotgan o'yinlaringizni tugating.",
  "Use at least 12 characters.": "Kamida 12 ta belgi ishlating.",
- "Mix at least three of: lower-case, upper-case, digits, symbols.": "Kamida uchtasini aralashtiring: kichik harf, bosh harf, raqam, belgi."
+ "Mix at least three of: lower-case, upper-case, digits, symbols.": "Kamida uchtasini aralashtiring: kichik harf, bosh harf, raqam, belgi.",
+ "The most popular first move: it claims the centre and opens lines for the queen and the bishop.": "Eng mashhur birinchi yurish: markazni egallaydi va farzin hamda fil uchun yo'l ochadi.",
+ "Claims the centre with support from the queen and bishop. Leads to more strategic games.": "Markazni farzin va fil yordamida egallaydi. Ko'proq strategik o'yinlarga olib keladi."
 };

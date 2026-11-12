@@ -273,7 +273,7 @@ let visitor;
   check('new visitors get the admin-chosen default board theme + piece set', st.board === 'ocean' && st.pieces !== 'classic', JSON.stringify(st));
   check('player settings list the new theme and render uploaded piece images', st.swatches.includes('Ocean') && st.img, JSON.stringify(st));
   // play: image pieces in a real game, touch-style click move
-  await page.goto(BASE + '/#/play'); await sleep(800);
+  await page.goto(BASE + '/#/play/computer'); await sleep(800);
   await page.click('#start, button:has-text("Start game")').catch(() => {});
   await sleep(1200);
   const imgs = await page.$$eval('.board-pieces img.piece-img', (els) => els.length);
@@ -308,7 +308,7 @@ let visitor;
   await ap.reload();
   const { ctx, page } = await newCtx();
   const p = await learnerPage(ctx, 'beginner');
-  await p.goto(BASE + '/#/play'); await sleep(1500);
+  await p.goto(BASE + '/#/play/computer'); await sleep(1500);
   const levels = await p.$$eval('#levels .level-card', (els) => els.map((e) => e.textContent));
   check('player “Play” shows renamed level and hides the disabled one', levels.length === 7 && /Starter/.test(levels[0]), levels.join('|'));
   await ctx.close();
@@ -348,7 +348,7 @@ let visitor;
   // player site: touch move on a phone-sized board
   const m = await newCtx({ viewport: { width: 390, height: 800 }, hasTouch: true, isMobile: true });
   const p = await learnerPage(m.ctx, 'beginner');
-  await p.goto(BASE + '/#/play'); await sleep(1000);
+  await p.goto(BASE + '/#/play/computer'); await sleep(1000);
   await p.click('button:has-text("Start game")').catch(() => {}); await sleep(1200);
   const center = async (sq) => { const b = await p.locator(`.board .sq[data-sq="${sq}"]`).first().boundingBox(); return [b.x + b.width / 2, b.y + b.height / 2]; };
   let [x, y] = await center('g1'); await p.touchscreen.tap(x, y); [x, y] = await center('f3'); await p.touchscreen.tap(x, y); await sleep(700);

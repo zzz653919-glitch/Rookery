@@ -898,3 +898,5 @@ Enter a valid start time. ||| To'g'ri boshlanish vaqtini kiriting. ||| Введ�
 Duration: 10 to 720 minutes. ||| Davomiyligi: 10 dan 720 daqiqagacha. ||| Длительность: от 10 до 720 минут.
 A tournament that has started can only be cancelled. ||| Boshlangan turnirni faqat bekor qilish mumkin. ||| Начавшийся турнир можно только отменить.
 Article not found. ||| Maqola topilmadi. ||| Статья не найдена.
+Site visits today ||| Bugungi sayt tashriflari ||| Посещений сайта сегодня
+{v} visitors · {w} visits in 7 days ||| {v} ta tashrifchi · 7 kunda {w} ta tashrif ||| {v} посетителей · {w} посещений за 7 дней

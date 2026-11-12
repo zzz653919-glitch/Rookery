@@ -9,7 +9,7 @@ import { connect, reconnect, onNotify } from './realtime.js';
 import { startSync } from './sync.js';
 import { openAuth } from './auth-ui.js';
 import { avatarHtml, flag } from './ui/user.js';
-import { installErrorReporting } from './telemetry.js';
+import { installErrorReporting, track } from './telemetry.js';
 import { t, tn, LANGS, getLang } from './i18n/core.js';
 import { initLanguage, reconcileLanguage, changeLanguage } from './i18n/runtime.js';
 import { applyBundledTranslations } from './i18n/content-runtime.js';
@@ -244,6 +244,7 @@ async function boot() {
   if (reconcileLanguage()) { location.reload(); return; } // saved language differs from the early hint (e.g. restored backup)
   await applyBundledTranslations(getLang());
   installErrorReporting();
+  try { if (!sessionStorage.getItem('rk_visit')) { sessionStorage.setItem('rk_visit', '1'); track('visit', null, getLang()); } } catch { /* storage blocked */ }
   applyTheme();
   buildShell();
   engineClient.start();

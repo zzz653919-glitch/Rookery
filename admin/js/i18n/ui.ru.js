@@ -899,5 +899,7 @@ export default {
  "Enter a valid start time.": "Введите корректное время начала.",
  "Duration: 10 to 720 minutes.": "Длительность: от 10 до 720 минут.",
  "A tournament that has started can only be cancelled.": "Начавшийся турнир можно только отменить.",
- "Article not found.": "Статья не найдена."
+ "Article not found.": "Статья не найдена.",
+ "Site visits today": "Посещений сайта сегодня",
+ "{v} visitors · {w} visits in 7 days": "{v} посетителей · {w} посещений за 7 дней"
 };

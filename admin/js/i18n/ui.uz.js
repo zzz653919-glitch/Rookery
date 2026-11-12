@@ -899,5 +899,7 @@ export default {
  "Enter a valid start time.": "To'g'ri boshlanish vaqtini kiriting.",
  "Duration: 10 to 720 minutes.": "Davomiyligi: 10 dan 720 daqiqagacha.",
  "A tournament that has started can only be cancelled.": "Boshlangan turnirni faqat bekor qilish mumkin.",
- "Article not found.": "Maqola topilmadi."
+ "Article not found.": "Maqola topilmadi.",
+ "Site visits today": "Bugungi sayt tashriflari",
+ "{v} visitors · {w} visits in 7 days": "{v} ta tashrifchi · 7 kunda {w} ta tashrif"
 };
