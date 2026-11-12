@@ -14,6 +14,8 @@ const dir = newDataDir();
 if (cli(dir, ['create-admin', '--username', 'boss', '--role', 'superadmin'], { password: 'Correct-Horse-9!' }).status) throw new Error('admin');
 const srv = await startServer(dir); const BASE = srv.base;
 const browser = await chromium.launch();
+// the first-visit sign-in invitation is covered by its own check; keep it out of the way elsewhere
+if (!process.env.E2E_AUTH_PROMPT) { const _nc = browser.newContext.bind(browser); browser.newContext = async (o) => { const c = await _nc(o); await c.addInitScript(() => { try { if (!sessionStorage.getItem('e2e_np')) { sessionStorage.setItem('e2e_np', '1'); localStorage.setItem('rk_auth_prompt', '1'); } } catch { /* ignore */ } }); return c; }; }
 process.on('uncaughtException', async (e) => { console.log('FAIL  uncaught: ' + String(e.message).split('\n')[0]); console.log('console:', consoleErrors.slice(-6).join(' | ')); try { for (const [i, pg] of browser.contexts().flatMap((c) => c.pages()).entries()) await pg.screenshot({ path: (process.env.SHOTS || '/tmp') + `/platform-fail-${i}.png` }); } catch {} process.exit(1); });
 
 async function newPlayer({ lang = 'en-US', viewport = { width: 1360, height: 900 }, noWs = false, hint } = {}) {
@@ -212,6 +214,20 @@ for (const [lang, hint, expect, nav] of [['ru-RU', 'ru', /Играть|Турн�
 
 for (const P of [A, B]) await P.ctx.close();
 const real = consoleErrors.filter((e) => !/favicon|Failed to load resource: the server responded with a status of (401|404|409|400|403)|WebSocket connection to .* failed|net::ERR/.test(e));
+{ // first visit: invitation to sign up / sign in, with a way to decline it
+  const { ctx, page } = await newPlayer();
+  await page.evaluate(() => localStorage.removeItem('rk_auth_prompt')); await page.reload(); await sleep(1800);
+  const shown = await page.$$eval('.auth-prompt button', (b) => b.map((x) => x.textContent.trim()));
+  check('first visit shows a sign-up / sign-in invitation with a decline button', shown.length === 3 && shown.includes('Not now'), shown.join('|'));
+  await page.click('.auth-prompt #ap-skip'); await sleep(300);
+  check('declining closes the invitation', !(await page.$('.auth-prompt')));
+  await page.reload(); await sleep(1800);
+  check('the invitation does not come back after it was declined', !(await page.$('.auth-prompt')));
+  await page.evaluate(() => localStorage.removeItem('rk_auth_prompt')); await page.reload(); await sleep(1800);
+  await page.click('.auth-prompt #ap-signup'); await sleep(500);
+  check('“Sign up” opens the registration form', /Create|Sign up|username/i.test(await page.textContent('.modal')) && !!(await page.$('input[autocomplete="new-password"], input[type=password]')));
+  await ctx.close();
+}
 check('no unexpected console errors or warnings', real.length === 0, real.slice(0, 4).join(' | '));
 await browser.close(); await srv.stop(); removeDir(dir);
 const failed = results.filter((r) => !r.ok).length;
