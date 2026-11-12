@@ -761,3 +761,140 @@ Maximum ||| Maksimal ||| Максимум
 Rookery has no player accounts. Each visitor’s progress, ratings and game history are stored only in their own browser (IndexedDB) and never reach the server, so individual users cannot be listed, searched, suspended or inspected here. Central user administration needs a backend database with sign-in (accounts, password reset, privacy policy, moderation tools) — a separate project. ||| Rookeryda o'yinchi hisoblari yo'q. Har bir tashrifchining taraqqiyoti, reytinglari va o'yinlar tarixi faqat o'z brauzerida (IndexedDB) saqlanadi va hech qachon serverga yetib bormaydi, shuning uchun alohida foydalanuvchilarni bu yerda ro'yxatlab, qidirib, to'xtatib yoki ko'rib bo'lmaydi. Markaziy foydalanuvchilarni boshqarish kirish tizimiga ega backend ma'lumotlar bazasini (hisoblar, parolni tiklash, maxfiylik siyosati, moderatsiya vositalari) talab qiladi — bu alohida loyiha. ||| В Rookery нет аккаунтов игроков. Прогресс, рейтинги и история партий каждого посетителя хранятся только в его браузере (IndexedDB) и никогда не попадают на сервер, поэтому отдельных пользователей здесь нельзя перечислить, найти, заблокировать или просмотреть. Для централизованного управления пользователями нужна серверная база данных со входом (аккаунты, сброс пароля, политика конфиденциальности, инструменты модерации) — это отдельный проект.
 Reported content and abuse review do not apply: players cannot publish or share any content. ||| Shikoyat qilingan kontent va suiiste'molni ko'rib chiqish bu yerda qo'llanmaydi: o'yinchilar hech qanday kontent e'lon qila olmaydi yoki ulasha olmaydi. ||| Жалобы на контент и разбор нарушений не применимы: игроки не могут публиковать контент и делиться им.
 Play the line on the board (“Play moves”): the learner plays moves 1, 3, 5…; replies 2, 4, 6… are played automatically. The last move must be the learner’s. ||| Yurishlar ketma-ketligini taxtada o'ynang (“Yurishlarni o'ynash”): o'quvchi 1, 3, 5… yurishlarni o'ynaydi; 2, 4, 6… javoblar avtomatik o'ynaladi. Oxirgi yurish o'quvchiniki bo'lishi kerak. ||| Сыграйте линию на доске («Играть ходы»): ученик играет ходы 1, 3, 5…; ответы 2, 4, 6… играются автоматически. Последний ход должен быть ходом ученика.
+Community ||| Hamjamiyat ||| Сообщество
+Players ||| O'yinchilar ||| Игроки
+Reports ||| Shikoyatlar ||| Жалобы
+News ||| Yangiliklar ||| Новости
+Tournaments ||| Turnirlar ||| Турниры
+Statistics ||| Statistika ||| Статистика
+Search players by username… ||| O'yinchilarni foydalanuvchi nomi bo'yicha qidirish… ||| Поиск игроков по имени…
+All players ||| Barcha o'yinchilar ||| Все игроки
+Banned ||| Bloklangan ||| Заблокирован
+Muted ||| Ovozsiz ||| Заглушён
+Rating ||| Reyting ||| Рейтинг
+Games ||| O'yinlar ||| Партии
+Joined ||| Qo'shilgan ||| Дата регистрации
+No players yet ||| Hozircha o'yinchilar yo'q ||| Игроков пока нет
+Players appear here once they register on the site. ||| O'yinchilar saytda ro'yxatdan o'tgach, shu yerda ko'rinadi. ||| Игроки появятся здесь после регистрации на сайте.
+Accounts registered on the site. Ban or mute players, reset passwords and review their games. ||| Saytda ro'yxatdan o'tgan hisoblar. O'yinchilarni bloklang yoki ovozsiz qiling, parollarni tiklang va o'yinlarini ko'rib chiqing. ||| Аккаунты, зарегистрированные на сайте. Блокируйте и глушите игроков, сбрасывайте пароли и просматривайте их партии.
+Bullet ||| Bulet ||| Пуля
+Blitz ||| Blits ||| Блиц
+Rapid ||| Rapid ||| Рапид
+Classical ||| Klassika ||| Классика
+{n} games ||| {n} ta o'yin ||| партий: {n}
+Recent games ||| So'nggi o'yinlar ||| Недавние партии
+No games yet. ||| Hozircha o'yinlar yo'q. ||| Партий пока нет.
+Reports about this player ||| Bu o'yinchi haqidagi shikoyatlar ||| Жалобы на этого игрока
+No reports. ||| Shikoyatlar yo'q. ||| Жалоб нет.
+Ban reason ||| Bloklash sababi ||| Причина блокировки
+Reason shown to the player (optional) ||| O'yinchiga ko'rsatiladigan sabab (ixtiyoriy) ||| Причина, которую увидит игрок (необязательно)
+Unban ||| Blokdan chiqarish ||| Разблокировать
+Ban ||| Bloklash ||| Заблокировать
+Unmute ||| Ovozni yoqish ||| Снять заглушение
+Mute ||| Ovozsiz qilish ||| Заглушить
+Ban this player? ||| Bu o'yinchi bloklansinmi? ||| Заблокировать этого игрока?
+The player is signed out and cannot sign in. Running games are lost. ||| O'yinchi tizimdan chiqariladi va kira olmaydi. Davom etayotgan o'yinlar yutqazilgan hisoblanadi. ||| Игрок выходит из системы и не сможет войти. Текущие партии проиграны.
+Player banned. ||| O'yinchi bloklandi. ||| Игрок заблокирован.
+Player unbanned. ||| O'yinchi blokdan chiqarildi. ||| Игрок разблокирован.
+Player muted. ||| O'yinchi ovozsiz qilindi. ||| Игрок заглушён.
+Player unmuted. ||| O'yinchining ovozi yoqildi. ||| Заглушение снято.
+The player is signed out everywhere and must use the new password. ||| O'yinchi hamma joydan chiqariladi va yangi paroldan foydalanishi kerak. ||| Игрок выходит везде и должен использовать новый пароль.
+At least 8 characters with letters and digits. ||| Kamida 8 belgi, harf va raqamlardan iborat. ||| Не менее 8 символов, буквы и цифры.
+Set password ||| Parolni o'rnatish ||| Установить пароль
+Password changed. ||| Parol o'zgartirildi. ||| Пароль изменён.
+rated ||| reytingli ||| рейтинговая
+casual ||| oddiy ||| обычная
+bullet ||| bulet ||| пуля
+blitz ||| blits ||| блиц
+rapid ||| rapid ||| рапид
+classical ||| klassika ||| классика
+finished ||| tugagan ||| завершена
+active ||| faol ||| идёт
+aborted ||| bekor qilingan ||| прервана
+waiting ||| kutilmoqda ||| ожидание
+open ||| ochiq ||| открыта
+resolved ||| hal qilingan ||| решена
+dismissed ||| rad etilgan ||| отклонена
+cheating ||| aldash ||| читерство
+abuse ||| haqorat ||| оскорбления
+spam ||| spam ||| спам
+other ||| boshqa ||| другое
+upcoming ||| kutilmoqda ||| скоро
+running ||| davom etmoqda ||| идёт
+cancelled ||| bekor qilingan ||| отменён
+Moderation queue: review what players report and decide what happens. ||| Moderatsiya navbati: o'yinchilar shikoyatlarini ko'rib chiqing va qaror qabul qiling. ||| Очередь модерации: рассматривайте жалобы игроков и принимайте решения.
+All reports ||| Barcha shikoyatlar ||| Все жалобы
+Open ||| Ochiq ||| Открыта
+Resolved ||| Hal qilingan ||| Решена
+Dismissed ||| Rad etilgan ||| Отклонена
+Reported player ||| Shikoyat qilingan o'yinchi ||| Игрок, на которого жалоба
+Reason ||| Sabab ||| Причина
+Reported by ||| Kim shikoyat qildi ||| Кто пожаловался
+Date ||| Sana ||| Дата
+Game ||| O'yin ||| Партия
+Review ||| Ko'rib chiqish ||| Рассмотреть
+No reports ||| Shikoyatlar yo'q ||| Жалоб нет
+Reports from players about cheating, abuse or spam appear here. ||| O'yinchilarning aldash, haqorat yoki spam haqidagi shikoyatlari shu yerda ko'rinadi. ||| Здесь появляются жалобы игроков на читерство, оскорбления или спам.
+Dismissed (no action) ||| Rad etilgan (chora ko'rilmaydi) ||| Отклонена (без действий)
+No further action ||| Boshqa chora yo'q ||| Без дальнейших действий
+Mute the player ||| O'yinchini ovozsiz qilish ||| Заглушить игрока
+Ban the player ||| O'yinchini bloklash ||| Заблокировать игрока
+Note (for a ban: the reason shown to the player) ||| Izoh (blok uchun: o'yinchiga ko'rsatiladigan sabab) ||| Заметка (для блокировки — причина, которую увидит игрок)
+Save decision ||| Qarorni saqlash ||| Сохранить решение
+Report about {name} ||| {name} haqida shikoyat ||| Жалоба на {name}
+Decision ||| Qaror ||| Решение
+Note ||| Izoh ||| Заметка
+Report handled. ||| Shikoyat ko'rib chiqildi. ||| Жалоба рассмотрена.
+Articles shown on the News page and the home page. Drafts stay hidden until published. ||| Yangiliklar sahifasi va bosh sahifada ko'rsatiladigan maqolalar. Qoralamalar e'lon qilinmaguncha yashirin turadi. ||| Статьи для страницы новостей и главной страницы. Черновики скрыты, пока не опубликованы.
+Author ||| Muallif ||| Автор
+New article ||| Yangi maqola ||| Новая статья
+Delete article? ||| Maqola o'chirilsinmi? ||| Удалить статью?
+“{title}” will be deleted. ||| “{title}” o'chiriladi. ||| «{title}» будет удалена.
+Article deleted. ||| Maqola o'chirildi. ||| Статья удалена.
+No articles yet ||| Hozircha maqolalar yo'q ||| Статей пока нет
+Write announcements, event reports or chess stories for the News page. ||| Yangiliklar sahifasi uchun e'lonlar, tadbir hisobotlari yoki shaxmat hikoyalarini yozing. ||| Пишите объявления, отчёты о событиях или шахматные истории для страницы новостей.
+Edit article ||| Maqolani tahrirlash ||| Изменить статью
+Summary (shown in lists) ||| Qisqacha (ro'yxatlarda ko'rsatiladi) ||| Краткое описание (в списках)
+Allowed formatting: <b>, <i>, <p>, <ul>/<li>, <br>. Anything else is removed. ||| Ruxsat etilgan formatlash: <b>, <i>, <p>, <ul>/<li>, <br>. Qolgan hamma narsa olib tashlanadi. ||| Допустимое форматирование: <b>, <i>, <p>, <ul>/<li>, <br>. Всё остальное удаляется.
+Draft — hidden ||| Qoralama — yashirin ||| Черновик — скрыт
+Published — visible ||| E'lon qilingan — ko'rinadi ||| Опубликовано — видно
+Arena tournaments: win 2 points, draw 1 — two wins in a row double the points. ||| Arena turnirlari: g'alaba — 2 ochko, durang — 1; ketma-ket ikki g'alaba ochkolarni ikki baravar qiladi. ||| Арена-турниры: победа — 2 очка, ничья — 1; две победы подряд удваивают очки.
+Tournament ||| Turnir ||| Турнир
+Time control ||| Vaqt nazorati ||| Контроль времени
+Duration ||| Davomiyligi ||| Длительность
+New tournament ||| Yangi turnir ||| Новый турнир
+Cancel tournament? ||| Turnir bekor qilinsinmi? ||| Отменить турнир?
+“{name}” will disappear from the site. ||| “{name}” saytdan yo'qoladi. ||| «{name}» исчезнет с сайта.
+Cancel tournament ||| Turnirni bekor qilish ||| Отменить турнир
+Tournament cancelled. ||| Turnir bekor qilindi. ||| Турнир отменён.
+No tournaments yet ||| Hozircha turnirlar yo'q ||| Турниров пока нет
+Schedule an arena event: players score points in a time window. ||| Arena tadbirini rejalashtiring: o'yinchilar vaqt oralig'ida ochko to'playdi. ||| Запланируйте арена-турнир: игроки набирают очки в течение времени.
+Edit tournament ||| Turnirni tahrirlash ||| Изменить турнир
+Starts at ||| Boshlanish vaqti ||| Начало в
+In your local time. ||| Sizning mahalliy vaqtingizda. ||| По вашему местному времени.
+Duration (minutes) ||| Davomiyligi (daqiqalarda) ||| Длительность (в минутах)
+Registered players ||| Ro'yxatdan o'tgan o'yinchilar ||| Зарегистрированные игроки
+{new} new in 7 days · {online} online now ||| 7 kunda {new} ta yangi · hozir {online} ta onlayn ||| новых за 7 дней: {new} · сейчас онлайн: {online}
+Online games today ||| Bugungi onlayn o'yinlar ||| Онлайн-партии сегодня
+{live} live now · {total} played in total ||| hozir {live} ta jonli · jami {total} ta o'ynalgan ||| сейчас идёт: {live} · всего сыграно: {total}
+Open reports ||| Ochiq shikoyatlar ||| Открытые жалобы
+{n} banned players ||| {n} ta bloklangan o'yinchi ||| заблокированных игроков: {n}
+Nothing to review ||| Ko'rib chiqadigan narsa yo'q ||| Нечего рассматривать
+{running} running · {upcoming} upcoming ||| {running} ta davom etmoqda · {upcoming} ta kutilmoqda ||| идёт: {running} · скоро: {upcoming}
+Anonymous usage numbers from the player site. ||| O'yinchi saytidan anonim foydalanish raqamlari. ||| Анонимные данные об использовании сайта игроков.
+Anonymous statistics.  ||| Anonim statistika.  ||| Анонимная статистика. 
+Player accounts, ratings and game history are managed on the Players page. The numbers below come from anonymous usage events sent by browsers (players can switch this off in Settings), including visitors without an account. ||| O'yinchi hisoblari, reytinglar va o'yinlar tarixi “O'yinchilar” sahifasida boshqariladi. Quyidagi raqamlar brauzerlar yuborgan anonim foydalanish hodisalaridan olinadi (o'yinchilar buni Sozlamalarda o'chirishi mumkin), hisobsiz tashrifchilar ham kiradi. ||| Аккаунты игроков, рейтинги и история партий управляются на странице «Игроки». Данные ниже взяты из анонимных событий использования, которые отправляют браузеры (игроки могут отключить это в настройках), включая посетителей без аккаунта.
+Not included yet ||| Hozircha mavjud emas ||| Пока не реализовано
+E-mail verification and password reset by e-mail ||| E-pochani tasdiqlash va parolni e-pochta orqali tiklash ||| Подтверждение e-mail и сброс пароля по e-mail
+A privacy policy and terms of use for your players ||| O'yinchilaringiz uchun maxfiylik siyosati va foydalanish shartlari ||| Политика конфиденциальности и условия использования для игроков
+see the Reports page ||| “Shikoyatlar” sahifasiga qarang ||| см. страницу «Жалобы»
+Nothing to change. ||| O'zgartiriladigan narsa yo'q. ||| Нечего менять.
+Report not found. ||| Shikoyat topilmadi. ||| Жалоба не найдена.
+Choose resolved or dismissed. ||| “Hal qilingan” yoki “Rad etilgan”ni tanlang. ||| Выберите «Решена» или «Отклонена».
+Unknown action. ||| Noma'lum harakat. ||| Неизвестное действие.
+Player not found. ||| O'yinchi topilmadi. ||| Игрок не найден.
+Tournament not found. ||| Turnir topilmadi. ||| Турнир не найден.
+Enter a valid start time. ||| To'g'ri boshlanish vaqtini kiriting. ||| Введите корректное время начала.
+Duration: 10 to 720 minutes. ||| Davomiyligi: 10 dan 720 daqiqagacha. ||| Длительность: от 10 до 720 минут.
+A tournament that has started can only be cancelled. ||| Boshlangan turnirni faqat bekor qilish mumkin. ||| Начавшийся турнир можно только отменить.
+Article not found. ||| Maqola topilmadi. ||| Статья не найдена.

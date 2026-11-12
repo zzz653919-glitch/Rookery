@@ -6,6 +6,7 @@ import { config } from './config.mjs';
 import { openDb, migrate, getDb, dbKind } from './db.mjs';
 import { seedIfNeeded } from './seed.mjs';
 import { createApp } from './app.mjs';
+import { attachRealtime } from './realtime.mjs';
 import { purgeExpiredSessions } from './security.mjs';
 
 const args = process.argv.slice(2);
@@ -26,6 +27,7 @@ const maintenance = setInterval(async () => { try { await purgeExpiredSessions()
 maintenance.unref();
 
 const server = createApp();
+attachRealtime(server);
 server.listen(port, host, async () => {
   const shown = host === '0.0.0.0' ? 'localhost' : host;
   console.log(`\n  Database: ${dbKind() === 'turso' ? 'Turso / libSQL' : 'local file'}`);

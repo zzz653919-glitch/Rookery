@@ -6,12 +6,16 @@ import { remote } from '../content.js';
 import { t, th, tn, LANGS, getLang } from '../i18n/core.js';
 import { changeLanguage } from '../i18n/runtime.js';
 import { levelName } from '../i18n/names.js';
-import { esc, icon, toast, confirmDialog } from '../ui/dom.js';
+import { esc, icon, toast, confirmDialog, modal } from '../ui/dom.js';
 import { store, DEFAULTS } from '../store.js';
 import { levelById, LEVELS } from '../data/levels.js';
 import { engineClient } from '../engine-client.js';
 import { applyTheme } from '../app.js';
 import { play as sfx } from '../sound.js';
+import { net as account, logout, post } from '../net.js';
+import { openAuth } from '../auth-ui.js';
+import { avatarHtml } from '../ui/user.js';
+import { stockfish } from '../stockfish-client.js';
 
 const PREVIEW_FEN = 'r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R w KQkq - 0 5';
 
@@ -25,6 +29,10 @@ export function mount(root, { navigate }) {
       <header class="page-head"><div><div class="eyebrow">${t('Settings')}</div><h1>${t('Make it yours')}</h1><p>${t('Everything here is saved on this device.')}</p></div></header>
       <div class="grid cols-2" style="align-items:start">
         <div class="stack">
+          ${account.available ? `<section class="card stack" aria-labelledby="h-acc"><h3 id="h-acc">${t('Account')}</h3>
+            ${account.user ? `<div class="row">${avatarHtml(account.user, 44)}<div class="grow"><b>${esc(account.user.username)}</b><br><small class="muted">${t('Your progress is synced with your account.')}</small></div><a class="btn sm" href="#/profile">${t('Profile')}</a></div>
+              <div class="btn-row"><button class="btn" id="chg-pw" type="button">${icon('lock', 16)} ${t('Change password')}</button><button class="btn ghost" id="acc-out" type="button">${icon('x', 16)} ${t('Sign out')}</button></div>`
+            : `<p class="muted" style="margin:0">${t('Sign in to play rated games, keep your rating and sync your progress between devices.')}</p><div class="btn-row"><button class="btn primary" id="acc-in" type="button">${t('Sign in')}</button><button class="btn" id="acc-up" type="button">${t('Create account')}</button></div>`}</section>` : ''}
           <section class="card stack" aria-labelledby="h-look"><h3 id="h-look">${t('Appearance')}</h3>
             <div class="opt-group"><label class="lbl">${t('Language')}</label>
               <div class="segmented" id="seg-lang" role="group" aria-label="${t('Language')}">${LANGS.map((l) => `<button type="button" data-v="${l.id}" aria-pressed="${getLang() === l.id}">${l.name}</button>`).join('')}</div></div>
@@ -49,10 +57,11 @@ export function mount(root, { navigate }) {
             <div class="btn-row"><a class="btn primary" href="#/test" id="retake">${icon('target', 16)} ${t('Retake the placement test')}</a><a class="btn" href="#/welcome" id="change-level">${t('Choose level manually')}</a></div>
           </section>
           <section class="card stack" aria-labelledby="h-eng"><h3 id="h-eng">${t('Computer opponent & offline use')}</h3>
+            <div class="opt-group"><label class="lbl">${t('Engine')}</label><div class="segmented" id="seg-engine" role="group" aria-label="${t('Engine')}"><button type="button" data-v="stockfish" aria-pressed="${s.engine !== 'builtin'}">Stockfish 19</button><button type="button" data-v="builtin" aria-pressed="${s.engine === 'builtin'}">${t('Built-in engine')}</button></div></div>
             <div id="eng-status" class="muted">${t('Checking the engine…')}</div><div id="net-status" class="muted"></div>
           </section>
           <section class="card stack" aria-labelledby="h-data"><h3 id="h-data">${t('Your data')}</h3>
-            <div class="notice info">${icon('info', 16)} ${t('Rookery has no accounts and no server. Your level, progress and settings are stored <b>only on this device and in this browser</b> (IndexedDB). Clearing your browser data erases them, and they do not sync to other devices.')}</div>
+            <div class="notice info">${icon('info', 16)} ${account.user ? t('Your lessons, puzzles and achievements are saved with your account and follow you to other devices. Settings and the offline cache stay in this browser.') : t('Your level, progress and settings are stored <b>only on this device and in this browser</b> (IndexedDB). Clearing your browser data erases them. Sign in to sync your progress between devices.')}</div>
             <div class="btn-row"><button class="btn" id="export" type="button">${icon('download', 16)} ${t('Export backup')}</button><label class="btn" style="cursor:pointer">${icon('upload', 16)} ${t('Import backup')}<input id="import" type="file" accept="application/json" hidden></label>
               <button class="btn" id="reset-progress" type="button">${icon('refresh', 16)} ${t('Reset progress')}</button><button class="btn danger" id="reset-all" type="button">${icon('trash', 16)} ${t('Erase everything')}</button></div>
             <small class="muted" id="store-mode"></small>
@@ -75,6 +84,12 @@ export function mount(root, { navigate }) {
   async function set(key, val) { await store.update('settings', (s) => { s[key] = val; }); }
 
   function bind() {
+    root.querySelectorAll('#seg-engine button').forEach((b) => b.onclick = async () => { await set('engine', b.dataset.v); if (b.dataset.v === 'stockfish') stockfish.usable = true; render(); });
+    const $q = (x) => root.querySelector(x);
+    $q('#acc-in') && ($q('#acc-in').onclick = async () => { if (await openAuth('login')) render(); });
+    $q('#acc-up') && ($q('#acc-up').onclick = async () => { if (await openAuth('register')) render(); });
+    $q('#acc-out') && ($q('#acc-out').onclick = async () => { await logout(); render(); });
+    $q('#chg-pw') && ($q('#chg-pw').onclick = changePassword);
     root.querySelectorAll('#seg-lang button').forEach((b) => b.onclick = () => changeLanguage(b.dataset.v));
     root.querySelectorAll('#seg-theme button').forEach((b) => b.onclick = async () => { await set('theme', b.dataset.v); applyTheme(); render(); });
     root.querySelectorAll('#sw-board .swatch').forEach((b) => b.onclick = async () => { await set('boardTheme', b.dataset.v); render(); });
@@ -112,13 +127,19 @@ export function mount(root, { navigate }) {
     net();
   }
 
+  function changePassword() {
+    const m = modal(`<h2>${t('Change password')}</h2><label class="field"><span>${t('Current password')}</span><input type="password" id="pw0" autocomplete="current-password"></label><label class="field"><span>${t('New password')}</span><input type="password" id="pw1" autocomplete="new-password"></label><div class="notice bad" id="pw-err" hidden></div><div class="actions"><button class="btn primary" id="pw-go" type="button">${t('Save')}</button><button class="btn ghost" data-x type="button">${t('Cancel')}</button></div>`);
+    m.el.querySelector('[data-x]').onclick = () => m.close();
+    m.el.querySelector('#pw-go').onclick = async () => { const err = m.el.querySelector('#pw-err'); err.hidden = true; try { await post('/api/me/password', { current: m.el.querySelector('#pw0').value, next: m.el.querySelector('#pw1').value }); toast(t('Password changed'), 'good'); m.close(); } catch (e) { err.hidden = false; err.textContent = (Array.isArray(e.details) && e.details.length ? e.details.map((d) => t(d.message || d)).join(' ') : t(e.message)); } };
+  }
+
   async function engineStatus() {
     const el = root.querySelector('#eng-status');
     try {
       const t0 = performance.now();
       await engineClient.ping();
       if (disposed) return;
-      el.innerHTML = `${icon('check', 14)} ${t('<b>Built-in engine ready</b> — runs on this device ({mode}), no internet needed. Response {ms} ms. It is a custom alpha-beta search engine (8 levels), not Stockfish.', { mode: engineClient.mode === 'worker' ? 'Web Worker' : t('main thread'), ms: Math.round(performance.now() - t0) })}`;
+      el.innerHTML = engineClient.mode === 'stockfish' ? `${icon('check', 14)} ${t('<b>Stockfish 19 ready</b> — runs on this device in a background worker, no internet needed. Response {ms} ms.', { ms: Math.round(performance.now() - t0) })}` : `${icon('check', 14)} ${t('<b>Built-in engine ready</b> — runs on this device ({mode}), no internet needed. Response {ms} ms. It is a compact alpha-beta search engine (8 levels).', { mode: engineClient.mode === 'worker' ? 'Web Worker' : t('main thread'), ms: Math.round(performance.now() - t0) })}`;
     } catch (e) { if (!disposed) el.innerHTML = `<span style="color:var(--danger)">${t('Engine failed to start: {error}', { error: esc(e.message) })}</span>`; }
   }
 

@@ -60,6 +60,19 @@ export async function dataKeys() {
   for (const k of ['Promote to queen', 'Promote to knight', 'Promote to rook', 'Promote to bishop']) out.add(k);
   for (const k of ['Won vs computer level {level}', 'Lost vs computer level {level}', 'Drew vs computer level {level}',
     'After {move}, the White {piece} can capture your {captured} with {reply}.', 'After {move}, the Black {piece} can capture your {captured} with {reply}.']) out.add(k);
+  // platform: navigation, categories, learning-center data, game reasons, and the messages the server sends to players
+  for (const k of ['News', 'Tournaments', 'Leaderboards', 'Friends', 'Profile', 'Watch', 'Bullet', 'Blitz', 'Rapid', 'Classical', 'Puzzles', 'Random', 'Menu', 'More']) out.add(k);
+  const { ENDGAMES } = await imp('js/data/endgames.js'); for (const e of ENDGAMES) { out.add(e.name); out.add(e.tip); }
+  for (const k of ['Basic mates', 'Essential endings', 'Classic positions']) out.add(k);
+  const { OPENINGS, ECO_GROUPS } = await imp('js/data/openings.js'); Object.values(ECO_GROUPS).forEach((v) => out.add(v)); for (const o of OPENINGS) if (o[3]) out.add(o[3]);
+  for (const r of ['aborted', 'expired', 'banned']) out.add(r);
+  for (const f of ['server/routes/users.mjs', 'server/routes/games.mjs', 'server/routes/community.mjs', 'server/accounts.mjs', 'server/games.mjs', 'server/security.mjs', 'server/http.mjs']) {
+    const src = readFileSync(join(ROOT, f), 'utf8');
+    for (const m of src.matchAll(/(?:HttpError\(\d+,\s*|\bbad\(|out\.push\(|return\s+|message:\s*)(['"`])((?:[^\\\n]|\\.)*?)\1/g)) {
+      const text = m[2].replace(/\\'/g, "'").replace(/\$\{[^}]*\}/g, '{n}');
+      if (/^[A-Z][^<>]*[.!]$/.test(text) && text.length > 8 && !/^(Authentication|Missing or invalid)/.test(text)) out.add(text);
+    }
+  }
   return out;
 }
 

@@ -21,7 +21,7 @@ export function cli(dataDir, args, { password } = {}) {
 
 export async function startServer(dataDir, env = {}) {
   const port = await freePort();
-  const proc = spawn(process.execPath, [...NODE, join(ROOT, 'server/index.mjs'), '--port', String(port)], { env: { ...process.env, ROOKERY_DATA_DIR: dataDir, ...dbEnv(dataDir), ...env }, stdio: ['ignore', 'pipe', 'pipe'] });
+  const proc = spawn(process.execPath, [...NODE, join(ROOT, 'server/index.mjs'), '--port', String(port)], { env: { ...process.env, ROOKERY_DATA_DIR: dataDir, ROOKERY_REGISTER_PER_HOUR: '1000', ...dbEnv(dataDir), ...env }, stdio: ['ignore', 'pipe', 'pipe'] });
   let log = '';
   proc.stdout.on('data', (d) => { log += d; }); proc.stderr.on('data', (d) => { log += d; });
   const base = `http://127.0.0.1:${port}`;

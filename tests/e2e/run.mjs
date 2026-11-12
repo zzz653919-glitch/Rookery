@@ -95,11 +95,13 @@ async function solveTask(page, t) {
   check('level persists after reload (IndexedDB)', prof.level === 'intermediate', JSON.stringify(prof));
   check('no redirect to welcome after onboarding', !page.url().includes('welcome'));
   // sidebar navigation: all six links work
-  for (const [id, h] of [['home', 'Keep climbing'], ['play', 'Play'], ['learn', 'path'], ['puzzles', 'Sharpen'], ['progress', 'Your journey'], ['settings', 'Make it yours']]) {
+  for (const [id, h] of [['home', 'Keep climbing'], ['play', 'Choose how you want to play'], ['learn', 'path'], ['puzzles', 'Sharpen'], ['settings', 'Make it yours']]) {
     await page.click(`.sidebar [data-nav="${id}"]`); await sleep(500);
     const txt = await page.textContent('#view, main, #app');
     check(`nav → ${id}`, page.url().endsWith('#/' + id) && txt.includes(h), page.url());
   }
+  await page.goto(BASE + '/#/progress'); await sleep(500);
+  check('progress page is reachable (linked from the profile)', (await page.textContent('#view')).includes('Your journey'));
   await ctx.close();
 }
 

@@ -10,6 +10,7 @@ import { checkAchievements, puzzleAccuracy } from '../progress.js';
 import { play as sfx } from '../sound.js';
 import { track } from '../telemetry.js';
 import { t, th, tn } from '../i18n/core.js';
+import { net as account, post, refreshRatings } from '../net.js';
 import { levelName, themeName, themeDesc } from '../i18n/names.js';
 
 export { THEMES }; // puzzle categories live in data/levels.js so remote content can update them
@@ -166,6 +167,7 @@ export function mount(root, { params, navigate }) {
     });
     await recordSkill(THEMES[p.theme]?.skill, firstTry);
     track('puzzle_attempt', p.id, null, ok ? 1 : 0);
+    if (account.user) post('/api/me/puzzle-result', { level: p.level, ok, firstTry }).then(() => refreshRatings()).catch(() => {});   // the account's puzzle rating
     await markActivity();
   }
 

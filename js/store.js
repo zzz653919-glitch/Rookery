@@ -16,6 +16,7 @@ export const DEFAULTS = {
     animations: true,
     highlightMoves: true,
     autoQueen: false,
+    engine: 'stockfish',  // 'stockfish' | 'builtin'
     telemetry: true,      // anonymous usage statistics, sent only when the optional admin server is present
   },
   profile: {
@@ -30,6 +31,8 @@ export const DEFAULTS = {
   games: [],              // recent games vs computer
   activity: { days: [] }, // ISO dates with learning activity
   achievements: {},
+  endgames: { done: {} },   // endgame trainer: id -> ISO date
+  openingsDone: {},        // opening trainer: id -> ISO date
   skills: {},             // per-skill {right, total}
 };
 

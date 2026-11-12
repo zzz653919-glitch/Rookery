@@ -71,7 +71,7 @@ export function register(router) {
     const d = getDb();
     return {
       accountsSupported: false,
-      explanation: 'Rookery has no player accounts. Each visitor’s progress, ratings and game history are stored only in their own browser (IndexedDB) and never reach the server, so individual users cannot be listed, searched, suspended or inspected here. Central user administration needs a backend database with sign-in (accounts, password reset, privacy policy, moderation tools) — a separate project.',
+      explanation: 'Player accounts, ratings and game history are managed on the Players page. The numbers below come from anonymous usage events sent by browsers (players can switch this off in Settings), including visitors without an account.',
       anonymous: {
         levels: (await d.prepare("SELECT ref AS level, count(*) n FROM events WHERE type='placement_completed' GROUP BY ref").all()),
         activeLearners30d: (await d.prepare('SELECT count(DISTINCT anon) n FROM events WHERE ts > ?').get(ago(30))).n,
@@ -79,7 +79,7 @@ export function register(router) {
         lessonCompletions: (await d.prepare("SELECT count(*) n FROM events WHERE type='lesson_completed'").get()).n,
         puzzleAttempts: (await d.prepare("SELECT count(*) n, sum(value = 1) AS correct FROM events WHERE type='puzzle_attempt'").get()),
       },
-      reports: 'Reported content and abuse review do not apply: players cannot publish or share any content.',
+      reports: 'see the Reports page',
     };
   }, { auth: true, perm: 'dashboard:read' });
 

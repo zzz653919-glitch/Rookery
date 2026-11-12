@@ -1,6 +1,9 @@
 // Talks to the engine Web Worker. Falls back to running the (same) engine on the
 // main thread if module workers are unavailable (very old browsers).
 
+import { store } from './store.js';
+import { stockfish } from './stockfish-client.js';
+
 export class EngineClient {
   constructor() {
     this.worker = null;
@@ -61,15 +64,26 @@ export class EngineClient {
     }, 20)));
   }
 
-  search(game, opts) {
+  // Stockfish first; the built-in engine is the fallback (Stockfish could not start, or the player chose it in Settings).
+  wantsStockfish() { return stockfish.usable && store.get('settings').engine !== 'builtin'; }
+
+  async search(game, opts) {
+    if (this.wantsStockfish()) {
+      try { const r = await stockfish.search(game, opts); this.mode = 'stockfish'; return r; }
+      catch (e) { if (String(e.message) === 'cancelled') throw e; console.warn('Stockfish failed, using the built-in engine:', e.message); }
+    }
     return this.call({ type: 'search', fen: game.fen(), keys: game.keys.slice(), opts });
   }
 
-  newGame() { return this.call({ type: 'newgame' }); }
-  ping() { return this.call({ type: 'ping' }); }
+  newGame() { stockfish.usable && this.wantsStockfish() && stockfish.newGame().catch(() => {}); return this.call({ type: 'newgame' }); }
+  async ping() {
+    if (this.wantsStockfish()) { try { await stockfish.start(); this.mode = 'stockfish'; return 'pong'; } catch { /* fall back below */ } }
+    return this.call({ type: 'ping' });
+  }
 
   // Abort any search in progress (a worker cannot be interrupted, so replace it).
   cancel() {
+    stockfish.cancel();
     if (this.worker) {
       this.worker.terminate();
       this.worker = null;

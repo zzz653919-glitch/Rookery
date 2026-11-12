@@ -14,19 +14,24 @@ const NAV = [
   { id: 'puzzles', label: 'Puzzles', icon: 'puzzle', perm: 'content:read' },
   { id: 'themes', label: 'Themes', icon: 'palette', perm: 'themes:read' },
   { id: 'translations', label: 'Translations', icon: 'globe', perm: 'content:read' },
+  { id: 'news', label: 'News', icon: 'log', perm: 'content:read' },
+  { id: 'tournaments', label: 'Tournaments', icon: 'chess', perm: 'content:read' },
+  { sec: 'Community' },
+  { id: 'players', label: 'Players', icon: 'users', perm: 'players:read' },
+  { id: 'reports', label: 'Reports', icon: 'alert', perm: 'players:read' },
   { sec: 'Site' },
   { id: 'settings', label: 'Chess settings', icon: 'gear', perm: 'settings:read' },
-  { id: 'users', label: 'Users & progress', icon: 'users', perm: 'dashboard:read' },
+  { id: 'users', label: 'Statistics', icon: 'users', perm: 'dashboard:read' },
   { sec: 'Administration' },
   { id: 'audit', label: 'Audit log', icon: 'log', perm: 'audit:read' },
   { id: 'admins', label: 'Administrators', icon: 'shield', perm: 'admins:manage' },
 ];
 const VIEWS = {
   dashboard: () => import('./views/dashboard.js'), lessons: () => import('./views/lessons.js'), puzzles: () => import('./views/puzzles.js'),
-  themes: () => import('./views/themes.js'), translations: () => import('./views/translations.js'), settings: () => import('./views/settings.js'), users: () => import('./views/users.js'),
+  themes: () => import('./views/themes.js'), translations: () => import('./views/translations.js'), news: () => import('./views/news.js'), tournaments: () => import('./views/tournaments.js'), players: () => import('./views/players.js'), reports: () => import('./views/reports.js'), settings: () => import('./views/settings.js'), users: () => import('./views/users.js'),
   audit: () => import('./views/audit.js'), admins: () => import('./views/admins.js'), account: () => import('./views/account.js'),
 };
-const TITLES = { dashboard: 'Dashboard', lessons: 'Lessons', puzzles: 'Puzzles', themes: 'Themes', translations: 'Translations', settings: 'Chess settings', users: 'Users & progress', audit: 'Audit log', admins: 'Administrators', account: 'My account' };
+const TITLES = { dashboard: 'Dashboard', lessons: 'Lessons', puzzles: 'Puzzles', themes: 'Themes', translations: 'Translations', news: 'News', tournaments: 'Tournaments', players: 'Players', reports: 'Reports', settings: 'Chess settings', users: 'Statistics', audit: 'Audit log', admins: 'Administrators', account: 'My account' };
 
 let cleanup = null, guard = null, token = 0, prevHash = '', shell = null;
 

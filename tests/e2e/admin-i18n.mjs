@@ -18,6 +18,18 @@ if (cli(dir, ['create-admin', '--username', 'boss', '--role', 'superadmin'], { p
 const srv = await startServer(dir, { ROOKERY_TRANSLATE_PROVIDER: 'mock', ROOKERY_ALLOW_MOCK: '1' });
 const BASE = srv.base;
 const browser = await chromium.launch();
+
+// platform data so that the new admin pages have rows and dialogs to translate
+{
+  const J = (c, m, path, body) => fetch(BASE + path, { method: m, headers: { 'content-type': 'application/json', ...(c ? { cookie: c.cookie, 'x-csrf-token': c.csrf } : {}) }, body: body ? JSON.stringify(body) : undefined });
+  const reg = async (u) => { const r = await J(null, 'POST', '/api/register', { username: u, password: 'Rook-7788-x' }); return { cookie: r.headers.get('set-cookie').split(';')[0], csrf: (await r.json()).csrf }; };
+  const z = await reg('Zoya'); await reg('Yusuf');
+  await J(z, 'POST', '/api/reports', { username: 'Yusuf', reason: 'abuse', detail: 'rude in chat' });
+  const lr = await J(null, 'POST', '/api/admin/login', { username: 'boss', password: PW });
+  const ad = { cookie: lr.headers.get('set-cookie').split(';')[0], csrf: (await lr.json()).csrf };
+  await J(ad, 'POST', '/api/admin/news', { title: 'Welcome to Rookery', summary: 'Hello', body: '<p>First article</p>', status: 'published' });
+  await J(ad, 'POST', '/api/admin/tournaments', { name: 'Friday Arena', description: 'Fast fun', base: 180, inc: 0, startsAt: new Date(Date.now() + 86400000).toISOString(), durationMin: 60 });
+}
 process.on('unhandledRejection', (e) => { console.log('FAIL  unexpected error  -> ' + (e?.stack || e)); process.exit(1); });
 
 async function open(lang, viewport = { width: 1360, height: 900 }) {
@@ -55,7 +67,7 @@ const isData = (s) => DATA.has(s) || DONE.has(s) || (s.length > 5 && [...DATA].s
 
 async function crawl(page) {
   await login(page);
-  const routes = ['dashboard', 'lessons', 'lessons/new', 'lessons/b-pieces', 'puzzles', 'puzzles/new', 'themes', 'translations', 'settings', 'users', 'audit', 'admins', 'account'];
+  const routes = ['dashboard', 'lessons', 'lessons/new', 'lessons/b-pieces', 'puzzles', 'puzzles/new', 'themes', 'translations', 'news', 'tournaments', 'players', 'reports', 'settings', 'users', 'audit', 'admins', 'account'];
   for (const r of routes) await go(page, r);
   // dialogs: every step type, the JSON editor, delete confirmations, theme / admin forms
   await go(page, 'lessons/new');
@@ -76,6 +88,13 @@ async function crawl(page) {
   for (const b of await page.$$('button.btn.primary')) { await b.click().catch(() => {}); await sleep(250); await page.keyboard.press('Escape'); }
   await go(page, 'admins');
   for (const b of await page.$$('button.btn.primary')) { await b.click().catch(() => {}); await sleep(250); await page.keyboard.press('Escape'); }
+  for (const r of ['news', 'tournaments']) {
+    await go(page, r);
+    for (const b of await page.$$('button.btn.primary')) { await b.click().catch(() => {}); await sleep(250); await page.keyboard.press('Escape'); }
+    for (const b of (await page.$$('table.data button.btn.sm')).slice(0, 2)) { await b.click().catch(() => {}); await sleep(250); await page.keyboard.press('Escape'); }
+  }
+  await go(page, 'players'); await page.locator('table.data button.btn.sm').first().click().catch(() => {}); await sleep(400); await page.keyboard.press('Escape');
+  await go(page, 'reports'); await page.locator('table.data button.btn.primary').first().click().catch(() => {}); await sleep(400); await page.keyboard.press('Escape');
   await go(page, 'translations');
   await page.locator('table.data button.btn.sm').first().click().catch(() => {}); await sleep(300);
   await page.keyboard.press('Escape');

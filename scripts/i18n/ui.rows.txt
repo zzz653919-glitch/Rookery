@@ -474,3 +474,468 @@ Find the best move — {n} moves to find. ||| Eng yaxshi yurishni toping — top
 Solved on the first try. ||| Birinchi urinishda yechildi. ||| Решено с первой попытки.
 Solved. ||| Yechildi. ||| Решено.
 Remove a piece ||| Donani olib tashlash ||| Убрать фигуру
+Offline mode ||| Oflayn rejim ||| Офлайн-режим
+Online features need the Rookery server ||| Onlayn imkoniyatlar uchun Rookery serveri kerak ||| Для онлайн-функций нужен сервер Rookery
+Sign in ||| Kirish ||| Войти
+Sign up ||| Ro'yxatdan o'tish ||| Регистрация
+Profile ||| Profil ||| Профиль
+Rating ||| Reyting ||| Рейтинг
+Sign out ||| Chiqish ||| Выйти
+Menu ||| Menyu ||| Меню
+Chess platform ||| Shaxmat platformasi ||| Шахматная платформа
+Play chess ||| Shaxmat o'ynash ||| Играть в шахматы
+More ||| Yana ||| Ещё
+Create account ||| Hisob yaratish ||| Создать аккаунт
+Join Rookery ||| Rookery'ga qo'shiling ||| Присоединяйтесь к Rookery
+Welcome back ||| Qaytganingiz bilan ||| С возвращением
+Play rated games online, climb the leaderboards and keep your progress on every device. ||| Onlayn reytingli o'yinlar o'ynang, reyting jadvallarida ko'tariling va taraqqiyotingizni barcha qurilmalarda saqlang. ||| Играйте онлайн рейтинговые партии, поднимайтесь в таблицах лидеров и храните прогресс на всех устройствах.
+Sign in to play online and sync your progress. ||| Onlayn o'ynash va taraqqiyotni sinxronlash uchun tizimga kiring. ||| Войдите, чтобы играть онлайн и синхронизировать прогресс.
+Username ||| Foydalanuvchi nomi ||| Имя пользователя
+Password ||| Parol ||| Пароль
+Username: 3–20 letters, digits, dash or underscore. Password: at least 8 characters with letters and digits. ||| Foydalanuvchi nomi: 3–20 ta harf, raqam, chiziqcha yoki pastki chiziq. Parol: kamida 8 belgi, harf va raqamlardan iborat. ||| Имя пользователя: 3–20 букв, цифр, дефисов или подчёркиваний. Пароль: не менее 8 символов, буквы и цифры.
+Enter your username and password. ||| Foydalanuvchi nomi va parolingizni kiriting. ||| Введите имя пользователя и пароль.
+Analysis board ||| Tahlil taxtasi ||| Доска анализа
+Import a game (PGN), step through it, and let Stockfish point out the mistakes. ||| O'yinni (PGN) yuklang, yurishlar bo'ylab yuring va Stockfish xatolarni ko'rsatsin. ||| Загрузите партию (PGN), пройдите по ходам, и Stockfish укажет на ошибки.
+Paste a PGN ||| PGN ni qo'ying ||| Вставьте PGN
+Load game ||| O'yinni yuklash ||| Загрузить партию
+Open .pgn file ||| .pgn faylni ochish ||| Открыть файл .pgn
+Try an example ||| Namunani sinab ko'ring ||| Попробовать пример
+Previous move ||| Oldingi yurish ||| Предыдущий ход
+Autoplay ||| Avtomatik ijro ||| Автовоспроизведение
+Next move ||| Keyingi yurish ||| Следующий ход
+End ||| Oxiri ||| Конец
+Evaluation graph ||| Baholash grafigi ||| График оценки
+Analyze game ||| O'yinni tahlil qilish ||| Анализировать партию
+Download PGN ||| PGN ni yuklab olish ||| Скачать PGN
+Load another game ||| Boshqa o'yinni yuklash ||| Загрузить другую партию
+Could not read the PGN: {error} ||| PGN ni o'qib bo'lmadi: {error} ||| Не удалось прочитать PGN: {error}
+Stockfish prefers {move} ||| Stockfish {move} ni afzal ko'radi ||| Stockfish предпочитает {move}
+your move lost about {n} pawns ||| yurishingiz taxminan {n} piyoda yo'qotdi ||| ваш ход потерял около {n} пешек
+Press "Analyze game" for Stockfish evaluations. ||| Stockfish baholarini ko'rish uchun “O'yinni tahlil qilish” tugmasini bosing. ||| Нажмите «Анализировать партию», чтобы увидеть оценки Stockfish.
+Stop ||| To'xtatish ||| Остановить
+Done — {n} blunders found ||| Tayyor — {n} ta qo'pol xato topildi ||| Готово — найдено грубых ошибок: {n}
+Done — no big blunders ||| Tayyor — katta xatolar yo'q ||| Готово — грубых ошибок нет
+Endgame trainer ||| Endshpil trenajyori ||| Тренажёр эндшпиля
+Endgames are won and lost by technique. Play each position against Stockfish until you convert it — or hold the draw. ||| Endshpillar texnika bilan yutiladi va yutqaziladi. Har bir pozitsiyani Stockfish'ga qarshi yutguningizcha — yoki durangni saqlab qolguningizcha o'ynang. ||| Эндшпили выигрываются и проигрываются техникой. Играйте каждую позицию против Stockfish, пока не реализуете её — или не удержите ничью.
+completed ||| bajarildi ||| пройдено
+Goal: win ||| Maqsad: yutish ||| Цель: выиграть
+Goal: hold the draw ||| Maqsad: durangni saqlash ||| Цель: удержать ничью
+You play White ||| Siz oq bilan o'ynaysiz ||| Вы играете белыми
+You play Black ||| Siz qora bilan o'ynaysiz ||| Вы играете чёрными
+All endgames ||| Barcha endshpillar ||| Все эндшпили
+Goal: checkmate the opponent ||| Maqsad: raqibga mat qo'yish ||| Цель: поставить мат сопернику
+Goal: do not lose — hold the draw ||| Maqsad: yutqazmaslik — durangni saqlash ||| Цель: не проиграть — удержать ничью
+Your moves: {n} of {max} ||| Yurishlaringiz: {n} / {max} ||| Ваши ходы: {n} из {max}
+Check! ||| Shoh! ||| Шах!
+Stockfish is thinking ||| Stockfish o'ylamoqda ||| Stockfish думает
+Checkmate — well done! ||| Mat — barakalla! ||| Мат — отлично!
+Draw (%s). Try again — look out for stalemate and the 50-move rule. ||| Durang (%s). Qayta urinib ko'ring — patga va 50 yurish qoidasiga e'tibor bering. ||| Ничья (%s). Попробуйте снова — берегитесь пата и правила 50 ходов.
+You lost this one. Try again. ||| Bu safar yutqazdingiz. Qayta urinib ko'ring. ||| В этот раз вы проиграли. Попробуйте снова.
+You even won it! ||| Hatto yutib oldingiz! ||| Вы даже выиграли!
+You lost. Try again. ||| Yutqazdingiz. Qayta urinib ko'ring. ||| Вы проиграли. Попробуйте снова.
+Draw secured — well held! ||| Durang saqlandi — yaxshi himoya! ||| Ничья удержана — отличная защита!
+You held the draw for {n} moves — well done! ||| Durangni {n} yurish davomida saqladingiz — barakalla! ||| Вы удерживали ничью {n} ходов — молодец!
+Out of moves — the win has to come faster. Try again. ||| Yurishlar tugadi — g'alaba tezroq kelishi kerak. Qayta urinib ko'ring. ||| Ходы закончились — выигрыш нужно реализовать быстрее. Попробуйте снова.
+Endgame completed! ||| Endshpil bajarildi! ||| Эндшпиль пройден!
+Not this time ||| Bu safar emas ||| В этот раз нет
+Try again ||| Qayta urinish ||| Попробовать снова
+Next endgame ||| Keyingi endshpil ||| Следующий эндшпиль
+Try {move} ||| {move} ni sinab ko'ring ||| Попробуйте {move}
+Friends need the Rookery server ||| Do'stlar uchun Rookery serveri kerak ||| Для друзей нужен сервер Rookery
+Accounts and friends live on the server. ||| Hisoblar va do'stlar serverda saqlanadi. ||| Аккаунты и друзья хранятся на сервере.
+Friends ||| Do'stlar ||| Друзья
+Play with people you know ||| Tanishlar bilan o'ynang ||| Играйте со знакомыми
+Sign in to see your friends ||| Do'stlaringizni ko'rish uchun kiring ||| Войдите, чтобы увидеть друзей
+Add friends, see who is online and challenge them to a game. ||| Do'stlar qo'shing, kim onlayn ekanini ko'ring va ularni o'yinga chorlang. ||| Добавляйте друзей, смотрите, кто онлайн, и вызывайте их на партию.
+Your friends ||| Sizning do'stlaringiz ||| Ваши друзья
+Friends can challenge each other to private games. ||| Do'stlar bir-birini shaxsiy o'yinga chorlashi mumkin. ||| Друзья могут вызывать друг друга на частные партии.
+Add a friend by username ||| Foydalanuvchi nomi bo'yicha do'st qo'shish ||| Добавить друга по имени
+Add ||| Qo'shish ||| Добавить
+Challenges ||| Chorlovlar ||| Вызовы
+challenges you to a {tc} game ||| sizni {tc} o'yiniga chorlaydi ||| вызывает вас на партию {tc}
+Accept ||| Qabul qilish ||| Принять
+Decline ||| Rad etish ||| Отклонить
+Friend requests ||| Do'stlik so'rovlari ||| Запросы в друзья
+Challenge ||| Chorlash ||| Вызвать
+Remove ||| Olib tashlash ||| Удалить
+No friends yet. Add someone by username, or open a player profile and press "Add friend". ||| Hozircha do'stlar yo'q. Foydalanuvchi nomi bo'yicha qo'shing yoki o'yinchi profilini ochib “Do'st qo'shish” ni bosing. ||| Друзей пока нет. Добавьте кого-нибудь по имени или откройте профиль игрока и нажмите «Добавить в друзья».
+Sent requests ||| Yuborilgan so'rovlar ||| Отправленные запросы
+Pending ||| Kutilmoqda ||| Ожидает
+You are now friends! ||| Endi siz do'stsiz! ||| Теперь вы друзья!
+Friend request sent ||| Do'stlik so'rovi yuborildi ||| Запрос в друзья отправлен
+Challenge {name} ||| {name}ni chorlash ||| Вызвать: {name}
+Send challenge ||| Chorlov yuborish ||| Отправить вызов
+Game aborted ||| O'yin bekor qilindi ||| Партия прервана
+White wins ||| Oq g'alaba qozondi ||| Белые выиграли
+Black wins ||| Qora g'alaba qozondi ||| Чёрные выиграли
+Online play needs the Rookery server ||| Onlayn o'yin uchun Rookery serveri kerak ||| Для онлайн-игры нужен сервер Rookery
+This copy of Rookery runs without the server, so games against other people are not available. Play the computer instead. ||| Rookery'ning bu nusxasi serversiz ishlayapti, shuning uchun boshqa odamlar bilan o'yinlar mavjud emas. Buning o'rniga kompyuter bilan o'ynang. ||| Эта копия Rookery работает без сервера, поэтому партии с другими людьми недоступны. Играйте с компьютером.
+Game not found ||| O'yin topilmadi ||| Партия не найдена
+No moves yet. ||| Hozircha yurishlar yo'q. ||| Ходов пока нет.
+Chat ||| Chat ||| Чат
+Say something kind… ||| Yaxshi biror gap yozing… ||| Напишите что-нибудь доброе…
+Message ||| Xabar ||| Сообщение
+Send ||| Yuborish ||| Отправить
+Waiting for opponent… ||| Raqib kutilmoqda… ||| Ожидание соперника…
+Waiting for your opponent to join… ||| Raqibingiz qo'shilishi kutilmoqda… ||| Ожидание, пока соперник присоединится…
+You are watching ||| Siz kuzatyapsiz ||| Вы наблюдаете
+Opponent's move ||| Raqib yuradi ||| Ход соперника
+Rated ||| Reytingli ||| Рейтинговая
+vs ||| vs ||| против
+Private game ||| Shaxsiy o'yin ||| Частная партия
+Your opponent offers a draw. ||| Raqibingiz durang taklif qilmoqda. ||| Соперник предлагает ничью.
+Draw offered — waiting for an answer. ||| Durang taklif qilindi — javob kutilmoqda. ||| Ничья предложена — ждём ответа.
+Rating change ||| Reyting o'zgarishi ||| Изменение рейтинга
+Invite a friend ||| Do'stni taklif qilish ||| Пригласить друга
+Share this link. The game starts as soon as your friend opens it and signs in. ||| Bu havolani ulashing. Do'stingiz uni ochib kirishi bilan o'yin boshlanadi. ||| Поделитесь этой ссылкой. Партия начнётся, как только друг откроет её и войдёт.
+Game link ||| O'yin havolasi ||| Ссылка на партию
+Copy ||| Nusxalash ||| Копировать
+Waiting for your opponent… ||| Raqibingiz kutilmoqda… ||| Ожидание соперника…
+You are invited ||| Siz taklif qilindingiz ||| Вас пригласили
+{name} invited you to a {tc} game. ||| {name} sizni {tc} o'yiniga taklif qildi. ||| {name} приглашает вас на партию {tc}.
+Join the game ||| O'yinga qo'shilish ||| Присоединиться к партии
+Sign in to join ||| Qo'shilish uchun kiring ||| Войдите, чтобы присоединиться
+Abort ||| Bekor qilish ||| Прервать
+Rematch ||| Revanş ||| Реванш
+Analyze ||| Tahlil qilish ||| Анализ
+Report opponent ||| Raqib ustidan shikoyat ||| Пожаловаться на соперника
+New opponent ||| Yangi raqib ||| Новый соперник
+You will lose the game. ||| O'yinni yutqazasiz. ||| Вы проиграете партию.
+Report {name} ||| {name} ustidan shikoyat ||| Жалоба на {name}
+Reason ||| Sabab ||| Причина
+Cheating ||| Aldash ||| Читерство
+Abusive behaviour ||| Haqoratli xulq ||| Оскорбительное поведение
+Spam ||| Spam ||| Спам
+Other ||| Boshqa ||| Другое
+Details (optional) ||| Tafsilotlar (ixtiyoriy) ||| Подробности (необязательно)
+Send report ||| Shikoyat yuborish ||| Отправить жалобу
+No messages yet. ||| Hozircha xabarlar yo'q. ||| Сообщений пока нет.
+Ready for your next game? ||| Keyingi o'yinga tayyormisiz? ||| Готовы к следующей партии?
+Play, learn and improve at chess. ||| Shaxmat o'ynang, o'rganing va yaxshilang. ||| Играйте, учитесь и совершенствуйтесь в шахматах.
+Rated games against real players, Stockfish at every strength, lessons, puzzles and tournaments — in one place. ||| Haqiqiy o'yinchilar bilan reytingli o'yinlar, har qanday kuchdagi Stockfish, darslar, boshqotirmalar va turnirlar — bir joyda. ||| Рейтинговые партии с настоящими игроками, Stockfish любой силы, уроки, задачи и турниры — в одном месте.
+Lessons that fit your level, puzzles, and Stockfish as a sparring partner — all on this device. ||| Darajangizga mos darslar, boshqotirmalar va sparring sherik sifatida Stockfish — hammasi shu qurilmada. ||| Уроки по вашему уровню, задачи и Stockfish в роли спарринг-партнёра — всё на этом устройстве.
+Play a friend ||| Do'st bilan o'ynash ||| Играть с другом
+Two players ||| Ikki o'yinchi ||| Два игрока
+Best rating ||| Eng yaxshi reyting ||| Лучший рейтинг
+Sign in for a rating ||| Reyting uchun kiring ||| Войдите, чтобы получить рейтинг
+Day streak ||| Kunlik seriya ||| Серия дней
+A fresh tactic every day. Keep your streak alive. ||| Har kuni yangi taktika. Seriyangizni saqlang. ||| Новая тактика каждый день. Не прерывайте серию.
+Practise more ||| Ko'proq mashq qilish ||| Тренироваться ещё
+From the first move to master-level ideas. ||| Birinchi yurishdan ustoz darajasidagi g'oyalargacha. ||| От первого хода до идей мастерского уровня.
+Open ||| Ochish ||| Открыть
+Live now ||| Hozir jonli ||| Сейчас в эфире
+Live games need the Rookery server. ||| Jonli o'yinlar uchun Rookery serveri kerak. ||| Для прямых трансляций партий нужен сервер Rookery.
+Tournaments ||| Turnirlar ||| Турниры
+Tournaments need the Rookery server. ||| Turnirlar uchun Rookery serveri kerak. ||| Для турниров нужен сервер Rookery.
+Sign in to keep a history of your games. ||| O'yinlaringiz tarixini saqlash uchun kiring. ||| Войдите, чтобы сохранять историю партий.
+Your games against the computer appear in Progress. ||| Kompyuterga qarshi o'yinlaringiz “Taraqqiyot” bo'limida ko'rinadi. ||| Ваши партии с компьютером отображаются в разделе «Прогресс».
+News ||| Yangiliklar ||| Новости
+News needs the Rookery server. ||| Yangiliklar uchun Rookery serveri kerak. ||| Для новостей нужен сервер Rookery.
+Featured ||| Tavsiya etilgan ||| Рекомендуем
+Opening of the day ||| Kun debyuti ||| Дебют дня
+Explore openings ||| Debyutlarni o'rganish ||| Изучать дебюты
+Endgame of the day ||| Kun endshpili ||| Эндшпиль дня
+Train it ||| Mashq qilish ||| Потренироваться
+Analysis ||| Tahlil ||| Анализ
+Review a game with Stockfish ||| O'yinni Stockfish bilan ko'rib chiqing ||| Разберите партию со Stockfish
+Import a PGN and find your mistakes. ||| PGN ni yuklang va xatolaringizni toping. ||| Загрузите PGN и найдите свои ошибки.
+Open analysis board ||| Tahlil taxtasini ochish ||| Открыть доску анализа
+Watch more ||| Ko'proq kuzatish ||| Смотреть ещё
+No games right now. ||| Hozir o'yinlar yo'q. ||| Сейчас партий нет.
+Start one ||| Birini boshlash ||| Начать партию
+Running ||| Davom etmoqda ||| Идёт
+No tournaments scheduled. ||| Turnirlar rejalashtirilmagan. ||| Турниров не запланировано.
+No news yet. ||| Hozircha yangiliklar yo'q. ||| Новостей пока нет.
+W ||| G' ||| В
+L ||| M ||| П
+D ||| D ||| Н
+All games ||| Barcha o'yinlar ||| Все партии
+No games yet. ||| Hozircha o'yinlar yo'q. ||| Партий пока нет.
+Play your first game ||| Birinchi o'yiningizni o'ynang ||| Сыграйте первую партию
+Leaderboards need the Rookery server ||| Reyting jadvallari uchun Rookery serveri kerak ||| Для таблиц лидеров нужен сервер Rookery
+Ratings are kept on the server. Run Rookery with its server to see them. ||| Reytinglar serverda saqlanadi. Ularni ko'rish uchun Rookery'ni server bilan ishga tushiring. ||| Рейтинги хранятся на сервере. Запустите Rookery вместе с сервером, чтобы их увидеть.
+Leaderboards ||| Reyting jadvallari ||| Таблицы лидеров
+Top players ||| Eng yaxshi o'yinchilar ||| Лучшие игроки
+The 50 highest ratings. Play at least 3 rated games to be listed. ||| 50 ta eng yuqori reyting. Ro'yxatga tushish uchun kamida 3 ta reytingli o'yin o'ynang. ||| 50 самых высоких рейтингов. Чтобы попасть в список, сыграйте не менее 3 рейтинговых партий.
+No ranked players yet ||| Hozircha reytingli o'yinchilar yo'q ||| Рейтинговых игроков пока нет
+Be the first: play rated games to appear here. ||| Birinchi bo'ling: bu yerda ko'rinish uchun reytingli o'yinlar o'ynang. ||| Будьте первым: сыграйте рейтинговые партии, чтобы появиться здесь.
+Play online ||| Onlayn o'ynash ||| Играть онлайн
+Player ||| O'yinchi ||| Игрок
+Games ||| O'yinlar ||| Партии
+Win rate ||| G'alaba ulushi ||| Процент побед
+Two players, one device ||| Ikki o'yinchi, bitta qurilma ||| Два игрока, одно устройство
+Hand the board back and forth. No account and no internet needed. ||| Taxtani bir-biringizga uzating. Hisob ham, internet ham kerak emas. ||| Передавайте доску друг другу. Не нужны ни аккаунт, ни интернет.
+Turn the board after every move ||| Har yurishdan keyin taxtani aylantirish ||| Поворачивать доску после каждого хода
+Handy when you sit on opposite sides of a phone or tablet. ||| Telefon yoki planshetning qarama-qarshi tomonida o'tirganingizda qulay. ||| Удобно, если вы сидите по разные стороны телефона или планшета.
+White player ||| Oq o'yinchi ||| Игрок белыми
+Black player ||| Qora o'yinchi ||| Игрок чёрными
+White resigns ||| Oq taslim bo'ladi ||| Белые сдаются
+Black resigns ||| Qora taslim bo'ladi ||| Чёрные сдаются
+Draw by agreement ||| Kelishuv bilan durang ||| Ничья по соглашению
+The game in progress will be abandoned. ||| Davom etayotgan o'yin tashlab ketiladi. ||| Текущая партия будет оставлена.
+Agree to a draw? ||| Durangga rozimisiz? ||| Согласиться на ничью?
+Both players accept the draw. ||| Ikkala o'yinchi ham durangni qabul qiladi. ||| Оба игрока принимают ничью.
+won the game. ||| o'yinda g'alaba qozondi. ||| выиграл партию.
+News needs the Rookery server ||| Yangiliklar uchun Rookery serveri kerak ||| Для новостей нужен сервер Rookery
+Articles are published from the admin panel of the server. ||| Maqolalar serverning admin panelidan e'lon qilinadi. ||| Статьи публикуются из админ-панели сервера.
+Article not found ||| Maqola topilmadi ||| Статья не найдена
+All news ||| Barcha yangiliklar ||| Все новости
+What is new at Rookery ||| Rookery'da nima yangilik ||| Что нового в Rookery
+Announcements, events and chess stories. ||| E'lonlar, tadbirlar va shaxmat hikoyalari. ||| Объявления, события и шахматные истории.
+Read more ||| Batafsil ||| Читать далее
+No news yet ||| Hozircha yangiliklar yo'q ||| Новостей пока нет
+Check back soon. ||| Tez orada qaytib keling. ||| Загляните позже.
+Create a private game ||| Shaxsiy o'yin yaratish ||| Создать частную партию
+Find an opponent ||| Raqib topish ||| Найти соперника
+Pick the time control, then send the link to your friend. ||| Vaqt nazoratini tanlang, so'ng havolani do'stingizga yuboring. ||| Выберите контроль времени и отправьте ссылку другу.
+We pair you with a player of similar strength. Your rating changes only in rated games. ||| Sizni teng kuchdagi o'yinchi bilan juftlaymiz. Reyting faqat reytingli o'yinlarda o'zgaradi. ||| Мы подберём соперника вашей силы. Рейтинг меняется только в рейтинговых партиях.
+Quick pairing ||| Tez juftlash ||| Быстрый подбор
+With a friend ||| Do'st bilan ||| С другом
+Your rating ||| Sizning reytingingiz ||| Ваш рейтинг
+Rated game ||| Reytingli o'yin ||| Рейтинговая партия
+Casual games never change your rating. ||| Oddiy o'yinlar reytingni hech qachon o'zgartirmaydi. ||| Обычные партии никогда не меняют рейтинг.
+Create game link ||| O'yin havolasini yaratish ||| Создать ссылку на партию
+Play {tc} ||| {tc} o'ynash ||| Играть {tc}
+You will be asked to sign in or create a free account. ||| Sizdan tizimga kirish yoki bepul hisob yaratish so'raladi. ||| Вам предложат войти или создать бесплатный аккаунт.
+How it works ||| Qanday ishlaydi ||| Как это работает
+The server keeps the clock and checks every move. ||| Soatni server yuritadi va har bir yurishni tekshiradi. ||| Часы ведёт сервер, он же проверяет каждый ход.
+Connection lost? Reopen the game page — the clock kept running fairly. ||| Aloqa uzildimi? O'yin sahifasini qayta oching — soat adolatli yurishda davom etdi. ||| Связь пропала? Откройте страницу партии снова — часы честно продолжали идти.
+Rated games use an Elo rating per time control ({cat}: {r}). ||| Reytingli o'yinlarda har bir vaqt nazorati uchun Elo reytingi ishlatiladi ({cat}: {r}). ||| В рейтинговых партиях используется рейтинг Эло для каждого контроля времени ({cat}: {r}).
+Prefer a computer? ||| Kompyuter ma'qulmi? ||| Хотите играть с компьютером?
+Nobody online right now? Play Stockfish while you wait. ||| Hozir onlayn hech kim yo'qmi? Kutayotganda Stockfish bilan o'ynang. ||| Никого нет онлайн? Сыграйте со Stockfish, пока ждёте.
+Searching for an opponent… ||| Raqib qidirilmoqda… ||| Поиск соперника…
+Quiet right now — the search range keeps widening. You can also ||| Hozir tinch — qidiruv doirasi kengayib bormoqda. Shuningdek ||| Сейчас тихо — диапазон поиска расширяется. Вы также можете
+play the computer ||| kompyuter bilan o'ynashingiz mumkin ||| сыграть с компьютером
+Opening explorer ||| Debyutlar tadqiqotchisi ||| Обозреватель дебютов
+Play moves on the board to see which opening you are in and what usually comes next — or pick a line and practise it. ||| Qaysi debyutda ekaningizni va odatda nima bo'lishini ko'rish uchun taxtada yurishlar qiling — yoki variantni tanlab mashq qiling. ||| Делайте ходы на доске, чтобы увидеть, в каком вы дебюте и что обычно следует дальше, — или выберите линию и отработайте её.
+Take back ||| Yurishni qaytarish ||| Взять ход назад
+Start position ||| Boshlang'ich pozitsiya ||| Начальная позиция
+Browse openings ||| Debyutlarni ko'rish ||| Список дебютов
+Search by name, ECO code or moves ||| Nomi, ECO kodi yoki yurishlar bo'yicha qidirish ||| Поиск по названию, коду ECO или ходам
+Search openings ||| Debyutlarni qidirish ||| Поиск дебютов
+Practising ||| Mashq qilinmoqda ||| Тренировка
+Your move — play the book move for {side}. ||| Sizning yurishingiz — {side} uchun kitobdagi yurishni qiling. ||| Ваш ход — сыграйте книжный ход за {side}.
+Opponent plays… ||| Raqib yuradi… ||| Соперник ходит…
+Stop practising ||| Mashqni to'xtatish ||| Остановить тренировку
+Practise as White ||| Oq bilan mashq qilish ||| Тренироваться за белых
+Practise as Black ||| Qora bilan mashq qilish ||| Тренироваться за чёрных
+Out of book ||| Kitobdan tashqarida ||| Вне книги
+Starting position ||| Boshlang'ich pozitsiya ||| Начальная позиция
+This move order is not in the opening database. ||| Bu yurishlar tartibi debyutlar bazasida yo'q. ||| Такого порядка ходов нет в базе дебютов.
+Play a first move, or choose an opening on the right. ||| Birinchi yurishni qiling yoki o'ngdan debyutni tanlang. ||| Сделайте первый ход или выберите дебют справа.
+Book moves ||| Kitob yurishlari ||| Книжные ходы
+lines ||| variant ||| линий
+Nothing found. ||| Hech narsa topilmadi. ||| Ничего не найдено.
+Choose how you want to play ||| Qanday o'ynashni tanlang ||| Выберите, как хотите играть
+Rated games against real people, friends by link, or a Stockfish opponent at your level. ||| Haqiqiy odamlar bilan reytingli o'yinlar, havola orqali do'stlar yoki darajangizdagi Stockfish raqib. ||| Рейтинговые партии с живыми людьми, друзья по ссылке или Stockfish вашего уровня.
+You have a game in progress. ||| Sizda davom etayotgan o'yin bor. ||| У вас есть незавершённая партия.
+Resume ||| Davom ettirish ||| Продолжить
+Quick pairing with a player of your strength. Rated or casual. ||| Kuchingizdagi o'yinchi bilan tez juftlash. Reytingli yoki oddiy. ||| Быстрый подбор соперника вашей силы. Рейтинговая или обычная.
+Needs the Rookery server — not available in this copy. ||| Rookery serveri kerak — bu nusxada mavjud emas. ||| Нужен сервер Rookery — в этой копии недоступно.
+Create a private room and share the link — your friend joins in one click. ||| Shaxsiy xona yarating va havolani ulashing — do'stingiz bir bosishda qo'shiladi. ||| Создайте частную комнату и поделитесь ссылкой — друг присоединится в один клик.
+Stockfish 19 with eight levels from beginner to full strength. Works offline. ||| Stockfish 19: boshlovchidan to'liq kuchgacha sakkizta daraja. Oflayn ishlaydi. ||| Stockfish 19: восемь уровней от новичка до полной силы. Работает офлайн.
+Pass the board between you. Clocks, undo and PGN included. ||| Taxtani bir-biringizga uzating. Soat, yurishni qaytarish va PGN bor. ||| Передавайте доску друг другу. Часы, отмена хода и PGN включены.
+Arena events with prizes of glory: score points in a time window. ||| Shon-sharaf uchun arena tadbirlari: vaqt oralig'ida ochko to'plang. ||| Арена-события во славу: набирайте очки в течение отведённого времени.
+Import a PGN, step through the moves and ask Stockfish what it thinks. ||| PGN ni yuklang, yurishlar bo'ylab yuring va Stockfish'dan fikrini so'rang. ||| Загрузите PGN, пройдите по ходам и узнайте мнение Stockfish.
+This copy of Rookery is running without the server: online games, accounts, friends, tournaments and leaderboards are unavailable. Everything else works offline. ||| Rookery'ning bu nusxasi serversiz ishlayapti: onlayn o'yinlar, hisoblar, do'stlar, turnirlar va reyting jadvallari mavjud emas. Qolgan hamma narsa oflayn ishlaydi. ||| Эта копия Rookery работает без сервера: онлайн-партии, аккаунты, друзья, турниры и таблицы лидеров недоступны. Всё остальное работает офлайн.
+ready (Stockfish 19, runs locally) ||| tayyor (Stockfish 19, mahalliy ishlaydi) ||| готов (Stockfish 19, работает локально)
+Your chess profile ||| Sizning shaxmat profilingiz ||| Ваш шахматный профиль
+Sign in to see your profile ||| Profilingizni ko'rish uchun kiring ||| Войдите, чтобы увидеть профиль
+Your rating, game history, achievements and learning progress live here. ||| Reytingingiz, o'yinlar tarixi, yutuqlaringiz va o'quv taraqqiyotingiz shu yerda. ||| Здесь живут ваш рейтинг, история партий, достижения и прогресс в обучении.
+Player not found ||| O'yinchi topilmadi ||| Игрок не найден
+games ||| o'yin ||| партий
+Peak ||| Eng yuqori ||| Максимум
+In progress ||| Davom etmoqda ||| Идёт
+Learning progress ||| O'quv taraqqiyoti ||| Прогресс в обучении
+Details ||| Tafsilotlar ||| Подробнее
+Lessons ||| Darslar ||| Уроки
+Puzzle accuracy {n}% ||| Boshqotirma aniqligi {n}% ||| Точность решения задач {n}%
+synced with your account ||| hisobingiz bilan sinxronlangan ||| синхронизировано с аккаунтом
+Member since {date} ||| A'zo bo'lgan sana: {date} ||| Участник с {date}
+Edit profile ||| Profilni tahrirlash ||| Изменить профиль
+Request sent ||| So'rov yuborildi ||| Запрос отправлен
+Add friend ||| Do'st qo'shish ||| Добавить в друзья
+Report ||| Shikoyat qilish ||| Пожаловаться
+Statistics ||| Statistika ||| Статистика
+Wins ||| G'alabalar ||| Победы
+Draws ||| Duranglar ||| Ничьи
+Losses ||| Mag'lubiyatlar ||| Поражения
+No rated games yet. ||| Hozircha reytingli o'yinlar yo'q. ||| Рейтинговых партий пока нет.
+Score rate {n}% ||| Ochko ulushi {n}% ||| Доля очков {n}%
+Favourite openings ||| Sevimli debyutlar ||| Любимые дебюты
+Play more games and the openings you like will show up here. ||| Ko'proq o'yin o'ynang — yoqtirgan debyutlaringiz shu yerda ko'rinadi. ||| Играйте больше партий — любимые дебюты появятся здесь.
+Accounts and ratings need the Rookery server. Your learning progress below is stored on this device. ||| Hisoblar va reytinglar uchun Rookery serveri kerak. Quyidagi o'quv taraqqiyotingiz shu qurilmada saqlanadi. ||| Для аккаунтов и рейтингов нужен сервер Rookery. Ваш прогресс в обучении ниже хранится на этом устройстве.
+Profile picture ||| Profil rasmi ||| Фото профиля
+Avatar {n} ||| {n}-avatar ||| Аватар {n}
+Upload your own ||| O'zingiznikini yuklash ||| Загрузить своё
+SVG, PNG or WebP, up to 100 KB ||| SVG, PNG yoki WebP, 100 KB gacha ||| SVG, PNG или WebP, до 100 КБ
+Custom picture in use ||| O'z rasmingiz ishlatilmoqda ||| Используется своё фото
+Country ||| Mamlakat ||| Страна
+About you ||| O'zingiz haqingizda ||| О себе
+Save ||| Saqlash ||| Сохранить
+Larger than 100 KB. ||| 100 KB dan katta. ||| Больше 100 КБ.
+Account ||| Hisob ||| Аккаунт
+Your progress is synced with your account. ||| Taraqqiyotingiz hisobingiz bilan sinxronlanadi. ||| Ваш прогресс синхронизируется с аккаунтом.
+Change password ||| Parolni o'zgartirish ||| Сменить пароль
+Sign in to play rated games, keep your rating and sync your progress between devices. ||| Reytingli o'yinlar o'ynash, reytingni saqlash va taraqqiyotni qurilmalar o'rtasida sinxronlash uchun kiring. ||| Войдите, чтобы играть рейтинговые партии, сохранять рейтинг и синхронизировать прогресс между устройствами.
+Engine ||| Dvigatel ||| Движок
+Built-in engine ||| O'rnatilgan dvigatel ||| Встроенный движок
+Your lessons, puzzles and achievements are saved with your account and follow you to other devices. Settings and the offline cache stay in this browser. ||| Darslar, boshqotirmalar va yutuqlaringiz hisobingiz bilan saqlanadi va boshqa qurilmalarga ham o'tadi. Sozlamalar va oflayn kesh shu brauzerda qoladi. ||| Ваши уроки, задачи и достижения сохраняются в аккаунте и следуют за вами на другие устройства. Настройки и офлайн-кэш остаются в этом браузере.
+Your level, progress and settings are stored <b>only on this device and in this browser</b> (IndexedDB). Clearing your browser data erases them. Sign in to sync your progress between devices. ||| Darajangiz, taraqqiyotingiz va sozlamalaringiz <b>faqat shu qurilmada va shu brauzerda</b> (IndexedDB) saqlanadi. Brauzer ma'lumotlarini tozalash ularni o'chiradi. Taraqqiyotni qurilmalar o'rtasida sinxronlash uchun kiring. ||| Ваш уровень, прогресс и настройки хранятся <b>только на этом устройстве и в этом браузере</b> (IndexedDB). Очистка данных браузера их удалит. Войдите, чтобы синхронизировать прогресс между устройствами.
+Current password ||| Joriy parol ||| Текущий пароль
+New password ||| Yangi parol ||| Новый пароль
+<b>Stockfish 19 ready</b> — runs on this device in a background worker, no internet needed. Response {ms} ms. ||| <b>Stockfish 19 tayyor</b> — shu qurilmada fon jarayonida ishlaydi, internet kerak emas. Javob vaqti {ms} ms. ||| <b>Stockfish 19 готов</b> — работает на этом устройстве в фоновом потоке, интернет не нужен. Отклик {ms} мс.
+<b>Built-in engine ready</b> — runs on this device ({mode}), no internet needed. Response {ms} ms. It is a compact alpha-beta search engine (8 levels). ||| <b>O'rnatilgan dvigatel tayyor</b> — shu qurilmada ({mode}) ishlaydi, internet kerak emas. Javob vaqti {ms} ms. Bu ixcham alfa-beta qidiruv dvigateli (8 daraja). ||| <b>Встроенный движок готов</b> — работает на этом устройстве ({mode}), интернет не нужен. Отклик {ms} мс. Это компактный движок с альфа-бета-поиском (8 уровней).
+Tournaments need the Rookery server ||| Turnirlar uchun Rookery serveri kerak ||| Для турниров нужен сервер Rookery
+Events are organised from the admin panel of the server. ||| Tadbirlar serverning admin panelidan tashkil etiladi. ||| События организуются из админ-панели сервера.
+Arena tournaments ||| Arena turnirlari ||| Арена-турниры
+Join, then play as many games as you can before the time runs out. Win 2 points, draw 1 — two wins in a row doubles your points. ||| Qo'shiling va vaqt tugaguncha iloji boricha ko'p o'yin o'ynang. G'alaba — 2 ochko, durang — 1; ketma-ket ikki g'alaba ochkolarni ikki baravar qiladi. ||| Присоединяйтесь и сыграйте как можно больше партий до окончания времени. Победа — 2 очка, ничья — 1; две победы подряд удваивают очки.
+Ends in {time} ||| Tugashiga {time} qoldi ||| Закончится через {time}
+Finished ||| Tugagan ||| Завершён
+No tournaments scheduled ||| Turnirlar rejalashtirilmagan ||| Турниров не запланировано
+New events appear here — check back soon. ||| Yangi tadbirlar shu yerda ko'rinadi — tez orada qaytib keling. ||| Новые события появятся здесь — загляните позже.
+Tournament not found ||| Turnir topilmadi ||| Турнир не найден
+All tournaments ||| Barcha turnirlar ||| Все турниры
+Play next game ||| Keyingi o'yinni o'ynash ||| Играть следующую партию
+You are in ||| Siz qatnashyapsiz ||| Вы участвуете
+Withdraw ||| Chiqib ketish ||| Выйти из турнира
+Join tournament ||| Turnirga qo'shilish ||| Присоединиться к турниру
+Looking for an opponent in the tournament… ||| Turnirda raqib qidirilmoqda… ||| Поиск соперника в турнире…
+Points ||| Ochkolar ||| Очки
+W/D/L ||| G'/D/M ||| В/Н/П
+Nobody has joined yet. ||| Hali hech kim qo'shilmagan. ||| Пока никто не присоединился.
+Watching needs the Rookery server ||| Kuzatish uchun Rookery serveri kerak ||| Для просмотра нужен сервер Rookery
+Live games are only available when Rookery runs with its server. ||| Jonli o'yinlar faqat Rookery server bilan ishlaganda mavjud. ||| Прямые трансляции доступны только когда Rookery работает с сервером.
+moves ||| yurish ||| ходов
+Watch ||| Kuzatish ||| Смотреть
+Live games ||| Jonli o'yinlar ||| Партии онлайн
+Follow the strongest games happening right now. Moves and clocks update live. ||| Hozir o'ynalayotgan eng kuchli o'yinlarni kuzating. Yurishlar va soatlar jonli yangilanadi. ||| Следите за сильнейшими партиями, идущими прямо сейчас. Ходы и часы обновляются в реальном времени.
+Top game ||| Eng yaxshi o'yin ||| Главная партия
+Watch this game ||| Bu o'yinni kuzatish ||| Смотреть эту партию
+More games ||| Boshqa o'yinlar ||| Ещё партии
+No games right now ||| Hozir o'yinlar yo'q ||| Сейчас партий нет
+When players start games you can watch them here. Start one yourself! ||| O'yinchilar o'yin boshlaganda ularni shu yerda kuzatishingiz mumkin. O'zingiz ham birini boshlang! ||| Когда игроки начнут партии, вы сможете смотреть их здесь. Начните свою!
+Bullet ||| Bulet ||| Пуля
+Blitz ||| Blits ||| Блиц
+Rapid ||| Rapid ||| Рапид
+Classical ||| Klassika ||| Классика
+King and queen vs king ||| Shoh va farzin shohga qarshi ||| Король и ферзь против короля
+Use the queen to shrink the box around the king, then bring your own king closer. Watch out for stalemate! ||| Farzin bilan shoh atrofidagi qutini toraytiring, so'ng o'z shohingizni yaqinlashtiring. Patdan ehtiyot bo'ling! ||| Ферзём сужайте «коробку» вокруг короля, затем подведите своего короля. Берегитесь пата!
+King and rook vs king ||| Shoh va rux shohga qarshi ||| Король и ладья против короля
+Cut the king off with the rook, push it to the edge, and use the opposition to give mate. ||| Rux bilan shohni kesib qo'ying, chetga suring va oppozitsiya yordamida mat qo'ying. ||| Отрежьте короля ладьёй, оттесните к краю и поставьте мат, используя оппозицию.
+Rook mate with the king cornered ||| Shoh burchakda: rux bilan mat ||| Мат ладьёй, король в углу
+The enemy king is already near the edge. Find the quickest way to mate. ||| Raqib shohi allaqachon chetga yaqin. Mat qo'yishning eng tez yo'lini toping. ||| Король соперника уже у края. Найдите самый быстрый путь к мату.
+Back-rank mate ||| Oxirgi gorizontalda mat ||| Мат по последней горизонтали
+The black king has no escape squares. Is there a check that cannot be blocked? ||| Qora shohning qochadigan katagi yo'q. To'sib bo'lmaydigan shoh bormi? ||| У чёрного короля нет полей для отступления. Есть ли шах, от которого нельзя прикрыться?
+Two bishops vs king ||| Ikki fil shohga qarshi ||| Два слона против короля
+Two bishops on neighbouring diagonals form a wall. Drive the king to a corner. ||| Qo'shni diagonallardagi ikki fil devor hosil qiladi. Shohni burchakka haydang. ||| Два слона на соседних диагоналях образуют стену. Загоните короля в угол.
+King and pawn vs king: win ||| Shoh va piyoda shohga qarshi: g'alaba ||| Король и пешка против короля: выигрыш
+Your king is in front of the pawn on the sixth rank: that wins. Keep the opposition and promote. ||| Shohingiz oltinchi gorizontalda piyoda oldida: bu g'alaba beradi. Oppozitsiyani saqlang va piyodani o'tkazing. ||| Ваш король стоит перед пешкой на шестой горизонтали — это выигрывает. Держите оппозицию и проводите пешку.
+Rook and pawn vs king ||| Rux va piyoda shohga qarshi ||| Ладья и пешка против короля
+Cut the king off along a file with the rook, then march the pawn forward with your king. ||| Rux bilan shohni vertikal bo'ylab kesib qo'ying, so'ng shohingiz bilan piyodani oldinga olib boring. ||| Отрежьте короля ладьёй по вертикали, затем проводите пешку вперёд вместе со своим королём.
+Opposition: hold the draw ||| Oppozitsiya: durangni saqlang ||| Оппозиция: удержите ничью
+You are Black. Keep your king in front of the pawn and take the opposition whenever you can. ||| Siz qora bilan o'ynaysiz. Shohingizni piyoda oldida tuting va imkon bo'lsa oppozitsiyani oling. ||| Вы играете чёрными. Держите короля перед пешкой и занимайте оппозицию при каждой возможности.
+Lucena position ||| Lucena pozitsiyasi ||| Позиция Лусены
+Build a bridge: bring the rook to the fourth rank, step out with the king and shelter behind the rook. ||| Ko'prik quring: ruxni to'rtinchi gorizontalga olib boring, shoh bilan chiqing va rux ortidan panoh toping. ||| Постройте мост: выведите ладью на четвёртую горизонталь, выйдите королём и укройтесь за ладьёй.
+Philidor position: hold the draw ||| Filidor pozitsiyasi: durangni saqlang ||| Позиция Филидора: удержите ничью
+You are Black. Keep the rook on the sixth rank until the pawn advances, then check from behind. ||| Siz qora bilan o'ynaysiz. Piyoda oldinga yurmaguncha ruxni oltinchi gorizontalda tuting, so'ng orqadan shoh bering. ||| Вы играете чёрными. Держите ладью на шестой горизонтали, пока пешка не продвинется, затем давайте шахи сзади.
+Bishop and knight vs king ||| Fil va ot shohga qarshi ||| Слон и конь против короля
+The hardest basic mate: drive the king to a corner of the bishop's colour, using the "W" knight manoeuvre. ||| Eng qiyin asosiy mat: shohni filning rangidagi burchakka haydang, otning “W” manevridan foydalaning. ||| Самый сложный базовый мат: загоните короля в угол цвета слона, используя манёвр коня «W».
+Basic mates ||| Asosiy matlar ||| Базовые маты
+Essential endings ||| Muhim endshpillar ||| Важные окончания
+Classic positions ||| Klassik pozitsiyalar ||| Классические позиции
+Flank & unusual openings ||| Qanot va noodatiy debyutlar ||| Фланговые и необычные дебюты
+Semi-open games (1.e4, not 1…e5) ||| Yarim ochiq o'yinlar (1.e4, 1…e5 emas) ||| Полуоткрытые партии (1.e4, не 1…e5)
+Open games & French ||| Ochiq o'yinlar va Fransuz ||| Открытые партии и французская
+Closed games & Queen's Gambit ||| Yopiq o'yinlar va Farzin gambiti ||| Закрытые партии и ферзевый гамбит
+Indian defences ||| Hind himoyalari ||| Индийские защиты
+Both sides claim the centre. Open lines, quick development and early tactics. ||| Ikkala tomon ham markazni egallaydi. Ochiq chiziqlar, tez rivojlanish va erta taktika. ||| Обе стороны борются за центр. Открытые линии, быстрое развитие и ранняя тактика.
+White sacrifices a pawn for a strong centre and an open f-file. Sharp and romantic. ||| Oq kuchli markaz va ochiq f vertikali uchun piyodani qurbon qiladi. O'tkir va romantik. ||| Белые жертвуют пешку ради сильного центра и открытой линии f. Остро и романтично.
+Black mirrors White and counter-attacks e4. Very solid, often drawish. ||| Qora oqni takrorlaydi va e4 ga qarshi hujum qiladi. Juda ishonchli, ko'pincha durangga moyil. ||| Чёрные зеркалят белых и контратакуют e4. Очень надёжно, часто ничейно.
+White opens the centre at once. Direct, clear plans. ||| Oq markazni darhol ochadi. To'g'ridan-to'g'ri, aniq rejalar. ||| Белые сразу открывают центр. Прямые и понятные планы.
+Develop quickly and aim at f7. A great opening for learning chess principles. ||| Tez rivojlaning va f7 ga nishon oling. Shaxmat tamoyillarini o'rganish uchun ajoyib debyut. ||| Быстро развивайтесь и целитесь в f7. Отличный дебют, чтобы освоить принципы шахмат.
+A pawn for rapid development and a big centre. ||| Tez rivojlanish va katta markaz uchun bir piyoda. ||| Пешка ради быстрого развития и большого центра.
+The "quiet game": White prepares d4. ||| “Sokin o'yin”: oq d4 ga tayyorlanadi. ||| «Тихая партия»: белые готовят d4.
+Pressure on the knight that guards e5. One of the oldest and richest openings. ||| e5 ni himoya qilayotgan otga bosim. Eng qadimgi va eng boy debyutlardan biri. ||| Давление на коня, защищающего e5. Один из старейших и богатейших дебютов.
+Black fights for the centre from the side and plays for a win. The most popular reply to 1.e4. ||| Qora markaz uchun yon tomondan kurashadi va g'alabaga o'ynaydi. 1.e4 ga eng mashhur javob. ||| Чёрные борются за центр с фланга и играют на победу. Самый популярный ответ на 1.e4.
+The favourite of Fischer and Kasparov: flexible and combative. ||| Fisher va Kasparovning sevimlisi: moslashuvchan va jangovar. ||| Любимец Фишера и Каспарова: гибкий и боевой.
+Black builds a solid pawn chain and strikes with ...d5. Strategic play. ||| Qora mustahkam piyodalar zanjirini quradi va ...d5 bilan zarba beradi. Strategik o'yin. ||| Чёрные строят прочную цепь пешек и бьют ходом ...d5. Стратегическая игра.
+Solid and reliable: Black prepares ...d5 without blocking the bishop. ||| Mustahkam va ishonchli: qora filni to'smasdan ...d5 ga tayyorlanadi. ||| Прочно и надёжно: чёрные готовят ...d5, не запирая слона.
+Black challenges e4 immediately. Easy to learn. ||| Qora e4 ga darhol qarshi chiqadi. O'rganish oson. ||| Чёрные сразу оспаривают e4. Легко учить.
+White offers a pawn to deflect Black's central pawn. Not a true gambit: White regains it. ||| Oq qoraning markaziy piyodasini chalg'itish uchun piyoda taklif qiladi. Haqiqiy gambit emas: oq uni qaytarib oladi. ||| Белые предлагают пешку, чтобы отвлечь центральную пешку чёрных. Это не настоящий гамбит: белые её возвращают.
+Black supports d5 with a pawn and keeps the bishop free. ||| Qora d5 ni piyoda bilan qo'llab-quvvatlaydi va filni erkin qoldiradi. ||| Чёрные поддерживают d5 пешкой и оставляют слона свободным.
+A solid, easy-to-learn system: develop the same pieces to the same squares against almost anything. ||| Mustahkam, o'rganish oson tizim: deyarli har qanday o'yinga qarshi bir xil donalarni bir xil kataklarga chiqaring. ||| Прочная и простая в освоении система: выводите одни и те же фигуры на одни и те же поля почти против всего.
+Black lets White build a big centre, then attacks it. Rich in kingside attacks. ||| Qora oqqa katta markaz qurishga yo'l qo'yadi, keyin unga hujum qiladi. Shoh qanotidagi hujumlarga boy. ||| Чёрные позволяют белым построить большой центр, а затем атакуют его. Богата атаками на королевском фланге.
+Black pins the knight and fights for e4. A favourite of top players. ||| Qora otni bog'laydi va e4 uchun kurashadi. Eng kuchli o'yinchilarning sevimlisi. ||| Чёрные связывают коня и борются за e4. Любимец сильнейших игроков.
+White's bishop on g2 pressures the long diagonal. ||| Oqning g2 dagi fili uzun diagonalga bosim o'tkazadi. ||| Белый слон на g2 давит по длинной диагонали.
+A flexible flank opening: White controls d5 and keeps options open. ||| Moslashuvchan qanot debyuti: oq d5 ni nazorat qiladi va imkoniyatlarni ochiq qoldiradi. ||| Гибкий фланговый дебют: белые контролируют d5 и сохраняют разные возможности.
+White develops first and decides on the pawn structure later. ||| Oq avval rivojlanadi, piyoda tuzilmasini keyin hal qiladi. ||| Белые сначала развиваются, а пешечную структуру выбирают позже.
+aborted ||| bekor qilingan ||| прервана
+expired ||| muddati o'tgan ||| истекла
+banned ||| bloklangan ||| заблокирован
+Too many attempts. Try again later. ||| Juda ko'p urinish. Keyinroq qayta urinib ko'ring. ||| Слишком много попыток. Повторите позже.
+The password is not strong enough. ||| Parol yetarlicha kuchli emas. ||| Пароль недостаточно надёжен.
+Too many sign-ups from this network. Try again later. ||| Bu tarmoqdan juda ko'p ro'yxatdan o'tish. Keyinroq qayta urinib ko'ring. ||| Слишком много регистраций из этой сети. Повторите позже.
+That username is already taken. ||| Bu foydalanuvchi nomi band. ||| Это имя пользователя уже занято.
+Already taken. ||| Band. ||| Уже занято.
+Too many failed attempts. Try again in {n} minutes. ||| Juda ko'p muvaffaqiyatsiz urinish. {n} daqiqadan keyin qayta urinib ko'ring. ||| Слишком много неудачных попыток. Повторите через {n} мин.
+Incorrect username or password. ||| Foydalanuvchi nomi yoki parol noto'g'ri. ||| Неверное имя пользователя или пароль.
+Choose a country. ||| Mamlakatni tanlang. ||| Выберите страну.
+Invalid country. ||| Noto'g'ri mamlakat. ||| Недопустимая страна.
+The bio can have up to 300 characters. ||| Ma'lumot ko'pi bilan 300 belgidan iborat bo'lishi mumkin. ||| Описание может содержать не более 300 символов.
+Too long. ||| Juda uzun. ||| Слишком длинно.
+Unknown language. ||| Noma'lum til. ||| Неизвестный язык.
+Choose one of the avatars. ||| Avatarlardan birini tanlang. ||| Выберите один из аватаров.
+Your current password is incorrect. ||| Joriy parolingiz noto'g'ri. ||| Ваш текущий пароль неверен.
+The new password is not strong enough. ||| Yangi parol yetarlicha kuchli emas. ||| Новый пароль недостаточно надёжен.
+Slow down. ||| Sekinroq. ||| Помедленнее.
+Send the puzzle level (1–8) and whether it was solved. ||| Boshqotirma darajasini (1–8) va yechilgan-yechilmaganini yuboring. ||| Укажите уровень задачи (1–8) и решена ли она.
+Send the progress object as "data". ||| Taraqqiyot obyektini “data” sifatida yuboring. ||| Отправьте объект прогресса как «data».
+Progress data is too large. ||| Taraqqiyot ma'lumotlari juda katta. ||| Данные прогресса слишком велики.
+Game not found. ||| O'yin topilmadi. ||| Партия не найдена.
+Player not found. ||| O'yinchi topilmadi. ||| Игрок не найден.
+Your account is muted by a moderator. ||| Hisobingiz moderator tomonidan ovozsiz qilingan. ||| Ваш аккаунт заглушён модератором.
+Too many friend requests. Try again later. ||| Juda ko'p do'stlik so'rovlari. Keyinroq qayta urinib ko'ring. ||| Слишком много запросов в друзья. Повторите позже.
+You cannot add yourself. ||| O'zingizni qo'sha olmaysiz. ||| Нельзя добавить самого себя.
+You are already friends. ||| Siz allaqachon do'stsiz. ||| Вы уже друзья.
+Friend request already sent. ||| Do'stlik so'rovi allaqachon yuborilgan. ||| Запрос в друзья уже отправлен.
+No such friend request. ||| Bunday do'stlik so'rovi yo'q. ||| Такого запроса в друзья нет.
+Too many challenges. Try again later. ||| Juda ko'p chorlovlar. Keyinroq qayta urinib ko'ring. ||| Слишком много вызовов. Повторите позже.
+You can only challenge your friends. ||| Faqat do'stlaringizni chorlay olasiz. ||| Вызывать можно только друзей.
+This challenge is no longer open. ||| Bu chorlov endi ochiq emas. ||| Этот вызов больше не действует.
+Only the players can use the chat. ||| Chatdan faqat o'yinchilar foydalana oladi. ||| Чатом могут пользоваться только игроки.
+Write a message. ||| Xabar yozing. ||| Напишите сообщение.
+Article not found. ||| Maqola topilmadi. ||| Статья не найдена.
+Tournament not found. ||| Turnir topilmadi. ||| Турнир не найден.
+This tournament has finished. ||| Bu turnir tugagan. ||| Этот турнир завершён.
+The tournament has not started yet. ||| Turnir hali boshlanmagan. ||| Турнир ещё не начался.
+Join the tournament first. ||| Avval turnirga qo'shiling. ||| Сначала присоединитесь к турниру.
+Too many reports. Try again later. ||| Juda ko'p shikoyat. Keyinroq qayta urinib ko'ring. ||| Слишком много жалоб. Повторите позже.
+You cannot report yourself. ||| O'zingiz ustidan shikoyat qila olmaysiz. ||| Нельзя пожаловаться на самого себя.
+Choose a reason. ||| Sababni tanlang. ||| Выберите причину.
+You already have an open report about this player. ||| Bu o'yinchi haqida sizda allaqachon ochiq shikoyat bor. ||| У вас уже есть открытая жалоба на этого игрока.
+Username: 3–20 letters, digits, dash or underscore. ||| Foydalanuvchi nomi: 3–20 ta harf, raqam, chiziqcha yoki pastki chiziq. ||| Имя пользователя: 3–20 букв, цифр, дефисов или подчёркиваний.
+That username is reserved. ||| Bu foydalanuvchi nomi band qilib qo'yilgan. ||| Это имя пользователя зарезервировано.
+Use at least 8 characters. ||| Kamida 8 ta belgi ishlating. ||| Используйте не менее 8 символов.
+Use at most 128 characters. ||| Ko'pi bilan 128 ta belgi ishlating. ||| Используйте не более 128 символов.
+That password is too common. ||| Bu parol juda keng tarqalgan. ||| Этот пароль слишком распространён.
+The password must not contain the username. ||| Parolda foydalanuvchi nomi bo'lmasligi kerak. ||| Пароль не должен содержать имя пользователя.
+Mix letters and digits. ||| Harflar va raqamlarni aralashtiring. ||| Сочетайте буквы и цифры.
+Choose one of the offered time controls. ||| Taklif qilingan vaqt nazoratlaridan birini tanlang. ||| Выберите один из предложенных контролей времени.
+You already have several open rooms. Wait for a friend to join or let them expire. ||| Sizda bir nechta ochiq xona bor. Do'stingiz qo'shilishini kuting yoki ularning muddati tugashiga qo'ying. ||| У вас уже несколько открытых комнат. Дождитесь друга или пусть они истекут.
+This game has already started or is no longer open. ||| Bu o'yin allaqachon boshlangan yoki endi ochiq emas. ||| Эта партия уже началась или больше не открыта.
+This game has already started. ||| Bu o'yin allaqachon boshlangan. ||| Эта партия уже началась.
+You are not playing in this game. ||| Siz bu o'yinda qatnashmayapsiz. ||| Вы не участвуете в этой партии.
+This game is over. ||| Bu o'yin tugagan. ||| Эта партия окончена.
+Send the move like e2e4 (promotion: e7e8q). ||| Yurishni e2e4 shaklida yuboring (promosiya: e7e8q). ||| Отправьте ход в виде e2e4 (превращение: e7e8q).
+It is not your turn. ||| Sizning navbatingiz emas. ||| Сейчас не ваш ход.
+That move is not legal in this position. ||| Bu yurish bu pozitsiyada qonuniy emas. ||| Этот ход недопустим в данной позиции.
+Too late to abort: resign instead. ||| Bekor qilish uchun kech: o'rniga taslim bo'ling. ||| Прервать уже поздно: лучше сдайтесь.
+Play a few moves before offering a draw. ||| Durang taklif qilishdan oldin bir necha yurish qiling. ||| Сделайте несколько ходов, прежде чем предлагать ничью.
+There is no draw offer to accept. ||| Qabul qilinadigan durang taklifi yo'q. ||| Нет предложения ничьей, которое можно принять.
+Unknown draw action. ||| Noma'lum durang harakati. ||| Неизвестное действие с ничьей.
+You did not play this game. ||| Siz bu o'yinni o'ynamagansiz. ||| Вы не играли в этой партии.
+The game is not over yet. ||| O'yin hali tugamagan. ||| Партия ещё не окончена.
+Finish your running games before starting new ones. ||| Yangilarini boshlashdan oldin davom etayotgan o'yinlaringizni tugating. ||| Завершите текущие партии, прежде чем начинать новые.
+Use at least 12 characters. ||| Kamida 12 ta belgi ishlating. ||| Используйте не менее 12 символов.
+Mix at least three of: lower-case, upper-case, digits, symbols. ||| Kamida uchtasini aralashtiring: kichik harf, bosh harf, raqam, belgi. ||| Сочетайте не менее трёх видов: строчные, прописные, цифры, символы.

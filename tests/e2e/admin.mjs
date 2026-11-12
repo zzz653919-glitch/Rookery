@@ -322,7 +322,7 @@ let visitor;
   const activity = await ap.locator('text=Lesson started').count();
   check('player lesson activity is visible in “Recent activity”', activity > 0);
   await ap.goto(BASE + '/admin/#/users'); await ap.waitForSelector('.notice.warn');
-  check('Users page explains there are no central accounts', /No central user accounts/.test(await ap.textContent('.notice.warn')));
+  check('Statistics page explains that the numbers are anonymous', /Anonymous statistics/.test(await ap.textContent('.notice.warn')));
   await ap.goto(BASE + '/admin/#/audit'); await ap.waitForSelector('table.data');
   const audit = await ap.textContent('table.data');
   check('audit log lists the administrative actions performed above', /lesson\.create/.test(audit) && /pieceSet\.upload/.test(audit) && /settings\.update/.test(audit));
