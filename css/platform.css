@@ -197,3 +197,5 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
   .mode-card .mode-ic { width: 46px; height: 46px; }
   .cols-5 { grid-template-columns: 1fr 1fr; }
 }
+.admin-link { text-decoration: none; justify-content: center; margin-bottom: 8px; }
+.topbar .admin-link { margin-right: 6px; }
