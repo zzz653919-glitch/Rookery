@@ -7,22 +7,24 @@ import { fileURLToPath } from 'node:url';
 const root = join(fileURLToPath(import.meta.url), '..', '..');
 // server/, data/ and admin/ are never part of the player app: they must not be cached for offline use.
 const SKIP_DIRS = new Set(['node_modules', 'tests', 'scripts', '.git', 'docs']);
-const SKIP_TOP = new Set(['server', 'data', 'admin']); // top-level only (js/data/ is part of the app)
+const SKIP_TOP = new Set(['server', 'data', 'admin', 'api']); // top-level only (js/data/ is part of the app)
 const SKIP_FILES = new Set(['precache.json', 'package.json', 'package-lock.json', 'README.md', 'sw.js']);
+const RUNTIME = /^engine\/stockfish\/stockfish-.*\.(js|wasm)$/; // large: cached on first use instead of at install (see sw.js)
 const files = [];
+const hashed = [];
 
 (function walk(dir) {
   for (const name of readdirSync(dir)) {
     const p = join(dir, name);
     const st = statSync(p);
     if (st.isDirectory()) { if (!SKIP_DIRS.has(name) && !(dir === root && SKIP_TOP.has(name))) walk(p); }
-    else if (!SKIP_FILES.has(name) && !name.startsWith('.')) files.push(relative(root, p).split(sep).join('/'));
+    else if (!SKIP_FILES.has(name) && !name.startsWith('.')) { const rel = relative(root, p).split(sep).join('/'); hashed.push(rel); if (!RUNTIME.test(rel)) files.push(rel); }
   }
 })(root);
 
-files.sort();
+files.sort(); hashed.sort();
 const hash = createHash('sha1');
-for (const f of files) { hash.update(f); hash.update(readFileSync(join(root, f))); }
+for (const f of hashed) { hash.update(f); hash.update(readFileSync(join(root, f))); }
 hash.update(readFileSync(join(root, 'sw.js')));
 const version = hash.digest('hex').slice(0, 10);
 writeFileSync(join(root, 'precache.json'), JSON.stringify({ version, files: ['./', ...files] }, null, 1));

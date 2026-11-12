@@ -43,3 +43,9 @@ Everything above hosts the **player site** (static files). The admin panel (`/ad
 static host the player site works exactly as before, and `/admin/` simply cannot sign in. To use the admin panel, deploy the
 project to a Node host with a persistent disk, run `npm run db:migrate && npm run admin:create -- --username <you>` once, and
 read [ADMIN.md](ADMIN.md) (HTTPS, `ROOKERY_SECURE_COOKIES=1`, backups).
+
+## Online features need the server
+
+The static hosts above serve the single-player features only. Accounts, online games, friends, tournaments, news and leaderboards
+need the Node server (or the Vercel function with Turso, see ADMIN.md §6d). WebSockets require a long-running Node process; on
+serverless hosts the site automatically falls back to HTTP polling.

@@ -1,16 +1,13 @@
 {
- "version": "0fbf051194",
+ "version": "d83edd194f",
  "files": [
   "./",
   "ADMIN.md",
   "DEPLOY.md",
-  "api/index.mjs",
   "css/platform.css",
   "css/styles.css",
   "engine/stockfish/LICENSE-GPL-3.0.txt",
   "engine/stockfish/NOTICE.md",
-  "engine/stockfish/stockfish-19-lite-single.js",
-  "engine/stockfish/stockfish-19-lite-single.wasm",
   "fonts/Inter-Bold.otf",
   "fonts/Inter-Regular.otf",
   "fonts/Inter-SemiBold.otf",

@@ -62,6 +62,19 @@ node server/cli.mjs status           # applied/available migrations, row counts,
 weak skills first). Publishing, unpublishing, deleting, reordering or moving a lesson to another level changes that path the
 next time the player site loads; the placement thresholds are adjustable under *Chess settings*.
 
+## 3b. Players, moderation, news and tournaments
+
+| Page | What you can do | Permission |
+| --- | --- | --- |
+| **Players** | Search registered players, see ratings and recent games, **ban** (signs the player out, ends running games, optional reason shown at sign-in), **mute** (no chat, friend requests or challenges), **reset a password**. | `players:read` / `players:write` (editors can moderate; viewers can look) |
+| **Reports** | Queue of reports from players (cheating, abuse, spam, other). Decide *resolved* or *dismissed* and optionally mute or ban the reported player, with a note. | same |
+| **News** | Write articles for the News page and the home page. Drafts stay hidden until published; HTML is limited to a safe set of tags. | `content:write` |
+| **Tournaments** | Schedule **arena** tournaments (time control, start, duration), edit them before they start, cancel them. Players join on the site and play inside the tournament pool: win 2 points, draw 1, two wins in a row double the points. | `content:write` |
+| **Statistics** | Registered players, games today, live games, open reports, running/upcoming tournaments on the dashboard; anonymous usage numbers on the Statistics page. | `dashboard:read` |
+
+Everything done here is written to the audit log. Players are created by registering on the site; there is no e-mail, so password
+resets are done here by an administrator.
+
 ## 4. Security model
 
 * **Authentication**: scrypt (N=2¹⁵) password hashes with per-password salt; constant-time comparison; unknown users cost the
