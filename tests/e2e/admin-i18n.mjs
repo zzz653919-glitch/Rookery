@@ -62,7 +62,7 @@ const DATA = new Set([...LESSONS.flatMap(lessonStrings), ...PUZZLES.flatMap(puzz
 import uzAdmin from '../../admin/js/i18n/ui.uz.js';
 import ruAdmin from '../../admin/js/i18n/ui.ru.js';
 const DONE = new Set([...Object.values(uzAdmin), ...Object.values(ruAdmin)]); // texts that were translated once already and pass through h() again
-const isData = (s) => DATA.has(s) || DONE.has(s) || (s.length > 5 && [...DATA].some((d) => d.includes(s))) || /^[a-z][a-z.]*( [a-z]+)*( · \d+)?$/.test(s) || /^[\w.\[\]]+: $/.test(s) || /^[A-Z][a-z]{2} \d+, \d{4}/.test(s) || /^(?:O'zbekcha|Русский|English)$/.test(s) || /^\d\.\w/.test(s) || /^\{.*\}$/.test(s) || /FEN needs|FEN has|FEN:/.test(s) || !/[A-Za-z]{3,}/.test(s) || /^[\w.#:/-]+$/.test(s) || /^[rnbqkpRNBQKP1-8/]+ [wb] /.test(s) || /^(?:boss|Rookery|Rookery Admin)$/.test(s)
+const isData = (s) => /^(?:Fast fun|win 2 points, draw 1)$/.test(s) || DATA.has(s) || DONE.has(s) || (s.length > 5 && [...DATA].some((d) => d.includes(s))) || /^[a-z][a-z.]*( [a-z]+)*( · \d+)?$/.test(s) || /^[\w.\[\]]+: $/.test(s) || /^[A-Z][a-z]{2} \d+, \d{4}/.test(s) || /^(?:O'zbekcha|Русский|English)$/.test(s) || /^\d\.\w/.test(s) || /^\{.*\}$/.test(s) || /FEN needs|FEN has|FEN:/.test(s) || !/[A-Za-z]{3,}/.test(s) || /^[\w.#:/-]+$/.test(s) || /^[rnbqkpRNBQKP1-8/]+ [wb] /.test(s) || /^(?:boss|Rookery|Rookery Admin)$/.test(s)
   || [...DATA].some((d) => d && s.includes(d)) || /^[a-h][1-8]/.test(s) || /\.(svg|png)$/.test(s) || /^<\/?p>/.test(s);
 
 async function crawl(page) {

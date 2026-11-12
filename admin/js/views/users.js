@@ -9,7 +9,7 @@ export async function mount(host) {
   const a = d.anonymous;
   host.replaceChildren(
     h('div', { class: 'page-head' }, h('div', null, h('h2', null, 'Statistics'), h('p', null, 'Anonymous usage numbers from the player site.'))),
-    h('div', { class: 'notice warn', style: { marginBottom: '14px' } }, h('strong', null, 'Anonymous statistics. '), d.explanation),
+    h('div', { class: 'notice warn', style: { marginBottom: '14px' } }, h('strong', null, 'Anonymous statistics.'), ' ', d.explanation),
     h('div', { class: 'grid g2' },
       h('section', { class: 'card' }, h('h3', null, 'Anonymous aggregates'),
         h('p', { class: 'muted small' }, 'Counted from anonymous events sent by browsers that loaded the site from this server (players can switch this off in Settings). They are not linked to any person.'),

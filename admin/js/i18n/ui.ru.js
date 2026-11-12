@@ -884,7 +884,7 @@ export default {
  "Nothing to review": "Нечего рассматривать",
  "{running} running · {upcoming} upcoming": "идёт: {running} · скоро: {upcoming}",
  "Anonymous usage numbers from the player site.": "Анонимные данные об использовании сайта игроков.",
- "Anonymous statistics. ": "Анонимная статистика. ",
+ "Anonymous statistics.": "Анонимная статистика.",
  "Player accounts, ratings and game history are managed on the Players page. The numbers below come from anonymous usage events sent by browsers (players can switch this off in Settings), including visitors without an account.": "Аккаунты игроков, рейтинги и история партий управляются на странице «Игроки». Данные ниже взяты из анонимных событий использования, которые отправляют браузеры (игроки могут отключить это в настройках), включая посетителей без аккаунта.",
  "Not included yet": "Пока не реализовано",
  "E-mail verification and password reset by e-mail": "Подтверждение e-mail и сброс пароля по e-mail",

@@ -884,7 +884,7 @@ export default {
  "Nothing to review": "Ko'rib chiqadigan narsa yo'q",
  "{running} running · {upcoming} upcoming": "{running} ta davom etmoqda · {upcoming} ta kutilmoqda",
  "Anonymous usage numbers from the player site.": "O'yinchi saytidan anonim foydalanish raqamlari.",
- "Anonymous statistics. ": "Anonim statistika. ",
+ "Anonymous statistics.": "Anonim statistika.",
  "Player accounts, ratings and game history are managed on the Players page. The numbers below come from anonymous usage events sent by browsers (players can switch this off in Settings), including visitors without an account.": "O'yinchi hisoblari, reytinglar va o'yinlar tarixi “O'yinchilar” sahifasida boshqariladi. Quyidagi raqamlar brauzerlar yuborgan anonim foydalanish hodisalaridan olinadi (o'yinchilar buni Sozlamalarda o'chirishi mumkin), hisobsiz tashrifchilar ham kiradi.",
  "Not included yet": "Hozircha mavjud emas",
  "E-mail verification and password reset by e-mail": "E-pochani tasdiqlash va parolni e-pochta orqali tiklash",
