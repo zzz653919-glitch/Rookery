@@ -24,6 +24,7 @@ export const config = {
   maxJsonBytes: 2 * 1024 * 1024,
   maxUploadBytes: 200 * 1024,
   eventRetentionDays: 180,
+  registerPerHour: +(env.ROOKERY_REGISTER_PER_HOUR || 12),   // new accounts per network address and hour
 };
 // Turso / libSQL: set both to keep the data in the hosted database instead of data/rookery.db (also accepts file:… for tests).
 config.tursoUrl = env.TURSO_DATABASE_URL || '';

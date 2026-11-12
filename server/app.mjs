@@ -12,10 +12,13 @@ import { register as themeRoutes } from './routes/themes-admin.mjs';
 import { register as settingsRoutes } from './routes/settings-admin.mjs';
 import { register as systemRoutes } from './routes/system-admin.mjs';
 import { register as translationRoutes } from './routes/translations-admin.mjs';
+import { register as userRoutes } from './routes/users.mjs';
+import { register as gameRoutes } from './routes/games.mjs';
+import { loadUserSession, USER_COOKIE } from './accounts.mjs';
 import { register as publicRoutes } from './routes/public.mjs';
 
 export const router = new Router();
-for (const r of [publicRoutes, authRoutes, contentRoutes, themeRoutes, settingsRoutes, systemRoutes, translationRoutes]) r(router);
+for (const r of [publicRoutes, authRoutes, contentRoutes, themeRoutes, settingsRoutes, systemRoutes, translationRoutes, userRoutes, gameRoutes]) r(router);
 
 const safeEqual = (a, b) => typeof a === 'string' && typeof b === 'string' && a.length === b.length && timingSafeEqual(Buffer.from(a), Buffer.from(b));
 
@@ -51,6 +54,15 @@ export async function handle(req, res) {
       const token = parseCookies(req)[COOKIE];
       const session = await loadSession(token);
       if (session) { ctx.session = session; ctx.admin = session.admin; ctx.perms = session.perms; ctx.token = token; ctx.username = session.admin.username; }
+    }
+    if (route.opts.user || route.opts.userOptional) {
+      const token = parseCookies(req)[USER_COOKIE];
+      const us = await loadUserSession(token);
+      if (us && !us.user.banned) { ctx.user = us.user; ctx.userSession = us; ctx.userToken = token; }
+      if (route.opts.user) {
+        if (!ctx.user) throw new HttpError(401, 'Sign in to continue.');
+        if (method !== 'GET' && !safeEqual(req.headers['x-csrf-token'], us.csrf)) throw new HttpError(403, 'Missing or invalid CSRF token.');
+      }
     }
     if (route.opts.auth) {
       if (!ctx.session) throw new HttpError(401, 'Authentication required.');
