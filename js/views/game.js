@@ -92,7 +92,7 @@ export async function mount(root, { params, navigate }) {
   async function send(kind, extra = {}) {
     // WebSocket first (lowest latency); plain HTTP when there is no socket
     const ws = kind === 'move' ? { t: 'move', game: id, move: extra.move } : kind === 'resign' ? { t: 'resign', game: id } : kind === 'draw' ? { t: 'draw', game: id, action: extra.action } : null;
-    if (ws) { try { await sendSocket(ws); return; } catch (e) { if (e.message !== 'no socket' && e.message !== 'timeout' && e.message !== 'Connection lost.') throw e; } }
+    if (ws) { try { await sendSocket(ws); return; } catch (e) { if (!['no socket', 'timeout', 'Connection lost.', 'Sign in to continue.'].includes(e.message)) throw e; } }
     const path = { move: '/move', resign: '/resign', abort: '/abort', draw: '/draw' }[kind];
     const ns = await post('/api/games/' + id + path, kind === 'move' ? { move: extra.move } : kind === 'draw' ? { action: extra.action } : {});
     accept(ns);

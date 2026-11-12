@@ -35,7 +35,7 @@
 .field { display: grid; gap: 6px; margin: 12px 0; }
 .field > span, .field-label { font-weight: 600; font-size: .88rem; color: var(--muted); }
 .field-label { margin-bottom: 6px; }
-input[type='password'], input[type='search'], input[type='email'], input[type='file'] { font: inherit; color: var(--text); background: var(--bg-2); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; min-height: 42px; width: 100%; }
+input[type='password'], input[type='search'], input[type='email'] { font: inherit; color: var(--text); background: var(--bg-2); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; min-height: 42px; width: 100%; }
 .field input, .field select, .field textarea { width: 100%; }
 input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .err { color: var(--danger); font-size: .82rem; min-height: 0; }

@@ -76,3 +76,13 @@ test('learning progress follows the account', async () => {
   const q = player(); await q.signin('Carla', 'Bishop-5566');
   assert.equal((await q.get('/api/me/progress')).json.data.lessons.done['b-board'], true);
 });
+
+test('puzzle rating: solving raises it, failing lowers it, input is validated', async () => {
+  const p = player(); await p.register('Dario', 'Pawn-445566');
+  assert.equal((await p.post('/api/me/puzzle-result', { level: 99, ok: true })).status, 400);
+  assert.equal((await p.post('/api/me/puzzle-result', { level: 3 })).status, 400);
+  const up = await p.post('/api/me/puzzle-result', { level: 3, ok: true, firstTry: true }); assert.ok(up.json.rating > 1200, up.text);
+  const down = await p.post('/api/me/puzzle-result', { level: 1, ok: false }); assert.ok(down.json.rating < up.json.rating);
+  assert.equal((await p.get('/api/me')).json.ratings.puzzle.games, 2);
+  assert.equal((await client(srv.base).post('/api/me/puzzle-result', { level: 3, ok: true })).status, 401);
+});

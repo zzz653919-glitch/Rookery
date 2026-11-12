@@ -5,7 +5,7 @@ import { $, $$, esc, toast, modal } from './ui/dom.js';
 import { engineClient } from './engine-client.js';
 import { loadRemoteContent } from './content.js';
 import { net, onAuth, loadSession, logout, get } from './net.js';
-import { connect, onNotify } from './realtime.js';
+import { connect, reconnect, onNotify } from './realtime.js';
 import { startSync } from './sync.js';
 import { openAuth } from './auth-ui.js';
 import { avatarHtml, flag } from './ui/user.js';
@@ -240,7 +240,7 @@ async function boot() {
   await loadRemoteContent();   // optional: admin-managed lessons, puzzles, themes and settings (no-op without the server)
   await store.init();
   await loadSession();
-  if (net.available) { connect(); startSync(); }
+  if (net.available) { connect(); startSync(); let uid = net.user?.id ?? null; onAuth(() => { const n = net.user?.id ?? null; if (n !== uid) { uid = n; reconnect(); } }); }
   if (reconcileLanguage()) { location.reload(); return; } // saved language differs from the early hint (e.g. restored backup)
   await applyBundledTranslations(getLang());
   installErrorReporting();

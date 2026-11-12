@@ -102,6 +102,24 @@ export function register(router) {
     return { ok: true };
   }, { user: true });
 
+  // Puzzle rating: Elo against the difficulty of the puzzle (level 1–8). Solved first try = win, solved with help = half, failed = loss.
+  router.add('POST', '/api/me/puzzle-result', async (ctx) => {
+    if (!rateLimit('pz:' + ctx.user.id, 60, 60000)) throw new HttpError(429, 'Slow down.');
+    const { level, ok, firstTry } = await ctx.json();
+    const lv = Math.round(+level);
+    if (!(lv >= 1 && lv <= 8) || typeof ok !== 'boolean') throw bad('Send the puzzle level (1–8) and whether it was solved.');
+    const score = ok ? (firstTry === true ? 1 : 0.5) : 0;
+    const d = getDb();
+    const cur = (await d.prepare("SELECT * FROM ratings WHERE user_id = ? AND category = 'puzzle'").get(ctx.user.id)) || { rating: 1200, games: 0, wins: 0, losses: 0, draws: 0, peak: 1200 };
+    const diff = 600 + lv * 260;
+    const k = cur.games < 30 ? 32 : 16;
+    const next = cur.rating + k * (score - 1 / (1 + 10 ** ((diff - cur.rating) / 400)));
+    await d.prepare(`INSERT INTO ratings(user_id, category, rating, games, wins, losses, draws, peak, updated_at) VALUES (?,'puzzle',?,?,?,?,?,?,?)
+      ON CONFLICT(user_id, category) DO UPDATE SET rating = excluded.rating, games = excluded.games, wins = excluded.wins, losses = excluded.losses, draws = excluded.draws, peak = excluded.peak, updated_at = excluded.updated_at`)
+      .run(ctx.user.id, next, cur.games + 1, cur.wins + (score === 1 ? 1 : 0), cur.losses + (score === 0 ? 1 : 0), cur.draws + (score === 0.5 ? 1 : 0), Math.max(cur.peak, next), now());
+    return { rating: Math.round(next) };
+  }, { user: true });
+
   // Learning progress of the browser (lessons, puzzles, achievements …) is kept with the account so it follows the player to other devices.
   router.add('GET', '/api/me/progress', async (ctx) => {
     const r = await getDb().prepare('SELECT data, updated_at FROM user_progress WHERE user_id = ?').get(ctx.user.id);

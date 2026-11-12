@@ -78,4 +78,12 @@ function startPolling() {
 }
 function stopPolling() { clearTimeout(pollTimer); pollTimer = null; }
 
+// After signing in or out the socket must be re-opened so the server knows who is on the other end.
+export function reconnect() {
+  if (!ws) { connect(); return; }
+  const old = ws; ws = null; wsOk = false; wsFailures = 0; old.onclose = null; try { old.close(); } catch { /* ignore */ }
+  for (const p of pending.values()) p.reject(new Error('Connection lost.')); pending.clear();
+  connect();
+}
+
 export function disconnect() { closedByUs = true; clearTimeout(retry); ws?.close(); ws = null; wsOk = false; stopPolling(); }
