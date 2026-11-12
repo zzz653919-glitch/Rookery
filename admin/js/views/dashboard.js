@@ -1,5 +1,5 @@
 import { h, icon, tr } from '../dom.js';
-import { get } from '../api.js';
+import { get, can } from '../api.js';
 import { loadingState, errorState, emptyState, badge, fmtDate, ago, fmtBytes, fmtDuration } from '../ui.js';
 
 const LABEL = {
@@ -21,6 +21,7 @@ export async function mount(host) {
   let d;
   try { d = await get('/api/admin/dashboard'); } catch (e) { host.replaceChildren(errorState(e, () => mount(host))); return; }
   const sys = d.system;
+  let ps = null; if (can('dashboard:read')) { try { ps = await get('/api/admin/platform-stats'); } catch { /* older server */ } }
   const wins = Object.fromEntries(d.games.byResult.map((r) => [r.result, r.n]));
   host.replaceChildren(
     h('div', { class: 'page-head' }, h('div', null, h('h2', null, 'Overview'), h('p', null, 'Live numbers from the database. Player statistics are anonymous and only count visits served by this server.')),
@@ -30,6 +31,11 @@ export async function mount(host) {
       stat('puzzle', d.puzzles.published, 'Published puzzles', `${d.puzzles.total} total · ${d.puzzles.draft} draft`),
       stat('chess', d.games.total, 'Games completed', [`${d.games.last7} in the last 7 days`, d.games.total ? `${wins.win || 0} won · ${wins.draw || 0} drawn · ${wins.loss || 0} lost` : null].filter(Boolean).join(' · ')),
       stat('users', d.learners.last30, 'Active learners (30 days)', `${d.learners.last7} in 7 days · ${d.learners.all} ever (anonymous browsers)`)),
+    ps ? h('div', { class: 'grid g4', style: { marginTop: '14px' } },
+      stat('users', ps.players.total, 'Registered players', `${ps.players.new7} new in 7 days · ${ps.players.online} online now`),
+      stat('chess', ps.games.today, 'Online games today', `${ps.games.live} live now · ${ps.games.total} played in total`),
+      stat('alert', ps.reports.open, 'Open reports', ps.players.banned ? `${ps.players.banned} banned players` : 'Nothing to review'),
+      stat('chess', ps.tournaments.running + ps.tournaments.upcoming, 'Tournaments', `${ps.tournaments.running} running · ${ps.tournaments.upcoming} upcoming`)) : null,
     h('div', { class: 'grid g2', style: { marginTop: '14px' } },
       h('section', { class: 'card' }, h('h3', null, 'Most popular lessons'),
         d.popular.length ? h('table', { class: 'data', style: { margin: '0 -14px' } }, h('thead', null, h('tr', null, ['Lesson', 'Completions', 'Starts', 'Learners'].map((t) => h('th', null, t)))),
