@@ -31,6 +31,8 @@ export const DEFAULTS = {
   games: [],              // recent games vs computer
   activity: { days: [] }, // ISO dates with learning activity
   achievements: {},
+  endgames: { done: {} },   // endgame trainer: id -> ISO date
+  openingsDone: {},        // opening trainer: id -> ISO date
   skills: {},             // per-skill {right, total}
 };
 
