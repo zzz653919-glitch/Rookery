@@ -100,6 +100,8 @@ export function attachRealtime(server) {
       for (const uid of [row.white_id, row.black_id]) for (const c of userConns.get(uid) || []) c.send({ t: 'matched', gameId });
     } catch { /* ignore */ }
   });
+  G.events.on('chat', (id, msg) => { for (const c of subs.get(id) || []) if (c.user) c.send({ t: 'chat', game: id, msg }); });
+  G.events.on('notify', (userId, payload) => { for (const c of userConns.get(userId) || []) c.send({ t: 'notify', ...payload }); });
   server.on('upgrade', async (req, socket) => {
     const url = new URL(req.url, 'http://x');
     if (url.pathname !== '/ws') return socket.destroy();

@@ -14,11 +14,13 @@ import { register as systemRoutes } from './routes/system-admin.mjs';
 import { register as translationRoutes } from './routes/translations-admin.mjs';
 import { register as userRoutes } from './routes/users.mjs';
 import { register as gameRoutes } from './routes/games.mjs';
+import { register as communityRoutes } from './routes/community.mjs';
+import { register as communityAdminRoutes } from './routes/community-admin.mjs';
 import { loadUserSession, USER_COOKIE } from './accounts.mjs';
 import { register as publicRoutes } from './routes/public.mjs';
 
 export const router = new Router();
-for (const r of [publicRoutes, authRoutes, contentRoutes, themeRoutes, settingsRoutes, systemRoutes, translationRoutes, userRoutes, gameRoutes]) r(router);
+for (const r of [publicRoutes, authRoutes, contentRoutes, themeRoutes, settingsRoutes, systemRoutes, translationRoutes, userRoutes, gameRoutes, communityRoutes, communityAdminRoutes]) r(router);
 
 const safeEqual = (a, b) => typeof a === 'string' && typeof b === 'string' && a.length === b.length && timingSafeEqual(Buffer.from(a), Buffer.from(b));
 
@@ -71,7 +73,7 @@ export async function handle(req, res) {
     }
     const out = await route.handler(ctx);
     if (out && out.raw) { res.writeHead(out.status || 200, { 'x-content-type-options': 'nosniff', 'referrer-policy': 'no-referrer', ...out.headers }); return res.end(out.body); }
-    if (out && (out.body !== undefined || out.status || out.headers) && !Array.isArray(out) && Object.keys(out).every((k) => ['body', 'status', 'headers'].includes(k))) {
+    if (out && (out.body !== undefined || typeof out.status === 'number' || out.headers) && !Array.isArray(out) && Object.keys(out).every((k) => ['body', 'status', 'headers'].includes(k))) {
       return send(res, out.status || 200, out.body ?? {}, out.headers);
     }
     return send(res, 200, out ?? { ok: true });
