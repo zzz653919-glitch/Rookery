@@ -87,7 +87,7 @@ export async function mount(root) {
     root.querySelector('#start-btn').onclick = startGame;
     engineClient.ping().then(() => {
       const el = root.querySelector('#eng-status');
-      if (el) el.textContent = engineClient.mode === 'worker' ? t('ready (runs locally in a background worker)') : t('ready (runs locally)');
+      if (el) el.textContent = engineClient.mode === 'stockfish' ? t('ready (Stockfish 19, runs locally)') : engineClient.mode === 'worker' ? t('ready (runs locally in a background worker)') : t('ready (runs locally)');
     }).catch(() => {
       const el = root.querySelector('#eng-status');
       if (el) el.textContent = t('unavailable');
