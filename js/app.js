@@ -9,7 +9,7 @@ import { connect, reconnect, onNotify } from './realtime.js';
 import { startSync } from './sync.js';
 import { openAuth } from './auth-ui.js';
 import { avatarHtml, flag } from './ui/user.js';
-import { installErrorReporting } from './telemetry.js';
+import { installErrorReporting, track } from './telemetry.js';
 import { t, tn, LANGS, getLang } from './i18n/core.js';
 import { initLanguage, reconcileLanguage, changeLanguage } from './i18n/runtime.js';
 import { applyBundledTranslations } from './i18n/content-runtime.js';
@@ -131,6 +131,7 @@ function buildShell() {
       <div class="sidebar-foot">
         <div id="user-box"></div>
         <div class="streak-chip" id="streak-chip">${icon('flame', 22)}<div><span id="streak-n">0</span><small id="streak-sub">${t('Learn something today')}</small></div></div>
+        <a class="btn sm block admin-link" href="/admin/" id="admin-link">${icon('lock', 16)} ${t('Admin')}</a>
         <div class="row foot-tools">${langSelect('lang-sel')}<button class="theme-toggle" id="theme-btn" type="button"></button></div>
       </div>
     </aside>
@@ -138,6 +139,7 @@ function buildShell() {
       <header class="topbar">
         <a class="brand" href="#/home">${LOGO}<div class="brand-name">Rookery</div></a>
         <div class="grow"></div>
+        <a class="btn sm ghost admin-link" href="/admin/">${t('Admin')}</a>
         <div id="top-user"></div>
         <button class="btn icon-btn ghost" id="theme-btn-m" type="button" aria-label="${t('Switch theme')}"></button>
       </header>
@@ -244,6 +246,7 @@ async function boot() {
   if (reconcileLanguage()) { location.reload(); return; } // saved language differs from the early hint (e.g. restored backup)
   await applyBundledTranslations(getLang());
   installErrorReporting();
+  try { if (!sessionStorage.getItem('rk_visit')) { sessionStorage.setItem('rk_visit', '1'); track('visit', null, getLang()); } } catch { /* storage blocked */ }
   applyTheme();
   buildShell();
   engineClient.start();

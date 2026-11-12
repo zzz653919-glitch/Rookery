@@ -882,7 +882,7 @@ Open reports ||| Ochiq shikoyatlar ||| Открытые жалобы
 Nothing to review ||| Ko'rib chiqadigan narsa yo'q ||| Нечего рассматривать
 {running} running · {upcoming} upcoming ||| {running} ta davom etmoqda · {upcoming} ta kutilmoqda ||| идёт: {running} · скоро: {upcoming}
 Anonymous usage numbers from the player site. ||| O'yinchi saytidan anonim foydalanish raqamlari. ||| Анонимные данные об использовании сайта игроков.
-Anonymous statistics.  ||| Anonim statistika.  ||| Анонимная статистика. 
+Anonymous statistics. ||| Anonim statistika. ||| Анонимная статистика.
 Player accounts, ratings and game history are managed on the Players page. The numbers below come from anonymous usage events sent by browsers (players can switch this off in Settings), including visitors without an account. ||| O'yinchi hisoblari, reytinglar va o'yinlar tarixi “O'yinchilar” sahifasida boshqariladi. Quyidagi raqamlar brauzerlar yuborgan anonim foydalanish hodisalaridan olinadi (o'yinchilar buni Sozlamalarda o'chirishi mumkin), hisobsiz tashrifchilar ham kiradi. ||| Аккаунты игроков, рейтинги и история партий управляются на странице «Игроки». Данные ниже взяты из анонимных событий использования, которые отправляют браузеры (игроки могут отключить это в настройках), включая посетителей без аккаунта.
 Not included yet ||| Hozircha mavjud emas ||| Пока не реализовано
 E-mail verification and password reset by e-mail ||| E-pochani tasdiqlash va parolni e-pochta orqali tiklash ||| Подтверждение e-mail и сброс пароля по e-mail
@@ -898,3 +898,5 @@ Enter a valid start time. ||| To'g'ri boshlanish vaqtini kiriting. ||| Введ�
 Duration: 10 to 720 minutes. ||| Davomiyligi: 10 dan 720 daqiqagacha. ||| Длительность: от 10 до 720 минут.
 A tournament that has started can only be cancelled. ||| Boshlangan turnirni faqat bekor qilish mumkin. ||| Начавшийся турнир можно только отменить.
 Article not found. ||| Maqola topilmadi. ||| Статья не найдена.
+Site visits today ||| Bugungi sayt tashriflari ||| Посещений сайта сегодня
+{v} visitors · {w} visits in 7 days ||| {v} ta tashrifchi · 7 kunda {w} ta tashrif ||| {v} посетителей · {w} посещений за 7 дней

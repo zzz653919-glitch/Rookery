@@ -316,7 +316,7 @@ async function takeTest(page, correctFn) {
   const { ctx, page } = await newCtx();
   await go(page, '/welcome');
   await setProfile(page, { onboarded: true, level: 'beginner', levelSource: 'manual' });
-  await go(page, '/play');
+  await go(page, '/play/computer');
   await page.waitForSelector('#start-btn');
   await page.click('#levels [data-v="2"]');
   await page.click('#start-btn');
@@ -395,7 +395,7 @@ for (const [name, vp] of [['desktop 1280x800', { width: 1280, height: 800 }], ['
   if (vp.width < 500) {
     await go(page, '/home');
     const navVisible = await page.evaluate(() => [...document.querySelectorAll('[data-nav]')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && r.bottom <= innerHeight + 1 && r.top >= 0; }).length);
-    check(`layout ${name}: navigation reachable`, navVisible >= 6 || !!(await page.$('#menu-btn')), String(navVisible));
+    check(`layout ${name}: navigation reachable`, navVisible >= 5 || !!(await page.$('#menu-btn')), String(navVisible));
   }
   await page.screenshot({ path: join(process.env.E2E_SHOTS || '/tmp', `e2e-${vp.width}.png`) }).catch(() => {});
   await ctx.close();

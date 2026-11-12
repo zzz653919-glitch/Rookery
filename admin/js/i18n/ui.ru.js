@@ -884,7 +884,7 @@ export default {
  "Nothing to review": "Нечего рассматривать",
  "{running} running · {upcoming} upcoming": "идёт: {running} · скоро: {upcoming}",
  "Anonymous usage numbers from the player site.": "Анонимные данные об использовании сайта игроков.",
- "Anonymous statistics. ": "Анонимная статистика. ",
+ "Anonymous statistics.": "Анонимная статистика.",
  "Player accounts, ratings and game history are managed on the Players page. The numbers below come from anonymous usage events sent by browsers (players can switch this off in Settings), including visitors without an account.": "Аккаунты игроков, рейтинги и история партий управляются на странице «Игроки». Данные ниже взяты из анонимных событий использования, которые отправляют браузеры (игроки могут отключить это в настройках), включая посетителей без аккаунта.",
  "Not included yet": "Пока не реализовано",
  "E-mail verification and password reset by e-mail": "Подтверждение e-mail и сброс пароля по e-mail",
@@ -899,5 +899,7 @@ export default {
  "Enter a valid start time.": "Введите корректное время начала.",
  "Duration: 10 to 720 minutes.": "Длительность: от 10 до 720 минут.",
  "A tournament that has started can only be cancelled.": "Начавшийся турнир можно только отменить.",
- "Article not found.": "Статья не найдена."
+ "Article not found.": "Статья не найдена.",
+ "Site visits today": "Посещений сайта сегодня",
+ "{v} visitors · {w} visits in 7 days": "{v} посетителей · {w} посещений за 7 дней"
 };

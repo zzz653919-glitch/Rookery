@@ -940,5 +940,8 @@ export default {
  "The game is not over yet.": "Партия ещё не окончена.",
  "Finish your running games before starting new ones.": "Завершите текущие партии, прежде чем начинать новые.",
  "Use at least 12 characters.": "Используйте не менее 12 символов.",
- "Mix at least three of: lower-case, upper-case, digits, symbols.": "Сочетайте не менее трёх видов: строчные, прописные, цифры, символы."
+ "Mix at least three of: lower-case, upper-case, digits, symbols.": "Сочетайте не менее трёх видов: строчные, прописные, цифры, символы.",
+ "The most popular first move: it claims the centre and opens lines for the queen and the bishop.": "Самый популярный первый ход: занимает центр и открывает линии для ферзя и слона.",
+ "Claims the centre with support from the queen and bishop. Leads to more strategic games.": "Занимает центр при поддержке ферзя и слона. Ведёт к более стратегическим партиям.",
+ "Admin": "Админ"
 };

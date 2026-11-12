@@ -74,6 +74,7 @@ export function register(router) {
       games: { total: await n("SELECT count(*) n FROM games WHERE status = 'finished'"), today: await n("SELECT count(*) n FROM games WHERE created_at > ? AND status != 'waiting'", day), live: await n("SELECT count(*) n FROM games WHERE status = 'active'"), rated: await n("SELECT count(*) n FROM games WHERE status = 'finished' AND kind = 'rated'") },
       reports: { open: await n("SELECT count(*) n FROM reports WHERE status = 'open'") },
       tournaments: { running: await n("SELECT count(*) n FROM tournaments WHERE status != 'cancelled' AND starts_at <= ? AND ends_at > ?", now(), now()), upcoming: await n("SELECT count(*) n FROM tournaments WHERE status != 'cancelled' AND starts_at > ?", now()) },
+      visits: { today: await n("SELECT count(*) n FROM events WHERE type = 'visit' AND ts > ?", day), week: await n("SELECT count(*) n FROM events WHERE type = 'visit' AND ts > ?", week), visitors7: await n("SELECT count(DISTINCT anon) n FROM events WHERE type = 'visit' AND ts > ?", week) },
       news: await n("SELECT count(*) n FROM news WHERE status = 'published'"),
     };
   }, { auth: true, perm: 'dashboard:read' });
