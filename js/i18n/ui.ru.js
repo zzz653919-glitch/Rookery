@@ -943,5 +943,7 @@ export default {
  "Mix at least three of: lower-case, upper-case, digits, symbols.": "Сочетайте не менее трёх видов: строчные, прописные, цифры, символы.",
  "The most popular first move: it claims the centre and opens lines for the queen and the bishop.": "Самый популярный первый ход: занимает центр и открывает линии для ферзя и слона.",
  "Claims the centre with support from the queen and bishop. Leads to more strategic games.": "Занимает центр при поддержке ферзя и слона. Ведёт к более стратегическим партиям.",
- "Admin": "Админ"
+ "Admin": "Админ",
+ "Create an account to play rated games online, save your progress and join tournaments — or sign in if you already have one.": "Создайте аккаунт, чтобы играть рейтинговые партии онлайн, сохранять прогресс и участвовать в турнирах — или войдите, если он у вас уже есть.",
+ "Not now": "Не сейчас"
 };

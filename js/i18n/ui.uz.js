@@ -943,5 +943,7 @@ export default {
  "Mix at least three of: lower-case, upper-case, digits, symbols.": "Kamida uchtasini aralashtiring: kichik harf, bosh harf, raqam, belgi.",
  "The most popular first move: it claims the centre and opens lines for the queen and the bishop.": "Eng mashhur birinchi yurish: markazni egallaydi va farzin hamda fil uchun yo'l ochadi.",
  "Claims the centre with support from the queen and bishop. Leads to more strategic games.": "Markazni farzin va fil yordamida egallaydi. Ko'proq strategik o'yinlarga olib keladi.",
- "Admin": "Admin"
+ "Admin": "Admin",
+ "Create an account to play rated games online, save your progress and join tournaments — or sign in if you already have one.": "Onlayn reytingli o'yinlar o'ynash, natijalaringizni saqlash va turnirlarda qatnashish uchun hisob oching — hisobingiz bo'lsa, tizimga kiring.",
+ "Not now": "Hozir emas"
 };

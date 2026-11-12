@@ -18,6 +18,8 @@ if (cli(dir, ['create-admin', '--username', 'boss', '--role', 'superadmin'], { p
 const srv = await startServer(dir, { ROOKERY_TRANSLATE_PROVIDER: 'mock', ROOKERY_ALLOW_MOCK: '1' });
 const BASE = srv.base;
 const browser = await chromium.launch();
+// the first-visit sign-in invitation is covered by its own check; keep it out of the way elsewhere
+if (!process.env.E2E_AUTH_PROMPT) { const _nc = browser.newContext.bind(browser); browser.newContext = async (o) => { const c = await _nc(o); await c.addInitScript(() => { try { if (!sessionStorage.getItem('e2e_np')) { sessionStorage.setItem('e2e_np', '1'); localStorage.setItem('rk_auth_prompt', '1'); } } catch { /* ignore */ } }); return c; }; }
 
 // platform data so that the new admin pages have rows and dialogs to translate
 {

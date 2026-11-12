@@ -23,6 +23,8 @@ const check = (name, ok, detail = '') => { results.push({ name, ok: !!ok, detail
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const browser = await chromium.launch();
+// the first-visit sign-in invitation is covered by its own check; keep it out of the way elsewhere
+if (!process.env.E2E_AUTH_PROMPT) { const _nc = browser.newContext.bind(browser); browser.newContext = async (o) => { const c = await _nc(o); await c.addInitScript(() => { try { if (!sessionStorage.getItem('e2e_np')) { sessionStorage.setItem('e2e_np', '1'); localStorage.setItem('rk_auth_prompt', '1'); } } catch { /* ignore */ } }); return c; }; }
 async function newCtx(opts = {}) {
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 860 }, ...opts });
   const page = await ctx.newPage();

@@ -7,7 +7,7 @@ import { loadRemoteContent } from './content.js';
 import { net, onAuth, loadSession, logout, get } from './net.js';
 import { connect, reconnect, onNotify } from './realtime.js';
 import { startSync } from './sync.js';
-import { openAuth } from './auth-ui.js';
+import { openAuth, showAuthPrompt } from './auth-ui.js';
 import { avatarHtml, flag } from './ui/user.js';
 import { installErrorReporting, track } from './telemetry.js';
 import { t, tn, LANGS, getLang } from './i18n/core.js';
@@ -256,6 +256,7 @@ async function boot() {
   splash.classList.add('hide');
   setTimeout(() => splash.remove(), 450);
   registerSW();
+  setTimeout(showAuthPrompt, 600);
   if (store.mode === 'memory') toast(t('Storage is unavailable in this browser — progress will not be saved.'), 'bad');
 }
 

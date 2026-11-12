@@ -64,3 +64,23 @@ export async function ensureSignedIn(mode = 'login') {
   if (net.user) return true;
   return openAuth(mode);
 }
+
+// First visit: invite the visitor to create an account or sign in. "Not now" (or Esc / click outside) hides it for good.
+const PROMPT_KEY = 'rk_auth_prompt';
+export function showAuthPrompt() {
+  if (!net.available || net.user) return;
+  try { if (localStorage.getItem(PROMPT_KEY)) return; } catch { return; }
+  const seen = () => { try { localStorage.setItem(PROMPT_KEY, '1'); } catch { /* ignore */ } };
+  let choice = null;
+  const m = modal(`<div class="auth-prompt">
+    <h2>${t('Welcome to Rookery')}</h2>
+    <p class="muted">${t('Create an account to play rated games online, save your progress and join tournaments — or sign in if you already have one.')}</p>
+    <div class="col" style="gap:10px;margin-top:16px">
+      <button class="btn primary lg block" id="ap-signup" type="button">${t('Sign up')}</button>
+      <button class="btn lg block" id="ap-signin" type="button">${t('Sign in')}</button>
+      <button class="btn ghost block" id="ap-skip" type="button">${t('Not now')}</button>
+    </div></div>`, { onClose: () => { seen(); if (choice) openAuth(choice); } });
+  m.el.querySelector('#ap-signup').onclick = () => { choice = 'register'; m.close(); };
+  m.el.querySelector('#ap-signin').onclick = () => { choice = 'login'; m.close(); };
+  m.el.querySelector('#ap-skip').onclick = () => m.close();
+}
