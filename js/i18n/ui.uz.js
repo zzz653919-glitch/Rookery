@@ -1152,5 +1152,7 @@ export default {
  "Recent world events": "So'nggi jahon tadbirlari",
  "Countries": "Davlatlar",
  "Open Chess World": "Shaxmat olamini ochish",
- "Official broadcast": "Rasmiy translyatsiya"
+ "Official broadcast": "Rasmiy translyatsiya",
+ "Sign in to take lessons": "Darslarni o'tish uchun tizimga kiring",
+ "Lessons, progress and achievements are saved to your account. Create a free account or sign in to continue.": "Darslar, natijalar va yutuqlar hisobingizda saqlanadi. Davom etish uchun bepul hisob oching yoki tizimga kiring."
 };

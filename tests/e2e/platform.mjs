@@ -228,6 +228,15 @@ const real = consoleErrors.filter((e) => !/favicon|Failed to load resource: the 
   check('“Sign up” opens the registration form', /Create|Sign up|username/i.test(await page.textContent('.modal')) && !!(await page.$('input[autocomplete="new-password"], input[type=password]')));
   await ctx.close();
 }
+{ // lessons need an account
+  const { ctx, page } = await newPlayer();
+  await page.goto(BASE + '/#/learn/b-pieces'); await sleep(1200);
+  check('lessons: a guest sees the sign-in invitation instead of the lesson', /Sign in to take lessons/.test(await page.textContent('#view')) && !(await page.$('#next-btn')));
+  await page.click('#ll-up'); await sleep(500);
+  await page.fill('#au-name', 'Lessoner'); await page.fill('#au-pass', PW); await page.click('#au-go'); await page.waitForSelector('#auth-form', { state: 'detached' }); await sleep(1500);
+  check('lessons: after signing in the lesson opens right away', !!(await page.$('#next-btn, .step, h2')) && !/Sign in to take lessons/.test(await page.textContent('#view')));
+  await ctx.close();
+}
 check('no unexpected console errors or warnings', real.length === 0, real.slice(0, 4).join(' | '));
 await browser.close(); await srv.stop(); removeDir(dir);
 const failed = results.filter((r) => !r.ok).length;

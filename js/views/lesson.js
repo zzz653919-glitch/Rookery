@@ -12,9 +12,24 @@ import { quizPassRatio } from '../content.js';
 import { track } from '../telemetry.js';
 import { t, th, tn } from '../i18n/core.js';
 import { levelName, skillName } from '../i18n/names.js';
+import { net, onAuth } from '../net.js';
+import { openAuth } from '../auth-ui.js';
 
 
-export async function mount(root, { params, navigate }) {
+// Lessons are for signed-in players: with the server available a guest only sees an invitation. (Without a server there are no
+// accounts at all, so the static site keeps working as before.)
+export async function mount(root, ctx) {
+  if (!net.available || net.user) return play(root, ctx);
+  let inner = null, off = null;
+  root.innerHTML = `<div class="empty lesson-lock"><div class="big">🔒</div><h2>${t('Sign in to take lessons')}</h2><p>${t('Lessons, progress and achievements are saved to your account. Create a free account or sign in to continue.')}</p>
+    <div class="btn-row" style="justify-content:center"><button class="btn primary lg" id="ll-in" type="button">${t('Sign in')}</button><button class="btn lg" id="ll-up" type="button">${t('Sign up')}</button><a class="btn ghost lg" href="#/learn">${t('Back to lessons')}</a></div></div>`;
+  root.querySelector('#ll-in').onclick = () => openAuth('login');
+  root.querySelector('#ll-up').onclick = () => openAuth('register');
+  off = onAuth(async () => { if (net.user && !inner) { inner = await play(root, ctx); } });
+  return () => { off?.(); try { inner?.(); } catch { /* ignore */ } };
+}
+
+async function play(root, { params, navigate }) {
   const lesson = LESSONS.find((l) => l.id === params.id);
   if (!lesson) {
     root.innerHTML = emptyState({ emoji: '🔎', title: t('Lesson not found'), body: t('That lesson does not exist.'), actionHtml: `<a class="btn primary" href="#/learn">${t('Back to lessons')}</a>` });
