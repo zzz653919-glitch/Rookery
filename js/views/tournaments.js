@@ -14,13 +14,15 @@ const STATE = { upcoming: 'Starts soon', running: 'Running', finished: 'Finished
 export async function mount(root, { params, navigate }) {
   if (!net.available) { root.innerHTML = emptyState({ emoji: '🏆', title: t('Tournaments need the Rookery server'), body: t('Events are organised from the admin panel of the server.') }); return; }
   let timer = null, offM = null, offA = null, disposed = false;
+  let all = false;
   async function list() {
     let ts = []; try { ts = (await get('/api/tournaments')).tournaments; } catch { /* empty */ }
     if (disposed) return;
     root.innerHTML = `<div class="page-head"><div><div class="eyebrow">${t('Tournaments')}</div><h1>${t('Arena tournaments')}</h1><p>${t('Join, then play as many games as you can before the time runs out. Win 2 points, draw 1 — two wins in a row doubles your points.')}</p></div></div>
-      ${ts.length ? `<div class="grid auto">${ts.map((x) => `<a class="card hover t-card ${x.state}" href="#/tournaments/${x.id}"><div class="row spread"><span class="chip ${x.state === 'running' ? 'good' : ''}">${t(STATE[x.state])}</span><span class="muted small">${tcl(x)} · ${t(x.category.charAt(0).toUpperCase() + x.category.slice(1))}</span></div>
+      ${ts.length ? `<div class="grid auto t-grid">${ts.slice(0, all ? ts.length : 6).map((x) => `<a class="card hover t-card ${x.state}" href="#/tournaments/${x.id}"><div class="row spread"><span class="chip ${x.state === 'running' ? 'good' : ''}">${t(STATE[x.state])}</span><span class="muted small">${tcl(x)} · ${t(x.category.charAt(0).toUpperCase() + x.category.slice(1))}</span></div>
         <h3 style="margin-top:10px">${icon('trophy', 18)} ${esc(x.name)}</h3><p class="muted">${esc(x.description || '')}</p>
-        <div class="row spread small muted"><span>${x.state === 'running' ? t('Ends in {time}', { time: left(x.endsAt) }) : x.state === 'upcoming' ? when(x.startsAt) : t('Finished')}</span><span>${icon('users', 14)} ${x.players}</span></div></a>`).join('')}</div>` : emptyState({ emoji: '🏆', title: t('No tournaments scheduled'), body: t('New events appear here — check back soon.') })}`;
+        <div class="row spread small muted"><span>${x.state === 'running' ? t('Ends in {time}', { time: left(x.endsAt) }) : x.state === 'upcoming' ? when(x.startsAt) : t('Finished')}</span><span>${icon('users', 14)} ${x.players}</span></div></a>`).join('')}</div>${!all && ts.length > 6 ? `<div style="text-align:center;margin-top:18px"><button class="btn" id="t-more" type="button">${t('Show all tournaments')} (${ts.length})</button></div>` : ''}` : emptyState({ emoji: '🏆', title: t('No tournaments scheduled'), body: t('New events appear here — check back soon.') })}`;
+    root.querySelector('#t-more')?.addEventListener('click', () => { all = true; list(); });
   }
   async function detail(id) {
     let x; try { x = await get('/api/tournaments/' + encodeURIComponent(id)); } catch (e) { root.innerHTML = emptyState({ emoji: '🔎', title: t('Tournament not found'), body: esc(t(e.message)), actionHtml: `<a class="btn" href="#/tournaments">${t('All tournaments')}</a>` }); return; }

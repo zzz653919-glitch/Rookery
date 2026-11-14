@@ -341,6 +341,10 @@ export async function liveGames(limit = 20) {
   for (const r of rows) { const row = await settle(r.id); if (row?.status === 'active') out.push(await viewOf(row)); }
   return out;
 }
+export async function recentGames(limit = 12) {
+  const rows = await getDb().prepare("SELECT * FROM games WHERE status = 'finished' AND white_id IS NOT NULL AND black_id IS NOT NULL AND result IS NOT NULL ORDER BY ended_at DESC LIMIT ?").all(limit);
+  const out = []; for (const r of rows) out.push(await viewOf(parse(r) ?? r)); return out;
+}
 export async function gamesOfUser(userId, { limit = 20, offset = 0 } = {}) {
   const rows = await getDb().prepare("SELECT * FROM games WHERE (white_id = ? OR black_id = ?) AND status IN ('finished','active') ORDER BY created_at DESC LIMIT ? OFFSET ?").all(userId, userId, limit, offset);
   const out = [];

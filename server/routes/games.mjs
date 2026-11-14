@@ -12,6 +12,7 @@ const moveLimit = (ctx) => { if (!rateLimit('mv:' + ctx.user.id, 20, 5000)) thro
 
 export function register(router) {
   router.add('GET', '/api/games/live', async () => ({ games: await G.liveGames(20) }));
+  router.add('GET', '/api/games/recent', async () => ({ games: await G.recentGames(12) }));
   router.add('GET', '/api/time-controls', async () => ({ controls: G.TIME_CONTROLS }));
 
   // --- matchmaking queue

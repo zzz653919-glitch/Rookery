@@ -963,5 +963,7 @@ export default {
  "See all": "Hammasini ko'rish",
  "Leaderboards need the Rookery server.": "Peshqadamlar jadvali uchun Rookery serveri kerak.",
  "No rated players yet.": "Reytingli o'yinchilar hali yo'q.",
- "Live": "Jonli"
+ "Live": "Jonli",
+ "Starts soon": "Tez orada boshlanadi",
+ "Show all tournaments": "Barcha turnirlarni ko'rsatish"
 };

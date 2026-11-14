@@ -118,7 +118,7 @@ async function loadOnline(root) {
     const el = $('#fx-ticker'); if (!el || !items.length) return;
     el.hidden = false; el.innerHTML = `<span class="live"><i></i>${t('Live')}</span><span class="items">${items.join('<span class="sep">◆</span>')}</span>`;
   }).catch(() => {});
-  get('/api/news').then(({ items }) => {
+  get('/api/news?lang=' + getLang()).then(({ items }) => {
     fill('#news-body', items.length ? `<div class="stack" style="gap:8px">${items.slice(0, 3).map((n) => `<a href="#/news/${n.id}"><b>${esc(n.title)}</b><small class="muted"> ${fdate(n.published_at)}</small></a>`).join('')}</div>` : `<p class="muted">${t('No news yet.')}</p>`);
   }).catch(() => fill('#news-body', ''));
   if (net.user) get('/api/users/' + encodeURIComponent(net.user.username)).then((d) => {

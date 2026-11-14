@@ -963,5 +963,7 @@ export default {
  "See all": "Показать всё",
  "Leaderboards need the Rookery server.": "Для таблиц лидеров нужен сервер Rookery.",
  "No rated players yet.": "Рейтинговых игроков пока нет.",
- "Live": "В эфире"
+ "Live": "В эфире",
+ "Starts soon": "Скоро начнётся",
+ "Show all tournaments": "Показать все турниры"
 };

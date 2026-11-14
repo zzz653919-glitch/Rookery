@@ -5,6 +5,7 @@ import { rateLimit } from '../security.mjs';
 import { publicUser } from '../accounts.mjs';
 import { categoryOf } from '../rating.mjs';
 import * as G from '../games.mjs';
+import { builtinList, builtinGet, SCHEDULE } from '../editorial.mjs';
 
 const userByName = async (name) => { const u = await getDb().prepare('SELECT * FROM users WHERE username = ?').get(String(name || '')); if (!u || u.banned) throw new HttpError(404, 'Player not found.'); return u; };
 const online = (u) => !!(u.last_seen_at && Date.now() - Date.parse(u.last_seen_at) < 5 * 60000);
@@ -156,8 +157,14 @@ export function register(router) {
   }, { user: true });
 
   // ---------------------------------------------------------------- news (read)
-  router.add('GET', '/api/news', async () => ({ items: (await getDb().prepare("SELECT id, title, summary, author, published_at FROM news WHERE status = 'published' ORDER BY published_at DESC LIMIT 30").all()) }));
+  const langOf = (ctx) => (['uz', 'ru'].includes(ctx.query.lang) ? ctx.query.lang : 'en');
+  router.add('GET', '/api/news', async (ctx) => {
+    const own = await getDb().prepare("SELECT id, title, summary, author, published_at FROM news WHERE status = 'published' ORDER BY published_at DESC LIMIT 30").all();
+    const items = [...own, ...builtinList(langOf(ctx))].sort((a, b) => String(b.published_at).localeCompare(String(a.published_at))).slice(0, 40);
+    return { items };
+  });
   router.add('GET', '/api/news/:id', async (ctx) => {
+    const built = builtinGet(ctx.params.id, langOf(ctx)); if (built) return built;
     const n = await getDb().prepare("SELECT id, title, summary, body, author, published_at FROM news WHERE id = ? AND status = 'published'").get(+ctx.params.id || 0);
     if (!n) throw new HttpError(404, 'Article not found.');
     return n;
@@ -174,7 +181,25 @@ export function register(router) {
       standings: players.map((p, i) => ({ rank: i + 1, username: p.username, avatar: p.avatar, country: p.country, score: p.score, games: p.games, wins: p.wins, draws: p.draws, losses: p.losses, streak: p.streak })),
     };
   };
+  // Recurring arenas: make sure the next days have their events (idempotent, keyed by name + start time).
+  let scheduledAt = 0;
+  async function ensureSchedule() {
+    if (Date.now() - scheduledAt < 10 * 60000) return; scheduledAt = Date.now();
+    const d = getDb(), day0 = new Date(); day0.setUTCHours(0, 0, 0, 0);
+    for (let i = 0; i < 8; i++) {
+      const day = new Date(day0.getTime() + i * 86400000);
+      for (const sl of SCHEDULE) {
+        if (!sl.days.includes(day.getUTCDay())) continue;
+        const start = new Date(day.getTime() + sl.hour * 3600000); if (start.getTime() + sl.minutes * 60000 < Date.now()) continue;
+        const startsAt = start.toISOString(), endsAt = new Date(start.getTime() + sl.minutes * 60000).toISOString();
+        if (await d.prepare('SELECT 1 FROM tournaments WHERE name = ? AND starts_at = ?').get(sl.name, startsAt)) continue;
+        await d.prepare('INSERT INTO tournaments(name, description, base_ms, inc_ms, category, starts_at, ends_at, created_by, created_at) VALUES (?,?,?,?,?,?,?,?,?)')
+          .run(sl.name, '', sl.base * 1000, sl.inc * 1000, categoryOf(sl.base * 1000, sl.inc * 1000), startsAt, endsAt, 'schedule', now());
+      }
+    }
+  }
   router.add('GET', '/api/tournaments', async (ctx) => {
+    try { await ensureSchedule(); } catch { /* the list still works without the schedule */ }
     const rows = await getDb().prepare("SELECT * FROM tournaments WHERE status != 'cancelled' AND ends_at > ? ORDER BY starts_at LIMIT 30").all(new Date(Date.now() - 3 * 86400000).toISOString());
     const out = []; for (const t of rows) { const v = await tview(t, ctx.user?.id); delete v.standings; out.push(v); }
     return { tournaments: out };

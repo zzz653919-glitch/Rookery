@@ -962,3 +962,5 @@ See all ||| Hammasini ko'rish ||| Показать всё
 Leaderboards need the Rookery server. ||| Peshqadamlar jadvali uchun Rookery serveri kerak. ||| Для таблиц лидеров нужен сервер Rookery.
 No rated players yet. ||| Reytingli o'yinchilar hali yo'q. ||| Рейтинговых игроков пока нет.
 Live ||| Jonli ||| В эфире
+Starts soon ||| Tez orada boshlanadi ||| Скоро начнётся
+Show all tournaments ||| Barcha turnirlarni ko'rsatish ||| Показать все турниры
