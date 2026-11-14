@@ -29,6 +29,11 @@ export const config = {
 // Turso / libSQL: set both to keep the data in the hosted database instead of data/rookery.db (also accepts file:… for tests).
 config.tursoUrl = env.TURSO_DATABASE_URL || '';
 config.tursoToken = env.TURSO_AUTH_TOKEN || '';
+config.lichessUrl = (env.ROOKERY_LICHESS_URL || 'https://lichess.org').replace(/\/$/, '');
+config.fideApiUrl = (env.ROOKERY_FIDE_API_URL || 'https://lichess.org/api/fide/player').replace(/\/$/, '');
+config.wikiUrl = env.ROOKERY_WIKI_URL || ''; // e.g. http://127.0.0.1:9 in tests; empty = https://<lang>.wikipedia.org
+config.worldAllowLocal = env.ROOKERY_WORLD_ALLOW_LOCAL === '1';
+config.worldEnabled = env.ROOKERY_WORLD_OFFLINE !== '1';
 config.dbFile = join(config.dataDir, 'rookery.db');
 config.uploadDir = join(config.dataDir, 'uploads');
 config.backupDir = join(config.dataDir, 'backups');
