@@ -4,7 +4,7 @@ import { icon, LOGO } from './ui/icons.js';
 import { $, $$, esc, toast, modal } from './ui/dom.js';
 import { engineClient } from './engine-client.js';
 import { loadRemoteContent } from './content.js';
-import { net, onAuth, loadSession, logout, get } from './net.js';
+import { net, onAuth, loadSession, logout, get, isOffline, serverSeen } from './net.js';
 import { connect, reconnect, onNotify } from './realtime.js';
 import { startSync } from './sync.js';
 import { openAuth, showAuthPrompt } from './auth-ui.js';
@@ -193,6 +193,15 @@ function updateStreak() {
   $('#streak-sub').textContent = n ? t('Keep it going!') : t('Learn something today');
 }
 
+// While offline the whole page is dimmed and a bar says why some things are closed.
+function syncOffline() {
+  const off = isOffline();
+  document.documentElement.toggleAttribute('data-offline', off);
+  let bar = document.getElementById('offline-bar');
+  if (off && !bar) { bar = document.createElement('div'); bar.id = 'offline-bar'; bar.setAttribute('role', 'status'); document.body.appendChild(bar); }
+  if (bar) { bar.hidden = !off; bar.textContent = t('You are offline: lessons and online features are unavailable.'); }
+}
+
 async function route() {
   const token = ++navToken;
   const r = parseRoute();
@@ -251,6 +260,9 @@ async function boot() {
   try { if (!sessionStorage.getItem('rk_visit')) { sessionStorage.setItem('rk_visit', '1'); track('visit', null, getLang()); } } catch { /* storage blocked */ }
   applyTheme();
   buildShell();
+  syncOffline();
+  window.addEventListener('offline', syncOffline);
+  window.addEventListener('online', () => { if (serverSeen() && !net.available) { location.reload(); return; } syncOffline(); });
   engineClient.start();
   window.addEventListener('hashchange', route);
   await route();

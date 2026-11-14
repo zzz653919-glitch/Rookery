@@ -105,6 +105,7 @@ export async function loadRemoteContent({ timeoutMs = 2500 } = {}) {
   // When offline no request is made at all, so the browser logs nothing and the cached bundle is used.
   if (navigator.onLine !== false) {
     const got = await fetchBundle(timeoutMs);
+    try { if (got.server) localStorage.setItem('rk_server_seen', '1'); else if (got.static) localStorage.removeItem('rk_server_seen'); } catch { /* storage blocked */ }
     if (got.server) remote.available = true; // the server exists even when its first answer is slow (a cold start on serverless hosting)
     if (got.static) { clearCache(); return false; }
     if (!got.server && readCache()) remote.available = true; // even the first request failed, but this browser has talked to the server before

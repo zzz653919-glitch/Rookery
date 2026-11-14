@@ -1156,3 +1156,6 @@ Lessons, progress and achievements are saved to your account. Create a free acco
 Rating in this game ||| Shu o'yindagi reyting ||| Рейтинг в этой партии
 FIDE rating ||| FIDE reytingi ||| Рейтинг FIDE
 Photo ||| Surat ||| Фото
+Lessons need an internet connection ||| Darslar uchun internet kerak ||| Для уроков нужен интернет
+Connect to the internet and sign in to continue. Puzzles, games against the computer and the analysis board still work offline. ||| Davom etish uchun internetga ulaning va tizimga kiring. Masalalar, kompyuterga qarshi o'yin va tahlil taxtasi internetsiz ham ishlaydi. ||| Подключитесь к интернету и войдите, чтобы продолжить. Задачи, игра с компьютером и доска анализа работают и без интернета.
+You are offline: lessons and online features are unavailable. ||| Siz internetsizsiz: darslar va onlayn imkoniyatlar mavjud emas. ||| Вы офлайн: уроки и онлайн-функции недоступны.

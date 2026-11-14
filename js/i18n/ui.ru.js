@@ -1157,5 +1157,8 @@ export default {
  "Lessons, progress and achievements are saved to your account. Create a free account or sign in to continue.": "Уроки, прогресс и достижения сохраняются в вашем аккаунте. Создайте бесплатный аккаунт или войдите, чтобы продолжить.",
  "Rating in this game": "Рейтинг в этой партии",
  "FIDE rating": "Рейтинг FIDE",
- "Photo": "Фото"
+ "Photo": "Фото",
+ "Lessons need an internet connection": "Для уроков нужен интернет",
+ "Connect to the internet and sign in to continue. Puzzles, games against the computer and the analysis board still work offline.": "Подключитесь к интернету и войдите, чтобы продолжить. Задачи, игра с компьютером и доска анализа работают и без интернета.",
+ "You are offline: lessons and online features are unavailable.": "Вы офлайн: уроки и онлайн-функции недоступны."
 };
