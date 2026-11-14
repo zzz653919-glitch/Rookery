@@ -113,8 +113,8 @@ export function register(router) {
   G('/api/world/fide', async (ctx) => {
     const ids = [...new Set(String(ctx.query.ids || '').split(',').map((x) => parseInt(x, 10)).filter((n) => n > 0 && n < 1e9))].slice(0, 12);
     const out = {}; const queue = [...ids];
-    const worker = async () => { while (queue.length) { const id = queue.shift(); const f = await W.fideInfo(id); if (f) out[id] = { name: f.name, federation: f.federation, title: f.title, standard: f.standard, rapid: f.rapid, blitz: f.blitz, photo: f.photo, credit: f.photoCredit }; } };
-    await within(Promise.all([worker(), worker(), worker(), worker()]), 7000);
+    const worker = async () => { while (queue.length) { const id = queue.shift(); const f = await W.fideInfo(id); if (f) { let photo = f.photo, credit = f.photoCredit; if (!photo) { const wp = await W.wikiPhoto(f.name); if (wp) { photo = wp.photo; credit = wp.credit; } } out[id] = { name: f.name, federation: f.federation, title: f.title, standard: f.standard, rapid: f.rapid, blitz: f.blitz, photo, credit }; } } };
+    await within(Promise.all([worker(), worker(), worker()]), 9000);
     return { players: out };
   });
   G('/api/world/players', async (ctx) => ({ players: await withFide(await W.listPlayers({ q: str(ctx.query.q), featured: ctx.query.featured === '1' })) }));

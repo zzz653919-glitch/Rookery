@@ -3,7 +3,7 @@ import { esc, emptyState, loader, icon, toast } from '../ui/dom.js';
 import { t, getLang } from '../i18n/core.js';
 import { Chess } from '../chess/rules.js';
 import { allFederations, countryName, flagEmoji } from '../data/countries.js';
-import { pickerHtml, bindPicker, gameRowHtml, hydrateFide, subnav, bindSubnav, wget, fmtDate, flagOf, nameOf, errorBox, resultLabel, tcLabel, boardHtml, evalGraph, evalText, clockText, pairs, hrefOf, statusChip, fmtRange, imgTag } from '../ui/world.js';
+import { avatarHtml, pickerHtml, bindPicker, gameRowHtml, hydrateFide, subnav, bindSubnav, wget, fmtDate, flagOf, nameOf, errorBox, resultLabel, tcLabel, boardHtml, evalGraph, evalText, clockText, pairs, hrefOf, statusChip, fmtRange, imgTag } from '../ui/world.js';
 
 export async function mount(root, ctx) { return ctx.params.page === 'game' ? replay(root, ctx) : results(root, ctx); }
 
@@ -69,7 +69,7 @@ async function replay(root, { params, navigate }) {
   const evals = ok.map((m) => (m.eval ? (m.eval.mate != null ? (m.eval.mate > 0 ? 1000 : -1000) : m.eval.cp) : null));
   const hasEval = evals.some((e) => e != null);
   const sideClock = (side) => { for (let i = cur - 1; i >= 0; i--) if (i % 2 === (side === 'w' ? 0 : 1) && ok[i].clk != null) return ok[i].clk; return null; };
-  const plr = (side) => { const wh = side === 'w'; return `<div class="wplayer ${side}"><span class="wname">${flagOf(wh ? g.white_fed : g.black_fed)} ${(wh ? g.white_title : g.black_title) ? `<small>${esc(wh ? g.white_title : g.black_title)}</small> ` : ''}<b>${esc(nameOf(wh ? g.white : g.black))}</b> <small class="muted">${(wh ? g.white_elo : g.black_elo) || ''}</small></span><span class="wclk">${clockText(sideClock(side))}</span></div>`; };
+  const plr = (side) => { const wh = side === 'w'; return `<div class="wplayer ${side}"><span class="wname">${avatarHtml(wh ? g.white : g.black, wh ? g.white_fide : g.black_fide, 44)}${flagOf(wh ? g.white_fed : g.black_fed)} ${(wh ? g.white_title : g.black_title) ? `<small>${esc(wh ? g.white_title : g.black_title)}</small> ` : ''}<b>${esc(nameOf(wh ? g.white : g.black))}</b> <small class="muted">${(wh ? g.white_elo : g.black_elo) || ''}</small></span><span class="wclk">${clockText(sideClock(side))}</span></div>`; };
   function paint() {
     const top = orient === 'w' ? 'b' : 'w', bot = orient === 'w' ? 'w' : 'b'; const e = ok[cur - 1];
     root.innerHTML = `${subnav('results')}<a class="btn ghost sm" href="#/world/event/${g.event_id}">${icon('back', 16)} ${esc(g.event_name)}</a>
@@ -87,7 +87,7 @@ async function replay(root, { params, navigate }) {
     root.querySelector('#w-copy')?.addEventListener('click', async () => { try { await navigator.clipboard.writeText(data.pgn); toast(t('PGN copied to clipboard'), 'good'); } catch { toast(t('Copy failed'), 'bad'); } });
     root.querySelector('#w-analyze')?.addEventListener('click', () => { try { sessionStorage.setItem('rookery:analysis-pgn', data.pgn); } catch { /* ignore */ } navigate('/analysis'); });
     root.querySelector('#w-moves .on')?.scrollIntoView({ block: 'nearest' });
-    document.title = `${nameOf(g.white)} – ${nameOf(g.black)} · Rookery`;
+    document.title = `${nameOf(g.white)} – ${nameOf(g.black)} · Rookery`; hydrateFide(root);
   }
   function stopPlay() { clearInterval(timer); timer = null; }
   function act(a) {

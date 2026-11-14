@@ -1156,5 +1156,6 @@ export default {
  "Sign in to take lessons": "Darslarni o'tish uchun tizimga kiring",
  "Lessons, progress and achievements are saved to your account. Create a free account or sign in to continue.": "Darslar, natijalar va yutuqlar hisobingizda saqlanadi. Davom etish uchun bepul hisob oching yoki tizimga kiring.",
  "Rating in this game": "Shu o'yindagi reyting",
- "FIDE rating": "FIDE reytingi"
+ "FIDE rating": "FIDE reytingi",
+ "Photo": "Surat"
 };

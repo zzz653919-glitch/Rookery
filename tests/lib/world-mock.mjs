@@ -39,6 +39,10 @@ export async function startMock() {
     if (p === '/api/broadcast/search') return send(200, { currentPage: 1, currentPageResults: [] });
     if (p === '/api/fide/player/1503014') return send(200, { id: 1503014, name: 'Carlsen, Magnus', federation: 'NOR', year: 1990, title: 'GM', standard: 2800, rapid: 2790, blitz: 2850, photo: { medium: 'https://img.example/mc.webp', credit: 'Photographer' } });
     if (p === '/api/fide/player/1001') return send(200, { id: 1001, name: 'Alpha, Anna', federation: 'UZB', title: 'GM', standard: 2705, photo: { medium: 'https://img.example/anna.jpg', credit: 'FIDE' } });
+    if (p === '/api/fide/player/1002') return send(200, { id: 1002, name: 'Beta, Boris', federation: 'RUS', title: 'IM', standard: 2660 });
+    if (p === '/api/fide/player/1003') return send(200, { id: 1003, name: 'Gamma, Gus', federation: 'NED', standard: 2590 });
+    if (p === '/api/rest_v1/page/summary/Boris_Beta') return send(200, { type: 'standard', description: 'Russian chess grandmaster', extract: 'Boris Beta is a chess player.', content_urls: { desktop: { page: 'https://en.wikipedia.org/wiki/Boris_Beta' } }, thumbnail: { source: 'https://img.example/boris.jpg' } });
+    if (p === '/api/rest_v1/page/summary/Gus_Gamma') return send(200, { type: 'standard', description: 'Dutch painter', extract: 'Gus Gamma was a painter.', content_urls: { desktop: { page: 'https://en.wikipedia.org/wiki/Gus_Gamma' } }, thumbnail: { source: 'https://img.example/painter.jpg' } });
     if (p === '/api/fide/player/14204118') return send(200, { id: 14204118, name: 'Someone, Else', federation: 'XXX', title: 'GM', standard: 2000 }); // wrong person for the id: must not be shown
     if (p === '/api/rest_v1/page/summary/Magnus_Carlsen') return send(200, { type: 'standard', extract: 'Magnus Carlsen is a Norwegian chess grandmaster.', content_urls: { desktop: { page: 'https://en.wikipedia.org/wiki/Magnus_Carlsen' } }, thumbnail: { source: 'https://img.example/wiki.jpg' } });
     if (p === '/feed.atom') return send(200, `<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/"><title>Mock Chess</title>

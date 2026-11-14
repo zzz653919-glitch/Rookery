@@ -1155,3 +1155,4 @@ Sign in to take lessons ||| Darslarni o'tish uchun tizimga kiring ||| Войди
 Lessons, progress and achievements are saved to your account. Create a free account or sign in to continue. ||| Darslar, natijalar va yutuqlar hisobingizda saqlanadi. Davom etish uchun bepul hisob oching yoki tizimga kiring. ||| Уроки, прогресс и достижения сохраняются в вашем аккаунте. Создайте бесплатный аккаунт или войдите, чтобы продолжить.
 Rating in this game ||| Shu o'yindagi reyting ||| Рейтинг в этой партии
 FIDE rating ||| FIDE reytingi ||| Рейтинг FIDE
+Photo ||| Surat ||| Фото

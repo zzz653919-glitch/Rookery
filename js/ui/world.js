@@ -87,6 +87,8 @@ export function evalGraph(evals, cur = -1, { w = 320, h = 70 } = {}) {
 }
 export const pairs = (sans) => { const out = []; for (let i = 0; i < sans.length; i += 2) out.push([Math.floor(i / 2) + 1, sans[i], sans[i + 1] ?? null, i]); return out; };
 
+// a round avatar: initials until the photo of the player (from the FIDE id) has been fetched by hydrateFide
+export const avatarHtml = (name, fide, size = 36) => `<span class="wavw" ${fide ? `data-fide="${fide}"` : ''}><span class="wav" style="--h:${hue(name)};--s:${size}px"><b>${esc(initials(name))}</b></span></span>`;
 // ---- players in lists: photo (from FIDE data when there is one), title, name, federation, rating
 const fideCache = new Map(); // fide id -> data | null
 export const initials = (n) => nameOf(n).split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
@@ -106,11 +108,11 @@ export function gameRowHtml(g, { event = true } = {}) {
 }
 // fills photos, federations and FIDE ratings into the player cells of a list; asks the server in small batches
 export async function hydrateFide(root) {
-  const cells = [...root.querySelectorAll('.wpc[data-fide]')]; const need = [...new Set(cells.map((c) => c.dataset.fide))].filter((id) => !fideCache.has(id));
+  const cells = [...root.querySelectorAll('[data-fide]')]; const need = [...new Set(cells.map((c) => c.dataset.fide))].filter((id) => !fideCache.has(id));
   const apply = () => {
-    for (const c of root.querySelectorAll('.wpc[data-fide]')) {
+    for (const c of root.querySelectorAll('[data-fide]')) {
       const d = fideCache.get(c.dataset.fide); if (!d || c.dataset.done) continue; c.dataset.done = '1';
-      if (d.photo) { const av = c.querySelector('.wav'); av.classList.add('ph'); av.insertAdjacentHTML('beforeend', `<img src="${esc(d.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`); }
+      if (d.photo) { const av = c.querySelector('.wav'); av.classList.add('ph'); if (d.credit) av.title = `${t('Photo')}: ${d.credit}`; av.insertAdjacentHTML('beforeend', `<img src="${esc(d.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`); }
       const fl = c.querySelector('.wfl'); if (fl && !fl.textContent.trim() && d.federation) fl.innerHTML = flagOf(d.federation);
       const ti = c.querySelector('.wtl'); if (!ti && d.title) c.querySelector('.wpn')?.insertAdjacentHTML('afterbegin', `<i class="wtl">${esc(d.title)}</i>`);
       if (d.standard && String(d.standard) !== c.dataset.elo) c.querySelector('.wpm')?.insertAdjacentHTML('beforeend', `<span class="wfr" title="${esc(t('FIDE rating'))}">FIDE ${d.standard}</span>`);

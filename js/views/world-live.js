@@ -1,7 +1,7 @@
 // Live games (official broadcast rounds, polled every few seconds) and Live broadcasts (official embedded streams).
 import { esc, emptyState, loader, icon } from '../ui/dom.js';
 import { t } from '../i18n/core.js';
-import { subnav, bindSubnav, wget, fmtTime, fmtRange, statusChip, flagOf, nameOf, startCountdowns, errorBox, resultLabel, boardHtml, evalGraph, evalText, clockText, pairs, hrefOf } from '../ui/world.js';
+import { avatarHtml, hydrateFide, subnav, bindSubnav, wget, fmtTime, fmtRange, statusChip, flagOf, nameOf, startCountdowns, errorBox, resultLabel, boardHtml, evalGraph, evalText, clockText, pairs, hrefOf } from '../ui/world.js';
 
 export async function mount(root, ctx) { return ctx.params.page === 'broadcasts' ? broadcasts(root, ctx) : live(root, ctx); }
 
@@ -18,15 +18,15 @@ async function live(root, { navigate }) {
   }
   const schedule = () => { clearTimeout(timer); timer = setTimeout(poll, POLL); };
   const mini = (r, g) => `<button class="wlive ${keyOf(r, g) === sel ? 'on' : ''}" data-k="${esc(keyOf(r, g))}" type="button">
-      <div class="wl-p ${g.turn === 'b' && g.result === '*' ? 'turn' : ''}"><span>${flagOf(g.blackFed)} ${esc(nameOf(g.black))} <small class="muted">${g.blackElo || ''}</small></span><b>${g.result === '*' ? clockText(g.clocks.b) : resultLabel(g.result).split('–')[1] || ''}</b></div>
+      <div class="wl-p ${g.turn === 'b' && g.result === '*' ? 'turn' : ''}"><span>${avatarHtml(g.black, g.blackFide, 26)}${flagOf(g.blackFed)} ${esc(nameOf(g.black))} <small class="muted">${g.blackElo || ''}</small></span><b>${g.result === '*' ? clockText(g.clocks.b) : resultLabel(g.result).split('–')[1] || ''}</b></div>
       ${boardHtml(g.fen, { orientation: 'w', last: g.lastMove })}
-      <div class="wl-p ${g.turn === 'w' && g.result === '*' ? 'turn' : ''}"><span>${flagOf(g.whiteFed)} ${esc(nameOf(g.white))} <small class="muted">${g.whiteElo || ''}</small></span><b>${g.result === '*' ? clockText(g.clocks.w) : resultLabel(g.result).split('–')[0] || ''}</b></div></button>`;
+      <div class="wl-p ${g.turn === 'w' && g.result === '*' ? 'turn' : ''}"><span>${avatarHtml(g.white, g.whiteFide, 26)}${flagOf(g.whiteFed)} ${esc(nameOf(g.white))} <small class="muted">${g.whiteElo || ''}</small></span><b>${g.result === '*' ? clockText(g.clocks.w) : resultLabel(g.result).split('–')[0] || ''}</b></div></button>`;
   function big(r, g) {
     const ply = follow || viewPly == null ? g.plies : Math.min(viewPly, g.plies);
     return `<section class="wbig card"><div class="row spread"><div><div class="eyebrow">${esc(r.event.name)} · ${esc(r.round.name)}</div><h2>${esc(nameOf(g.white))} – ${esc(nameOf(g.black))}</h2></div><div class="btn-row"><button class="btn sm" data-close type="button">${icon('x', 14)} ${t('Close')}</button></div></div>
-      <div class="wreplay live"><div class="wleft"><div class="wplayer b"><span class="wname">${flagOf(g.blackFed)} <b>${esc(nameOf(g.black))}</b> <small class="muted">${g.blackElo || ''}</small></span><span class="wclk">${g.result === '*' ? clockText(g.clocks.b) : ''}</span></div>
+      <div class="wreplay live"><div class="wleft"><div class="wplayer b"><span class="wname">${avatarHtml(g.black, g.blackFide, 44)}${flagOf(g.blackFed)} <b>${esc(nameOf(g.black))}</b> <small class="muted">${g.blackElo || ''}</small></span><span class="wclk">${g.result === '*' ? clockText(g.clocks.b) : ''}</span></div>
         <div id="w-bigboard"></div>
-        <div class="wplayer w"><span class="wname">${flagOf(g.whiteFed)} <b>${esc(nameOf(g.white))}</b> <small class="muted">${g.whiteElo || ''}</small></span><span class="wclk">${g.result === '*' ? clockText(g.clocks.w) : ''}</span></div>
+        <div class="wplayer w"><span class="wname">${avatarHtml(g.white, g.whiteFide, 44)}${flagOf(g.whiteFed)} <b>${esc(nameOf(g.white))}</b> <small class="muted">${g.whiteElo || ''}</small></span><span class="wclk">${g.result === '*' ? clockText(g.clocks.w) : ''}</span></div>
         <p class="muted small">${t('Clocks show the time left after each side’s last move.')}</p></div>
         <div class="wright"><div class="row spread"><span>${g.result === '*' ? statusChip('live') : `<b>${resultLabel(g.result)}</b>`}</span><label class="small"><input type="checkbox" id="w-follow" ${follow ? 'checked' : ''}> ${t('Follow live moves')}</label></div>
           ${g.eval ? `<div class="card"><div class="row spread"><b>${t('Engine evaluation')}</b><span class="wev-now">${evalText(g.eval)}</span></div>${evalGraph(g.evals, ply - 1)}</div>` : `<p class="muted small">${t('No engine evaluation is published for this game.')}</p>`}
@@ -42,7 +42,7 @@ async function live(root, { navigate }) {
       ${sg ? big(sr, sg) : ''}
       ${rounds.length ? rounds.map((r) => `<section class="wsec"><div class="row spread"><h2><a href="#/world/event/${r.event.id}">${esc(r.event.name)}</a> <small class="muted">${esc(r.round.name)}</small></h2>${r.error ? `<span class="muted small">${esc(t(r.error))}</span>` : `<span class="muted small">${t('{n} games', { n: r.games.length })}</span>`}</div>${r.games.length ? `<div class="wlivegrid">${r.games.slice(0, expanded.has(r.round.id) ? 200 : 12).map((g) => mini(r, g)).join('')}</div>${r.games.length > 12 && !expanded.has(r.round.id) ? `<div class="center"><button class="btn" data-all="${esc(r.round.id)}" type="button">${t('Show all {n} boards', { n: r.games.length })}</button></div>` : ''}` : (r.error ? '' : `<p class="muted">${t('The first moves have not been played yet.')}</p>`)}</section>`).join('')
         : emptyState({ emoji: '♟', title: t('No official games are being played right now'), body: t('Only real broadcasts from official sources are shown here — nothing is simulated. Check the calendar for the next tournament.'), actionHtml: `<a class="btn primary" href="${hrefOf('events')}">${t('Tournament calendar')}</a>` })}`;
-    bindSubnav(root, navigate);
+    bindSubnav(root, navigate); hydrateFide(root);
     root.querySelectorAll('[data-all]').forEach((b) => { b.onclick = () => { expanded.add(b.dataset.all); paint(); }; });
     root.querySelectorAll('.wlive').forEach((b) => { b.onclick = () => { sel = b.dataset.k; viewPly = null; follow = true; paint(); root.querySelector('.wbig')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }; });
     if (sg) {

@@ -122,6 +122,8 @@ await go(P, 'world/results', 2500);
   check('results: no match gives an honest empty state', /No games match/i.test(await text(P)));
   await P.fill('#g-player', 'alpha'); await sleep(1800);
   const rich = await P.$$eval('#g-list .wgm', (r) => ({ n: r.length, av: r[0].querySelectorAll('.wav').length, names: r[0].querySelector('.wpn')?.textContent, photo: !![...document.querySelectorAll('.wpc[data-fide="1001"] .wav img')].length, fed: !![...document.querySelectorAll('.wpc[data-fide="1001"] .wfl')].some((x) => x.textContent.trim()), fide: !![...document.querySelectorAll('.wpc[data-fide="1001"] .wfr')].length }));
+  const photos = await P.$$eval('#g-list .wpc[data-fide] .wav img', (i) => i.map((x) => x.getAttribute('src')));
+  check('results: photos appear for players that have one (FIDE, or Wikipedia for a chess player)', photos.includes('https://img.example/anna.jpg') && photos.includes('https://img.example/boris.jpg'), photos.join(','));
   check('results: every game row shows both players with an avatar, title, name, rating and the FIDE data (photo, federation, rating) when known', rich.n === 2 && rich.av === 2 && rich.photo && rich.fed && rich.fide, JSON.stringify(rich));
   await P.click('#g-list .wgm:has-text("1–0")'); await sleep(1500);
   const pieces = () => P.$$eval('.wboard .piece-svg, .wboard img', (e) => e.length);
