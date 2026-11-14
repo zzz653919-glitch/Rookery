@@ -267,7 +267,7 @@ async function boot() {
   splash.classList.add('hide');
   setTimeout(() => splash.remove(), 450);
   // the offline cache downloads ~100 files: it starts once the first screen is on and the browser is idle, never competing with it
-  (window.requestIdleCallback || ((f) => setTimeout(f, 2500)))(() => setTimeout(registerSW, 1500), { timeout: 6000 });
+  (window.requestIdleCallback || ((f) => setTimeout(f, 2500)))(registerSW, { timeout: 2000 });
   setTimeout(showAuthPrompt, 600);
   if (store.mode === 'memory') toast(t('Storage is unavailable in this browser — progress will not be saved.'), 'bad');
 }
