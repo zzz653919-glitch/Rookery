@@ -111,18 +111,34 @@ function queueEvent(id, finishedRow) { setImmediate(() => { events.emit('game', 
 // ------------------------------------------------------------------------------------------------ views
 async function playerInfo(db, userId, category) {
   if (!userId) return null;
-  const u = await db.prepare('SELECT id, username, avatar, country, created_at, last_seen_at, banned, bio FROM users WHERE id = ?').get(userId);
+  const u = await db.prepare('SELECT u.id, u.username, u.avatar, u.country, u.created_at, u.last_seen_at, u.banned, u.bio, r.rating AS rt, r.games AS rg FROM users u LEFT JOIN ratings r ON r.user_id = u.id AND r.category = ? WHERE u.id = ?').get(category, userId);
   if (!u) return { id: userId, username: 'deleted' };
-  const r = await db.prepare('SELECT rating, games FROM ratings WHERE user_id = ? AND category = ?').get(userId, category);
-  return { ...publicUser(u), rating: Math.round(r?.rating ?? 1200), provisional: (r?.games ?? 0) < 30 };
+  return { ...publicUser(u), rating: Math.round(u.rt ?? 1200), provisional: (u.rg ?? 0) < 30 };
+}
+// One lookup for a whole list of games: two statements instead of two per player and game (matters on a remote database).
+async function playersFor(db, rows) {
+  const ids = [...new Set(rows.flatMap((r) => [r.white_id, r.black_id]).filter(Boolean))];
+  const users = new Map(), rat = new Map();
+  if (ids.length) {
+    const ph = ids.map(() => '?').join(',');
+    const [us, rs] = await Promise.all([
+      db.prepare(`SELECT id, username, avatar, country, created_at, last_seen_at, banned, bio FROM users WHERE id IN (${ph})`).all(...ids),
+      db.prepare(`SELECT user_id, category, rating, games FROM ratings WHERE user_id IN (${ph})`).all(...ids),
+    ]);
+    for (const u of us) users.set(u.id, u); for (const r of rs) rat.set(`${r.user_id}:${r.category}`, r);
+  }
+  return (userId, category) => {
+    if (!userId) return null; const u = users.get(userId); if (!u) return { id: userId, username: 'deleted' };
+    const r = rat.get(`${userId}:${category}`); return { ...publicUser(u), rating: Math.round(r?.rating ?? 1200), provisional: (r?.games ?? 0) < 30 };
+  };
 }
 
-export async function viewOf(row) {
+export async function viewOf(row, lookup = null) {
   const db = getDb();
   const g = replay(row.moves);
   const c = clocks(row);
   const sans = g.history();
-  const players = { w: await playerInfo(db, row.white_id, row.category), b: await playerInfo(db, row.black_id, row.category) };
+  const players = lookup ? { w: lookup(row.white_id, row.category), b: lookup(row.black_id, row.category) } : { w: await playerInfo(db, row.white_id, row.category), b: await playerInfo(db, row.black_id, row.category) };
   return {
     id: row.id, kind: row.kind, category: row.category, base: row.base_ms / 1000, inc: row.inc_ms / 1000,
     status: row.status, result: row.result, reason: row.reason, version: row.version,
@@ -337,18 +353,21 @@ export const leaveQueue = (user) => getDb().prepare('DELETE FROM matchmaking WHE
 // ------------------------------------------------------------------------------------------------ lists
 export async function liveGames(limit = 20) {
   const rows = await getDb().prepare("SELECT * FROM games WHERE status = 'active' AND white_id IS NOT NULL AND black_id IS NOT NULL ORDER BY (coalesce(w_rating,1200) + coalesce(b_rating,1200)) DESC LIMIT ?").all(limit);
+  const lookup = await playersFor(getDb(), rows);
   const out = [];
-  for (const r of rows) { const row = await settle(r.id); if (row?.status === 'active') out.push(await viewOf(row)); }
+  for (const r of rows) { const row = await settle(r.id); if (row?.status === 'active') out.push(await viewOf(row, lookup)); }
   return out;
 }
 export async function recentGames(limit = 12) {
   const rows = await getDb().prepare("SELECT * FROM games WHERE status = 'finished' AND white_id IS NOT NULL AND black_id IS NOT NULL AND result IS NOT NULL ORDER BY ended_at DESC LIMIT ?").all(limit);
-  const out = []; for (const r of rows) out.push(await viewOf(parse(r) ?? r)); return out;
+  const lookup = await playersFor(getDb(), rows);
+  const out = []; for (const r of rows) out.push(await viewOf(parse(r) ?? r, lookup)); return out;
 }
 export async function gamesOfUser(userId, { limit = 20, offset = 0 } = {}) {
   const rows = await getDb().prepare("SELECT * FROM games WHERE (white_id = ? OR black_id = ?) AND status IN ('finished','active') ORDER BY created_at DESC LIMIT ? OFFSET ?").all(userId, userId, limit, offset);
+  const lookup = await playersFor(getDb(), rows);
   const out = [];
-  for (const r of rows) { const v = await viewOf(parse(r)); delete v.pgn; v.sans = v.sans.length; out.push(v); }
+  for (const r of rows) { const v = await viewOf(parse(r), lookup); delete v.pgn; v.sans = v.sans.length; out.push(v); }
   return out;
 }
 

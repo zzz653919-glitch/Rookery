@@ -55,6 +55,6 @@ export function register(router) {
     const category = CATEGORIES.concat(['puzzle']).includes(ctx.query.category) ? ctx.query.category : 'blitz';
     const rows = await getDb().prepare(`SELECT u.username, u.avatar, u.country, r.rating, r.games, r.wins, r.losses, r.draws FROM ratings r JOIN users u ON u.id = r.user_id
       WHERE r.category = ? AND r.games >= ? AND u.banned = 0 ORDER BY r.rating DESC, r.games DESC LIMIT 50`).all(category, category === 'puzzle' ? 1 : 3);
-    return { category, players: rows.map((r, i) => ({ rank: i + 1, username: r.username, avatar: r.avatar === 'upload' ? 'upload' : r.avatar, country: r.country, rating: Math.round(r.rating), games: r.games, wins: r.wins, losses: r.losses, draws: r.draws })) };
+    return { status: 200, headers: { 'cache-control': 'public, max-age=0, s-maxage=30, stale-while-revalidate=300' }, body: { category, players: rows.map((r, i) => ({ rank: i + 1, username: r.username, avatar: r.avatar === 'upload' ? 'upload' : r.avatar, country: r.country, rating: Math.round(r.rating), games: r.games, wins: r.wins, losses: r.losses, draws: r.draws })) } };
   });
 }

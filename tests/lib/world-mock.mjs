@@ -14,9 +14,11 @@ const R2 = [
   pgn({ event: 'Mock Open', round: 'RND00002', id: 'game0003', day: 2, rnd: '2.1', w: 'Beta, Boris', b: 'Gamma, Gus', res: '0-1', we: 2650, be: 2600, wf: 1002, bf: 1003, moves: '1. e4 c5 2. Nf3 d6' }),
   pgn({ event: 'Mock Open', round: 'RND00002', id: 'game0004', day: 2, rnd: '2.2', w: 'Delta, Dina', b: 'Alpha, Anna', res: '0-1', we: 2610, be: 2700, wf: 1004, bf: 1001, moves: '1. c4 e5 2. Nc3 Nf6' }),
 ].join('\n');
-const LIVE = pgn({ event: 'Live Open', round: 'LIVE0001', id: 'livegm01', day: 3, rnd: '5.1', w: 'Live, Lena', b: 'Wire, Wim', res: '*', we: 2500, be: 2480, wf: 2001, bf: 2002, moves: '1. e4 { [%clk 0:59:00] } 1... c5 { [%clk 0:58:30] } 2. Nf3 { [%clk 0:58:40] }' }).replace('\n\n1. e4', '\n\n1. e4');
+let LIVE = pgn({ event: 'Live Open', round: 'LIVE0001', id: 'livegm01', day: 3, rnd: '5.1', w: 'Live, Lena', b: 'Wire, Wim', res: '*', we: 2500, be: 2480, wf: 2001, bf: 2002, moves: '1. e4 { [%clk 0:59:00] } 1... c5 { [%clk 0:58:30] } 2. Nf3 { [%clk 0:58:40] }' }).replace('\n\n1. e4', '\n\n1. e4');
 
 const tour = (id, name, extra = {}) => ({ id, name, slug: name.toLowerCase().replace(/\W+/g, '-'), info: { format: '9-round Swiss', tc: '90 min + 30 sec', fideTC: 'standard', location: 'Tashkent, Uzbekistan', players: 'Alpha, Beta', website: 'https://example.org/', standings: 'https://example.org/standings' }, createdAt: T0, url: `https://lichess.org/broadcast/x/${id}`, tier: 4, dates: [T0 - 86400000 * 2, T0 + 86400000], ...extra });
+// replace the ongoing round (the performance tests use a round with 40 boards)
+export const setLive = (text) => { LIVE = text; };
 export const mock = { down: false, hits: {} };
 let mockSrv;
 export const stopMock = () => mockSrv?.close();

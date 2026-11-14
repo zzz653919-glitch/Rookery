@@ -18,6 +18,20 @@ export async function areFriends(a, b) {
 const notify = (userId, payload) => G.events.emit('notify', userId, payload);
 
 // ---- tournament scoring: win 2, draw 1, loss 0; points double while the player is on a winning streak of 2+
+// Tournaments of the list view (no standings): one statement for the rows, one for the player counts, one for "joined".
+export async function tournamentList(userId, { limit = 30, onlyOpen = false } = {}) {
+  const d = getDb();
+  const rows = await d.prepare("SELECT * FROM tournaments WHERE status != 'cancelled' AND ends_at > ? ORDER BY starts_at LIMIT ?").all(new Date(Date.now() - (onlyOpen ? 0 : 3 * 86400000)).toISOString(), limit);
+  if (!rows.length) return [];
+  const ids = rows.map((t) => t.id), ph = ids.map(() => '?').join(',');
+  const [counts, mine] = await Promise.all([
+    d.prepare(`SELECT tournament_id AS id, count(*) AS n FROM tournament_players WHERE tournament_id IN (${ph}) GROUP BY tournament_id`).all(...ids),
+    userId ? d.prepare(`SELECT tournament_id AS id FROM tournament_players WHERE user_id = ? AND tournament_id IN (${ph})`).all(userId, ...ids) : [],
+  ]);
+  const n = new Map(counts.map((c) => [c.id, c.n])), joined = new Set(mine.map((m) => m.id));
+  return rows.map((t) => ({ id: t.id, name: t.name, description: t.description, base: t.base_ms / 1000, inc: t.inc_ms / 1000, category: t.category, startsAt: t.starts_at, endsAt: t.ends_at, state: stateOf(t), players: n.get(t.id) || 0, joined: joined.has(t.id) }));
+}
+const stateOf = (t) => { const n = Date.now(), s = Date.parse(t.starts_at), e = Date.parse(t.ends_at); return t.status === 'cancelled' ? 'cancelled' : n < s ? 'upcoming' : n < e ? 'running' : 'finished'; };
 export async function tournamentState(t) {
   const n = Date.now(), s = Date.parse(t.starts_at), e = Date.parse(t.ends_at);
   return t.status === 'cancelled' ? 'cancelled' : n < s ? 'upcoming' : n < e ? 'running' : 'finished';
@@ -174,10 +188,10 @@ export function register(router) {
   const tview = async (t, userId) => {
     const d = getDb();
     const players = await d.prepare(`SELECT p.*, u.username, u.avatar, u.country FROM tournament_players p JOIN users u ON u.id = p.user_id WHERE p.tournament_id = ? ORDER BY p.score DESC, p.wins DESC, p.joined_at LIMIT 100`).all(t.id);
-    const count = (await d.prepare('SELECT count(*) n FROM tournament_players WHERE tournament_id = ?').get(t.id)).n;
+    const count = players.length < 100 ? players.length : (await d.prepare('SELECT count(*) n FROM tournament_players WHERE tournament_id = ?').get(t.id)).n;
     return {
       id: t.id, name: t.name, description: t.description, base: t.base_ms / 1000, inc: t.inc_ms / 1000, category: t.category, startsAt: t.starts_at, endsAt: t.ends_at, state: await tournamentState(t), players: count,
-      joined: userId ? players.some((p) => p.user_id === userId) || !!(await d.prepare('SELECT 1 FROM tournament_players WHERE tournament_id = ? AND user_id = ?').get(t.id, userId)) : false,
+      joined: userId ? players.some((p) => p.user_id === userId) || (players.length >= 100 && !!(await d.prepare('SELECT 1 FROM tournament_players WHERE tournament_id = ? AND user_id = ?').get(t.id, userId))) : false,
       standings: players.map((p, i) => ({ rank: i + 1, username: p.username, avatar: p.avatar, country: p.country, score: p.score, games: p.games, wins: p.wins, draws: p.draws, losses: p.losses, streak: p.streak })),
     };
   };
@@ -186,13 +200,14 @@ export function register(router) {
   async function ensureSchedule() {
     if (Date.now() - scheduledAt < 10 * 60000) return; scheduledAt = Date.now();
     const d = getDb(), day0 = new Date(); day0.setUTCHours(0, 0, 0, 0);
+    const have = new Set((await d.prepare('SELECT name, starts_at FROM tournaments WHERE starts_at >= ?').all(day0.toISOString())).map((r) => `${r.name}|${r.starts_at}`));
     for (let i = 0; i < 8; i++) {
       const day = new Date(day0.getTime() + i * 86400000);
       for (const sl of SCHEDULE) {
         if (!sl.days.includes(day.getUTCDay())) continue;
         const start = new Date(day.getTime() + sl.hour * 3600000); if (start.getTime() + sl.minutes * 60000 < Date.now()) continue;
         const startsAt = start.toISOString(), endsAt = new Date(start.getTime() + sl.minutes * 60000).toISOString();
-        if (await d.prepare('SELECT 1 FROM tournaments WHERE name = ? AND starts_at = ?').get(sl.name, startsAt)) continue;
+        if (have.has(`${sl.name}|${startsAt}`)) continue;
         await d.prepare('INSERT INTO tournaments(name, description, base_ms, inc_ms, category, starts_at, ends_at, created_by, created_at) VALUES (?,?,?,?,?,?,?,?,?)')
           .run(sl.name, '', sl.base * 1000, sl.inc * 1000, categoryOf(sl.base * 1000, sl.inc * 1000), startsAt, endsAt, 'schedule', now());
       }
@@ -200,9 +215,7 @@ export function register(router) {
   }
   router.add('GET', '/api/tournaments', async (ctx) => {
     try { await ensureSchedule(); } catch { /* the list still works without the schedule */ }
-    const rows = await getDb().prepare("SELECT * FROM tournaments WHERE status != 'cancelled' AND ends_at > ? ORDER BY starts_at LIMIT 30").all(new Date(Date.now() - 3 * 86400000).toISOString());
-    const out = []; for (const t of rows) { const v = await tview(t, ctx.user?.id); delete v.standings; out.push(v); }
-    return { tournaments: out };
+    return { tournaments: await tournamentList(ctx.user?.id) };
   }, { userOptional: true });
   router.add('GET', '/api/tournaments/:id', async (ctx) => {
     const t = await getDb().prepare('SELECT * FROM tournaments WHERE id = ?').get(+ctx.params.id || 0);

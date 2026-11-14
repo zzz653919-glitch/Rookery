@@ -75,9 +75,11 @@ async function libsqlBackend() {
 }
 
 // ---- facade ---------------------------------------------------------------------------------------------
+// number of statements executed (the performance tests read it through /api/health when ROOKERY_DB_STATS=1)
+export const dbStats = { queries: 0 };
 function makeDb(target, { inTx = false } = {}) {
   const wait = async () => { if (!inTx) while (txLock) await txLock; };
-  const exec = async (sql, args) => { await wait(); return target().run(sql, args); };
+  const exec = async (sql, args) => { await wait(); dbStats.queries++; return target().run(sql, args); };
   return {
     prepare: (sql) => ({
       get: async (...a) => (await exec(sql, a)).rows[0],

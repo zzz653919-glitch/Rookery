@@ -91,8 +91,13 @@ async function fetchBundle(timeoutMs) {
   try {
     // Probe a file every host serves: only the admin-enabled Node server adds this header. This avoids a 404 (and a
     // console error) on plain static hosting, where there is no API to ask.
-    const probe = await fetch('manifest.webmanifest', { method: 'HEAD', signal: ctl.signal, cache: 'no-cache' });
-    if (probe.headers.get('x-rookery-server') !== '1') return { static: true };
+    // A browser that has already seen the server skips the probe (one round trip less on every start); a static host answers the
+    // bundle URL with a non-JSON page, which is detected below.
+    let seen = false; try { seen = localStorage.getItem('rk_server_seen') === '1'; } catch { /* storage blocked */ }
+    if (!seen) {
+      const probe = await fetch('manifest.webmanifest', { method: 'HEAD', signal: ctl.signal, cache: 'no-cache' });
+      if (probe.headers.get('x-rookery-server') !== '1') return { static: true };
+    }
     server = true;
     const res = await fetch(`api/public/content?lang=${encodeURIComponent(getLang())}`, { signal: ctl.signal, cache: 'no-cache', headers: { accept: 'application/json' } });
     if (!res.ok || !(res.headers.get('content-type') || '').includes('application/json')) return res.status < 500 ? { static: true } : { server };

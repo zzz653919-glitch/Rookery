@@ -2,7 +2,6 @@
 import { store, currentStreak } from './store.js';
 import { icon, LOGO } from './ui/icons.js';
 import { $, $$, esc, toast, modal } from './ui/dom.js';
-import { engineClient } from './engine-client.js';
 import { loadRemoteContent } from './content.js';
 import { net, onAuth, loadSession, logout, get, isOffline, serverSeen } from './net.js';
 import { connect, reconnect, onNotify } from './realtime.js';
@@ -159,7 +158,7 @@ function buildShell() {
   renderUser();
   onAuth(() => { renderUser(); pollBadges(); });
   onNotify((m) => { if (m.kind === 'challenge') toast(t('{name} challenged you to a game', { name: m.from }), 'good'); pollBadges(); });
-  setInterval(pollBadges, 45000);
+  setInterval(() => { if (!document.hidden) pollBadges(); }, 45000);
   store.onChange((k) => { if (k === 'activity') updateStreak(); });
 }
 
@@ -251,8 +250,7 @@ async function registerSW() {
 async function boot() {
   await initLanguage();        // dictionary for the remembered / browser language, before anything is rendered
   await loadRemoteContent();   // optional: admin-managed lessons, puzzles, themes and settings (no-op without the server)
-  await store.init();
-  await loadSession();
+  await Promise.all([store.init(), loadSession()]); // local storage and the session request are independent: they run together
   if (net.available) { connect(); startSync(); let uid = net.user?.id ?? null; onAuth(() => { const n = net.user?.id ?? null; if (n !== uid) { uid = n; reconnect(); } }); }
   if (reconcileLanguage()) { location.reload(); return; } // saved language differs from the early hint (e.g. restored backup)
   await applyBundledTranslations(getLang());
@@ -263,13 +261,13 @@ async function boot() {
   syncOffline();
   window.addEventListener('offline', syncOffline);
   window.addEventListener('online', () => { if (serverSeen() && !net.available) { location.reload(); return; } syncOffline(); });
-  engineClient.start();
   window.addEventListener('hashchange', route);
   await route();
   const splash = $('#splash');
   splash.classList.add('hide');
   setTimeout(() => splash.remove(), 450);
-  registerSW();
+  // the offline cache downloads ~100 files: it starts once the first screen is on and the browser is idle, never competing with it
+  (window.requestIdleCallback || ((f) => setTimeout(f, 2500)))(() => setTimeout(registerSW, 1500), { timeout: 6000 });
   setTimeout(showAuthPrompt, 600);
   if (store.mode === 'memory') toast(t('Storage is unavailable in this browser — progress will not be saved.'), 'bad');
 }

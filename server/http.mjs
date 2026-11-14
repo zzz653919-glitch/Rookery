@@ -1,4 +1,5 @@
 // Small HTTP helpers: JSON bodies, cookies, security headers, error type, route table.
+import { gzipSync } from 'node:zlib';
 import { config } from './config.mjs';
 
 export class HttpError extends Error {
@@ -15,13 +16,18 @@ export const SECURITY_HEADERS = {
 };
 export const ADMIN_CSP = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'; base-uri 'none'; form-action 'self'; object-src 'none'";
 
+const ON_CDN = !!process.env.VERCEL;
 export function send(res, status, body, headers = {}) {
   const isObj = body !== null && typeof body === 'object' && !Buffer.isBuffer(body);
-  const data = isObj ? JSON.stringify(body) : body ?? '';
+  let data = isObj ? JSON.stringify(body) : body ?? '';
+  const extra = {};
+  // larger JSON answers are compressed (about 5-10x smaller); a CDN in front of a serverless host does this by itself
+  if (isObj && !ON_CDN && data.length > 1400 && /\bgzip\b/.test(res.req?.headers?.['accept-encoding'] || '')) { data = gzipSync(data, { level: 4 }); extra['content-encoding'] = 'gzip'; extra.vary = 'accept-encoding'; }
   res.writeHead(status, {
     ...SECURITY_HEADERS,
     ...(isObj ? { 'content-type': 'application/json; charset=utf-8' } : {}),
     'cache-control': 'no-store',
+    ...extra,
     ...headers,
   });
   res.end(data);

@@ -18,11 +18,15 @@ export const isSocket = () => wsOk;
 
 function wsUrl() { return (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + location.pathname.replace(/[^/]*$/, '') + 'ws'; }
 
+// A host without WebSocket support (serverless) is remembered for a day, so later visits do not open - and fail - a socket first.
+const noWsRecently = () => { try { return Date.now() - Number(localStorage.getItem('rk_nows') || 0) < 86400000; } catch { return false; } };
+const markNoWs = () => { try { localStorage.setItem('rk_nows', String(Date.now())); } catch { /* storage blocked */ } };
+
 export function connect() {
-  if (ws || typeof WebSocket === 'undefined' || !/^https?:$/.test(location.protocol)) { startPolling(); return; }
+  if (ws || typeof WebSocket === 'undefined' || !/^https?:$/.test(location.protocol) || noWsRecently()) { startPolling(); return; }
   closedByUs = false;
   try { ws = new WebSocket(wsUrl()); } catch { ws = null; wsFailures++; startPolling(); return; }
-  ws.onopen = () => { wsOk = true; wsFailures = 0; stopPolling(); for (const id of watching.keys()) ws.send(JSON.stringify({ t: 'sub', game: id })); };
+  ws.onopen = () => { wsOk = true; wsFailures = 0; try { localStorage.removeItem('rk_nows'); } catch { /* ignore */ } stopPolling(); for (const id of watching.keys()) ws.send(JSON.stringify({ t: 'sub', game: id })); };
   ws.onmessage = (e) => {
     let m; try { m = JSON.parse(e.data); } catch { return; }
     if (m.t === 'game') { const w = watching.get(m.game.id); if (w) w.version = m.game.version; fire('game', m.game); }
@@ -36,7 +40,7 @@ export function connect() {
     for (const p of pending.values()) p.reject(new Error('Connection lost.')); pending.clear();
     if (closedByUs) return;
     if (!was) wsFailures++;
-    if (wsFailures >= 2) { startPolling(); return; }           // this host has no WebSocket support: poll instead
+    if (wsFailures >= 2) { markNoWs(); startPolling(); return; }           // this host has no WebSocket support: poll instead
     startPolling();                                              // bridge the gap while reconnecting
     clearTimeout(retry); retry = setTimeout(connect, Math.min(15000, 1000 * 2 ** Math.min(wsFailures, 4)));
   };

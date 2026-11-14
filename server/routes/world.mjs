@@ -26,14 +26,48 @@ async function allArticles(l, { category, q } = {}) {
 }
 
 // ratings and photos of listed players come from the FIDE data (cached for hours); a slow upstream only means no ratings are shown
-async function withFide(players) {
-  const got = await within(Promise.all(players.map((p) => (p.fide_id ? W.fideInfo(p.fide_id) : null))), 5000);
-  return players.map((p, i) => { const f = got?.[i]; const ok = f && W.nameMatches(p.name, f.name); return { slug: p.slug, name: p.name, country: ok ? f.federation : p.country, title: ok ? f.title : null, ratings: ok ? { standard: f.standard, rapid: f.rapid, blitz: f.blitz } : null, photo: ok ? f.photo : null, rank: p.world_rank || null }; });
+const shapePlayers = (players, map) => players.map((p) => { const f = map.get(p.fide_id); const ok = f && W.nameMatches(p.name, f.name); return { slug: p.slug, name: p.name, country: ok ? f.federation : p.country, title: ok ? f.title : null, ratings: ok ? { standard: f.standard, rapid: f.rapid, blitz: f.blitz } : null, photo: ok ? f.photo : null, rank: p.world_rank || null }; });
+async function withFide(players, waitMs = 1200) { return shapePlayers(players, await W.fideInfoMany(players.map((p) => p.fide_id), { waitMs })); }
+
+// What a shared cache (the CDN in front of a serverless host) may keep, in seconds: [fresh, may be served while it is refreshed]
+const CACHE = { '/api/world/live': [4, 20], '/api/world/home': [30, 300], '/api/world/news': [60, 600], '/api/world/news/:id': [300, 3600], '/api/world/events': [30, 300], '/api/world/events/:id': [15, 120], '/api/world/facets': [300, 3000],
+  '/api/world/games': [60, 600], '/api/world/games/:id': [3600, 86400], '/api/world/categories': [600, 6000], '/api/world/broadcasts': [30, 300], '/api/world/fide': [3600, 86400], '/api/world/players': [300, 3000], '/api/world/players/:slug': [300, 3000],
+  '/api/world/search': [30, 300], '/api/world/status': [60, 600] };
+
+const bout = (b, host) => ({ id: b.id, title: b.title, description: b.description, provider: b.provider, channel: b.channel_name, officialUrl: b.official_url, language: b.language, eventId: b.event_id, startsAt: b.starts_at, endsAt: b.ends_at, featured: !!b.featured, official: !!b.official, commentary: b.commentary, status: W.broadcastStatus(b), embed: W.embedOf(b, host) });
+let homeCache = null;
+export async function worldHome(l) {
+    if (homeCache && homeCache.l === l && homeCache.v === W.stamp.n && Date.now() - homeCache.at < 45000) return homeCache.body;
+    await within(Promise.all([W.refreshTop(), W.syncSources()]), 1500);   // a slow upstream never holds the page: stored data is shown
+    W.bootstrapResults().catch(() => {});                                  // imports the games of the latest finished events in the background
+    const d = getDb();
+    const GAME = 'SELECT g.id, g.white, g.black, g.white_elo, g.black_elo, g.white_fed, g.black_fed, g.result, g.plies, g.round_name, g.played_on, e.name AS event_name FROM world_games g JOIN world_events e ON e.id = g.event_id';
+    const [news, live, upcoming, completed, brows, featured, allPlayers, featuredGames, latestGames, uzEvents] = await Promise.all([
+      allArticles(l), W.listEvents({ status: 'live', limit: 6, order: 'live' }), W.listEvents({ status: 'upcoming', limit: 6, order: 'asc' }), W.listEvents({ status: 'completed', limit: 6 }),
+      d.prepare('SELECT * FROM world_broadcasts ORDER BY coalesce(starts_at, created_at) DESC LIMIT 50').all(), W.listPlayers({ featured: true }), W.listPlayers({}),
+      d.prepare(`${GAME} WHERE g.featured = 1 ORDER BY g.id DESC LIMIT 4`).all(), d.prepare(`${GAME} WHERE g.result != '*' ORDER BY g.played_on DESC, g.id DESC LIMIT 6`).all(), W.listEvents({ country: 'UZB', limit: 4 }),
+    ]);
+    const uz = allPlayers.filter((p) => p.country === 'UZB').slice(0, 4), feat = featured.slice(0, 8);
+    const [podiums, fides] = await Promise.all([W.podiumsOf(completed.events.slice(0, 4).map((e) => e.id)), W.fideInfoMany([...feat, ...uz].map((p) => p.fide_id), { waitMs: 1200 })]);
+    const results = completed.events.slice(0, 4).map((e) => ({ event: e, podium: podiums.get(e.id) || [] })).filter((r) => r.podium.length);
+    const rows = brows.map((b) => bout(b, ''));
+    const body = {
+      breaking: news.filter((n) => n.category !== 'rookery').slice(0, 5), rookery: news.filter((n) => n.category === 'rookery').slice(0, 3),
+      live: live.events, upcoming: upcoming.events, results, recent: completed.events,
+      videos: rows.filter((b) => b.status !== 'upcoming').slice(0, 4), featuredBroadcast: rows.find((b) => b.featured && b.status === 'live') || rows.find((b) => b.status === 'live') || null,
+      featuredGames, latestGames, players: shapePlayers(feat, fides), uzbekistan: { news: news.filter((n) => n.category === 'uzbekistan').slice(0, 4), events: uzEvents.events, players: shapePlayers(uz, fides) }, generatedAt: Date.now(),
+    };
+    homeCache = { l, v: W.stamp.n, at: Date.now(), body }; return body;
 }
 
 export function register(router) {
   // read-only and cached, but some endpoints can trigger upstream requests: keep one visitor from hammering them
-  const G = (path, fn, opts) => router.add('GET', path, async (ctx) => { if (!rateLimit('world:' + ctx.ip, 600, 60000)) throw new HttpError(429, 'Slow down.'); return fn(ctx); }, opts);
+  const G = (path, fn, opts) => router.add('GET', path, async (ctx) => {
+    if (!rateLimit('world:' + ctx.ip, 600, 60000)) throw new HttpError(429, 'Slow down.');
+    const out = await fn(ctx); const c = CACHE[path];
+    if (!c || (out && out.raw)) return out;
+    return { status: 200, body: out, headers: { 'cache-control': `public, max-age=0, s-maxage=${c[0]}, stale-while-revalidate=${c[1]}` } };
+  }, opts);
   // ---------------------------------------------------------------- news
   G('/api/world/categories', async (ctx) => {
     const l = lang(ctx);
@@ -56,7 +90,7 @@ export function register(router) {
 
   // ---------------------------------------------------------------- events
   G('/api/world/events', async (ctx) => {
-    await within(W.refreshTop(), 6000);
+    await within(W.refreshTop(), 1500);
     const q = ctx.query; const status = ['upcoming', 'live', 'completed'].includes(q.status) ? q.status : null;
     const size = int(q.size, 24, 1, 60), page = int(q.page, 1, 1, 200);
     const res = await W.listEvents({ q: str(q.q), status, level: ['international', 'continental', 'national', 'online'].includes(q.level) ? q.level : null, country: str(q.country, 40), year: /^\d{4}$/.test(q.year || '') ? q.year : null, tc: ['standard', 'rapid', 'blitz'].includes(q.tc) ? q.tc : null, limit: size, offset: (page - 1) * size, order: status === 'upcoming' ? 'asc' : status === 'live' ? 'live' : null });
@@ -95,13 +129,12 @@ export function register(router) {
 
   // ---------------------------------------------------------------- live
   G('/api/world/live', async () => {
-    await within(W.refreshTop(), 5000);
+    await within(W.refreshTop(), 1500);
     const r = await W.liveRounds({ limit: 4 });
     return { ...r, serverTime: Date.now(), enabled: config.worldEnabled };
   });
 
   // ---------------------------------------------------------------- broadcasts
-  const bout = (b, host) => ({ id: b.id, title: b.title, description: b.description, provider: b.provider, channel: b.channel_name, officialUrl: b.official_url, language: b.language, eventId: b.event_id, startsAt: b.starts_at, endsAt: b.ends_at, featured: !!b.featured, official: !!b.official, commentary: b.commentary, status: W.broadcastStatus(b), embed: W.embedOf(b, host) });
   G('/api/world/broadcasts', async (ctx) => {
     const host = str(ctx.query.host, 120).replace(/[^\w.-]/g, '');
     const rows = (await getDb().prepare('SELECT * FROM world_broadcasts ORDER BY coalesce(starts_at, created_at) DESC LIMIT 200').all()).map((b) => bout(b, host));
@@ -138,29 +171,6 @@ export function register(router) {
     return { q, players, events: events.map((e) => ({ id: e.id, name: e.name, location: e.location, startsOn: e.starts_on, status: W.eventStatus(e) })), games, broadcasts: broadcasts.map((b) => ({ id: b.id, title: b.title, channel: b.channel_name, status: W.broadcastStatus(b) })), countries, news: (await allArticles(l, { q })).slice(0, 8) };
   });
 
-  let homeCache = null;
-  G('/api/world/home', async (ctx) => {
-    const l = lang(ctx);
-    if (homeCache && homeCache.l === l && homeCache.v === W.stamp.n && Date.now() - homeCache.at < 45000) return homeCache.body;
-    await within(Promise.all([W.refreshTop(), W.syncSources()]), 6000);
-    await within(W.bootstrapResults(), 8000);
-    const d = getDb();
-    const news = await allArticles(l);
-    const live = await W.listEvents({ status: 'live', limit: 6, order: 'live' });
-    const upcoming = await W.listEvents({ status: 'upcoming', limit: 6, order: 'asc' });
-    const completed = await W.listEvents({ status: 'completed', limit: 6 });
-    const results = []; for (const e of completed.events.slice(0, 4)) { const podium = await W.podiumOf(e.id); if (podium.length) results.push({ event: e, podium }); }
-    const rows = (await d.prepare('SELECT * FROM world_broadcasts ORDER BY coalesce(starts_at, created_at) DESC LIMIT 50').all()).map((b) => bout(b, ''));
-    const featured = await W.listPlayers({ featured: true });
-    const featuredGames = await d.prepare('SELECT g.id, g.white, g.black, g.white_elo, g.black_elo, g.white_fed, g.black_fed, g.result, g.plies, g.round_name, g.played_on, e.name AS event_name FROM world_games g JOIN world_events e ON e.id = g.event_id WHERE g.featured = 1 ORDER BY g.id DESC LIMIT 4').all();
-    const latestGames = await d.prepare("SELECT g.id, g.white, g.black, g.white_elo, g.black_elo, g.white_fed, g.black_fed, g.result, g.plies, g.round_name, g.played_on, e.name AS event_name FROM world_games g JOIN world_events e ON e.id = g.event_id WHERE g.result != '*' ORDER BY g.played_on DESC, g.id DESC LIMIT 6").all();
-    const body = {
-      breaking: news.filter((n) => n.category !== 'rookery').slice(0, 5), rookery: news.filter((n) => n.category === 'rookery').slice(0, 3),
-      live: live.events, upcoming: upcoming.events, results, recent: completed.events,
-      videos: rows.filter((b) => b.status !== 'upcoming').slice(0, 4), featuredBroadcast: rows.find((b) => b.featured && b.status === 'live') || rows.find((b) => b.status === 'live') || null,
-      featuredGames, latestGames, players: await withFide(featured.slice(0, 8)), uzbekistan: { news: news.filter((n) => n.category === 'uzbekistan').slice(0, 4), events: (await W.listEvents({ country: 'UZB', limit: 4 })).events, players: await withFide((await W.listPlayers({})).filter((p) => p.country === 'UZB').slice(0, 4)) }, generatedAt: Date.now(),
-    };
-    homeCache = { l, v: W.stamp.n, at: Date.now(), body }; return body;
-  });
+  G('/api/world/home', async (ctx) => worldHome(lang(ctx)));
   G('/api/world/status', async () => ({ enabled: config.worldEnabled, ...(await W.facets()) }));
 }

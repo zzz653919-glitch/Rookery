@@ -1,7 +1,7 @@
 // Public (unauthenticated) endpoints used by the player site: content bundle, anonymous events, uploaded piece images.
 import { readFileSync, existsSync } from 'node:fs';
 import { join, extname } from 'node:path';
-import { getDb, now } from '../db.mjs';
+import { dbStats, getDb, now } from '../db.mjs';
 import { config } from '../config.mjs';
 import { HttpError, bad } from '../http.mjs';
 import { rateLimit } from '../security.mjs';
@@ -11,14 +11,15 @@ import { PIECE_CODES } from '../validate.mjs';
 const EVENT_TYPES = new Set(['lesson_started', 'lesson_completed', 'puzzle_attempt', 'game_completed', 'placement_completed', 'client_error', 'visit']);
 const MIME = { '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp' };
 
+const EDGE = !!process.env.VERCEL; // behind a CDN
 export function register(router) {
-  router.add('GET', '/api/health', () => ({ ok: true }));
+  router.add('GET', '/api/health', () => (process.env.ROOKERY_DB_STATS === '1' ? { ok: true, queries: dbStats.queries } : { ok: true }));
 
   router.add('GET', '/api/public/content', async (ctx) => {
     const c = await buildContentFor(ctx.query.lang);
     if (ctx.req.headers['if-none-match'] === c.etag) return { raw: true, status: 304, headers: { etag: c.etag, 'cache-control': 'no-cache' } };
     const gz = /\bgzip\b/.test(ctx.req.headers['accept-encoding'] || '');
-    return { raw: true, status: 200, body: gz ? c.gz : c.body, headers: { 'content-type': 'application/json; charset=utf-8', etag: c.etag, 'cache-control': 'no-cache', vary: 'accept-encoding', ...(gz ? { 'content-encoding': 'gzip' } : {}) } };
+    return { raw: true, status: 200, body: gz ? c.gz : c.body, headers: { 'content-type': 'application/json; charset=utf-8', etag: c.etag, 'cache-control': EDGE ? 'public, max-age=0, s-maxage=60, stale-while-revalidate=600' : 'no-cache', vary: 'accept-encoding', ...(gz ? { 'content-encoding': 'gzip' } : {}) } };
   });
 
   // Anonymous usage events. Strictly validated, size-limited and rate-limited; no personal data is accepted.

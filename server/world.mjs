@@ -200,19 +200,27 @@ export function parseEvent(e) {
   try { out.schedule = JSON.parse(e.schedule || '[]'); } catch { out.schedule = []; }
   delete out.synced_rounds; return out;
 }
-export async function listEvents({ q, status, level, country, year, tc, limit = 60, offset = 0, order } = {}) {
+// The status of an event decided inside the database (same rules as eventStatus), so that filtering and paging need no full scan.
+const STATUS_SQL = `CASE WHEN status_override IS NOT NULL THEN status_override WHEN live = 1 THEN 'live' WHEN remote_state = 'past' THEN 'completed'
+  WHEN remote_state = 'active' THEN CASE WHEN starts_on IS NOT NULL AND starts_on > ? THEN 'upcoming' ELSE 'live' END WHEN remote_state = 'upcoming' THEN 'upcoming'
+  WHEN ends_on IS NOT NULL AND ends_on < ? THEN 'completed' WHEN starts_on IS NOT NULL AND starts_on <= ? THEN 'live' ELSE 'upcoming' END`;
+const LIST_COLS = 'id, slug, name, level, country, location, starts_on, ends_on, format, tc, prize, registration_url, website, standings_url, image, players_text, confirmed, status_override, tier, featured, live, live_round_id, remote_state, fide_tc, source_name, source_url, origin, lichess_id, synced_at, games_synced, locked';
+export async function listEvents({ q, status, level, country, year, tc, limit = 60, offset = 0, order, countOnly = false } = {}) {
   const d = getDb(); const where = [], args = [];
+  const t = Date.now(), nowIso = new Date(t).toISOString(), old = new Date(t - 12 * 3600000).toISOString();
   if (q) { where.push('(name LIKE ? OR location LIKE ? OR players_text LIKE ?)'); args.push(`%${q}%`, `%${q}%`, `%${q}%`); }
   if (level) { where.push('level = ?'); args.push(level); }
   if (country) { where.push('(location LIKE ? OR country = ?)'); args.push(`%${countryText(country)}%`, String(country).toUpperCase()); }
   if (year) { where.push("substr(starts_on, 1, 4) = ?"); args.push(String(year)); }
   if (tc) { where.push('fide_tc = ?'); args.push(tc); }
-  const rows = await d.prepare(`SELECT * FROM world_events ${where.length ? 'WHERE ' + where.join(' AND ') : ''} ORDER BY starts_on DESC LIMIT 800`).all(...args);
-  let list = rows.map(parseEvent);
-  if (status) list = list.filter((e) => e.status === status);
-  if (order === 'asc') list.sort((a, b) => String(a.starts_on).localeCompare(String(b.starts_on)));
-  else if (order === 'live') list.sort((a, b) => (b.tier || 0) - (a.tier || 0));
-  const total = list.length; return { total, events: list.slice(offset, offset + limit).map(({ schedule, ...x }) => x) };
+  if (status) { where.push(`(${STATUS_SQL}) = ?`); args.push(nowIso, old, nowIso, status); }
+  const w = where.length ? 'WHERE ' + where.join(' AND ') : '';
+  const orderBy = order === 'asc' ? 'ORDER BY starts_on ASC' : order === 'live' ? 'ORDER BY coalesce(tier, 0) DESC, starts_on DESC' : 'ORDER BY starts_on DESC';
+  const [rows, total] = await Promise.all([
+    d.prepare(`SELECT ${LIST_COLS} FROM world_events ${w} ${orderBy} LIMIT ? OFFSET ?`).all(...args, limit, offset),
+    d.prepare(`SELECT count(*) n FROM world_events ${w}`).get(...args),
+  ]);
+  return { total: total.n, events: rows.map((e) => ({ ...e, status: eventStatus(e) })) };
 }
 
 export function standingsOf(games) {
@@ -262,6 +270,12 @@ export async function eventDetail(id, { sync = true } = {}) {
   const full = parseEvent(ev); const st = standingsOf(games);
   return { event: full, rounds: [...rounds.entries()].map(([name, list]) => ({ name, games: list })), standings: st.players.slice(0, 200), teams: st.teams.slice(0, 40), stats: statsOf(games), syncing: syncing && syncing.pending > 0 ? syncing : null, notice };
 }
+export async function podiumsOf(eventIds) {
+  if (!eventIds.length) return new Map();
+  const rows = await getDb().prepare(`SELECT event_id, white, black, white_fide, black_fide, white_fed, black_fed, white_elo, black_elo, white_title, black_title, result FROM world_games WHERE event_id IN (${eventIds.map(() => '?').join(',')})`).all(...eventIds);
+  const by = new Map(); for (const r of rows) (by.get(r.event_id) || by.set(r.event_id, []).get(r.event_id)).push(r);
+  return new Map(eventIds.map((id) => [id, standingsOf(by.get(id) || []).players.slice(0, 3)]));
+}
 export async function podiumOf(eventId) {
   const games = await getDb().prepare('SELECT white, black, white_fide, black_fide, white_fed, black_fed, white_elo, black_elo, white_title, black_title, result FROM world_games WHERE event_id = ?').all(eventId);
   return standingsOf(games).players.slice(0, 3);
@@ -289,12 +303,15 @@ export async function gameById(id) {
 export function replayInfo(g) {
   const { moves } = movesOf(g.pgn); return moves;
 }
+let facetsCache = null;
 export async function facets() {
+  if (facetsCache && facetsCache.v === stamp.n && Date.now() - facetsCache.at < 300000) return facetsCache.body;
   const d = getDb();
   const years = (await d.prepare("SELECT DISTINCT substr(played_on, 1, 4) y FROM world_games WHERE played_on IS NOT NULL ORDER BY y DESC").all()).map((r) => r.y);
   const count = new Map(); for (const r of await d.prepare("SELECT location FROM world_events WHERE location IS NOT NULL AND location != ''").all()) { const c = codeOfLocation(r.location); if (c) count.set(c, (count.get(c) || 0) + 1); }
   const feds = [...count.entries()].sort((a, b) => b[1] - a[1]).map(([fed, n]) => ({ fed, n }));
-  return { years, federations: feds, counts: { events: (await d.prepare('SELECT count(*) n FROM world_events').get()).n, games: (await d.prepare('SELECT count(*) n FROM world_games').get()).n } };
+  const body =   { years, federations: feds, counts: { events: (await d.prepare('SELECT count(*) n FROM world_events').get()).n, games: (await d.prepare('SELECT count(*) n FROM world_games').get()).n } };
+  facetsCache = { v: stamp.n, at: Date.now(), body }; return body;
 }
 
 // ------------------------------------------------------------------------------------------------ live rounds
@@ -342,6 +359,20 @@ export async function liveRounds({ limit = 4 } = {}) {
 const normName = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z ]/g, ' ').split(/\s+/).filter(Boolean);
 // the FIDE id is the identity; the name check only guards against a wrong id (one shared word of 4+ letters is enough: "Gukesh D" vs "Gukesh Dommaraju")
 export const nameMatches = (a, b) => { const x = normName(a), y = new Set(normName(b)); return x.some((w) => w.length >= 4 && y.has(w)); };
+const fideShape = (j, id) => (j && j.id === +id ? { id: j.id, name: j.name, federation: j.federation, title: j.title || null, standard: j.standard || null, rapid: j.rapid || null, blitz: j.blitz || null, birthYear: j.year || null, photo: j.photo?.medium || null, photoCredit: j.photo?.credit || null } : null);
+export async function fideInfoMany(ids, { waitMs = 1500 } = {}) {
+  const out = new Map(); const list = [...new Set(ids.filter(Boolean))]; if (!list.length) return out;
+  const keys = list.map((id) => `${config.fideApiUrl}/${id}`);
+  const rows = await getDb().prepare(`SELECT key, body, fetched_at FROM world_cache WHERE status = 200 AND key IN (${keys.map(() => '?').join(',')})`).all(...keys);
+  const fresh = new Set();
+  for (const r of rows) if (Date.now() - r.fetched_at < 6 * 3600000) { try { const id = r.key.slice(r.key.lastIndexOf('/') + 1); out.set(+id, fideShape(JSON.parse(r.body), id)); fresh.add(+id); } catch { /* refetch */ } }
+  const missing = list.filter((id) => !fresh.has(+id));
+  if (missing.length && waitMs > 0) {
+    const queue = [...missing]; const work = async () => { while (queue.length) { const id = queue.shift(); out.set(+id, await fideInfo(id)); } };
+    await Promise.race([Promise.all([work(), work(), work()]), new Promise((r) => setTimeout(r, waitMs))]);
+  }
+  return out;
+}
 export async function fideInfo(id) {
   try {
     const j = J(await upstream(`${config.fideApiUrl}/${id}`, { ttl: 6 * 3600000 }));

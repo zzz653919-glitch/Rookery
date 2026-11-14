@@ -102,14 +102,17 @@ export function mount(root) {
 async function loadOnline(root) {
   const $ = (s) => root.querySelector(s);
   const fill = (id, html) => { const el = $(id); if (el) el.innerHTML = html; };
-  get('/api/games/live').then(({ games }) => {
+  // one request for everything public on this page (it used to be six)
+  const home = get('/api/home?lang=' + getLang());
+  home.then(({ live: games }) => {
     fill('#live-body', games.length ? `<div class="live-mini">${games.slice(0, 3).map((g) => `<a href="#/game/${g.id}" class="lm">${miniBoard(g.fen, 'w', 92)}<span><b>${esc(g.players.w.username)}</b> <span class="muted">${g.players.w.rating}</span><br><b>${esc(g.players.b.username)}</b> <span class="muted">${g.players.b.rating}</span><br><small class="muted">${tcLabel(g)}</small></span></a>`).join('')}</div><a class="more" href="#/watch">${t('Watch more')} ${icon('arrow', 16)}</a>` : `<p class="muted">${t('No games right now.')}</p><a class="more" href="#/play/online">${t('Start one')} ${icon('arrow', 16)}</a>`);
   }).catch(() => fill('#live-body', ''));
-  get('/api/tournaments').then(({ tournaments }) => {
+  home.then(({ tournaments }) => {
     const list = tournaments.filter((x) => x.state !== 'finished').slice(0, 3);
     fill('#t-body', list.length ? `<div class="stack" style="gap:8px">${list.map((x) => `<a class="row spread" href="#/tournaments/${x.id}"><span><b>${esc(x.name)}</b><small class="muted"> ${x.base >= 60 ? x.base / 60 : x.base + 's'}+${x.inc}</small></span><span class="chip ${x.state === 'running' ? 'good' : ''}">${x.state === 'running' ? t('Running') : fdate(x.startsAt)}</span></a>`).join('')}</div>` : `<p class="muted">${t('No tournaments scheduled.')}</p>`);
   }).catch(() => fill('#t-body', ''));
-  get('/api/world/home?lang=' + getLang()).then((w) => {
+  home.then(({ world: w }) => {
+    if (!w) return;
     const el = $('#w-strip'); if (!el || !(w.live.length || w.breaking.length || w.featuredBroadcast)) return;
     const ago = (iso) => { try { return new Date(iso).toLocaleDateString(getLang(), { month: 'short', day: 'numeric' }); } catch { return ''; } };
     el.hidden = false;
@@ -119,10 +122,10 @@ async function loadOnline(root) {
           ${w.live.slice(0, 3).map((e) => `<a class="fx-wlive" href="#/world/event/${e.id}"><span class="wchip s-live"><i class="dot"></i>${t('Live')}</span><b>${esc(e.name)}</b><small class="muted">${esc(e.location || '')}</small></a>`).join('')}</div>
         <div>${w.breaking.slice(0, 3).map((a) => `<a class="fx-wnews" href="#/news/${encodeURIComponent(a.id)}"><b>${esc(a.title)}</b><small class="muted">${esc(a.source || '')} · ${ago(a.publishedAt)}</small></a>`).join('')}</div></div>`;
   }).catch(() => {});
-  get('/api/leaderboard?category=blitz').then(({ players }) => {
+  home.then(({ leaderboard: players }) => {
     fill('#lb-body', players.length ? `<ol class="fx-lb">${players.slice(0, 5).map((p) => `<li><span class="n">${p.rank}</span><span class="grow"><a href="#/profile/${encodeURIComponent(p.username)}">${esc(p.username)}</a></span><span class="r">${p.rating}</span></li>`).join('')}</ol>` : `<p class="muted">${t('No rated players yet.')}</p>`);
   }).catch(() => fill('#lb-body', ''));
-  Promise.all([get('/api/games/live'), get('/api/tournaments')]).then(([lg, tr]) => {
+  home.then((h) => { const lg = { games: h.live }, tr = { tournaments: h.tournaments };
     const items = [];
     for (const g of lg.games.slice(0, 3)) items.push(`<a href="#/game/${g.id}">${esc(g.players.w.username)} ${g.players.w.rating} · ${esc(g.players.b.username)} ${g.players.b.rating}</a>`);
     for (const x of tr.tournaments.filter((y) => y.state !== 'finished').slice(0, 2)) items.push(`<a href="#/tournaments/${x.id}">${esc(x.name)}</a>`);
