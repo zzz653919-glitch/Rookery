@@ -82,19 +82,22 @@ const readCache = () => { try { return JSON.parse(localStorage.getItem(cacheKey(
 const writeCache = (text) => { try { localStorage.setItem(cacheKey(), text); } catch { /* quota or privacy mode: fine */ } };
 const clearCache = () => { try { localStorage.removeItem(cacheKey()); } catch { /* ignore */ } };
 
-// Resolves to the bundle text, 'static' (plain static hosting: no admin server) or null (server unreachable / error).
+// Resolves to { server, static, text }: `server` — the admin-enabled server is there; `static` — plain static hosting (no API);
+// `text` — the bundle, when it arrived in time.
 async function fetchBundle(timeoutMs) {
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), timeoutMs);
+  let server = false;
   try {
     // Probe a file every host serves: only the admin-enabled Node server adds this header. This avoids a 404 (and a
     // console error) on plain static hosting, where there is no API to ask.
     const probe = await fetch('manifest.webmanifest', { method: 'HEAD', signal: ctl.signal, cache: 'no-cache' });
-    if (probe.headers.get('x-rookery-server') !== '1') return 'static';
+    if (probe.headers.get('x-rookery-server') !== '1') return { static: true };
+    server = true;
     const res = await fetch(`api/public/content?lang=${encodeURIComponent(getLang())}`, { signal: ctl.signal, cache: 'no-cache', headers: { accept: 'application/json' } });
-    if (!res.ok || !(res.headers.get('content-type') || '').includes('application/json')) return res.status < 500 ? 'static' : null;
-    return await res.text();
-  } catch { return null; } finally { clearTimeout(timer); }
+    if (!res.ok || !(res.headers.get('content-type') || '').includes('application/json')) return res.status < 500 ? { static: true } : { server };
+    return { server, text: await res.text() };
+  } catch { return { server }; } finally { clearTimeout(timer); }
 }
 
 export async function loadRemoteContent({ timeoutMs = 2500 } = {}) {
@@ -102,9 +105,15 @@ export async function loadRemoteContent({ timeoutMs = 2500 } = {}) {
   // When offline no request is made at all, so the browser logs nothing and the cached bundle is used.
   if (navigator.onLine !== false) {
     const got = await fetchBundle(timeoutMs);
-    if (got === 'static') { clearCache(); return false; }
-    if (got) {
-      try { if (apply(JSON.parse(got))) { remote.available = true; writeCache(got); return true; } } catch { /* corrupt bundle: fall back */ }
+    if (got.server) remote.available = true; // the server exists even when its first answer is slow (a cold start on serverless hosting)
+    if (got.static) { clearCache(); return false; }
+    if (!got.server && readCache()) remote.available = true; // even the first request failed, but this browser has talked to the server before
+    if (got.text) {
+      try { if (apply(JSON.parse(got.text))) { remote.available = true; writeCache(got.text); return true; } } catch { /* corrupt bundle: fall back */ }
+    }
+    if (got.server && !got.text) {
+      // slow or failed: use the stored bundle now, and keep waiting in the background so that the next visit starts with fresh content
+      fetchBundle(15000).then((late) => { if (late.text) { try { JSON.parse(late.text); writeCache(late.text); } catch { /* ignore */ } } }).catch(() => {});
     }
   }
   const cached = readCache();
