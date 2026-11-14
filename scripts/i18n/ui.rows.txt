@@ -944,3 +944,21 @@ Claims the centre with support from the queen and bishop. Leads to more strategi
 Admin ||| Admin ||| Админ
 Create an account to play rated games online, save your progress and join tournaments — or sign in if you already have one. ||| Onlayn reytingli o'yinlar o'ynash, natijalaringizni saqlash va turnirlarda qatnashish uchun hisob oching — hisobingiz bo'lsa, tizimga kiring. ||| Создайте аккаунт, чтобы играть рейтинговые партии онлайн, сохранять прогресс и участвовать в турнирах — или войдите, если он у вас уже есть.
 Not now ||| Hozir emas ||| Не сейчас
+The board is set. ||| Taxta tayyor. ||| Доска готова.
+Your move. ||| Yurish sizniki. ||| Ваш ход.
+Your board ||| Sizning taxtangiz ||| Ваша доска
+Guest ||| Mehmon ||| Гость
+Ranked queue ||| Reytingli navbat ||| Рейтинговая очередь
+Paired in seconds, any time control. ||| Soniyalarda juftlashadi, istalgan vaqt nazorati. ||| Соперник за секунды, любой контроль времени.
+Stockfish ||| Stockfish ||| Stockfish
+Eight Stockfish strengths. ||| Stockfishning sakkiz darajasi. ||| Восемь уровней Stockfish.
+Daily tactics and puzzle rating. ||| Kundalik taktika va masalalar reytingi. ||| Ежедневная тактика и рейтинг задач.
+Openings, endgames, strategy. ||| Debyutlar, endshpil, strategiya. ||| Дебюты, эндшпили, стратегия.
+Player card ||| O'yinchi kartasi ||| Карточка игрока
+Sign in to get a rating ||| Reyting olish uchun tizimga kiring ||| Войдите, чтобы получить рейтинг
+Progress on this device ||| Shu qurilmadagi natijalar ||| Прогресс на этом устройстве
+Leaderboard ||| Peshqadamlar ||| Лидеры
+See all ||| Hammasini ko'rish ||| Показать всё
+Leaderboards need the Rookery server. ||| Peshqadamlar jadvali uchun Rookery serveri kerak. ||| Для таблиц лидеров нужен сервер Rookery.
+No rated players yet. ||| Reytingli o'yinchilar hali yo'q. ||| Рейтинговых игроков пока нет.
+Live ||| Jonli ||| В эфире
