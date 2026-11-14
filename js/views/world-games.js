@@ -2,8 +2,8 @@
 import { esc, emptyState, loader, icon, toast } from '../ui/dom.js';
 import { t, getLang } from '../i18n/core.js';
 import { Chess } from '../chess/rules.js';
-import { allFederations, countryName } from '../data/countries.js';
-import { subnav, bindSubnav, wget, fmtDate, flagOf, nameOf, errorBox, resultLabel, tcLabel, boardHtml, evalGraph, evalText, clockText, pairs, hrefOf, statusChip, fmtRange, imgTag } from '../ui/world.js';
+import { allFederations, countryName, flagEmoji } from '../data/countries.js';
+import { pickerHtml, bindPicker, gameRowHtml, hydrateFide, subnav, bindSubnav, wget, fmtDate, flagOf, nameOf, errorBox, resultLabel, tcLabel, boardHtml, evalGraph, evalText, clockText, pairs, hrefOf, statusChip, fmtRange, imgTag } from '../ui/world.js';
 
 export async function mount(root, ctx) { return ctx.params.page === 'game' ? replay(root, ctx) : results(root, ctx); }
 
@@ -22,27 +22,30 @@ async function results(root, { navigate }) {
   bindSubnav(root, navigate);
   root.querySelectorAll('#r-tab button').forEach((b) => { b.onclick = () => { tab = b.dataset.v; root.querySelectorAll('#r-tab button').forEach((x) => x.setAttribute('aria-pressed', x === b)); draw(); }; });
 
-  function draw() { tab === 'games' ? gamesTab() : tournamentsTab(); }
+  let unpick = () => {};
+  function draw() { unpick(); tab === 'games' ? gamesTab() : tournamentsTab(); }
   async function gamesTab() {
     const body = root.querySelector('#r-body');
     body.innerHTML = `<div class="wfilters wide"><input type="search" id="g-player" placeholder="${esc(t('Player'))}" value="${esc(f.player)}" maxlength="60" aria-label="${esc(t('Player'))}">
       <input type="search" id="g-event" placeholder="${esc(t('Tournament'))}" value="${esc(f.event)}" maxlength="60" aria-label="${esc(t('Tournament'))}">
-      <select id="g-country" aria-label="${esc(t('Country'))}"><option value="">${t('Any country')}</option>${(facets.federations.length ? facets.federations.map((x) => x.fed) : allFederations()).map((c) => `<option value="${c}" ${f.country === c ? 'selected' : ''}>${esc(countryName(c, getLang()))} (${c})</option>`).join('')}</select>
+      ${pickerHtml('g-country', t('Country'), [{ value: '', label: t('Any country') }, ...(facets.federations.length ? facets.federations : allFederations().map((c) => ({ fed: c }))).map((x) => ({ value: x.fed, label: countryName(x.fed, getLang()), icon: flagEmoji(x.fed), count: x.n }))], f.country)}
       <select id="g-year" aria-label="${esc(t('Year'))}"><option value="">${t('Any year')}</option>${facets.years.map((y) => `<option ${f.year === y ? 'selected' : ''}>${y}</option>`).join('')}</select>
       <select id="g-tc" aria-label="${esc(t('Time control'))}">${TCS.map(([v, l]) => `<option value="${v}" ${f.tc === v ? 'selected' : ''}>${t(l)}</option>`).join('')}</select>
       <select id="g-res" aria-label="${esc(t('Result'))}">${RESULTS.map(([v, l]) => `<option value="${v}">${t(l)}</option>`).join('')}</select></div><div id="g-list"></div>`;
-    let timer; const change = () => { f = { player: body.querySelector('#g-player').value.trim(), event: body.querySelector('#g-event').value.trim(), country: body.querySelector('#g-country').value, year: body.querySelector('#g-year').value, tc: body.querySelector('#g-tc').value, result: body.querySelector('#g-res').value }; page = 1; load(false); };
+    let timer; const change = () => { f = { player: body.querySelector('#g-player').value.trim(), event: body.querySelector('#g-event').value.trim(), country: f.country, year: body.querySelector('#g-year').value, tc: body.querySelector('#g-tc').value, result: body.querySelector('#g-res').value }; page = 1; load(false); };
     for (const id of ['#g-player', '#g-event']) body.querySelector(id).addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(change, 350); });
-    for (const id of ['#g-country', '#g-year', '#g-tc', '#g-res']) body.querySelector(id).addEventListener('change', change);
+    unpick = bindPicker(body, 'g-country', (v) => { f.country = v; change(); });
+    for (const id of ['#g-year', '#g-tc', '#g-res']) body.querySelector(id).addEventListener('change', change);
     load(false);
   }
   async function load(more) {
     const box = root.querySelector('#g-list'); if (!box) return; if (!more) box.innerHTML = loader();
     let d; try { d = await wget('games', { ...f, size: 30, page }); } catch (e) { box.innerHTML = errorBox(e); box.querySelector('[data-retry]').onclick = () => load(false); return; }
     if (disposed) return; total = d.total; rows = more ? rows.concat(d.games) : d.games;
-    box.innerHTML = rows.length ? `<p class="muted small">${t('{n} games', { n: total })}</p><div class="card flush"><div class="wlist tight">${rows.map((g) => `<a class="wrow game" href="#/world/game/${g.id}"><span class="wp">${flagOf(g.white_fed)} ${g.white_title ? `<small>${esc(g.white_title)}</small> ` : ''}${esc(nameOf(g.white))} <small class="muted">${g.white_elo || ''}</small></span><b class="wres">${resultLabel(g.result)}</b><span class="wp r">${g.black_title ? `<small>${esc(g.black_title)}</small> ` : ''}${esc(nameOf(g.black))} <small class="muted">${g.black_elo || ''}</small> ${flagOf(g.black_fed)}</span><span class="wev muted small">${esc(g.event_name)} · ${esc(g.round_name || '')} · ${fmtDate(g.played_on)}</span></a>`).join('')}</div></div>${rows.length < total ? `<div class="center"><button class="btn" id="g-more" type="button">${t('Show more')}</button></div>` : ''}`
+    box.innerHTML = rows.length ? `<p class="muted small">${t('{n} games', { n: total })}</p><div class="wgames">${rows.map((g) => gameRowHtml(g)).join('')}</div>${rows.length < total ? `<div class="center"><button class="btn" id="g-more" type="button">${t('Show more')}</button></div>` : ''}`
       : emptyState({ emoji: '♟', title: t('No games match'), body: facets.counts.games ? t('Change the filters. Games are stored when a tournament page is opened, so open a completed tournament to add its games.') : t('No games are stored yet. Open a completed tournament and its games are imported automatically.'), actionHtml: `<button class="btn primary" id="g-go" type="button">${t('Completed tournaments')}</button>` });
     box.querySelector('#g-more')?.addEventListener('click', () => { page++; load(true); });
+    hydrateFide(box);
     box.querySelector('#g-go')?.addEventListener('click', () => { tab = 'tournaments'; root.querySelectorAll('#r-tab button').forEach((x) => x.setAttribute('aria-pressed', x.dataset.v === tab)); draw(); });
   }
   async function tournamentsTab() {

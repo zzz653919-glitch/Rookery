@@ -1,8 +1,8 @@
 // Tournament calendar (live / upcoming / completed, with filters and countdowns) and the page of a single tournament.
 import { esc, emptyState, loader, icon, toast } from '../ui/dom.js';
 import { t, getLang } from '../i18n/core.js';
-import { countryName } from '../data/countries.js';
-import { subnav, bindSubnav, wget, fmtRange, fmtTime, statusChip, confirmChip, flagOf, nameOf, startCountdowns, imgTag, errorBox, resultLabel, tcLabel, hrefOf } from '../ui/world.js';
+import { countryName, flagEmoji } from '../data/countries.js';
+import { pickerHtml, bindPicker, gameRowHtml, hydrateFide, subnav, bindSubnav, wget, fmtRange, fmtTime, statusChip, confirmChip, flagOf, nameOf, startCountdowns, imgTag, errorBox, resultLabel, tcLabel, hrefOf } from '../ui/world.js';
 
 export async function mount(root, ctx) { return ctx.params.page === 'event' ? detail(root, ctx) : list(root, ctx); }
 
@@ -25,7 +25,7 @@ async function list(root, { navigate }) {
     <div class="wfilters"><input type="search" id="e-q" placeholder="${esc(t('Search tournaments'))}" maxlength="60" aria-label="${esc(t('Search tournaments'))}">
       <select id="e-level" aria-label="${esc(t('Level'))}">${LEVELS.map(([v, l]) => `<option value="${v}">${t(l)}</option>`).join('')}</select>
       <select id="e-year" aria-label="${esc(t('Year'))}"><option value="">${t('Any year')}</option>${[...new Set([...(facets.years || []), String(new Date().getFullYear()), String(new Date().getFullYear() - 1)])].sort().reverse().map((y) => `<option>${y}</option>`).join('')}</select>
-      <select id="e-country" aria-label="${esc(t('Country'))}"><option value="">${t('Any country')}</option>${facets.federations.map((x) => `<option value="${x.fed}">${esc(countryName(x.fed, getLang()))}</option>`).join('')}</select>
+      ${pickerHtml('e-country', t('Country'), [{ value: '', label: t('Any country') }, ...facets.federations.map((x) => ({ value: x.fed, label: countryName(x.fed, getLang()), icon: flagEmoji(x.fed), count: x.n }))], f.country)}
       <select id="e-tc" aria-label="${esc(t('Time control'))}">${TCS.map(([v, l]) => `<option value="${v}">${t(l)}</option>`).join('')}</select></div><div id="e-list"></div>`;
   bindSubnav(root, navigate);
   async function load(more) {
@@ -37,11 +37,12 @@ async function list(root, { navigate }) {
     box.querySelector('#e-more')?.addEventListener('click', () => { page++; load(true); }); stop = startCountdowns(box);
   }
   root.querySelectorAll('#e-state button').forEach((b) => { b.onclick = () => { status = b.dataset.v; page = 1; root.querySelectorAll('#e-state button').forEach((x) => x.setAttribute('aria-pressed', x === b)); load(false); }; });
-  let timer; const change = () => { f = { q: root.querySelector('#e-q').value.trim(), level: root.querySelector('#e-level').value, year: root.querySelector('#e-year').value, tc: root.querySelector('#e-tc').value, country: root.querySelector('#e-country').value }; page = 1; load(false); };
+  let timer; const change = () => { f = { q: root.querySelector('#e-q').value.trim(), level: root.querySelector('#e-level').value, year: root.querySelector('#e-year').value, tc: root.querySelector('#e-tc').value, country: f.country }; page = 1; load(false); };
   root.querySelector('#e-q').addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(change, 350); });
-  for (const id of ['#e-level', '#e-year', '#e-tc', '#e-country']) root.querySelector(id).addEventListener('change', change);
+  const unpick = bindPicker(root, 'e-country', (v) => { f.country = v; change(); });
+  for (const id of ['#e-level', '#e-year', '#e-tc']) root.querySelector(id).addEventListener('change', change);
   await load(false);
-  return () => { disposed = true; stop(); clearTimeout(timer); };
+  return () => { disposed = true; stop(); clearTimeout(timer); unpick(); };
 }
 
 async function detail(root, { params, navigate }) {
@@ -54,7 +55,7 @@ async function detail(root, { params, navigate }) {
   }
   function paint() {
     const e = d.event, podium = d.standings.slice(0, 3), done = e.status === 'completed';
-    const rows = d.rounds.map((r) => `<details class="wround" ${d.rounds.length <= 3 || r === d.rounds[d.rounds.length - 1] ? 'open' : ''}><summary><b>${esc(r.name)}</b> <span class="muted small">${t('{n} games', { n: r.games.length })}</span></summary><div class="wlist">${r.games.map((g) => `<a class="wrow" href="#/world/game/${g.id}"><span class="wp">${flagOf(g.white_fed)} ${g.white_title ? `<small>${esc(g.white_title)}</small> ` : ''}${esc(nameOf(g.white))} <small class="muted">${g.white_elo || ''}</small></span><b class="wres">${resultLabel(g.result)}</b><span class="wp r">${g.black_title ? `<small>${esc(g.black_title)}</small> ` : ''}${esc(nameOf(g.black))} <small class="muted">${g.black_elo || ''}</small> ${flagOf(g.black_fed)}</span></a>`).join('')}</div></details>`).join('');
+    const rows = d.rounds.map((r) => `<details class="wround" ${d.rounds.length <= 3 || r === d.rounds[d.rounds.length - 1] ? 'open' : ''}><summary><b>${esc(r.name)}</b> <span class="muted small">${t('{n} games', { n: r.games.length })}</span></summary><div class="wgames">${r.games.map((g) => gameRowHtml(g, { event: false })).join('')}</div></details>`).join('');
     const sched = e.schedule.length ? `<ol class="wsched">${e.schedule.map((r) => `<li class="${r.ongoing ? 'now' : r.finished ? 'done' : ''}"><b>${esc(r.name)}</b><span>${fmtTime(r.startsAt)}</span>${r.ongoing ? statusChip('live') : r.finished ? `<span class="muted small">${t('Finished')}</span>` : r.startsAt && Date.parse(r.startsAt) > Date.now() ? `<span class="small">${t('Starts in')} <b data-cd="${esc(r.startsAt)}"></b></span>` : ''}</li>`).join('')}</ol>` : `<p class="muted">${t('The daily schedule has not been published yet.')}</p>`;
     const st = d.stats;
     const tabs = [['overview', 'Overview'], ['schedule', 'Schedule'], ['games', 'Rounds and games'], ['standings', 'Standings'], ['stats', 'Statistics']];
@@ -77,7 +78,7 @@ async function detail(root, { params, navigate }) {
       <div class="segmented wtabs" id="e-tabs">${tabs.map(([k, l]) => `<button type="button" data-v="${k}" aria-pressed="${tab === k}">${t(l)}</button>`).join('')}</div><div class="wpane">${body}</div>`;
     bindSubnav(root, navigate);
     root.querySelectorAll('#e-tabs button').forEach((b) => { b.onclick = () => { tab = b.dataset.v; paint(); }; });
-    stop(); stop = startCountdowns(root); document.title = `${e.name} · Rookery`;
+    stop(); stop = startCountdowns(root); document.title = `${e.name} · Rookery`; hydrateFide(root);
   }
   root.innerHTML = loader(); await load(true);
   return () => { disposed = true; clearTimeout(poll); stop(); };

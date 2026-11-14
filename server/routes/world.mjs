@@ -109,6 +109,14 @@ export function register(router) {
   });
 
   // ---------------------------------------------------------------- players
+  // FIDE data (federation, title, ratings, photo) for the players shown in a list; the FIDE id comes from the game itself
+  G('/api/world/fide', async (ctx) => {
+    const ids = [...new Set(String(ctx.query.ids || '').split(',').map((x) => parseInt(x, 10)).filter((n) => n > 0 && n < 1e9))].slice(0, 12);
+    const out = {}; const queue = [...ids];
+    const worker = async () => { while (queue.length) { const id = queue.shift(); const f = await W.fideInfo(id); if (f) out[id] = { name: f.name, federation: f.federation, title: f.title, standard: f.standard, rapid: f.rapid, blitz: f.blitz, photo: f.photo, credit: f.photoCredit }; } };
+    await within(Promise.all([worker(), worker(), worker(), worker()]), 7000);
+    return { players: out };
+  });
   G('/api/world/players', async (ctx) => ({ players: await withFide(await W.listPlayers({ q: str(ctx.query.q), featured: ctx.query.featured === '1' })) }));
   G('/api/world/players/:slug', async (ctx) => {
     const p = await W.playerProfile(String(ctx.params.slug).slice(0, 80), lang(ctx)); if (!p) throw new HttpError(404, 'Player not found.');
