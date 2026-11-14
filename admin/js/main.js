@@ -16,6 +16,12 @@ const NAV = [
   { id: 'translations', label: 'Translations', icon: 'globe', perm: 'content:read' },
   { id: 'news', label: 'News', icon: 'log', perm: 'content:read' },
   { id: 'tournaments', label: 'Tournaments', icon: 'chess', perm: 'content:read' },
+  { sec: 'Chess World' },
+  { id: 'world-events', label: 'World tournaments', icon: 'chess', perm: 'content:read' },
+  { id: 'world-games', label: 'Games', icon: 'book', perm: 'content:read' },
+  { id: 'world-broadcasts', label: 'Broadcasts', icon: 'play', perm: 'content:read' },
+  { id: 'world-players', label: 'Grandmasters', icon: 'users', perm: 'content:read' },
+  { id: 'world-sources', label: 'News sources', icon: 'globe', perm: 'content:read' },
   { sec: 'Community' },
   { id: 'players', label: 'Players', icon: 'users', perm: 'players:read' },
   { id: 'reports', label: 'Reports', icon: 'alert', perm: 'players:read' },
@@ -28,10 +34,10 @@ const NAV = [
 ];
 const VIEWS = {
   dashboard: () => import('./views/dashboard.js'), lessons: () => import('./views/lessons.js'), puzzles: () => import('./views/puzzles.js'),
-  themes: () => import('./views/themes.js'), translations: () => import('./views/translations.js'), news: () => import('./views/news.js'), tournaments: () => import('./views/tournaments.js'), players: () => import('./views/players.js'), reports: () => import('./views/reports.js'), settings: () => import('./views/settings.js'), users: () => import('./views/users.js'),
+  themes: () => import('./views/themes.js'), translations: () => import('./views/translations.js'), news: () => import('./views/news.js'), 'world-events': () => import('./views/world-events.js'), 'world-games': () => import('./views/world-games.js'), 'world-broadcasts': () => import('./views/world-broadcasts.js'), 'world-players': () => import('./views/world-players.js'), 'world-sources': () => import('./views/world-sources.js'), tournaments: () => import('./views/tournaments.js'), players: () => import('./views/players.js'), reports: () => import('./views/reports.js'), settings: () => import('./views/settings.js'), users: () => import('./views/users.js'),
   audit: () => import('./views/audit.js'), admins: () => import('./views/admins.js'), account: () => import('./views/account.js'),
 };
-const TITLES = { dashboard: 'Dashboard', lessons: 'Lessons', puzzles: 'Puzzles', themes: 'Themes', translations: 'Translations', news: 'News', tournaments: 'Tournaments', players: 'Players', reports: 'Reports', settings: 'Chess settings', users: 'Statistics', audit: 'Audit log', admins: 'Administrators', account: 'My account' };
+const TITLES = { 'world-events': 'World tournaments', 'world-games': 'Games', 'world-broadcasts': 'Broadcasts', 'world-players': 'Grandmasters', 'world-sources': 'News sources', dashboard: 'Dashboard', lessons: 'Lessons', puzzles: 'Puzzles', themes: 'Themes', translations: 'Translations', news: 'News', tournaments: 'Tournaments', players: 'Players', reports: 'Reports', settings: 'Chess settings', users: 'Statistics', audit: 'Audit log', admins: 'Administrators', account: 'My account' };
 
 let cleanup = null, guard = null, token = 0, prevHash = '', shell = null;
 

@@ -962,3 +962,192 @@ See all ||| Hammasini ko'rish ||| Показать всё
 Leaderboards need the Rookery server. ||| Peshqadamlar jadvali uchun Rookery serveri kerak. ||| Для таблиц лидеров нужен сервер Rookery.
 No rated players yet. ||| Reytingli o'yinchilar hali yo'q. ||| Рейтинговых игроков пока нет.
 Live ||| Jonli ||| В эфире
+Starts soon ||| Tez orada boshlanadi ||| Скоро начнётся
+Show all tournaments ||| Barcha turnirlarni ko'rsatish ||| Показать все турниры
+Date to be announced ||| Sana e'lon qilinadi ||| Дата будет объявлена
+Provisional ||| Taxminiy ||| Предварительно
+Source ||| Manba ||| Источник
+This data is not available right now ||| Bu ma'lumot hozir mavjud emas ||| Эти данные сейчас недоступны
+Starting now ||| Hozir boshlanadi ||| Начинается сейчас
+d ||| k ||| д
+h ||| s ||| ч
+m ||| d ||| м
+Show more ||| Yana ko'rsatish ||| Показать ещё
+No articles found ||| Maqolalar topilmadi ||| Статьи не найдены
+Try another category or search. ||| Boshqa toifa yoki qidiruvni sinab ko'ring. ||| Попробуйте другую категорию или запрос.
+Chess World ||| Shaxmat olami ||| Мир шахмат
+Chess news ||| Shaxmat yangiliklari ||| Шахматные новости
+Announcements, interviews, results and rule changes from official chess sources. Every article shows where it comes from. ||| Rasmiy shaxmat manbalaridan e'lonlar, intervyular, natijalar va qoidalar o'zgarishi. Har bir maqola manbasini ko'rsatadi. ||| Объявления, интервью, результаты и изменения правил из официальных шахматных источников. У каждой статьи указан источник.
+All ||| Hammasi ||| Все
+Image ||| Rasm ||| Изображение
+This is a summary. The full article is published by the original source. ||| Bu qisqacha mazmun. To'liq maqola asl manbada e'lon qilingan. ||| Это краткое содержание. Полная статья опубликована в первоисточнике.
+Read the full article at {source} ||| To'liq maqolani {source} saytida o'qing ||| Читать полную статью на {source}
+Original source ||| Asl manba ||| Первоисточник
+Location to be announced ||| Joyi e'lon qilinadi ||| Место будет объявлено
+Starts in ||| Boshlanishiga ||| До начала
+Tournament calendar ||| Turnirlar taqvimi ||| Календарь турниров
+Live, upcoming and completed tournaments from official broadcasts and the Rookery editors. A schedule marked Provisional is not officially confirmed. ||| Rasmiy translyatsiyalar va Rookery muharrirlaridan jonli, kutilayotgan va yakunlangan turnirlar. "Taxminiy" belgili jadval rasman tasdiqlanmagan. ||| Текущие, предстоящие и завершённые турниры из официальных трансляций и от редакторов Rookery. Расписание с пометкой «Предварительно» официально не подтверждено.
+Any year ||| Istalgan yil ||| Любой год
+Any country ||| Istalgan davlat ||| Любая страна
+{n} tournaments ||| {n} ta turnir ||| Турниров: {n}
+No tournament is live right now ||| Hozir jonli turnir yo'q ||| Сейчас нет идущих турниров
+No upcoming tournaments match ||| Mos keladigan kutilayotgan turnirlar yo'q ||| Подходящих предстоящих турниров нет
+No completed tournaments match ||| Mos keladigan yakunlangan turnirlar yo'q ||| Подходящих завершённых турниров нет
+Change the filters or look at another tab. Nothing is shown unless an official source or an editor has published it. ||| Filtrlarni o'zgartiring yoki boshqa bo'limni ko'ring. Rasmiy manba yoki muharrir e'lon qilmagan narsa ko'rsatilmaydi. ||| Измените фильтры или откройте другую вкладку. Показывается только то, что опубликовано официальным источником или редактором.
+{n} games ||| {n} ta o'yin ||| Партий: {n}
+The daily schedule has not been published yet. ||| Kunlik jadval hali e'lon qilinmagan. ||| Расписание по дням ещё не опубликовано.
+Registration ||| Ro'yxatdan o'tish ||| Регистрация
+Official website ||| Rasmiy sayt ||| Официальный сайт
+Official standings ||| Rasmiy turnir jadvali ||| Официальная таблица
+Prize and registration details are shown only when the organisers have published them. ||| Sovrin va ro'yxatdan o'tish ma'lumotlari faqat tashkilotchilar e'lon qilganda ko'rsatiladi. ||| Призовой фонд и регистрация показываются только после публикации организаторами.
+Final standings: top three ||| Yakuniy natijalar: dastlabki uchlik ||| Итоги: призёры
+Loading games… ||| O'yinlar yuklanmoqda… ||| Загрузка партий…
+No games have been imported for this tournament yet. ||| Bu turnirning o'yinlari hali import qilinmagan. ||| Партии этого турнира ещё не загружены.
+Team scores ||| Jamoa hisobi ||| Командный счёт
+Standings are calculated from the games stored in Rookery. For tie-breaks see the official standings. ||| Jadval Rookery'da saqlangan o'yinlardan hisoblanadi. Qo'shimcha ko'rsatkichlar uchun rasmiy jadvalga qarang. ||| Таблица рассчитана по партиям, сохранённым в Rookery. Дополнительные показатели смотрите в официальной таблице.
+Standings appear once games have been played. ||| Jadval o'yinlar o'ynalgach paydo bo'ladi. ||| Таблица появится после сыгранных партий.
+Average moves ||| O'rtacha yurishlar ||| Среднее число ходов
+Average rating ||| O'rtacha reyting ||| Средний рейтинг
+Longest game ||| Eng uzun o'yin ||| Самая длинная партия
+{n} moves ||| {n} ta yurish ||| Ходов: {n}
+Most played openings ||| Eng ko'p o'ynalgan debyutlar ||| Самые частые дебюты
+Statistics appear once games have been played. ||| Statistika o'yinlar o'ynalgach paydo bo'ladi. ||| Статистика появится после сыгранных партий.
+Importing games… {done} of {total} rounds ||| O'yinlar import qilinmoqda… {done} / {total} tur ||| Загрузка партий… туров: {done} из {total}
+Live data is temporarily unavailable; showing what is stored. ||| Jonli ma'lumot vaqtincha mavjud emas; saqlangani ko'rsatilmoqda. ||| Живые данные временно недоступны; показаны сохранённые.
+Results and game archive ||| Natijalar va o'yinlar arxivi ||| Результаты и архив партий
+Completed tournaments and every game stored in Rookery: search by player, country, tournament, year and time control, then replay the game move by move. ||| Yakunlangan turnirlar va Rookery'da saqlangan har bir o'yin: o'yinchi, davlat, turnir, yil va vaqt nazorati bo'yicha qidiring, so'ng o'yinni yurishma-yurish ko'ring. ||| Завершённые турниры и все сохранённые партии: ищите по игроку, стране, турниру, году и контролю времени, затем просматривайте партию ход за ходом.
+games stored ||| saqlangan o'yin ||| партий в базе
+Completed tournaments ||| Yakunlangan turnirlar ||| Завершённые турниры
+No games match ||| Mos o'yinlar yo'q ||| Подходящих партий нет
+Change the filters. Games are stored when a tournament page is opened, so open a completed tournament to add its games. ||| Filtrlarni o'zgartiring. O'yinlar turnir sahifasi ochilganda saqlanadi, shuning uchun yakunlangan turnirni ochib o'yinlarini qo'shing. ||| Измените фильтры. Партии сохраняются при открытии страницы турнира — откройте завершённый турнир, чтобы добавить его партии.
+No games are stored yet. Open a completed tournament and its games are imported automatically. ||| Hali o'yinlar saqlanmagan. Yakunlangan turnirni oching, o'yinlari avtomatik import qilinadi. ||| Партий пока нет. Откройте завершённый турнир — его партии загрузятся автоматически.
+No completed tournaments yet ||| Yakunlangan turnirlar hali yo'q ||| Завершённых турниров пока нет
+They appear here once the official feed lists them. ||| Rasmiy tasma ularni ko'rsatgach, shu yerda paydo bo'ladi. ||| Они появятся здесь, когда их укажет официальная лента.
+Results ||| Natijalar ||| Результаты
+Pause ||| To'xtatish ||| Пауза
+Engine evaluation ||| Dvigatel bahosi ||| Оценка движка
+Evaluations are embedded in the broadcast PGN by the organisers. ||| Baholar translyatsiya PGN'iga tashkilotchilar tomonidan kiritilgan. ||| Оценки встроены в PGN трансляции организаторами.
+No moves. ||| Yurishlar yo'q. ||| Ходов нет.
+Analyze with Stockfish ||| Stockfish bilan tahlil qilish ||| Анализ со Stockfish
+Clocks show the time left after each side’s last move. ||| Soatlar har bir tomonning oxirgi yurishidan keyingi qolgan vaqtni ko'rsatadi. ||| Часы показывают оставшееся время после последнего хода каждой стороны.
+Follow live moves ||| Jonli yurishlarni kuzatish ||| Следить за ходами
+No engine evaluation is published for this game. ||| Bu o'yin uchun dvigatel bahosi e'lon qilinmagan. ||| Для этой партии оценка движка не публикуется.
+Open on Lichess ||| Lichess'da ochish ||| Открыть на Lichess
+Tournament page ||| Turnir sahifasi ||| Страница турнира
+Games of official tournaments that are being played right now. Moves come from the organisers’ broadcast feed and are refreshed every few seconds. ||| Hozir o'ynalayotgan rasmiy turnirlar o'yinlari. Yurishlar tashkilotchilar translyatsiyasidan olinadi va har necha soniyada yangilanadi. ||| Партии официальных турниров, которые идут сейчас. Ходы берутся из трансляции организаторов и обновляются каждые несколько секунд.
+Showing the last known moves ||| Oxirgi ma'lum yurishlar ko'rsatilmoqda ||| Показаны последние известные ходы
+Updated {time} ||| Yangilandi: {time} ||| Обновлено: {time}
+Show all {n} boards ||| Barcha {n} ta taxtani ko'rsatish ||| Показать все доски ({n})
+The first moves have not been played yet. ||| Birinchi yurishlar hali qilinmagan. ||| Первые ходы ещё не сделаны.
+No official games are being played right now ||| Hozir rasmiy o'yinlar o'ynalmayapti ||| Сейчас официальные партии не идут
+Only real broadcasts from official sources are shown here — nothing is simulated. Check the calendar for the next tournament. ||| Bu yerda faqat rasmiy manbalardagi haqiqiy translyatsiyalar ko'rsatiladi — hech narsa taqlid qilinmaydi. Keyingi turnir uchun taqvimni ko'ring. ||| Здесь показаны только настоящие трансляции из официальных источников — ничего не имитируется. Следующий турнир смотрите в календаре.
+Live standings ||| Jonli jadval ||| Таблица онлайн
+If the stream does not load, it may not be live yet or the organiser blocks embedding. ||| Agar efir yuklanmasa, u hali boshlanmagan bo'lishi yoki tashkilotchi joylashtirishni taqiqlagan bo'lishi mumkin. ||| Если трансляция не загружается, она ещё не началась или организатор запретил встраивание.
+Open it on the platform ||| Platformada ochish ||| Открыть на платформе
+This broadcast cannot be embedded. ||| Bu translyatsiyani joylashtirib bo'lmaydi. ||| Эту трансляцию нельзя встроить.
+Watch on the official page ||| Rasmiy sahifada ko'rish ||| Смотреть на официальной странице
+Official ||| Rasmiy ||| Официальная
+Live broadcasts ||| Jonli translyatsiyalar ||| Прямые трансляции
+Official streams of tournaments, embedded from the organisers’ own channels. Only broadcasts added by Rookery editors from official sources appear here. ||| Turnirlarning rasmiy efirlari, tashkilotchilarning o'z kanallaridan joylashtirilgan. Bu yerda faqat Rookery muharrirlari rasmiy manbalardan qo'shgan translyatsiyalar ko'rinadi. ||| Официальные трансляции турниров с каналов организаторов. Здесь только трансляции, добавленные редакторами Rookery из официальных источников.
+Commentary ||| Sharh ||| Комментарии
+No official stream is live right now ||| Hozir jonli rasmiy efir yo'q ||| Сейчас нет официальных прямых эфиров
+When an official broadcast starts it appears here automatically. Nothing is shown unless the organisers stream it. ||| Rasmiy translyatsiya boshlansa, bu yerda avtomatik paydo bo'ladi. Tashkilotchilar efirga bermagan narsa ko'rsatilmaydi. ||| Когда начнётся официальная трансляция, она появится здесь автоматически. Если организаторы не ведут эфир, ничего не показывается.
+Also live ||| Shuningdek jonli ||| Также в эфире
+Tournament broadcasts ||| Turnir translyatsiyalari ||| Трансляции турниров
+Moves of these official tournaments are broadcast live; follow the boards here. ||| Bu rasmiy turnirlarning yurishlari jonli uzatiladi; taxtalarni shu yerda kuzating. ||| Ходы этих официальных турниров транслируются онлайн; следите за досками здесь.
+Upcoming broadcasts ||| Kutilayotgan translyatsiyalar ||| Предстоящие трансляции
+No broadcasts are scheduled yet. ||| Hali translyatsiyalar rejalashtirilmagan. ||| Трансляции пока не запланированы.
+Broadcast archive ||| Translyatsiyalar arxivi ||| Архив трансляций
+Watch the recording ||| Yozuvni ko'rish ||| Смотреть запись
+Completed broadcasts will be archived here. ||| Tugagan translyatsiyalar shu yerda arxivlanadi. ||| Завершённые трансляции будут храниться здесь.
+Grandmasters ||| Grossmeysterlar ||| Гроссмейстеры
+Profiles of famous players with official FIDE ratings. Ratings are refreshed from FIDE data and show their source. ||| Mashhur o'yinchilar profillari, rasmiy FIDE reytinglari bilan. Reytinglar FIDE ma'lumotlaridan yangilanadi va manbasi ko'rsatiladi. ||| Профили известных игроков с официальными рейтингами FIDE. Рейтинги обновляются по данным FIDE, источник указан.
+No players found ||| O'yinchilar topilmadi ||| Игроки не найдены
+Players are added by the Rookery editors. ||| O'yinchilarni Rookery muharrirlari qo'shadi. ||| Игроков добавляют редакторы Rookery.
+All players ||| Barcha o'yinchilar ||| Все игроки
+Born ||| Tug'ilgan yil ||| Родился
+World ranking ||| Jahon reytingi ||| Место в мировом рейтинге
+Ranking ||| Reyting jadvali ||| Рейтинг-лист
+Official ratings are not available right now. ||| Rasmiy reytinglar hozir mavjud emas. ||| Официальные рейтинги сейчас недоступны.
+Biography ||| Tarjimai hol ||| Биография
+No biography is available yet. ||| Tarjimai hol hali yo'q. ||| Биографии пока нет.
+Career achievements ||| Karyera yutuqlari ||| Достижения в карьере
+Achievements are listed here when the editors add them with a source. ||| Yutuqlar muharrirlar manba bilan qo'shganda shu yerda ko'rsatiladi. ||| Достижения появятся здесь, когда редакторы добавят их с указанием источника.
+Record in stored games ||| Saqlangan o'yinlardagi natija ||| Результаты в сохранённых партиях
+Calculated from the games stored in Rookery, not from the whole career. ||| Butun karyera emas, Rookery'da saqlangan o'yinlar bo'yicha hisoblangan. ||| Рассчитано по партиям, сохранённым в Rookery, а не по всей карьере.
+No stored games for this player yet. Games are stored when a tournament page is opened. ||| Bu o'yinchining saqlangan o'yinlari hali yo'q. O'yinlar turnir sahifasi ochilganda saqlanadi. ||| Сохранённых партий этого игрока пока нет. Партии сохраняются при открытии страницы турнира.
+Tournament history ||| Turnirlar tarixi ||| История турниров
+Latest news ||| So'nggi yangiliklar ||| Последние новости
+Chess World needs the Rookery server ||| Shaxmat olami uchun Rookery serveri kerak ||| Для «Мира шахмат» нужен сервер Rookery
+News, tournaments, results and broadcasts are served by the Rookery server. ||| Yangiliklar, turnirlar, natijalar va translyatsiyalarni Rookery serveri beradi. ||| Новости, турниры, результаты и трансляции предоставляет сервер Rookery.
+Everything happening in chess, in one place. ||| Shaxmatdagi hamma voqealar bir joyda. ||| Всё, что происходит в шахматах, — в одном месте.
+News, live tournaments, results, broadcasts and grandmasters — from official sources, with the source shown on every item. ||| Yangiliklar, jonli turnirlar, natijalar, translyatsiyalar va grossmeysterlar — rasmiy manbalardan, har bir elementda manba ko'rsatilgan. ||| Новости, турниры в прямом эфире, результаты, трансляции и гроссмейстеры — из официальных источников, с указанием источника у каждого материала.
+Watch now ||| Hozir ko'rish ||| Смотреть сейчас
+Follow the games ||| O'yinlarni kuzatish ||| Следить за партиями
+Calendar ||| Taqvim ||| Календарь
+All results ||| Barcha natijalar ||| Все результаты
+Results archive ||| Natijalar arxivi ||| Архив результатов
+All broadcasts ||| Barcha translyatsiyalar ||| Все трансляции
+Players ||| O'yinchilar ||| Игроки
+Search ||| Qidiruv ||| Поиск
+Nothing found ||| Hech narsa topilmadi ||| Ничего не найдено
+Try a different spelling, a surname or a tournament name. ||| Boshqacha yozib, familiya yoki turnir nomini sinab ko'ring. ||| Попробуйте другое написание, фамилию или название турнира.
+Any result ||| Istalgan natija ||| Любой результат
+Search players ||| O'yinchilarni qidirish ||| Поиск игроков
+Search news ||| Yangiliklarni qidirish ||| Поиск новостей
+Search players, tournaments, games, news ||| O'yinchilar, turnirlar, o'yinlar, yangiliklarni qidirish ||| Поиск игроков, турниров, партий, новостей
+Top-tier event ||| Eng yuqori darajadagi tadbir ||| Турнир высшего уровня
+The schedule is not officially confirmed yet ||| Jadval hali rasman tasdiqlanmagan ||| Расписание ещё официально не подтверждено
+Chess position ||| Shaxmat pozitsiyasi ||| Шахматная позиция
+Replay controls ||| Ko'rish boshqaruvi ||| Управление просмотром
+First move ||| Birinchi yurish ||| Первый ход
+Last move ||| Oxirgi yurish ||| Последний ход
+PGN copied to clipboard ||| PGN nusxalandi ||| PGN скопирован
+Copy failed ||| Nusxalab bo'lmadi ||| Не удалось скопировать
+Wins, draws and losses ||| G'alabalar, duranglar va mag'lubiyatlar ||| Победы, ничьи и поражения
+Overview ||| Umumiy ko'rinish ||| Обзор
+Schedule ||| Jadval ||| Расписание
+Rounds and games ||| Turlar va o'yinlar ||| Туры и партии
+Standings ||| Turnir jadvali ||| Турнирная таблица
+Location ||| Joyi ||| Место
+Dates ||| Sanalar ||| Даты
+Format ||| Format ||| Формат
+Prize ||| Sovrin ||| Приз
+Round ||| Tur ||| Тур
+Level ||| Daraja ||| Уровень
+Year ||| Yil ||| Год
+International ||| Xalqaro ||| Международный
+Continental ||| Qit'a ||| Континентальный
+National ||| Milliy ||| Национальный
+Any time control ||| Istalgan vaqt nazorati ||| Любой контроль времени
+Search tournaments ||| Turnirlarni qidirish ||| Поиск турниров
+Tournament ||| Turnir ||| Турнир
+Result ||| Natija ||| Результат
+Broadcasts ||| Translyatsiyalar ||| Трансляции
+Upcoming ||| Kutilayotgan ||| Предстоящие
+Event not found. ||| Tadbir topilmadi. ||| Турнир не найден.
+Type at least 2 characters. ||| Kamida 2 ta belgi kiriting. ||| Введите не менее 2 символов.
+Try again in a moment. ||| Birozdan so'ng qayta urinib ko'ring. ||| Повторите через минуту.
+The data source is not answering right now. ||| Ma'lumot manbasi hozir javob bermayapti. ||| Источник данных сейчас не отвечает.
+The data source did not answer in time. ||| Ma'lumot manbasi o'z vaqtida javob bermadi. ||| Источник данных не ответил вовремя.
+The data source is unreachable. ||| Ma'lumot manbasiga ulanib bo'lmadi. ||| Источник данных недоступен.
+Live data is switched off on this server. ||| Bu serverda jonli ma'lumotlar o'chirilgan. ||| Живые данные на этом сервере отключены.
+Breaking chess news ||| So'nggi shaxmat yangiliklari ||| Главные шахматные новости
+No news yet. Add a news source in the admin panel or publish an article. ||| Yangiliklar hali yo'q. Admin panelda yangilik manbasini qo'shing yoki maqola e'lon qiling. ||| Новостей пока нет. Добавьте источник новостей в админ-панели или опубликуйте статью.
+Currently live ||| Hozir jonli ||| Сейчас в эфире
+No official tournament is being played right now. ||| Hozir rasmiy turnir o'tkazilmayapti. ||| Сейчас официальные турниры не проходят.
+Latest game results ||| So'nggi o'yin natijalari ||| Последние результаты партий
+Games appear here after a tournament has been opened. ||| O'yinlar turnir sahifasi ochilgach shu yerda paydo bo'ladi. ||| Партии появятся здесь после открытия страницы турнира.
+Upcoming tournaments ||| Kutilayotgan turnirlar ||| Предстоящие турниры
+No upcoming tournaments are listed yet. ||| Kutilayotgan turnirlar hali ro'yxatda yo'q. ||| Предстоящих турниров в списке пока нет.
+Recent tournament results ||| So'nggi turnir natijalari ||| Результаты недавних турниров
+Featured grandmasters ||| Tanlangan grossmeysterlar ||| Избранные гроссмейстеры
+No players are featured yet. ||| Tanlangan o'yinchilar hali yo'q. ||| Избранных игроков пока нет.
+Latest chess videos ||| So'nggi shaxmat videolari ||| Свежие шахматные видео
+No videos yet. Official broadcasts are added in the admin panel. ||| Videolar hali yo'q. Rasmiy translyatsiyalar admin panelda qo'shiladi. ||| Видео пока нет. Официальные трансляции добавляются в админ-панели.
+Uzbekistan chess ||| O'zbekiston shaxmati ||| Шахматы Узбекистана
+No Uzbekistan news yet. ||| O'zbekiston yangiliklari hali yo'q. ||| Новостей об Узбекистане пока нет.
+Recent world events ||| So'nggi jahon tadbirlari ||| Недавние мировые события
+Countries ||| Davlatlar ||| Страны
+Open Chess World ||| Shaxmat olamini ochish ||| Открыть «Мир шахмат»
+Official broadcast ||| Rasmiy translyatsiya ||| Официальная трансляция

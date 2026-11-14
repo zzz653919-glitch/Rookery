@@ -900,3 +900,152 @@ A tournament that has started can only be cancelled. ||| Boshlangan turnirni faq
 Article not found. ||| Maqola topilmadi. ||| Статья не найдена.
 Site visits today ||| Bugungi sayt tashriflari ||| Посещений сайта сегодня
 {v} visitors · {w} visits in 7 days ||| {v} ta tashrifchi · 7 kunda {w} ta tashrif ||| {v} посетителей · {w} посещений за 7 дней
+
+International ||| Xalqaro ||| Международный
+Continental ||| Qit'a ||| Континентальный
+National ||| Milliy ||| Национальный
+Online ||| Onlayn ||| Онлайн
+Automatic (from the dates and the feed) ||| Avtomatik (sanalar va tasmadan) ||| Автоматически (по датам и ленте)
+Upcoming ||| Kutilayotgan ||| Предстоящий
+Live ||| Jonli ||| В эфире
+Completed ||| Yakunlangan ||| Завершён
+Search tournaments… ||| Turnirlarni qidirish… ||| Поиск турниров…
+All sources ||| Barcha manbalar ||| Все источники
+Added by editors ||| Muharrirlar qo'shgan ||| Добавлено редакторами
+Official feed ||| Rasmiy tasma ||| Официальная лента
+Provisional ||| Taxminiy ||| Предварительно
+Featured ||| Tanlangan ||| Рекомендуемое
+Dates ||| Sanalar ||| Даты
+Source ||| Manba ||| Источник
+Official feed (corrected) ||| Rasmiy tasma (tuzatilgan) ||| Официальная лента (исправлено)
+Editors ||| Muharrirlar ||| Редакторы
+Import games ||| O'yinlarni import qilish ||| Загрузить партии
+Delete tournament? ||| Turnir o'chirilsinmi? ||| Удалить турнир?
+The tournament and its games will be deleted. ||| Turnir va uning o'yinlari o'chiriladi. ||| Турнир и его партии будут удалены.
+Deleted ||| O'chirildi ||| Удалено
+Tournaments from the official feed appear here automatically. Add national events and other tournaments yourself. ||| Rasmiy tasmadagi turnirlar bu yerda avtomatik paydo bo'ladi. Milliy va boshqa turnirlarni o'zingiz qo'shing. ||| Турниры из официальной ленты появляются здесь автоматически. Национальные и другие турниры добавляйте сами.
+Chess World tournaments ||| Shaxmat olami turnirlari ||| Турниры «Мира шахмат»
+Official tournaments are imported from the Lichess broadcast feed. You can add events of your own and correct any entry; corrected entries are kept when the feed updates and every change is written to the history. ||| Rasmiy turnirlar Lichess translyatsiya tasmasidan import qilinadi. O'z tadbirlaringizni qo'shishingiz va istalgan yozuvni tuzatishingiz mumkin; tuzatilgan yozuvlar tasma yangilanganda saqlanadi, har bir o'zgarish tarixga yoziladi. ||| Официальные турниры загружаются из ленты трансляций Lichess. Вы можете добавлять свои события и исправлять любую запись; исправленные записи сохраняются при обновлении ленты, а каждое изменение попадает в историю.
+Location (city, country) ||| Joyi (shahar, davlat) ||| Место (город, страна)
+Ends ||| Tugaydi ||| Окончание
+Format ||| Format ||| Формат
+For example: 9-round Swiss ||| Masalan: 9 turli shveytsar tizimi ||| Например: швейцарская система, 9 туров
+Rating category ||| Reyting toifasi ||| Категория рейтинга
+Prize fund (only when officially published) ||| Sovrin jamg'armasi (faqat rasman e'lon qilinganda) ||| Призовой фонд (только если опубликован официально)
+Registration link ||| Ro'yxatdan o'tish havolasi ||| Ссылка на регистрацию
+Official website ||| Rasmiy sayt ||| Официальный сайт
+Official standings link ||| Rasmiy jadval havolasi ||| Ссылка на официальную таблицу
+Image address (https) ||| Rasm manzili (https) ||| Адрес изображения (https)
+Participants ||| Ishtirokchilar ||| Участники
+Daily schedule ||| Kunlik jadval ||| Расписание по дням
+One round per line: Round 1 | 2027-03-01T14:00:00Z ||| Har qatorda bitta tur: 1-tur | 2027-03-01T14:00:00Z ||| По одному туру в строке: Тур 1 | 2027-03-01T14:00:00Z
+Schedule officially confirmed ||| Jadval rasman tasdiqlangan ||| Расписание официально подтверждено
+Feature on the Chess World page ||| Shaxmat olami sahifasida ko'rsatish ||| Показывать на странице «Мир шахмат»
+Use this only to correct a wrong status. ||| Buni faqat noto'g'ri holatni tuzatish uchun ishlating. ||| Используйте только для исправления неверного статуса.
+Source name ||| Manba nomi ||| Название источника
+Source link ||| Manba havolasi ||| Ссылка на источник
+Saved ||| Saqlandi ||| Сохранено
+YouTube channel (its current live stream) ||| YouTube kanali (hozirgi jonli efiri) ||| Канал YouTube (его текущий прямой эфир)
+YouTube video or recording ||| YouTube video yoki yozuv ||| Видео или запись YouTube
+Twitch channel ||| Twitch kanali ||| Канал Twitch
+Lichess broadcast round (link only) ||| Lichess translyatsiya turi (faqat havola) ||| Тур трансляции Lichess (только ссылка)
+Official web page (link only) ||| Rasmiy veb-sahifa (faqat havola) ||| Официальная веб-страница (только ссылка)
+Automatic (from the times) ||| Avtomatik (vaqtlar bo'yicha) ||| Автоматически (по времени)
+New broadcast ||| Yangi translyatsiya ||| Новая трансляция
+Broadcast ||| Translyatsiya ||| Трансляция
+Not official ||| Rasmiy emas ||| Неофициально
+Time ||| Vaqt ||| Время
+Provider ||| Provayder ||| Платформа
+Delete broadcast? ||| Translyatsiya o'chirilsinmi? ||| Удалить трансляцию?
+The broadcast will be removed. ||| Translyatsiya olib tashlanadi. ||| Трансляция будет удалена.
+No broadcasts yet ||| Translyatsiyalar hali yo'q ||| Трансляций пока нет
+Add only streams that the organisers publish themselves. The Live broadcasts page shows a clear message while there are none. ||| Faqat tashkilotchilar o'zlari efirga beradigan translyatsiyalarni qo'shing. Ular bo'lmaganda "Jonli translyatsiyalar" sahifasi aniq xabar ko'rsatadi. ||| Добавляйте только эфиры, которые организаторы ведут сами. Пока их нет, страница «Прямые трансляции» показывает понятное сообщение.
+Live broadcasts ||| Jonli translyatsiyalar ||| Прямые трансляции
+Official streams shown on the Live broadcasts page and on the Chess World page. The live status follows the start and end times unless you set it by hand. ||| "Jonli translyatsiyalar" va "Shaxmat olami" sahifalarida ko'rsatiladigan rasmiy efirlar. Jonli holat boshlanish va tugash vaqtiga ko'ra o'zgaradi, agar uni qo'lda belgilamasangiz. ||| Официальные эфиры, показываемые на страницах «Прямые трансляции» и «Мир шахмат». Статус «в эфире» зависит от времени начала и окончания, если вы не задали его вручную.
+Edit broadcast ||| Translyatsiyani tahrirlash ||| Изменить трансляцию
+Where it is streamed ||| Qayerda efirga beriladi ||| Где идёт эфир
+Channel id, video, channel name or link ||| Kanal identifikatori, video, kanal nomi yoki havola ||| Идентификатор канала, видео, имя канала или ссылка
+YouTube channel ids start with UC. A video link or id works for recordings. ||| YouTube kanal identifikatorlari UC bilan boshlanadi. Yozuvlar uchun video havolasi yoki identifikatori mos keladi. ||| Идентификаторы каналов YouTube начинаются с UC. Для записей подходит ссылка на видео или его идентификатор.
+Channel name ||| Kanal nomi ||| Название канала
+Official page (https) ||| Rasmiy sahifa (https) ||| Официальная страница (https)
+Tournament number (optional) ||| Turnir raqami (ixtiyoriy) ||| Номер турнира (необязательно)
+Live commentary (optional) ||| Jonli sharh (ixtiyoriy) ||| Прямые комментарии (необязательно)
+This is an official stream of the organisers ||| Bu tashkilotchilarning rasmiy efiri ||| Это официальный эфир организаторов
+Refresh data now ||| Ma'lumotlarni hozir yangilash ||| Обновить данные сейчас
+New source ||| Yangi manba ||| Новый источник
+Off ||| O'chiq ||| Выкл.
+Official ||| Rasmiy ||| Официальный
+Error ||| Xato ||| Ошибка
+Working ||| Ishlayapti ||| Работает
+Category ||| Toifa ||| Категория
+Last check ||| Oxirgi tekshiruv ||| Последняя проверка
+Test now ||| Hozir sinash ||| Проверить сейчас
+Delete source? ||| Manba o'chirilsinmi? ||| Удалить источник?
+The source will no longer be read. Its articles stay. ||| Manba endi o'qilmaydi. Uning maqolalari qoladi. ||| Источник больше не будет читаться. Его статьи останутся.
+No sources yet ||| Manbalar hali yo'q ||| Источников пока нет
+Add an RSS or Atom feed of an official chess source. ||| Rasmiy shaxmat manbasining RSS yoki Atom tasmasini qo'shing. ||| Добавьте RSS- или Atom-ленту официального шахматного источника.
+New category ||| Yangi toifa ||| Новая категория
+Key ||| Kalit ||| Ключ
+English ||| Inglizcha ||| Английский
+Uzbek ||| O'zbekcha ||| Узбекский
+Russian ||| Ruscha ||| Русский
+Delete category? ||| Toifa o'chirilsinmi? ||| Удалить категорию?
+Its articles move to International. ||| Uning maqolalari "Xalqaro" toifasiga o'tadi. ||| Её статьи перейдут в «Международные».
+News sources and categories ||| Yangilik manbalari va toifalar ||| Источники новостей и категории
+Feeds are read about every twenty minutes and shown on the News page with their original source and date. Switch a source on only after checking that the feed is genuine and that you may show its headlines. ||| Tasmalar taxminan har yigirma daqiqada o'qiladi va Yangiliklar sahifasida asl manba va sana bilan ko'rsatiladi. Manbani tasma haqiqiyligini va sarlavhalarini ko'rsatish huquqingiz borligini tekshirgandan keyingina yoqing. ||| Ленты читаются примерно каждые двадцать минут и показываются на странице новостей с первоисточником и датой. Включайте источник, только убедившись, что лента подлинная и вы вправе показывать её заголовки.
+Categories ||| Toifalar ||| Категории
+Edit source ||| Manbani tahrirlash ||| Изменить источник
+Feed address (https) ||| Tasma manzili (https) ||| Адрес ленты (https)
+Language of the articles ||| Maqolalar tili ||| Язык статей
+Official source ||| Rasmiy manba ||| Официальный источник
+Read this source ||| Bu manbani o'qish ||| Читать этот источник
+Edit category ||| Toifani tahrirlash ||| Изменить категорию
+Key (lower-case letters and dashes) ||| Kalit (kichik harflar va chiziqchalar) ||| Ключ (строчные буквы и дефисы)
+New player ||| Yangi o'yinchi ||| Новый игрок
+Profile ||| Profil ||| Профиль
+Biography ||| Tarjimai hol ||| Биография
+Delete player? ||| O'yinchi o'chirilsinmi? ||| Удалить игрока?
+The player will be removed from the Players page. ||| O'yinchi "O'yinchilar" sahifasidan olib tashlanadi. ||| Игрок будет удалён со страницы игроков.
+Add a grandmaster with the numeric FIDE id: ratings, title and photo are then read from FIDE data. ||| Grossmeysterni raqamli FIDE identifikatori bilan qo'shing: reyting, unvon va rasm FIDE ma'lumotlaridan o'qiladi. ||| Добавьте гроссмейстера по числовому идентификатору FIDE: рейтинги, звание и фото будут взяты из данных FIDE.
+Grandmaster profiles ||| Grossmeysterlar profillari ||| Профили гроссмейстеров
+Ratings, titles and photos come from official FIDE data and biographies from Wikipedia. Add a biography or achievements here only with a source; a world ranking is shown only when you enter it together with the official list it comes from. ||| Reytinglar, unvonlar va rasmlar rasmiy FIDE ma'lumotlaridan, tarjimai hollar Vikipediyadan olinadi. Tarjimai hol yoki yutuqlarni faqat manba bilan qo'shing; jahon reytingi faqat u olingan rasmiy ro'yxat bilan birga kiritilganda ko'rsatiladi. ||| Рейтинги, звания и фото берутся из официальных данных FIDE, биографии — из Википедии. Добавляйте биографию или достижения только с источником; место в мировом рейтинге показывается, только если вы ввели его вместе с официальным списком.
+Edit player ||| O'yinchini tahrirlash ||| Изменить игрока
+FIDE id ||| FIDE identifikatori ||| Идентификатор FIDE
+Federation (3 letters, e.g. UZB) ||| Federatsiya (3 harf, masalan UZB) ||| Федерация (3 буквы, например UZB)
+Wikipedia article title ||| Vikipediya maqolasi nomi ||| Название статьи в Википедии
+For example Magnus_Carlsen ||| Masalan Magnus_Carlsen ||| Например Magnus_Carlsen
+Chess.com username (optional) ||| Chess.com foydalanuvchi nomi (ixtiyoriy) ||| Имя пользователя Chess.com (необязательно)
+Biography (English, optional) ||| Tarjimai hol (inglizcha, ixtiyoriy) ||| Биография (английский, необязательно)
+Biography (Uzbek, optional) ||| Tarjimai hol (o'zbekcha, ixtiyoriy) ||| Биография (узбекский, необязательно)
+Biography (Russian, optional) ||| Tarjimai hol (ruscha, ixtiyoriy) ||| Биография (русский, необязательно)
+Career achievements ||| Karyera yutuqlari ||| Достижения в карьере
+One per line: year | achievement | source link ||| Har qatorda bittadan: yil | yutuq | manba havolasi ||| По одному в строке: год | достижение | ссылка на источник
+World ranking (official figure) ||| Jahon reytingi (rasmiy raqam) ||| Место в мировом рейтинге (официальное значение)
+Ranking source (for example FIDE list, month and year) ||| Reyting manbasi (masalan FIDE ro'yxati, oy va yil) ||| Источник рейтинга (например список FIDE, месяц и год)
+Featured grandmaster ||| Tanlangan grossmeyster ||| Рекомендуемый гроссмейстер
+1–0 White wins ||| 1–0 Oq g'alaba qozondi ||| 1–0 Победа белых
+0–1 Black wins ||| 0–1 Qora g'alaba qozondi ||| 0–1 Победа чёрных
+½–½ Draw ||| ½–½ Durang ||| ½–½ Ничья
+In progress ||| Davom etmoqda ||| Идёт
+Search by player… ||| O'yinchi bo'yicha qidirish… ||| Поиск по игроку…
+All games ||| Barcha o'yinlar ||| Все партии
+Featured only ||| Faqat tanlanganlar ||| Только рекомендуемые
+Result ||| Natija ||| Результат
+Flags ||| Belgilar ||| Метки
+Corrected ||| Tuzatilgan ||| Исправлено
+No games stored yet ||| Saqlangan o'yinlar hali yo'q ||| Сохранённых партий пока нет
+Games are stored when a tournament page is opened or its games are imported. ||| O'yinlar turnir sahifasi ochilganda yoki import qilinganda saqlanadi. ||| Партии сохраняются при открытии страницы турнира или при их загрузке.
+Feature important games on the Chess World page and correct a result or a name. A corrected game is not overwritten by the feed, and the change is written to the history. ||| Muhim o'yinlarni "Shaxmat olami" sahifasida ko'rsating, natija yoki ismni tuzating. Tuzatilgan o'yin tasma tomonidan almashtirilmaydi, o'zgarish tarixga yoziladi. ||| Выделяйте важные партии на странице «Мир шахмат» и исправляйте результат или имя. Исправленная партия не перезаписывается лентой, а изменение попадает в историю.
+Edit game ||| O'yinni tahrirlash ||| Изменить партию
+Opening ||| Debyut ||| Дебют
+History ||| Tarix ||| История
+Change history ||| O'zgarishlar tarixi ||| История изменений
+No changes recorded yet. ||| O'zgarishlar hali qayd etilmagan. ||| Изменений пока не зафиксировано.
+Search articles… ||| Maqolalarni qidirish… ||| Поиск статей…
+Use only pictures you have the right to publish. ||| Faqat nashr qilish huquqingiz bor rasmlardan foydalaning. ||| Используйте только изображения, которые вы вправе публиковать.
+Language of the article ||| Maqola tili ||| Язык статьи
+Broadcasts ||| Translyatsiyalar ||| Трансляции
+Grandmasters ||| Grossmeysterlar ||| Гроссмейстеры
+World tournaments ||| Jahon turnirlari ||| Мировые турниры
+News sources ||| Yangilik manbalari ||| Источники новостей
+Chess World ||| Shaxmat olami ||| Мир шахмат

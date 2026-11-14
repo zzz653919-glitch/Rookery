@@ -75,6 +75,21 @@ next time the player site loads; the placement thresholds are adjustable under *
 Everything done here is written to the audit log. Players are created by registering on the site; there is no e-mail, so password
 resets are done here by an administrator.
 
+## 3c. Chess World (news sources, tournaments, games, broadcasts, grandmasters)
+
+The **Chess World** section of the sidebar manages what the public Chess World pages show. Everything is audited; the *History* button of a record lists who changed what and when.
+
+| Page | What you do there |
+| --- | --- |
+| **World tournaments** | Official tournaments arrive from the Lichess broadcast feed on their own. Add national or other events (dates, location, format, time control, prize, registration link, daily schedule). Switch *Schedule officially confirmed* off for a provisional schedule — the public page then shows a *Provisional* badge. Correct any entry (it is kept when the feed updates) or fix a wrong status. *Import games* loads the rounds that have been played. |
+| **Games** | Feature important games on the Chess World page; correct a result, a name or an opening. A corrected game is not overwritten by the feed. |
+| **Broadcasts** | Add **official** streams only: a YouTube channel id (`UC…`, plays the channel's current live stream), a YouTube video/recording, a Twitch channel, a Lichess round or a plain https link. The status follows the start/end times unless you set it. Mark one *Featured* to promote it on the Chess World page. While no stream is live the page says so — nothing is shown unless you add it. |
+| **Grandmasters** | Profiles. Enter the numeric FIDE id: rating, title, birth year and photo are read from FIDE data (and refused if the name does not match). Add biographies (per language), achievements **with a source link**, and a world ranking only together with the official list it comes from. |
+| **News sources** | RSS/Atom feeds. A source is read about every 20 minutes; items keep their original source, link and date and only a short excerpt is stored (the full article stays at the publisher). *Test now* reads a feed immediately and reports the result. Only the Lichess blog is switched on by default; the FIDE and Chess.com entries are off until you have verified the address and that you may show their headlines. Manage the **categories** (English / Uzbek / Russian names) below the sources. |
+| **News** (existing page) | Articles now have a category, an image address (https), a source name and a source link. |
+
+Permissions: reading needs `content:read`, writing `content:write`, the history `audit:read`. Feed addresses must be public https addresses (private and local addresses are refused).
+
 ## 4. Security model
 
 * **Authentication**: scrypt (N=2¹⁵) password hashes with per-password salt; constant-time comparison; unknown users cost the
@@ -198,6 +213,10 @@ The site can run entirely on Vercel: the static files are served by Vercel and `
 If the function answers *"The database is empty"* run step 1 again. Automatic translation runs in the background after a save; a serverless function may be frozen right after answering, so use **Translations → Translate missing texts now** on Vercel if a new lesson is still in English.
 
 Limits: **not tested on a real Vercel deployment** — only the handler (`api/index.mjs`) is tested locally on the libSQL back end (`tests/vercel.test.mjs`). Vercel serves every file of the repository as a static file (source code included, never the database or secrets, which only exist as environment variables). In-memory rate limits are per function instance; the login throttle is stored in the database and works across instances.
+
+### Chess World on Vercel
+
+The function fetches Lichess/Wikipedia on demand and keeps answers in the database cache, so nothing extra is needed. After deploying this version run **`npm run db:migrate` once** against your Turso database (migration `007_world.sql`). Optional variables: `ROOKERY_WORLD_OFFLINE=1` (disable live data), `ROOKERY_LICHESS_URL`, `ROOKERY_FIDE_API_URL`, `ROOKERY_WIKI_URL` (alternative endpoints). Requests to a database or function can take a few seconds the first time an event is opened (its games are imported a few rounds per request).
 
 ## 7. Tests
 

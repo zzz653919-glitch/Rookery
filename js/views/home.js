@@ -61,6 +61,7 @@ export function mount(root) {
       <a class="fx-mode teal" href="#/learn"><span class="tag">${icon('book', 14)} ${t('Learn')}</span><span class="art">${pieceSvg('r', 'w')}</span><h3>${t('Learn')}</h3><p>${t('Openings, endgames, strategy.')}</p></a>
     </div>
 
+    ${online ? `<section class="card fx-world" id="w-strip" hidden></section>` : ''}
     <div class="fx-widgets">
       <div class="card fx-player">${net.user ? `<div class="eyebrow">${t('Player card')}</div>
         <div class="id">${avatarHtml(net.user, 56)}<div><b>${esc(net.user.username)}</b><small class="muted">${flag(net.user.country)} ${t('Rating')} ${best}</small></div></div>
@@ -108,6 +109,16 @@ async function loadOnline(root) {
     const list = tournaments.filter((x) => x.state !== 'finished').slice(0, 3);
     fill('#t-body', list.length ? `<div class="stack" style="gap:8px">${list.map((x) => `<a class="row spread" href="#/tournaments/${x.id}"><span><b>${esc(x.name)}</b><small class="muted"> ${x.base >= 60 ? x.base / 60 : x.base + 's'}+${x.inc}</small></span><span class="chip ${x.state === 'running' ? 'good' : ''}">${x.state === 'running' ? t('Running') : fdate(x.startsAt)}</span></a>`).join('')}</div>` : `<p class="muted">${t('No tournaments scheduled.')}</p>`);
   }).catch(() => fill('#t-body', ''));
+  get('/api/world/home?lang=' + getLang()).then((w) => {
+    const el = $('#w-strip'); if (!el || !(w.live.length || w.breaking.length || w.featuredBroadcast)) return;
+    const ago = (iso) => { try { return new Date(iso).toLocaleDateString(getLang(), { month: 'short', day: 'numeric' }); } catch { return ''; } };
+    el.hidden = false;
+    el.innerHTML = `<div class="row spread"><div class="eyebrow">${icon('globe', 14)} ${t('Chess World')}</div><a class="small more" href="#/world">${t('Open Chess World')} ${icon('arrow', 14)}</a></div>
+      <div class="fx-world-grid">
+        <div>${w.featuredBroadcast ? `<a class="fx-wlive" href="#/world/broadcasts"><span class="wchip s-live"><i class="dot"></i>${t('Live')}</span><b>${esc(w.featuredBroadcast.title)}</b><small class="muted">${t('Official broadcast')}</small></a>` : ''}
+          ${w.live.slice(0, 3).map((e) => `<a class="fx-wlive" href="#/world/event/${e.id}"><span class="wchip s-live"><i class="dot"></i>${t('Live')}</span><b>${esc(e.name)}</b><small class="muted">${esc(e.location || '')}</small></a>`).join('')}</div>
+        <div>${w.breaking.slice(0, 3).map((a) => `<a class="fx-wnews" href="#/news/${encodeURIComponent(a.id)}"><b>${esc(a.title)}</b><small class="muted">${esc(a.source || '')} · ${ago(a.publishedAt)}</small></a>`).join('')}</div></div>`;
+  }).catch(() => {});
   get('/api/leaderboard?category=blitz').then(({ players }) => {
     fill('#lb-body', players.length ? `<ol class="fx-lb">${players.slice(0, 5).map((p) => `<li><span class="n">${p.rank}</span><span class="grow"><a href="#/profile/${encodeURIComponent(p.username)}">${esc(p.username)}</a></span><span class="r">${p.rating}</span></li>`).join('')}</ol>` : `<p class="muted">${t('No rated players yet.')}</p>`);
   }).catch(() => fill('#lb-body', ''));
@@ -118,7 +129,7 @@ async function loadOnline(root) {
     const el = $('#fx-ticker'); if (!el || !items.length) return;
     el.hidden = false; el.innerHTML = `<span class="live"><i></i>${t('Live')}</span><span class="items">${items.join('<span class="sep">◆</span>')}</span>`;
   }).catch(() => {});
-  get('/api/news').then(({ items }) => {
+  get('/api/news?lang=' + getLang()).then(({ items }) => {
     fill('#news-body', items.length ? `<div class="stack" style="gap:8px">${items.slice(0, 3).map((n) => `<a href="#/news/${n.id}"><b>${esc(n.title)}</b><small class="muted"> ${fdate(n.published_at)}</small></a>`).join('')}</div>` : `<p class="muted">${t('No news yet.')}</p>`);
   }).catch(() => fill('#news-body', ''));
   if (net.user) get('/api/users/' + encodeURIComponent(net.user.username)).then((d) => {

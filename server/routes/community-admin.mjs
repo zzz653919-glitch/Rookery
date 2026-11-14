@@ -108,16 +108,21 @@ export function register(router) {
     const title = clean(b.title, 140), summary = clean(b.summary, 300), body = sanitizeHtml(typeof b.body === 'string' ? b.body.trim().slice(0, 20000) : '');
     const problems = [];
     if (title.length < 3) problems.push({ path: 'title', message: 'Use at least 3 characters.' });
-    if (!body) problems.push({ path: 'body', message: 'This field is required.' });
+    if (!body && b.origin !== 'feed') problems.push({ path: 'body', message: 'This field is required.' });
+    if (b.image && !/^https:\/\//.test(String(b.image))) problems.push({ path: 'image', message: 'Use an https address.' });
     if (problems.length) throw bad('Please fix the highlighted fields.', problems);
-    return { title, summary, body };
+    const image = /^https:\/\/[^\s"'<>]{4,400}$/.test(String(b.image || '').trim()) ? String(b.image).trim() : null;
+    const source_url = /^https?:\/\/[^\s"'<>]{4,400}$/.test(String(b.source_url || '').trim()) ? String(b.source_url).trim() : null;
+    const source_name = clean(b.source_name, 80) || null, lang = ['en', 'uz', 'ru'].includes(b.lang) ? b.lang : 'en';
+    const category = /^[a-z][a-z0-9-]{1,30}$/.test(b.category || '') ? b.category : 'international';
+    return { title, summary, body, image, source_url, source_name, lang, category };
   };
   router.add('GET', '/api/admin/news', async () => ({ items: await getDb().prepare('SELECT id, title, summary, status, author, created_at, published_at, updated_at FROM news ORDER BY id DESC LIMIT 100').all() }), { auth: true, perm: 'content:read' });
   router.add('GET', '/api/admin/news/:id', async (ctx) => { const n = await getDb().prepare('SELECT * FROM news WHERE id = ?').get(+ctx.params.id || 0); if (!n) throw new HttpError(404, 'Article not found.'); return n; }, { auth: true, perm: 'content:read' });
   router.add('POST', '/api/admin/news', async (ctx) => {
     const b = await ctx.json(); const v = newsInput(b);
     const status = b.status === 'published' ? 'published' : 'draft';
-    const r = await getDb().prepare('INSERT INTO news(title, summary, body, status, author, created_at, published_at, updated_at) VALUES (?,?,?,?,?,?,?,?)').run(v.title, v.summary, v.body, status, ctx.admin.username, now(), status === 'published' ? now() : null, now());
+    const r = await getDb().prepare('INSERT INTO news(title, summary, body, status, author, created_at, published_at, updated_at, image, source_name, source_url, category, lang) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)').run(v.title, v.summary, v.body, status, ctx.admin.username, now(), status === 'published' ? now() : null, now(), v.image, v.source_name, v.source_url, v.category, v.lang);
     await audit(ctx, 'news.create', 'news', r.lastInsertRowid, { title: v.title, status });
     return { status: 201, body: await getDb().prepare('SELECT * FROM news WHERE id = ?').get(r.lastInsertRowid) };
   }, { auth: true, perm: 'content:write' });
@@ -126,7 +131,7 @@ export function register(router) {
     if (!cur) throw new HttpError(404, 'Article not found.');
     const b = await ctx.json(); const v = newsInput({ ...cur, ...b });
     const status = b.status === 'published' || b.status === 'draft' ? b.status : cur.status;
-    await d.prepare('UPDATE news SET title = ?, summary = ?, body = ?, status = ?, published_at = ?, updated_at = ? WHERE id = ?').run(v.title, v.summary, v.body, status, status === 'published' ? (cur.published_at || now()) : cur.published_at, now(), cur.id);
+    await d.prepare('UPDATE news SET title = ?, summary = ?, body = ?, status = ?, published_at = ?, updated_at = ?, image = ?, source_name = ?, source_url = ?, category = ?, lang = ? WHERE id = ?').run(v.title, v.summary, v.body, status, status === 'published' ? (cur.published_at || now()) : cur.published_at, now(), v.image, v.source_name, v.source_url, v.category, v.lang, cur.id);
     await audit(ctx, 'news.update', 'news', cur.id, { title: v.title, status });
     return await d.prepare('SELECT * FROM news WHERE id = ?').get(cur.id);
   }, { auth: true, perm: 'content:write' });

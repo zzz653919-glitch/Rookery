@@ -1,5 +1,5 @@
 {
- "version": "2f40c1854e",
+ "version": "63177211ce",
  "files": [
   "./",
   "ADMIN.md",
@@ -7,6 +7,7 @@
   "css/fusion.css",
   "css/platform.css",
   "css/styles.css",
+  "css/world.css",
   "engine/stockfish/LICENSE-GPL-3.0.txt",
   "engine/stockfish/NOTICE.md",
   "fonts/Inter-Bold.otf",
@@ -33,6 +34,7 @@
   "js/chess/engine.js",
   "js/chess/rules.js",
   "js/content.js",
+  "js/data/countries.js",
   "js/data/endgames.js",
   "js/data/lesson-kit.js",
   "js/data/lessons-advanced.js",
@@ -72,6 +74,7 @@
   "js/ui/pieces.js",
   "js/ui/task.js",
   "js/ui/user.js",
+  "js/ui/world.js",
   "js/views/analysis.js",
   "js/views/endgames.js",
   "js/views/friends.js",
@@ -94,6 +97,11 @@
   "js/views/tournaments.js",
   "js/views/watch.js",
   "js/views/welcome.js",
+  "js/views/world-events.js",
+  "js/views/world-games.js",
+  "js/views/world-live.js",
+  "js/views/world-players.js",
+  "js/views/world.js",
   "manifest.webmanifest",
   "vercel.json"
  ]

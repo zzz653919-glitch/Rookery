@@ -20,8 +20,8 @@ const NAV = [
   { id: 'play', label: 'Play', icon: 'play', main: true },
   { id: 'puzzles', label: 'Puzzles', icon: 'puzzle', main: true },
   { id: 'learn', label: 'Learn', icon: 'book', main: true },
+  { id: 'world', label: 'Chess World', icon: 'globe' },
   { id: 'watch', label: 'Watch', icon: 'eye' },
-  { id: 'news', label: 'News', icon: 'news' },
   { id: 'tournaments', label: 'Tournaments', icon: 'trophy' },
   { id: 'leaderboard', label: 'Leaderboards', icon: 'crown' },
   { id: 'friends', label: 'Friends', icon: 'users', badge: 'friends' },
@@ -38,6 +38,7 @@ const VIEWS = {
   online: () => import('./views/online.js'),
   game: () => import('./views/game.js'),
   watch: () => import('./views/watch.js'),
+  world: () => import('./views/world.js'),
   news: () => import('./views/news.js'),
   tournaments: () => import('./views/tournaments.js'),
   leaderboard: () => import('./views/leaderboard.js'),
@@ -56,7 +57,7 @@ const VIEWS = {
 };
 const FOCUS_ROUTES = new Set(['welcome', 'test']);
 // view name → which sidebar item is highlighted
-const NAV_OF = { computer: 'play', local: 'play', online: 'play', game: 'play', lesson: 'learn', openings: 'learn', endgames: 'learn', progress: 'profile', analysis: 'learn' };
+const NAV_OF = { news: 'world', computer: 'play', local: 'play', online: 'play', game: 'play', lesson: 'learn', openings: 'learn', endgames: 'learn', progress: 'profile', analysis: 'learn' };
 
 let cleanup = null;
 let navToken = 0;
@@ -76,6 +77,7 @@ export function parseRoute() {
   if (name === 'puzzles' && sub) return { name: 'puzzles', params: { mode: sub }, nav: 'puzzles' };
   if (name === 'play' && ['computer', 'local', 'online'].includes(sub)) return { name: sub, params: { mode: parts[2] }, nav: 'play' };
   if (name === 'play' && sub === 'friend') return { name: 'online', params: { mode: 'friend' }, nav: 'play' };
+  if (name === 'world') return { name, params: { page: sub || 'hub', id: parts[2] }, nav: 'world' };
   if (['game', 'news', 'tournaments', 'profile', 'endgames', 'openings'].includes(name)) return { name, params: { id: sub, name: sub, rest: parts.slice(2) }, nav: NAV_OF[name] || name };
   if (!VIEWS[name]) return { name: 'home', params: {}, nav: 'home' };
   return { name, params: { id: sub }, nav: NAV_OF[name] || name };

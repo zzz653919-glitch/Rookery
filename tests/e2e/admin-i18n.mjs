@@ -64,12 +64,12 @@ const DATA = new Set([...LESSONS.flatMap(lessonStrings), ...PUZZLES.flatMap(puzz
 import uzAdmin from '../../admin/js/i18n/ui.uz.js';
 import ruAdmin from '../../admin/js/i18n/ui.ru.js';
 const DONE = new Set([...Object.values(uzAdmin), ...Object.values(ruAdmin)]); // texts that were translated once already and pass through h() again
-const isData = (s) => /^(?:Fast fun|win 2 points, draw 1)$/.test(s) || DATA.has(s) || DONE.has(s) || (s.length > 5 && [...DATA].some((d) => d.includes(s))) || /^[a-z][a-z.]*( [a-z]+)*( · \d+)?$/.test(s) || /^[\w.\[\]]+: $/.test(s) || /^[A-Z][a-z]{2} \d+, \d{4}/.test(s) || /^(?:O'zbekcha|Русский|English)$/.test(s) || /^\d\.\w/.test(s) || /^\{.*\}$/.test(s) || /FEN needs|FEN has|FEN:/.test(s) || !/[A-Za-z]{3,}/.test(s) || /^[\w.#:/-]+$/.test(s) || /^[rnbqkpRNBQKP1-8/]+ [wb] /.test(s) || /^(?:boss|Rookery|Rookery Admin)$/.test(s)
+const isData = (s) => /^(?:Fast fun|win 2 points, draw 1)$/.test(s) || /^FIDE \d+$/.test(s) || /^(?:Magnus Carlsen|Hikaru Nakamura|Fabiano Caruana|Gukesh Dommaraju|Nodirbek Abdusattorov|Javokhir Sindarov|Alireza Firouzja|Ian Nepomniachtchi|Rameshbabu Praggnanandhaa|Lichess Blog|FIDE News|Chess\.com News)$/.test(s) || /^(?:Yutuqlar va o'tishlar|Достижения и переходы|Texnologiya va qoidalar|Технологии и правила|Intervyular|Интервью)$/.test(s) || DATA.has(s) || DONE.has(s) || (s.length > 5 && [...DATA].some((d) => d.includes(s))) || /^[a-z][a-z.]*( [a-z]+)*( · \d+)?$/.test(s) || /^[\w.\[\]]+: $/.test(s) || /^[A-Z][a-z]{2} \d+, \d{4}/.test(s) || /^(?:O'zbekcha|Русский|English)$/.test(s) || /^\d\.\w/.test(s) || /^\{.*\}$/.test(s) || /FEN needs|FEN has|FEN:/.test(s) || !/[A-Za-z]{3,}/.test(s) || /^[\w.#:/-]+$/.test(s) || /^[rnbqkpRNBQKP1-8/]+ [wb] /.test(s) || /^(?:boss|Rookery|Rookery Admin)$/.test(s)
   || [...DATA].some((d) => d && s.includes(d)) || /^[a-h][1-8]/.test(s) || /\.(svg|png)$/.test(s) || /^<\/?p>/.test(s);
 
 async function crawl(page) {
   await login(page);
-  const routes = ['dashboard', 'lessons', 'lessons/new', 'lessons/b-pieces', 'puzzles', 'puzzles/new', 'themes', 'translations', 'news', 'tournaments', 'players', 'reports', 'settings', 'users', 'audit', 'admins', 'account'];
+  const routes = ['dashboard', 'lessons', 'lessons/new', 'lessons/b-pieces', 'puzzles', 'puzzles/new', 'themes', 'translations', 'news', 'tournaments', 'world-events', 'world-games', 'world-broadcasts', 'world-players', 'world-sources', 'players', 'reports', 'settings', 'users', 'audit', 'admins', 'account'];
   for (const r of routes) await go(page, r);
   // dialogs: every step type, the JSON editor, delete confirmations, theme / admin forms
   await go(page, 'lessons/new');
@@ -90,7 +90,7 @@ async function crawl(page) {
   for (const b of await page.$$('button.btn.primary')) { await b.click().catch(() => {}); await sleep(250); await page.keyboard.press('Escape'); }
   await go(page, 'admins');
   for (const b of await page.$$('button.btn.primary')) { await b.click().catch(() => {}); await sleep(250); await page.keyboard.press('Escape'); }
-  for (const r of ['news', 'tournaments']) {
+  for (const r of ['news', 'tournaments', 'world-events', 'world-games', 'world-broadcasts', 'world-players', 'world-sources']) {
     await go(page, r);
     for (const b of await page.$$('button.btn.primary')) { await b.click().catch(() => {}); await sleep(250); await page.keyboard.press('Escape'); }
     for (const b of (await page.$$('table.data button.btn.sm')).slice(0, 2)) { await b.click().catch(() => {}); await sleep(250); await page.keyboard.press('Escape'); }

@@ -16,11 +16,13 @@ import { register as userRoutes } from './routes/users.mjs';
 import { register as gameRoutes } from './routes/games.mjs';
 import { register as communityRoutes } from './routes/community.mjs';
 import { register as communityAdminRoutes } from './routes/community-admin.mjs';
+import { register as worldRoutes } from './routes/world.mjs';
+import { register as worldAdminRoutes } from './routes/world-admin.mjs';
 import { loadUserSession, USER_COOKIE } from './accounts.mjs';
 import { register as publicRoutes } from './routes/public.mjs';
 
 export const router = new Router();
-for (const r of [publicRoutes, authRoutes, contentRoutes, themeRoutes, settingsRoutes, systemRoutes, translationRoutes, userRoutes, gameRoutes, communityRoutes, communityAdminRoutes]) r(router);
+for (const r of [publicRoutes, authRoutes, contentRoutes, themeRoutes, settingsRoutes, systemRoutes, translationRoutes, userRoutes, gameRoutes, communityRoutes, communityAdminRoutes, worldRoutes, worldAdminRoutes]) r(router);
 
 const safeEqual = (a, b) => typeof a === 'string' && typeof b === 'string' && a.length === b.length && timingSafeEqual(Buffer.from(a), Buffer.from(b));
 

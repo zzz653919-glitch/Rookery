@@ -65,7 +65,7 @@ test('tournaments: admin schedules, players join and play inside the pool, stand
   assert.equal(st[0].username, black.me.username); assert.equal(st[0].score, 2); assert.equal(st[0].wins, 1);
   assert.equal(st.find((x) => x.username === white.me.username).losses, 1);
   assert.equal((await admin.put(`/api/admin/tournaments/${tid}`, { status: 'cancelled' })).status, 200);
-  assert.equal((await a.get('/api/tournaments')).json.tournaments.length, 0, 'cancelled tournaments disappear');
+  assert.ok((await a.get('/api/tournaments')).json.tournaments.every((x) => x.id !== tid), 'cancelled tournaments disappear');
   const future = await admin.post('/api/admin/tournaments', { name: 'Next week', base: 600, inc: 5, startsAt: new Date(Date.now() + 86400000).toISOString(), durationMin: 90 });
   assert.equal((await c.post(`/api/tournaments/${future.json.id}/join`, {})).status, 200);
   assert.equal((await c.post(`/api/tournaments/${future.json.id}/play`, {})).status, 409, 'not started');
@@ -76,9 +76,9 @@ test('news: administrators write and publish (HTML sanitised), everyone reads on
   assert.equal((await admin.post('/api/admin/news', { title: 'Hi' })).status, 400);
   const draft = await admin.post('/api/admin/news', { title: 'Opening week', summary: 'Welcome', body: '<p>Hello <b>world</b></p><script>alert(1)</script>', status: 'draft' });
   assert.equal(draft.status, 201); assert.ok(!draft.json.body.includes('<script'));
-  assert.equal((await anon.get('/api/news')).json.items.length, 0); assert.equal((await anon.get(`/api/news/${draft.json.id}`)).status, 404);
+  assert.ok((await anon.get('/api/news')).json.items.every((x) => x.id !== draft.json.id), 'drafts stay hidden'); assert.equal((await anon.get(`/api/news/${draft.json.id}`)).status, 404);
   assert.equal((await admin.put(`/api/admin/news/${draft.json.id}`, { status: 'published' })).status, 200);
-  assert.equal((await anon.get('/api/news')).json.items[0].title, 'Opening week');
+  assert.ok((await anon.get('/api/news')).json.items.some((x) => x.title === 'Opening week'), 'published articles appear next to the built-in ones');
   assert.match((await anon.get(`/api/news/${draft.json.id}`)).json.body, /<b>world<\/b>/);
   assert.equal((await admin.del(`/api/admin/news/${draft.json.id}`)).status, 400, 'delete needs confirmation');
   assert.equal((await admin.del(`/api/admin/news/${draft.json.id}?confirm=${draft.json.id}`)).status, 200);
@@ -108,4 +108,23 @@ test('reports and moderation: report → admin bans → login, sessions and runn
   assert.equal((await client(srv.base).post('/api/events', { anon: 'visitor12345', events: [{ type: 'visit', level: 'uz' }] })).status, 202);
   const stats = (await admin.get('/api/admin/platform-stats')).json; assert.ok(stats.players.total >= 2); assert.equal(stats.reports.open, 0);
   assert.ok(stats.visits.today >= 1 && stats.visits.visitors7 >= 1, 'site visits reach the admin overview');
+});
+
+test('built-in news in three languages, recurring arena schedule, recent finished games', async () => {
+  const anon = client(srv.base);
+  const en = (await anon.get('/api/news?lang=en')).json.items, uz = (await anon.get('/api/news?lang=uz')).json.items, ru = (await anon.get('/api/news?lang=ru')).json.items;
+  assert.ok(en.length >= 5 && uz.length === en.length && ru.length === en.length, 'articles exist out of the box');
+  assert.notEqual(uz[0].title, en[0].title); assert.notEqual(ru[0].title, en[0].title);
+  const art = (await anon.get('/api/news/how-ratings-work?lang=ru')).json; assert.match(art.body, /<p>/); assert.match(art.title, /рейтинг/i);
+  assert.equal((await anon.get('/api/news/nope')).status, 404);
+  const first = (await anon.get('/api/tournaments')).json.tournaments;
+  assert.ok(first.length >= 5 && first.every((x) => x.state !== 'finished'), 'the next days already have arenas');
+  assert.ok(first.some((x) => x.name === 'Evergreen Blitz Arena' && x.base === 180 && x.inc === 2));
+  const again = (await anon.get('/api/tournaments')).json.tournaments; assert.equal(again.length, first.length, 'the schedule is idempotent');
+  const [a, b] = [await player('Kael'), await player('Solberg')];
+  const room = (await a.post('/api/games/room', { base: 180, inc: 2, rated: true, color: 'w' })).json; assert.ok(room.id);
+  assert.equal((await b.post(`/api/games/${room.id}/join`)).status, 200);
+  for (const [c, m] of [[a, 'e2e4'], [b, 'e7e5']]) assert.equal((await mv(c, room.id, m)).status, 200);
+  assert.equal((await b.post(`/api/games/${room.id}/resign`)).status, 200);
+  const recent = (await anon.get('/api/games/recent')).json.games; assert.ok(recent.some((g) => g.id === room.id && g.result === '1-0'));
 });

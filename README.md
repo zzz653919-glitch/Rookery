@@ -36,7 +36,29 @@ Node 22.13 or newer. `npm install` is only needed for the optional Turso driver 
 | **Community** | Friends and friend requests, presence, challenges, arena **tournaments** (admin-scheduled), **news**, **reports and moderation**. |
 | **Learn** | 29 lessons, placement test, 288 puzzles with a daily puzzle and puzzle rating, **opening explorer and trainer** (90+ verified lines), **endgame trainer** (11 positions checked with Stockfish), **analysis board** (import PGN, Stockfish evaluation, blunder markers, evaluation graph). |
 | **Admin panel** | Lessons, puzzles, themes and piece images, settings, translations (automatic + manual), players (ban, mute, reset password), reports, news, tournaments, statistics, audit log, administrator accounts and roles. |
+| **Chess World** | News from official sources (each item shows its source and date), a tournament calendar (live / upcoming / completed, countdowns, provisional vs. confirmed schedules), a searchable archive of games with replay, evaluation graph and PGN download, **live games** of official broadcasts, embedded official **video broadcasts**, grandmaster profiles with FIDE ratings, and global search. See "Chess World" below. |
 | **Languages** | English, Uzbek (Latin), Russian — interface, lessons, placement test, puzzles, admin panel; custom content can be auto-translated. |
+
+## Chess World
+
+A media centre inside Rookery (`#/world`). Nothing in it is invented: every value comes from an upstream response or from an administrator, and every item names its source.
+
+| Data | Where it comes from |
+| --- | --- |
+| Tournaments, schedules, rounds, **games, live moves, clocks, engine evaluations** | The public **Lichess broadcast API** (`/api/broadcast/…`), which carries official tournaments (FIDE events, national championships, leagues) |
+| Ratings, titles, birth year, photos of grandmasters | The FIDE ratings database as served by Lichess (`/api/fide/player/<id>`); the name is checked against the stored name so a wrong id never shows another person's data |
+| Biographies | Wikipedia's REST summary (shown with the source link); editors can write their own, per language |
+| News | RSS / Atom feeds of the sources an administrator switches on (the Lichess blog is on by default; FIDE and Chess.com entries are listed **off** until someone verifies them) plus articles written in the admin panel |
+| Video broadcasts | Official YouTube (channel live stream or video), Twitch or link entries added by editors — never guessed |
+| Prize, registration, world ranking, achievements | Only what an editor enters (a ranking needs the official list it comes from) |
+
+Behaviour worth knowing:
+
+* **Caching and failures.** Upstream answers are cached in the database (events 2 min, rating lookups 6 h, Wikipedia 24 h, live rounds 6 s). If an upstream fails, the last stored answer is served, marked stale, and pages show a clear message — never made-up data.
+* **Games are stored when needed** (a tournament page is opened, the home page bootstraps the latest finished events, a live round is polled), a few rounds per request, so the archive grows by itself. Administrators can import more (`Refresh data now`, `Import games`).
+* **Live games** poll the broadcast feed every ~6 s (a few seconds of cache on the server). Clocks show the time left after each side's last move, as published.
+* **Corrections.** An administrator can correct any tournament, game, source, player or broadcast; corrected records are kept when the feed updates and every change is written to a history (`History` button, and the audit log).
+* Not available: per-player country in the games archive (broadcast PGNs do not carry it — the *country filter means the country where the tournament was played*), official FIDE news and Chess.com feeds are not enabled until verified, and there is no ranking list unless an editor supplies one.
 
 ## Technology
 
@@ -49,6 +71,7 @@ Node 22.13 or newer. `npm install` is only needed for the optional Turso driver 
 ## Honest notes
 
 * **Hosting and WebSockets.** WebSockets need a long-running server (`npm start` on a VPS, Render, Railway, Fly.io …). On serverless hosts such as Vercel the API runs as a function, WebSockets are not available, and the site falls back to polling every ~1.2 s — games still work, updates are a little less instant. Clocks are timestamps on the server, so this is fair.
+* **Chess World needs the internet.** The server fetches data from Lichess, FIDE (via Lichess) and Wikipedia; behind a restrictive firewall allow `lichess.org` and `*.wikipedia.org`. Set `ROOKERY_WORLD_OFFLINE=1` to switch the live data off. Images of news items and events are loaded by the visitor's browser from the publishers' own servers.
 * **No e-mail.** Accounts are username + password. There is no e-mail verification and no password reset by e-mail (an administrator can reset a password).
 * **Rating pools are small.** Matchmaking can only pair people who are searching at the same time; with few players the search range keeps widening and you can play the computer meanwhile.
 * **Stockfish licence.** Stockfish is GPL-3.0. Keep `engine/stockfish/NOTICE.md` and the licence text when you redistribute the site.
@@ -88,6 +111,7 @@ ROOKERY_TEST_DB=libsql npm test       # the same suite on the Turso/libSQL back 
 node tests/e2e/platform.mjs           # accounts, matchmaking, two players on one game (WebSocket and polling), spectators,
                                       # private rooms, Stockfish, learning center, ru/uz, phone layout, admin views
 node tests/e2e/admin.mjs              # admin panel flows
+node tests/e2e/world.mjs              # Chess World pages, languages, phone layout and admin pages against a mock of the upstream services
 node tests/e2e/admin-i18n.mjs         # every admin page and dialog in uz and ru, translated lessons on the player site
 npm run start:static & node tests/e2e/run.mjs http://127.0.0.1:5173   # the original player-site suite (offline included)
 ```
