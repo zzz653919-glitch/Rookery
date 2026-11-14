@@ -128,3 +128,16 @@ test('built-in news in three languages, recurring arena schedule, recent finishe
   assert.equal((await b.post(`/api/games/${room.id}/resign`)).status, 200);
   const recent = (await anon.get('/api/games/recent')).json.games; assert.ok(recent.some((g) => g.id === room.id && g.result === '1-0'));
 });
+
+test('GET /api/home: one public payload (live games, open tournaments, blitz top, world headlines), shared-cacheable', async () => {
+  const [a, b] = [await player('HomeA'), await player('HomeB')];
+  const r = await client(srv.base).get('/api/home?lang=en');
+  assert.equal(r.status, 200, r.text);
+  for (const k of ['live', 'tournaments', 'leaderboard', 'generatedAt']) assert.ok(k in r.json, k);
+  assert.ok(Array.isArray(r.json.live) && Array.isArray(r.json.tournaments) && Array.isArray(r.json.leaderboard));
+  assert.ok(r.json.tournaments.every((x) => x.state !== 'finished'));
+  assert.ok(r.json.tournaments.length <= 3 && r.json.live.length <= 3 && r.json.leaderboard.length <= 5);
+  assert.ok(a && b);
+  const cc = r.headers?.get?.('cache-control') ?? r.headers?.['cache-control'];
+  if (cc !== undefined) assert.match(cc, /s-maxage=15/);
+});

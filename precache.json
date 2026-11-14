@@ -1,9 +1,10 @@
 {
- "version": "cb43caeea1",
+ "version": "0c3362cbc7",
  "files": [
   "./",
   "ADMIN.md",
   "DEPLOY.md",
+  "PERFORMANCE.md",
   "css/fusion.css",
   "css/platform.css",
   "css/styles.css",
