@@ -86,3 +86,68 @@ export function evalGraph(evals, cur = -1, { w = 320, h = 70 } = {}) {
   return `<svg class="wgraph" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" role="img" aria-label="${esc(t('Evaluation graph'))}"><rect width="${w}" height="${h}" class="bg"/><line x1="0" y1="${h / 2}" x2="${w}" y2="${h / 2}" class="mid"/><polygon points="${area}" class="area"/><polyline points="${line}" class="ln"/>${cur >= 0 && pts[cur] ? `<line x1="${pts[cur][0]}" y1="0" x2="${pts[cur][0]}" y2="${h}" class="cur"/>` : ''}</svg>`;
 }
 export const pairs = (sans) => { const out = []; for (let i = 0; i < sans.length; i += 2) out.push([Math.floor(i / 2) + 1, sans[i], sans[i + 1] ?? null, i]); return out; };
+
+// a round avatar: initials until the photo of the player (from the FIDE id) has been fetched by hydrateFide
+export const avatarHtml = (name, fide, size = 36) => `<span class="wavw" ${fide ? `data-fide="${fide}"` : ''}><span class="wav" style="--h:${hue(name)};--s:${size}px"><b>${esc(initials(name))}</b></span></span>`;
+// ---- players in lists: photo (from FIDE data when there is one), title, name, federation, rating
+const fideCache = new Map(); // fide id -> data | null
+export const initials = (n) => nameOf(n).split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+const hue = (s) => { let h = 0; for (const c of String(s)) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
+export function playerCell(g, side) {
+  const w = side === 'w'; const name = w ? g.white : g.black, fide = w ? g.white_fide : g.black_fide, title = w ? g.white_title : g.black_title, elo = w ? g.white_elo : g.black_elo, fed = w ? g.white_fed : g.black_fed, team = w ? g.white_team : g.black_team;
+  return `<span class="wpc ${side}" data-elo="${elo || ''}" ${fide ? `data-fide="${fide}"` : ''}><span class="wav" style="--h:${hue(name)}"><b>${esc(initials(name))}</b></span>
+    <span class="wpi"><span class="wpn">${title ? `<i class="wtl">${esc(title)}</i>` : ''}<span>${esc(nameOf(name))}</span></span>
+      <span class="wpm"><span class="wfl">${flagOf(fed)}</span>${elo ? `<span title="${esc(t('Rating in this game'))}">${elo}</span>` : ''}${team ? `<span class="wtm">${esc(team)}</span>` : ''}</span></span></span>`;
+}
+export function gameRowHtml(g, { event = true } = {}) {
+  const moves = g.plies ? Math.ceil(g.plies / 2) : 0;
+  return `<a class="wgm" href="#/world/game/${g.id}">${playerCell(g, 'w')}
+    <span class="wgc"><b class="wres ${g.result === '1-0' ? 'w' : g.result === '0-1' ? 'b' : g.result === '1/2-1/2' ? 'd' : ''}">${g.result === '*' ? t('In progress') : resultLabel(g.result)}</b>${moves ? `<small class="muted">${t('{n} moves', { n: moves })}</small>` : ''}</span>
+    ${playerCell(g, 'b')}
+    <span class="wgi muted small">${[event && g.event_name, g.round_name, g.played_on && fmtDate(g.played_on), g.eco && `${g.eco}${g.opening ? ' ' + g.opening : ''}`].filter(Boolean).map(esc).join(' · ')}</span></a>`;
+}
+// fills photos, federations and FIDE ratings into the player cells of a list; asks the server in small batches
+export async function hydrateFide(root) {
+  const cells = [...root.querySelectorAll('[data-fide]')]; const need = [...new Set(cells.map((c) => c.dataset.fide))].filter((id) => !fideCache.has(id));
+  const apply = () => {
+    for (const c of root.querySelectorAll('[data-fide]')) {
+      const d = fideCache.get(c.dataset.fide); if (!d || c.dataset.done) continue; c.dataset.done = '1';
+      if (d.photo) { const av = c.querySelector('.wav'); av.classList.add('ph'); if (d.credit) av.title = `${t('Photo')}: ${d.credit}`; av.insertAdjacentHTML('beforeend', `<img src="${esc(d.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`); }
+      const fl = c.querySelector('.wfl'); if (fl && !fl.textContent.trim() && d.federation) fl.innerHTML = flagOf(d.federation);
+      const ti = c.querySelector('.wtl'); if (!ti && d.title) c.querySelector('.wpn')?.insertAdjacentHTML('afterbegin', `<i class="wtl">${esc(d.title)}</i>`);
+      if (d.standard && String(d.standard) !== c.dataset.elo) c.querySelector('.wpm')?.insertAdjacentHTML('beforeend', `<span class="wfr" title="${esc(t('FIDE rating'))}">FIDE ${d.standard}</span>`);
+    }
+  };
+  apply();
+  for (let i = 0; i < need.length; i += 12) {
+    const chunk = need.slice(i, i + 12);
+    try { const r = await wget('fide', { ids: chunk.join(',') }); for (const id of chunk) fideCache.set(id, r.players[id] || null); } catch { for (const id of chunk) fideCache.set(id, null); }
+    if (!root.isConnected) return; apply();
+  }
+}
+
+// ---- a filter list with search, flags and counts (the native <select> cannot be styled and cannot be searched)
+export function pickerHtml(id, label, options, value = '') {
+  const cur = options.find((o) => o.value === value) || options[0];
+  return `<div class="wpick" data-pick="${id}"><button type="button" class="wpk-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="${esc(label)}"><span class="wpk-cur">${cur.icon ? `<span class="wpk-ic">${cur.icon}</span>` : ''}${esc(cur.label)}</span><span class="wpk-car">▾</span></button>
+    <div class="wpk-panel" hidden><input type="search" class="wpk-q" placeholder="${esc(t('Search'))}" aria-label="${esc(t('Search'))}" autocomplete="off"><ul role="listbox" aria-label="${esc(label)}">${options.map((o) => `<li role="option" tabindex="-1" data-v="${esc(o.value)}" data-t="${esc(o.label.toLowerCase())}" aria-selected="${o.value === (cur.value)}">${o.icon ? `<span class="wpk-ic">${o.icon}</span>` : ''}<span class="wpk-l">${esc(o.label)}</span>${o.count != null ? `<small>${o.count}</small>` : ''}</li>`).join('')}</ul></div></div>`;
+}
+export function bindPicker(root, id, onChange) {
+  const el = root.querySelector(`[data-pick="${id}"]`); if (!el) return () => {};
+  const btn = el.querySelector('.wpk-btn'), panel = el.querySelector('.wpk-panel'), q = el.querySelector('.wpk-q'), items = () => [...el.querySelectorAll('li:not([hidden])')];
+  const close = () => { panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); };
+  const open = () => { panel.hidden = false; btn.setAttribute('aria-expanded', 'true'); q.value = ''; el.querySelectorAll('li').forEach((l) => { l.hidden = false; }); q.focus(); el.querySelector('li[aria-selected=true]')?.scrollIntoView({ block: 'nearest' }); };
+  const choose = (li) => { el.querySelectorAll('li').forEach((l) => l.setAttribute('aria-selected', l === li)); el.querySelector('.wpk-cur').innerHTML = li.querySelector('.wpk-ic') ? `<span class="wpk-ic">${li.querySelector('.wpk-ic').innerHTML}</span>${li.querySelector('.wpk-l').innerHTML}` : li.querySelector('.wpk-l').innerHTML; close(); btn.focus(); onChange(li.dataset.v); };
+  btn.addEventListener('click', () => (panel.hidden ? open() : close()));
+  q.addEventListener('input', () => { const s = q.value.trim().toLowerCase(); el.querySelectorAll('li').forEach((l) => { l.hidden = !!s && !l.dataset.t.includes(s); }); });
+  el.addEventListener('click', (e) => { const li = e.target.closest('li'); if (li) choose(li); });
+  el.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { close(); btn.focus(); return; }
+    if (e.key === 'Enter' && e.target.closest('li')) { choose(e.target.closest('li')); e.preventDefault(); return; }
+    if (e.key === 'Enter' && e.target === q) { const f = items()[0]; if (f) choose(f); e.preventDefault(); return; }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { const l = items(); const i = l.indexOf(document.activeElement); const n = e.key === 'ArrowDown' ? Math.min(l.length - 1, i + 1) : Math.max(0, i - 1); l[n]?.focus(); e.preventDefault(); }
+  });
+  const away = (e) => { if (!el.contains(e.target)) close(); };
+  document.addEventListener('pointerdown', away);
+  return () => document.removeEventListener('pointerdown', away);
+}

@@ -2,7 +2,7 @@
 // the record, tournaments and recent games are calculated from the games stored in Rookery.
 import { esc, emptyState, loader, icon } from '../ui/dom.js';
 import { t } from '../i18n/core.js';
-import { subnav, bindSubnav, wget, fmtDate, flagOf, nameOf, imgTag, errorBox, resultLabel, tcLabel, sourceLine, hrefOf } from '../ui/world.js';
+import { gameRowHtml, hydrateFide, subnav, bindSubnav, wget, fmtDate, flagOf, nameOf, imgTag, errorBox, resultLabel, tcLabel, sourceLine, hrefOf } from '../ui/world.js';
 import { countryName } from '../data/countries.js';
 import { getLang } from '../i18n/core.js';
 
@@ -33,7 +33,7 @@ async function profile(root, { params, navigate }) {
         <h2>${t('Career achievements')}</h2>${p.achievements.length ? `<ul class="wach">${p.achievements.map((a) => `<li>${a.year ? `<b>${a.year}</b> ` : ''}${esc(a.text)}${a.sourceUrl ? ` <a href="${esc(a.sourceUrl)}" target="_blank" rel="noopener noreferrer">${icon('arrow', 12)}</a>` : ''}</li>`).join('')}</ul>` : `<p class="muted">${t('Achievements are listed here when the editors add them with a source.')}</p>`}</section>
       <section class="wsec"><h2>${t('Record in stored games')}</h2>${tot ? `<div class="wbar" role="img" aria-label="${esc(t('Wins, draws and losses'))}"><i class="w" style="width:${pc(r.wins)}%"></i><i class="d" style="width:${pc(r.draws)}%"></i><i class="l" style="width:${pc(r.losses)}%"></i></div><div class="wstats"><div><b>${r.wins}</b><small>${t('Wins')}</small></div><div><b>${r.draws}</b><small>${t('Draws')}</small></div><div><b>${r.losses}</b><small>${t('Losses')}</small></div><div><b>${tot}</b><small>${t('Games')}</small></div></div><p class="muted small">${t('Calculated from the games stored in Rookery, not from the whole career.')}</p>` : `<p class="muted">${t('No stored games for this player yet. Games are stored when a tournament page is opened.')}</p>`}</section></div>
     ${p.tournaments.length ? `<section class="wsec"><h2>${t('Tournament history')}</h2><div class="wlist">${p.tournaments.map((e) => `<a class="wrow ev" href="#/world/event/${e.id}"><b>${esc(e.name)}</b><span class="muted small">${e.points}/${e.games}</span><span class="muted small">${fmtDate(e.date)}</span></a>`).join('')}</div></section>` : ''}
-    ${p.recentGames.length ? `<section class="wsec"><h2>${t('Recent games')}</h2><div class="card flush"><div class="wlist tight">${p.recentGames.map((g) => `<a class="wrow game" href="#/world/game/${g.id}"><span class="wp">${esc(nameOf(g.white))} <small class="muted">${g.white_elo || ''}</small></span><b class="wres">${resultLabel(g.result)}</b><span class="wp r">${esc(nameOf(g.black))} <small class="muted">${g.black_elo || ''}</small></span><span class="wev muted small">${esc(g.event_name)} · ${fmtDate(g.played_on)}</span></a>`).join('')}</div></div></section>` : ''}
+    ${p.recentGames.length ? `<section class="wsec"><h2>${t('Recent games')}</h2><div class="wgames">${p.recentGames.map((g) => gameRowHtml({ ...g, white_title: null, black_title: null })).join('')}</div></section>` : ''}
     ${p.news.length ? `<section class="wsec"><h2>${t('Latest news')}</h2><div class="wlist">${p.news.map((a) => `<a class="wrow" href="#/news/${encodeURIComponent(a.id)}"><b>${esc(a.title)}</b>${sourceLine(a)}</a>`).join('')}</div></section>` : ''}`;
-  bindSubnav(root, navigate); document.title = `${p.name} · Rookery`;
+  bindSubnav(root, navigate); document.title = `${p.name} · Rookery`; hydrateFide(root);
 }

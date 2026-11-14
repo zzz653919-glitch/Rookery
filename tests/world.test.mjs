@@ -97,6 +97,17 @@ test('players: FIDE ratings only when the name matches the id, Wikipedia biograp
   assert.equal((await anon.get('/api/world/players/nobody')).status, 404);
 });
 
+test('player photos for lists: FIDE photo first, Wikipedia only for a chess player with a matching page, otherwise none', async () => {
+  const r = (await anon.get('/api/world/fide?ids=1001,1002,1003,9999,abc')).json.players;
+  assert.equal(r[1001].photo, 'https://img.example/anna.jpg'); assert.equal(r[1001].federation, 'UZB'); assert.equal(r[1001].title, 'GM'); assert.equal(r[1001].standard, 2705);
+  assert.equal(r[1002].photo, 'https://img.example/boris.jpg'); assert.equal(r[1002].credit, 'Wikipedia / Wikimedia Commons');
+  assert.equal(r[1003].photo ?? null, null, 'a Wikipedia page about someone who is not a chess player is never used'); assert.equal(r[1003].standard, 2590);
+  assert.equal(r[9999], undefined, 'unknown ids give nothing');
+  const ev = (await anon.get('/api/world/events?status=completed')).json.events[0]; const d = (await anon.get(`/api/world/events/${ev.id}`)).json;
+  assert.ok(d.standings.every((p) => p.fide), 'standings rows carry the FIDE id so that the page can show photos');
+  const live = (await anon.get('/api/world/live')).json.rounds[0].games[0]; assert.equal(live.whiteFide, 2001); assert.equal(live.blackFide, 2002);
+});
+
 test('news: feed articles keep their source, link, image and date; a broken feed does not break the page', async () => {
   const list = (await anon.get('/api/world/news')).json;
   const fide = list.items.find((a) => a.title === 'FIDE announces new rules'); assert.ok(fide, 'the feed was read'); assert.equal(fide.source, 'Mock Chess'); assert.equal(fide.sourceUrl, 'https://example.org/a1'); assert.equal(fide.publishedAt, '2026-11-10T10:00:00.000Z'); assert.equal(fide.category, 'fide'); assert.equal(fide.image, 'https://img.example/a1.jpg'); assert.equal(fide.origin, 'feed');

@@ -1152,5 +1152,10 @@ export default {
  "Recent world events": "Недавние мировые события",
  "Countries": "Страны",
  "Open Chess World": "Открыть «Мир шахмат»",
- "Official broadcast": "Официальная трансляция"
+ "Official broadcast": "Официальная трансляция",
+ "Sign in to take lessons": "Войдите, чтобы проходить уроки",
+ "Lessons, progress and achievements are saved to your account. Create a free account or sign in to continue.": "Уроки, прогресс и достижения сохраняются в вашем аккаунте. Создайте бесплатный аккаунт или войдите, чтобы продолжить.",
+ "Rating in this game": "Рейтинг в этой партии",
+ "FIDE rating": "Рейтинг FIDE",
+ "Photo": "Фото"
 };

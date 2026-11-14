@@ -217,7 +217,7 @@ export async function listEvents({ q, status, level, country, year, tc, limit = 
 
 export function standingsOf(games) {
   const P = new Map(); const T = new Map();
-  const get = (key, name, fed, elo, title) => { let p = P.get(key); if (!p) P.set(key, p = { key, name, fed, elo: elo || null, title: title || null, games: 0, points: 0, wins: 0, draws: 0, losses: 0 }); if (elo && !p.elo) p.elo = elo; return p; };
+  const get = (key, name, fed, elo, title) => { let p = P.get(key); if (!p) P.set(key, p = { key, fide: typeof key === 'number' ? key : null, name, fed, elo: elo || null, title: title || null, games: 0, points: 0, wins: 0, draws: 0, losses: 0 }); if (elo && !p.elo) p.elo = elo; return p; };
   for (const g of games) {
     if (g.result === '*') continue;
     const w = get(g.white_fide || g.white, g.white, g.white_fed, g.white_elo, g.white_title), b = get(g.black_fide || g.black, g.black, g.black_fed, g.black_elo, g.black_title);
@@ -309,7 +309,7 @@ function liveSummary(text, round) {
     const lastEval = [...moves].reverse().find((m) => m.eval)?.eval || null;
     out.push({
       i, id: (/\/([A-Za-z0-9]{8})\/?$/.exec(String(h.GameURL || h.Site || '')) || [])[1] || `${round.id}:${i + 1}`, board: h.Round && String(h.Round).includes('.') ? String(h.Round).split('.')[1] : String(i + 1),
-      white: h.White, black: h.Black, whiteElo: asInt(h.WhiteElo), blackElo: asInt(h.BlackElo), whiteTitle: h.WhiteTitle || null, blackTitle: h.BlackTitle || null, whiteFed: h.WhiteFederation || null, blackFed: h.BlackFederation || null,
+      white: h.White, black: h.Black, whiteFide: asInt(h.WhiteFideId), blackFide: asInt(h.BlackFideId), whiteElo: asInt(h.WhiteElo), blackElo: asInt(h.BlackElo), whiteTitle: h.WhiteTitle || null, blackTitle: h.BlackTitle || null, whiteFed: h.WhiteFederation || null, blackFed: h.BlackFederation || null,
       result: res, fen: ok ? chess.fen() : null, turn: ok ? chess.fen().split(' ')[1] : null, plies: moves.length, lastSan: moves.length ? moves[moves.length - 1].san : null,
       lastMove: last ? { from: last.from, to: last.to } : null, clocks: byColor, eval: lastEval, evals: moves.map((m) => m.eval ? (m.eval.mate != null ? (m.eval.mate > 0 ? 1000 : -1000) : m.eval.cp) : null),
       sans: moves.map((m) => m.san), opening: h.Opening || null, eco: h.ECO || null, url: h.GameURL || null,
@@ -443,3 +443,18 @@ export async function bootstrapResults() {
 // admin edits invalidate the cached home page
 export const stamp = { n: 0 };
 export const touch = () => { stamp.n++; };
+
+// Photo fallback: the Wikipedia article of the player, accepted only if it describes a chess player. Misses are remembered for a day
+// so that ordinary players do not cause a request on every page view.
+const wikiMiss = new Map();
+export async function wikiPhoto(fideName) {
+  const m = String(fideName || '').split(','); const name = (m.length > 1 ? `${m[1].trim()} ${m[0].trim()}` : String(fideName || '')).replace(/\s+/g, ' ').trim();
+  if (name.split(' ').length < 2 || name.length > 60) return null;
+  if ((wikiMiss.get(name) || 0) > Date.now()) return null;
+  const miss = () => { wikiMiss.set(name, Date.now() + 86400000); if (wikiMiss.size > 5000) wikiMiss.clear(); return null; };
+  const w = await wikiSummary(name.replace(/ /g, '_'));
+  if (!w || !w.thumbnail || !/chess/i.test(`${w.description || ''} ${w.extract || ''}`.slice(0, 400))) return miss();
+  const parts = name.toLowerCase().split(' ').filter((x) => x.length > 2);
+  if (!parts.some((x) => String(w.url || '').toLowerCase().includes(x))) return miss(); // the page must be about this name
+  return { photo: w.thumbnail, credit: 'Wikipedia / Wikimedia Commons' };
+}

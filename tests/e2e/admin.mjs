@@ -161,6 +161,9 @@ let newLessonId = null;
   const listed = await p.evaluate(() => document.body.innerText.includes('E2E endgame lesson'));
   check('the new lesson is listed on the player Learn page', listed);
   await p.goto(BASE + '/#/learn/' + newLessonId); await sleep(800);
+  check('a guest cannot take lessons: the lesson asks to sign in', /Sign in to take lessons/.test(await p.textContent('#view')) && !(await p.$('#next-btn')));
+  await p.evaluate(async () => { await fetch('/api/register', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ username: 'Lesson' + Math.floor(Math.random() * 1e6), password: 'Rook-7788-x' }) }); });
+  await p.reload(); await sleep(1800);
   const title = await p.textContent('h2');
   check('the new lesson opens and plays in the player', /E2E endgame lesson/.test(title), title);
   await p.waitForSelector('#next-btn'); await sleep(4600); // usage events are batched for a few seconds before they are sent
