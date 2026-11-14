@@ -12,13 +12,21 @@ import { quizPassRatio } from '../content.js';
 import { track } from '../telemetry.js';
 import { t, th, tn } from '../i18n/core.js';
 import { levelName, skillName } from '../i18n/names.js';
-import { net, onAuth } from '../net.js';
+import { net, onAuth, isOffline, serverSeen } from '../net.js';
 import { openAuth } from '../auth-ui.js';
 
 
 // Lessons are for signed-in players: with the server available a guest only sees an invitation. (Without a server there are no
 // accounts at all, so the static site keeps working as before.)
 export async function mount(root, ctx) {
+  // Lessons are tied to the account, so they need the connection: offline (on a site that has its server) they stay closed.
+  if (serverSeen() && isOffline()) {
+    root.innerHTML = `<div class="empty lesson-lock"><div class="big">📡</div><h2>${t('Lessons need an internet connection')}</h2><p>${t('Connect to the internet and sign in to continue. Puzzles, games against the computer and the analysis board still work offline.')}</p>
+      <div class="btn-row" style="justify-content:center"><button class="btn primary lg" id="ll-retry" type="button">${t('Try again')}</button><a class="btn lg" href="#/puzzles">${t('Puzzles')}</a><a class="btn ghost lg" href="#/play/computer">${t('Play the computer')}</a></div></div>`;
+    root.querySelector('#ll-retry').onclick = () => location.reload();
+    const back = () => location.reload(); window.addEventListener('online', back);
+    return () => window.removeEventListener('online', back);
+  }
   if (!net.available || net.user) return play(root, ctx);
   let inner = null, off = null;
   root.innerHTML = `<div class="empty lesson-lock"><div class="big">🔒</div><h2>${t('Sign in to take lessons')}</h2><p>${t('Lessons, progress and achievements are saved to your account. Create a free account or sign in to continue.')}</p>

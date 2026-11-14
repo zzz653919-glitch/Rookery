@@ -258,3 +258,10 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 .modal .segmented { margin-bottom: 20px; }
 .modal #auth-form .small, .modal #auth-form .muted.small, .modal #auth-form p { margin: 12px 0 18px; }
 .modal #auth-form .btn.primary { margin-top: 4px; }
+
+/* offline: everything dimmed (an overlay, not a filter, so fixed bars keep working) and a bar explains why */
+#offline-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 95; padding: 6px 14px; text-align: center; background: #20262a; color: #e8e3d0; font: 700 .78rem var(--cond); letter-spacing: .08em; text-transform: uppercase; border-bottom: 1px solid var(--glass-line); }
+#offline-bar[hidden] { display: none; }
+html[data-offline] body::after { content: ''; position: fixed; inset: 0; z-index: 90; background: rgba(0, 0, 0, .42); pointer-events: none; animation: fade .4s both; }
+html[data-offline] body { padding-top: 30px; }
+:root[data-theme='light'][data-offline] body::after { background: rgba(10, 20, 15, .3); }

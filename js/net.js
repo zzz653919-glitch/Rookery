@@ -37,6 +37,11 @@ function setSession(s) {
   emit();
 }
 
+// This site has an account server (it answered at least once in this browser). Without one — plain static hosting — there is nothing to wait for.
+export const serverSeen = () => { try { return localStorage.getItem('rk_server_seen') === '1'; } catch { return false; } };
+// Offline: the browser says so, or the server this site normally has cannot be reached.
+export const isOffline = () => (typeof navigator !== 'undefined' && navigator.onLine === false) || (serverSeen() && !net.available);
+
 export async function loadSession() {
   net.available = !!remote.available;
   if (!net.available) { emit(); return net; }

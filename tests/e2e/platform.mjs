@@ -235,6 +235,14 @@ const real = consoleErrors.filter((e) => !/favicon|Failed to load resource: the 
   await page.click('#ll-up'); await sleep(500);
   await page.fill('#au-name', 'Lessoner'); await page.fill('#au-pass', PW); await page.click('#au-go'); await page.waitForSelector('#auth-form', { state: 'detached' }); await sleep(1500);
   check('lessons: after signing in the lesson opens right away', !!(await page.$('#next-btn, .step, h2')) && !/Sign in to take lessons/.test(await page.textContent('#view')));
+  await ctx.setOffline(true); await sleep(400);
+  check('offline: the page is dimmed and a bar says why', await page.evaluate(() => document.documentElement.hasAttribute('data-offline') && !document.getElementById('offline-bar').hidden && /offline/i.test(document.getElementById('offline-bar').textContent)));
+  await page.goto(BASE + '/#/learn/b-board'); await sleep(800);
+  check('offline: a lesson cannot be taken, even by a signed-in player', /Lessons need an internet connection/.test(await page.textContent('#view')) && !(await page.$('#next-btn')));
+  await page.goto(BASE + '/#/puzzles'); await sleep(800);
+  check('offline: puzzles still open', !/internet connection/.test(await page.textContent('#view')));
+  await ctx.setOffline(false); await sleep(900);
+  check('back online: the dimming goes away', await page.evaluate(() => !document.documentElement.hasAttribute('data-offline')));
   await ctx.close();
 }
 check('no unexpected console errors or warnings', real.length === 0, real.slice(0, 4).join(' | '));

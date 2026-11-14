@@ -1157,5 +1157,8 @@ export default {
  "Lessons, progress and achievements are saved to your account. Create a free account or sign in to continue.": "Darslar, natijalar va yutuqlar hisobingizda saqlanadi. Davom etish uchun bepul hisob oching yoki tizimga kiring.",
  "Rating in this game": "Shu o'yindagi reyting",
  "FIDE rating": "FIDE reytingi",
- "Photo": "Surat"
+ "Photo": "Surat",
+ "Lessons need an internet connection": "Darslar uchun internet kerak",
+ "Connect to the internet and sign in to continue. Puzzles, games against the computer and the analysis board still work offline.": "Davom etish uchun internetga ulaning va tizimga kiring. Masalalar, kompyuterga qarshi o'yin va tahlil taxtasi internetsiz ham ishlaydi.",
+ "You are offline: lessons and online features are unavailable.": "Siz internetsizsiz: darslar va onlayn imkoniyatlar mavjud emas."
 };
